@@ -16,123 +16,150 @@ const Index = () => {
     element?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const services = [
+  const courses = [
     {
-      icon: 'Target',
-      title: 'Стратегия',
-      description: 'Разрабатываем маркетинговую стратегию на основе глубокого анализа вашего бизнеса и рынка'
+      icon: 'Dumbbell',
+      title: 'Базовый курс',
+      duration: '3 месяца',
+      price: '89 000 ₽',
+      description: 'Основы анатомии, физиологии, техника выполнения упражнений, составление программ тренировок',
+      features: ['120 часов теории', '80 часов практики', 'Сертификат международного образца', 'Стажировка']
     },
     {
       icon: 'TrendingUp',
-      title: 'Performance',
-      description: 'Настраиваем и ведём рекламные кампании с фокусом на измеримые результаты'
+      title: 'Продвинутый курс',
+      duration: '6 месяцев',
+      price: '149 000 ₽',
+      description: 'Спортивная биомеханика, продвинутая диетология, работа с травмами, реабилитация',
+      features: ['240 часов теории', '160 часов практики', 'Диплом тренера', 'Гарантия трудоустройства']
     },
     {
       icon: 'Users',
-      title: 'SMM',
-      description: 'Создаём вовлекающий контент и управляем репутацией в социальных сетях'
+      title: 'Групповой фитнес',
+      duration: '2 месяца',
+      price: '59 000 ₽',
+      description: 'Методики групповых тренировок: аэробика, HIIT, функциональный тренинг, стретчинг',
+      features: ['80 часов теории', '60 часов практики', 'Сертификат инструктора', 'Поддержка']
     },
     {
-      icon: 'BarChart3',
-      title: 'Аналитика',
-      description: 'Собираем данные, анализируем метрики и даём рекомендации для роста'
+      icon: 'Heart',
+      title: 'Нутрициология',
+      duration: '1.5 месяца',
+      price: '45 000 ₽',
+      description: 'Основы питания для спортсменов, составление рационов, работа с различными целями',
+      features: ['60 часов теории', '40 часов практики', 'Сертификат консультанта', 'Методички']
     }
   ];
 
-  const cases = [
+  const advantages = [
     {
-      company: 'E-commerce Бренд',
-      category: 'Performance',
-      result: '+340% ROI',
-      description: 'Увеличили продажи онлайн-магазина в 4 раза за 6 месяцев через комплексную настройку performance-каналов',
-      metrics: [
-        { label: 'ROI', value: '+340%' },
-        { label: 'Трафик', value: '+215%' },
-        { label: 'Конверсия', value: '+87%' }
-      ]
+      icon: 'Award',
+      title: 'Лицензия и аккредитация',
+      description: 'Государственная лицензия на образовательную деятельность. Дипломы признаются по всей России и за рубежом'
     },
     {
-      company: 'SaaS Стартап',
-      category: 'Стратегия',
-      result: '12 000 лидов',
-      description: 'Разработали и запустили маркетинговую стратегию выхода на новый рынок с нуля',
-      metrics: [
-        { label: 'Лиды', value: '12K' },
-        { label: 'CPL', value: '-56%' },
-        { label: 'Конверсия в продажу', value: '23%' }
-      ]
+      icon: 'Users',
+      title: 'Практикующие эксперты',
+      description: 'Преподаватели — мастера спорта, сертифицированные тренеры с опытом 10+ лет'
     },
     {
-      company: 'Финтех Компания',
-      category: 'Комплекс',
-      result: '+180% узнаваемость',
-      description: 'Построили бренд с нуля: от позиционирования до multi-channel кампании',
-      metrics: [
-        { label: 'Brand Awareness', value: '+180%' },
-        { label: 'Охват', value: '2.5M' },
-        { label: 'Engagement', value: '+95%' }
-      ]
+      icon: 'Briefcase',
+      title: 'Трудоустройство',
+      description: 'Помогаем с поиском работы. 87% выпускников находят работу в течение месяца после обучения'
+    },
+    {
+      icon: 'Calendar',
+      title: 'Гибкий график',
+      description: 'Очное, онлайн и смешанное обучение. Занятия вечером и на выходных для работающих'
+    },
+    {
+      icon: 'BookOpen',
+      title: 'Современная база',
+      description: 'Собственный тренажёрный зал с новым оборудованием, анатомический кабинет, библиотека'
+    },
+    {
+      icon: 'Zap',
+      title: 'Актуальная программа',
+      description: 'Программа обновляется каждые 6 месяцев с учётом новейших исследований и трендов индустрии'
     }
   ];
 
-  const blogPosts = [
+  const reviews = [
     {
-      title: 'Тренды performance-маркетинга в 2024',
-      category: 'Аналитика',
-      date: '15 октября 2024',
-      readTime: '8 мин',
-      excerpt: 'Разбираем ключевые изменения в digital-рекламе: от AI-оптимизации до privacy-first подходов'
+      name: 'Анна Сергеева',
+      course: 'Базовый курс',
+      rating: 5,
+      text: 'Прошла базовый курс и уже через месяц нашла работу в крупном фитнес-клубе! Преподаватели — профессионалы своего дела, объясняют просто и понятно. Практики очень много.',
+      date: 'Октябрь 2024'
     },
     {
-      title: 'Как мы снизили CAC на 67% для B2B клиента',
-      category: 'Кейс',
-      date: '8 октября 2024',
-      readTime: '12 мин',
-      excerpt: 'Пошаговый разбор стратегии оптимизации воронки продаж и рекламных каналов'
+      name: 'Дмитрий Волков',
+      course: 'Продвинутый курс',
+      rating: 5,
+      text: 'Уже работал тренером, но хотел повысить квалификацию. Продвинутый курс — это совершенно другой уровень! Глубокие знания, работа с травмами, реабилитация. Теперь зарабатываю в 2 раза больше.',
+      date: 'Сентябрь 2024'
     },
     {
-      title: 'Attribution models: какую выбрать в 2024',
-      category: 'Гайд',
-      date: '1 октября 2024',
-      readTime: '10 мин',
-      excerpt: 'Сравниваем модели атрибуции и даём рекомендации для разных типов бизнеса'
+      name: 'Мария Кузнецова',
+      course: 'Групповой фитнес',
+      rating: 5,
+      text: 'Мечтала стать инструктором групповых программ. Курс превзошёл ожидания! Научили вести разные форматы тренировок, работать с музыкой, удерживать внимание группы. Сейчас веду 15 групп в неделю!',
+      date: 'Август 2024'
     }
   ];
 
   const faqs = [
     {
-      question: 'Как вы измеряете эффективность маркетинга?',
-      answer: 'Мы используем комплексный подход к аналитике: отслеживаем все ключевые метрики от первого касания до конверсии, настраиваем сквозную аналитику и регулярно предоставляем детальные отчёты с инсайтами и рекомендациями.'
+      question: 'Нужно ли иметь опыт в фитнесе, чтобы пройти обучение?',
+      answer: 'Нет, для базового курса предварительный опыт не требуется. Мы начинаем с основ и постепенно переходим к более сложным темам. Главное — желание учиться и интерес к фитнесу.'
     },
     {
-      question: 'Какой минимальный бюджет для старта?',
-      answer: 'Минимальный бюджет зависит от ваших целей и отрасли. Обычно мы рекомендуем от 150 000 ₽/мес на рекламу + наше агентское вознаграждение. Это позволяет получить достаточно данных для оптимизации.'
+      question: 'Какой документ я получу после окончания курса?',
+      answer: 'После успешного окончания базового и продвинутого курсов вы получаете диплом о профессиональной переподготовке установленного образца. После специализированных курсов — сертификат. Все документы вносятся в федеральный реестр.'
     },
     {
-      question: 'Сколько времени до первых результатов?',
-      answer: 'Первые результаты в performance-каналах видны через 2-4 недели. Для стратегических проектов (SEO, контент-маркетинг, brand awareness) горизонт планирования — 3-6 месяцев.'
+      question: 'Можно ли учиться онлайн?',
+      answer: 'Да, большинство курсов доступны в онлайн-формате. Теоретические занятия проходят в виде вебинаров, доступ к записям остаётся навсегда. Практические занятия можно пройти в любом нашем филиале по гибкому графику.'
     },
     {
-      question: 'Работаете ли вы с малым бизнесом?',
-      answer: 'Да, мы работаем с компаниями разного размера. Для малого бизнеса предлагаем адаптированные решения с фокусом на быструю отдачу и эффективное использование бюджета.'
+      question: 'Есть ли рассрочка на обучение?',
+      answer: 'Да, мы предоставляем беспроцентную рассрочку на 6-12 месяцев. Никаких переплат и скрытых комиссий. Также действуют скидки при единовременной оплате и для групп от 3 человек.'
+    },
+    {
+      question: 'Поможете ли вы с трудоустройством?',
+      answer: 'Обязательно! У нас есть партнёрские соглашения с более чем 50 фитнес-клубами и студиями. Лучших студентов мы рекомендуем напрямую работодателям. Также проводим мастер-классы по составлению резюме и прохождению собеседований.'
     }
+  ];
+
+  const stats = [
+    { value: '2500+', label: 'Выпускников' },
+    { value: '87%', label: 'Трудоустроено' },
+    { value: '12 лет', label: 'На рынке' },
+    { value: '4.9/5', label: 'Рейтинг' }
   ];
 
   return (
     <div className="min-h-screen bg-background">
-      <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 border-b border-border">
+      <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-md z-50 border-b border-border shadow-sm">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="text-2xl font-bold text-primary">MarketPro</div>
+            <div className="flex items-center gap-2">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center">
+                <Icon name="Dumbbell" size={24} className="text-white" />
+              </div>
+              <div className="text-2xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
+                FitAcademy
+              </div>
+            </div>
             <div className="hidden md:flex items-center gap-8">
-              {['Главная', 'О нас', 'Услуги', 'Кейсы', 'Блог', 'FAQ', 'Контакты'].map((item, idx) => {
-                const id = ['home', 'about', 'services', 'cases', 'blog', 'faq', 'contact'][idx];
+              {['Главная', 'Курсы', 'О нас', 'Отзывы', 'FAQ', 'Контакты'].map((item, idx) => {
+                const id = ['home', 'courses', 'about', 'reviews', 'faq', 'contact'][idx];
                 return (
                   <button
                     key={item}
                     onClick={() => scrollToSection(id)}
-                    className={`text-sm font-medium transition-colors hover:text-primary ${
-                      activeSection === id ? 'text-primary' : 'text-muted-foreground'
+                    className={`text-sm font-medium transition-colors hover:text-orange-600 ${
+                      activeSection === id ? 'text-orange-600' : 'text-muted-foreground'
                     }`}
                   >
                     {item}
@@ -140,142 +167,44 @@ const Index = () => {
                 );
               })}
             </div>
-            <Button onClick={() => scrollToSection('contact')}>Связаться</Button>
+            <Button onClick={() => scrollToSection('contact')} className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700">
+              Записаться
+            </Button>
           </div>
         </div>
       </nav>
 
-      <section id="home" className="pt-32 pb-20 px-6">
+      <section id="home" className="pt-32 pb-20 px-6 bg-gradient-to-br from-orange-50 to-red-50">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center animate-fade-in">
-            <Badge className="mb-6" variant="secondary">
-              Performance Marketing Agency
+            <Badge className="mb-6 bg-orange-100 text-orange-700 border-orange-200" variant="secondary">
+              Лицензированная академия фитнеса
             </Badge>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Маркетинг, который окупается
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
+              Станьте фитнес-тренером
             </h1>
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Разрабатываем стратегии и запускаем кампании с фокусом на измеримый рост вашего бизнеса
+              Профессиональное обучение с государственным дипломом, практика в лучших клубах и помощь в трудоустройстве
             </p>
-            <div className="flex gap-4 justify-center">
-              <Button size="lg" onClick={() => scrollToSection('cases')}>
-                <Icon name="Rocket" size={20} className="mr-2" />
-                Наши кейсы
+            <div className="flex gap-4 justify-center flex-wrap">
+              <Button size="lg" onClick={() => scrollToSection('courses')} className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700">
+                <Icon name="GraduationCap" size={20} className="mr-2" />
+                Выбрать курс
               </Button>
-              <Button size="lg" variant="outline" onClick={() => scrollToSection('contact')}>
-                Обсудить проект
+              <Button size="lg" variant="outline" onClick={() => scrollToSection('contact')} className="border-orange-300 hover:bg-orange-50">
+                Получить консультацию
               </Button>
             </div>
           </div>
-        </div>
-      </section>
 
-      <section id="about" className="py-20 px-6 bg-muted/30">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-4xl font-bold mb-12 text-center">О нас</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="animate-scale-in hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                  <Icon name="Award" size={24} className="text-primary" />
-                </div>
-                <CardTitle>7+ лет опыта</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Работаем с 2017 года, запустили более 200 успешных проектов в разных нишах
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="animate-scale-in hover:shadow-lg transition-shadow" style={{ animationDelay: '0.1s' }}>
-              <CardHeader>
-                <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center mb-4">
-                  <Icon name="LineChart" size={24} className="text-accent" />
-                </div>
-                <CardTitle>Data-driven подход</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Принимаем решения на основе данных, а не предположений. Каждая гипотеза тестируется
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="animate-scale-in hover:shadow-lg transition-shadow" style={{ animationDelay: '0.2s' }}>
-              <CardHeader>
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                  <Icon name="Zap" size={24} className="text-primary" />
-                </div>
-                <CardTitle>Прозрачность</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Полная отчётность по всем метрикам, еженедельные встречи и доступ к аналитике 24/7
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      <section id="services" className="py-20 px-6">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-4xl font-bold mb-4 text-center">Услуги</h2>
-          <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-            Комплексные решения для роста вашего бизнеса
-          </p>
-          <div className="grid md:grid-cols-2 gap-6">
-            {services.map((service, idx) => (
-              <Card
-                key={idx}
-                className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-              >
-                <CardHeader>
-                  <div className="flex items-start gap-4">
-                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                      <Icon name={service.icon as any} size={28} className="text-white" />
-                    </div>
-                    <div>
-                      <CardTitle className="mb-2">{service.title}</CardTitle>
-                      <CardDescription className="text-base">{service.description}</CardDescription>
-                    </div>
-                  </div>
-                </CardHeader>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="cases" className="py-20 px-6 bg-muted/30">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-4xl font-bold mb-4 text-center">Кейсы</h2>
-          <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-            Реальные результаты наших клиентов
-          </p>
-          <div className="grid gap-8">
-            {cases.map((caseItem, idx) => (
-              <Card key={idx} className="overflow-hidden hover:shadow-xl transition-shadow">
-                <CardHeader className="bg-gradient-to-r from-primary/5 to-accent/5">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <Badge className="mb-3">{caseItem.category}</Badge>
-                      <CardTitle className="text-2xl mb-2">{caseItem.company}</CardTitle>
-                      <CardDescription className="text-base">{caseItem.description}</CardDescription>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-3xl font-bold text-primary">{caseItem.result}</div>
-                    </div>
-                  </div>
-                </CardHeader>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
+            {stats.map((stat, idx) => (
+              <Card key={idx} className="text-center hover:shadow-lg transition-shadow animate-scale-in" style={{ animationDelay: `${idx * 0.1}s` }}>
                 <CardContent className="pt-6">
-                  <div className="grid grid-cols-3 gap-6">
-                    {caseItem.metrics.map((metric, mIdx) => (
-                      <div key={mIdx} className="text-center">
-                        <div className="text-2xl font-bold text-accent mb-1">{metric.value}</div>
-                        <div className="text-sm text-muted-foreground">{metric.label}</div>
-                      </div>
-                    ))}
+                  <div className="text-3xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent mb-2">
+                    {stat.value}
                   </div>
+                  <div className="text-sm text-muted-foreground">{stat.label}</div>
                 </CardContent>
               </Card>
             ))}
@@ -283,33 +212,66 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="blog" className="py-20 px-6">
+      <section id="courses" className="py-20 px-6">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-4xl font-bold mb-4 text-center">Блог</h2>
-          <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-            Аналитика, кейсы и инсайты из мира маркетинга
-          </p>
-          <div className="grid md:grid-cols-3 gap-6">
-            {blogPosts.map((post, idx) => (
-              <Card key={idx} className="group hover:shadow-xl transition-all cursor-pointer hover:-translate-y-1">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">Программы обучения</h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Выберите курс, который соответствует вашим целям и уровню подготовки
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            {courses.map((course, idx) => (
+              <Card key={idx} className="group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 hover:border-orange-200">
                 <CardHeader>
-                  <Badge className="w-fit mb-3" variant="secondary">
-                    {post.category}
-                  </Badge>
-                  <CardTitle className="group-hover:text-primary transition-colors mb-3">
-                    {post.title}
-                  </CardTitle>
-                  <CardDescription className="text-base mb-4">{post.excerpt}</CardDescription>
-                  <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                    <span className="flex items-center gap-1">
-                      <Icon name="Calendar" size={14} />
-                      {post.date}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Icon name="Clock" size={14} />
-                      {post.readTime}
-                    </span>
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                      <Icon name={course.icon as any} size={28} className="text-white" />
+                    </div>
+                    <div className="text-right">
+                      <div className="text-2xl font-bold text-orange-600">{course.price}</div>
+                      <div className="text-sm text-muted-foreground">{course.duration}</div>
+                    </div>
                   </div>
+                  <CardTitle className="text-2xl mb-2">{course.title}</CardTitle>
+                  <CardDescription className="text-base">{course.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2 mb-4">
+                    {course.features.map((feature, fIdx) => (
+                      <li key={fIdx} className="flex items-start gap-2 text-sm">
+                        <Icon name="CheckCircle2" size={18} className="text-orange-600 shrink-0 mt-0.5" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Button className="w-full bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700" onClick={() => scrollToSection('contact')}>
+                    Записаться на курс
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="about" className="py-20 px-6 bg-gradient-to-br from-orange-50 to-red-50">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">Почему выбирают нас</h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Мы создали оптимальные условия для вашего профессионального роста
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {advantages.map((advantage, idx) => (
+              <Card key={idx} className="hover:shadow-xl transition-all hover:-translate-y-1">
+                <CardHeader>
+                  <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center mb-4">
+                    <Icon name={advantage.icon as any} size={24} className="text-white" />
+                  </div>
+                  <CardTitle className="mb-2">{advantage.title}</CardTitle>
+                  <CardDescription className="text-base">{advantage.description}</CardDescription>
                 </CardHeader>
               </Card>
             ))}
@@ -317,16 +279,52 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="faq" className="py-20 px-6 bg-muted/30">
+      <section id="reviews" className="py-20 px-6">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">Отзывы выпускников</h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Истории людей, которые уже построили карьеру в фитнес-индустрии
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {reviews.map((review, idx) => (
+              <Card key={idx} className="hover:shadow-xl transition-shadow">
+                <CardHeader>
+                  <div className="flex items-start justify-between mb-3">
+                    <div>
+                      <CardTitle className="text-lg mb-1">{review.name}</CardTitle>
+                      <Badge variant="secondary" className="text-xs">{review.course}</Badge>
+                    </div>
+                    <div className="flex gap-1">
+                      {[...Array(review.rating)].map((_, i) => (
+                        <Icon key={i} name="Star" size={14} className="text-orange-500 fill-orange-500" />
+                      ))}
+                    </div>
+                  </div>
+                  <CardDescription className="text-base italic">"{review.text}"</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-xs text-muted-foreground">{review.date}</div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" className="py-20 px-6 bg-gradient-to-br from-orange-50 to-red-50">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-4xl font-bold mb-4 text-center">Вопросы и ответы</h2>
-          <p className="text-muted-foreground text-center mb-12">
-            Ответы на частые вопросы о работе с нами
-          </p>
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">Частые вопросы</h2>
+            <p className="text-muted-foreground text-lg">
+              Ответы на вопросы о процессе обучения
+            </p>
+          </div>
           <Accordion type="single" collapsible className="w-full">
             {faqs.map((faq, idx) => (
-              <AccordionItem key={idx} value={`item-${idx}`}>
-                <AccordionTrigger className="text-left text-lg font-semibold">
+              <AccordionItem key={idx} value={`item-${idx}`} className="bg-white border rounded-lg mb-3 px-6">
+                <AccordionTrigger className="text-left text-lg font-semibold hover:no-underline hover:text-orange-600">
                   {faq.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-base text-muted-foreground">
@@ -341,89 +339,107 @@ const Index = () => {
       <section id="contact" className="py-20 px-6">
         <div className="container mx-auto max-w-4xl">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Готовы начать?</h2>
+            <h2 className="text-4xl font-bold mb-4">Начните карьеру тренера</h2>
             <p className="text-muted-foreground text-lg">
-              Оставьте заявку, и мы свяжемся с вами в течение 24 часов
+              Оставьте заявку, и мы расскажем о программах обучения и ответим на все вопросы
             </p>
           </div>
-          <Card className="max-w-2xl mx-auto">
+          <Card className="max-w-2xl mx-auto shadow-xl">
             <CardContent className="pt-6">
               <form className="space-y-4">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="text-sm font-medium">Имя</label>
-                    <Input placeholder="Ваше имя" />
+                    <label className="text-sm font-medium">Имя *</label>
+                    <Input placeholder="Ваше имя" required />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-medium">Компания</label>
-                    <Input placeholder="Название компании" />
+                    <label className="text-sm font-medium">Телефон *</label>
+                    <Input type="tel" placeholder="+7 (___) ___-__-__" required />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Email</label>
-                  <Input type="email" placeholder="your@email.com" />
+                  <label className="text-sm font-medium">Email *</label>
+                  <Input type="email" placeholder="your@email.com" required />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Телефон</label>
-                  <Input type="tel" placeholder="+7 (___) ___-__-__" />
+                  <label className="text-sm font-medium">Интересующий курс</label>
+                  <select className="w-full h-10 px-3 rounded-md border border-input bg-background">
+                    <option>Базовый курс</option>
+                    <option>Продвинутый курс</option>
+                    <option>Групповой фитнес</option>
+                    <option>Нутрициология</option>
+                    <option>Пока не определился</option>
+                  </select>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Расскажите о проекте</label>
-                  <Textarea placeholder="Опишите ваши цели и задачи..." rows={5} />
+                  <label className="text-sm font-medium">Комментарий</label>
+                  <Textarea placeholder="Расскажите о вашем опыте в фитнесе, ожиданиях от обучения..." rows={4} />
                 </div>
-                <Button size="lg" className="w-full">
+                <Button size="lg" className="w-full bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700">
                   <Icon name="Send" size={20} className="mr-2" />
                   Отправить заявку
                 </Button>
+                <p className="text-xs text-muted-foreground text-center">
+                  Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности
+                </p>
               </form>
             </CardContent>
           </Card>
         </div>
       </section>
 
-      <footer className="bg-primary text-primary-foreground py-12 px-6">
+      <footer className="bg-gradient-to-r from-orange-600 to-red-600 text-white py-12 px-6">
         <div className="container mx-auto max-w-6xl">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
-              <div className="text-2xl font-bold mb-4">MarketPro</div>
-              <p className="text-primary-foreground/80 text-sm">
-                Performance-маркетинг с измеримыми результатами
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                  <Icon name="Dumbbell" size={24} className="text-white" />
+                </div>
+                <div className="text-2xl font-bold">FitAcademy</div>
+              </div>
+              <p className="text-white/80 text-sm">
+                Профессиональное обучение фитнес-тренеров с 2012 года
               </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Услуги</h4>
-              <ul className="space-y-2 text-sm text-primary-foreground/80">
-                <li>Стратегия</li>
-                <li>Performance</li>
-                <li>SMM</li>
-                <li>Аналитика</li>
+              <h4 className="font-semibold mb-4">Курсы</h4>
+              <ul className="space-y-2 text-sm text-white/80">
+                <li>Базовый курс</li>
+                <li>Продвинутый курс</li>
+                <li>Групповой фитнес</li>
+                <li>Нутрициология</li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Компания</h4>
-              <ul className="space-y-2 text-sm text-primary-foreground/80">
+              <h4 className="font-semibold mb-4">Академия</h4>
+              <ul className="space-y-2 text-sm text-white/80">
                 <li>О нас</li>
-                <li>Кейсы</li>
-                <li>Блог</li>
-                <li>Контакты</li>
+                <li>Преподаватели</li>
+                <li>Лицензия</li>
+                <li>Партнёры</li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-4">Контакты</h4>
-              <ul className="space-y-2 text-sm text-primary-foreground/80">
+              <ul className="space-y-2 text-sm text-white/80">
                 <li className="flex items-center gap-2">
                   <Icon name="Mail" size={16} />
-                  hello@marketpro.ru
+                  info@fitacademy.ru
                 </li>
                 <li className="flex items-center gap-2">
                   <Icon name="Phone" size={16} />
-                  +7 (495) 123-45-67
+                  +7 (495) 789-01-23
+                </li>
+                <li className="flex items-center gap-2">
+                  <Icon name="MapPin" size={16} />
+                  Москва, ул. Спортивная, 15
                 </li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-primary-foreground/20 pt-8 text-center text-sm text-primary-foreground/60">
-            © 2024 MarketPro. Все права защищены.
+          <div className="border-t border-white/20 pt-8 text-center text-sm text-white/60">
+            © 2024 FitAcademy. Лицензия № 040485. Все права защищены.
           </div>
         </div>
       </footer>
