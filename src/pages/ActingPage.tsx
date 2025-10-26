@@ -81,48 +81,48 @@ export default function ActingPage() {
         </div>
       </header>
 
-      <section className="pt-32 pb-20 px-4 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent"></div>
+      <section className="pt-32 pb-20 px-4 relative overflow-hidden min-h-[90vh] flex items-center">
+        <div className="absolute inset-0">
+          <img
+            src="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/0c090e0f-2880-4f27-8c3e-d4c43afc5fda.jpg"
+            alt="Актерское мастерство"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/60"></div>
+        </div>
         <div className="container mx-auto relative z-10">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-                Актерское мастерство <span className="text-primary">в Москве</span>
-              </h1>
-              <p className="text-xl text-muted-foreground mb-8">
-                Профессиональное обучение актерскому мастерству от режиссера Казбека Меретукова. 
-                Преодолейте страх камеры, обретите уверенность и снимите свое кино.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                <div className="flex items-center gap-2">
-                  <Icon name="Calendar" className="text-primary" size={20} />
-                  <span>Пробное занятие: {content.trial_date || '15 ноября'}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Icon name="PlayCircle" className="text-primary" size={20} />
-                  <span>Старт курса: {content.course_start_date || '1 декабря'}</span>
-                </div>
+          <div className="max-w-2xl">
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+              Станьте <span className="text-primary">звездой</span> своего кино
+            </h1>
+            <p className="text-xl md:text-2xl text-muted-foreground mb-4">
+              Запишитесь на <span className="text-primary font-semibold">бесплатное пробное занятие</span> по актерскому мастерству
+            </p>
+            <p className="text-lg text-muted-foreground mb-8">
+              Профессиональное обучение от режиссера Казбека Меретукова. Преодолейте страх камеры, обретите уверенность и снимите свое настоящее кино с прослушиванием!
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 mb-8">
+              <div className="flex items-center gap-2 bg-card/80 backdrop-blur-sm px-4 py-2 rounded-lg">
+                <Icon name="Calendar" className="text-primary" size={20} />
+                <span>Пробное: {content.trial_date || '15 ноября'}</span>
               </div>
-              <form onSubmit={(e) => handleSubmit(e, 'hero')} className="flex gap-2">
-                <Input
-                  type="tel"
-                  placeholder="+7 (999) 123-45-67"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  className="max-w-xs"
-                />
-                <Button type="submit" disabled={loading}>
-                  {loading ? 'Отправка...' : 'Записаться на пробный урок'}
-                </Button>
-              </form>
+              <div className="flex items-center gap-2 bg-card/80 backdrop-blur-sm px-4 py-2 rounded-lg">
+                <Icon name="PlayCircle" className="text-primary" size={20} />
+                <span>Старт: {content.course_start_date || '1 декабря'}</span>
+              </div>
             </div>
-            <div className="relative h-[400px] rounded-2xl overflow-hidden">
-              <img
-                src="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/0c090e0f-2880-4f27-8c3e-d4c43afc5fda.jpg"
-                alt="Актерское мастерство"
-                className="w-full h-full object-cover"
+            <form onSubmit={(e) => handleSubmit(e, 'hero')} className="flex flex-col sm:flex-row gap-3">
+              <Input
+                type="tel"
+                placeholder="+7 (999) 123-45-67"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                className="max-w-xs bg-card/90 backdrop-blur-sm"
               />
-            </div>
+              <Button type="submit" disabled={loading} size="lg">
+                {loading ? 'Отправка...' : 'Записаться на пробный урок'}
+              </Button>
+            </form>
           </div>
         </div>
       </section>
@@ -240,10 +240,18 @@ export default function ActingPage() {
         <div className="container mx-auto">
           <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-3xl p-12 text-center">
             <Icon name="Film" size={64} className="mx-auto mb-6 text-primary" />
-            <h2 className="text-4xl font-bold mb-4">Снимите свое кино</h2>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              По завершении курса вы станете актером собственного короткометражного фильма. 
-              Профессиональная съемочная группа, режиссер и настоящая киносъемка с прослушиванием.
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">Снимите свое настоящее кино!</h2>
+            <p className="text-xl md:text-2xl mb-6 max-w-3xl mx-auto">
+              Представьте: вы на съемочной площадке. Свет, камера, мотор! 🎬
+            </p>
+            <p className="text-lg text-muted-foreground mb-4 max-w-2xl mx-auto">
+              Это не мечта — это реальность нашего курса! По завершении обучения вы не просто получите сертификат. 
+              Вы станете <span className="text-primary font-semibold">главным героем собственного короткометражного фильма</span>.
+            </p>
+            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Профессиональная съемочная группа, опытный режиссер Казбек Меретуков, настоящая кинокамера и прослушивание — 
+              всё по-настоящему, как в большом кино! Вы пройдете кастинг, получите роль и сыграете её перед камерой. 
+              А после премьеры сможете с гордостью показать свой фильм друзьям и семье. Это ваш первый шаг к большой сцене!
             </p>
             {content.final_video_url && (
               <div className="aspect-video max-w-3xl mx-auto rounded-xl overflow-hidden shadow-2xl">
@@ -316,10 +324,10 @@ export default function ActingPage() {
         </div>
       </section>
 
-      {gallery.length > 0 && (
-        <section className="py-20 px-4 bg-card">
-          <div className="container mx-auto">
-            <h2 className="text-4xl font-bold text-center mb-12">Галерея</h2>
+      <section className="py-20 px-4 bg-card">
+        <div className="container mx-auto">
+          <h2 className="text-4xl font-bold text-center mb-12">Галерея</h2>
+          {gallery.length > 0 ? (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {gallery.map((image) => (
                 <div key={image.id} className="aspect-square rounded-lg overflow-hidden group cursor-pointer">
@@ -331,14 +339,19 @@ export default function ActingPage() {
                 </div>
               ))}
             </div>
-          </div>
-        </section>
-      )}
+          ) : (
+            <div className="text-center text-muted-foreground py-12">
+              <Icon name="Image" size={64} className="mx-auto mb-4 opacity-30" />
+              <p>Галерея скоро появится</p>
+            </div>
+          )}
+        </div>
+      </section>
 
-      {reviews.length > 0 && (
-        <section id="reviews" className="py-20 px-4">
-          <div className="container mx-auto">
-            <h2 className="text-4xl font-bold text-center mb-12">Отзывы наших учеников</h2>
+      <section id="reviews" className="py-20 px-4">
+        <div className="container mx-auto">
+          <h2 className="text-4xl font-bold text-center mb-12">Отзывы наших учеников</h2>
+          {reviews.length > 0 ? (
             <div className="grid md:grid-cols-3 gap-8">
               {reviews.map((review) => (
                 <Card key={review.id}>
@@ -363,14 +376,19 @@ export default function ActingPage() {
                 </Card>
               ))}
             </div>
-          </div>
-        </section>
-      )}
+          ) : (
+            <div className="text-center text-muted-foreground py-12">
+              <Icon name="MessageSquare" size={64} className="mx-auto mb-4 opacity-30" />
+              <p>Отзывы скоро появятся</p>
+            </div>
+          )}
+        </div>
+      </section>
 
-      {blog.length > 0 && (
-        <section id="blog" className="py-20 px-4 bg-card">
-          <div className="container mx-auto">
-            <h2 className="text-4xl font-bold text-center mb-12">Блог</h2>
+      <section id="blog" className="py-20 px-4 bg-card">
+        <div className="container mx-auto">
+          <h2 className="text-4xl font-bold text-center mb-12">Блог</h2>
+          {blog.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {blog.map((post) => (
                 <Card key={post.id} className="group hover:shadow-xl transition">
@@ -390,9 +408,14 @@ export default function ActingPage() {
                 </Card>
               ))}
             </div>
-          </div>
-        </section>
-      )}
+          ) : (
+            <div className="text-center text-muted-foreground py-12">
+              <Icon name="BookOpen" size={64} className="mx-auto mb-4 opacity-30" />
+              <p>Статьи скоро появятся</p>
+            </div>
+          )}
+        </div>
+      </section>
 
       {faq.length > 0 && (
         <section className="py-20 px-4">

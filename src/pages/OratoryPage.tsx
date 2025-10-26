@@ -3,25 +3,37 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
-import { api, SiteContent } from '@/lib/api';
+import { api, SiteContent, Review, GalleryImage, BlogPost } from '@/lib/api';
 
 export default function OratoryPage() {
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState<Record<string, string>>({});
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [gallery, setGallery] = useState<GalleryImage[]>([]);
+  const [blog, setBlog] = useState<BlogPost[]>([]);
 
   useEffect(() => {
-    loadContent();
+    loadData();
   }, []);
 
-  const loadContent = async () => {
+  const loadData = async () => {
     try {
-      const contentData = await api.content.getAll();
+      const [contentData, reviewsData, galleryData, blogData] = await Promise.all([
+        api.content.getAll(),
+        api.gallery.getReviews(),
+        api.gallery.getImages(),
+        api.gallery.getBlog()
+      ]);
+      
       const contentMap: Record<string, string> = {};
       contentData.forEach((item: SiteContent) => {
         contentMap[item.key] = item.value;
       });
       setContent(contentMap);
+      setReviews(reviewsData);
+      setGallery(galleryData);
+      setBlog(blogData);
     } catch (error) {
       console.error('Error loading content:', error);
     }
@@ -102,51 +114,52 @@ export default function OratoryPage() {
         </div>
       </header>
 
-      <section className="pt-32 pb-20 px-4 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent"></div>
+      <section className="pt-32 pb-20 px-4 relative overflow-hidden min-h-[90vh] flex items-center">
+        <div className="absolute inset-0">
+          <img
+            src="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/829de8e6-6182-458d-9aa3-3afb8faa0acc.jpg"
+            alt="Ораторское мастерство"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/60"></div>
+        </div>
         <div className="container mx-auto relative z-10">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="inline-block px-4 py-2 bg-primary/10 rounded-full text-primary font-semibold mb-6">
-                Курс с Ольгой Штерц
-              </div>
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-                Ораторское <span className="text-primary">мастерство</span>
-              </h1>
-              <p className="text-xl text-muted-foreground mb-8">
-                Профессиональный курс публичных выступлений. Научитесь говорить уверенно, убедительно и харизматично.
-                Выступайте на сцене, проводите презентации и вдохновляйте людей.
-              </p>
-              <div className="grid grid-cols-2 gap-4 mb-8">
-                <div className="bg-card p-4 rounded-lg">
-                  <div className="text-3xl font-bold text-primary mb-1">8 недель</div>
-                  <div className="text-sm text-muted-foreground">Длительность курса</div>
-                </div>
-                <div className="bg-card p-4 rounded-lg">
-                  <div className="text-3xl font-bold text-primary mb-1">24 часа</div>
-                  <div className="text-sm text-muted-foreground">Практики и тренингов</div>
-                </div>
-              </div>
-              <form onSubmit={(e) => handleSubmit(e, 'hero')} className="flex gap-2">
-                <Input
-                  type="tel"
-                  placeholder="+7 (999) 123-45-67"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  className="max-w-xs"
-                />
-                <Button type="submit" disabled={loading}>
-                  {loading ? 'Отправка...' : 'Начать обучение'}
-                </Button>
-              </form>
+          <div className="max-w-2xl">
+            <div className="inline-block px-4 py-2 bg-primary/10 backdrop-blur-sm rounded-full text-primary font-semibold mb-6">
+              Курс с Ольгой Штерц
             </div>
-            <div className="relative h-[500px] rounded-2xl overflow-hidden">
-              <img
-                src="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/829de8e6-6182-458d-9aa3-3afb8faa0acc.jpg"
-                alt="Ораторское мастерство"
-                className="w-full h-full object-cover"
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+              Говорите так, чтобы <span className="text-primary">вас слушали</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-muted-foreground mb-4">
+              Запишитесь на <span className="text-primary font-semibold">бесплатное пробное занятие</span> по ораторскому мастерству
+            </p>
+            <p className="text-lg text-muted-foreground mb-8">
+              Профессиональный курс публичных выступлений от эксперта Ольги Штерц. Научитесь выступать уверенно, убедительно и харизматично. 
+              Проводите презентации, вдохновляйте аудиторию и становитесь лидером мнений!
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 mb-8">
+              <div className="bg-card/80 backdrop-blur-sm p-4 rounded-lg">
+                <div className="text-3xl font-bold text-primary mb-1">8 недель</div>
+                <div className="text-sm text-muted-foreground">Длительность курса</div>
+              </div>
+              <div className="bg-card/80 backdrop-blur-sm p-4 rounded-lg">
+                <div className="text-3xl font-bold text-primary mb-1">24 часа</div>
+                <div className="text-sm text-muted-foreground">Практики и тренингов</div>
+              </div>
+            </div>
+            <form onSubmit={(e) => handleSubmit(e, 'hero')} className="flex flex-col sm:flex-row gap-3">
+              <Input
+                type="tel"
+                placeholder="+7 (999) 123-45-67"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                className="max-w-xs bg-card/90 backdrop-blur-sm"
               />
-            </div>
+              <Button type="submit" disabled={loading} size="lg">
+                {loading ? 'Отправка...' : 'Записаться на пробное занятие'}
+              </Button>
+            </form>
           </div>
         </div>
       </section>
@@ -315,13 +328,110 @@ export default function OratoryPage() {
         </div>
       </section>
 
+      <section className="py-20 px-4 bg-card">
+        <div className="container mx-auto">
+          <h2 className="text-4xl font-bold text-center mb-12">Галерея</h2>
+          {gallery.length > 0 ? (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {gallery.map((image) => (
+                <div key={image.id} className="aspect-square rounded-lg overflow-hidden group cursor-pointer">
+                  <img
+                    src={image.url}
+                    alt={image.caption || ''}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center text-muted-foreground py-12">
+              <Icon name="Image" size={64} className="mx-auto mb-4 opacity-30" />
+              <p>Галерея скоро появится</p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      <section className="py-20 px-4">
+        <div className="container mx-auto">
+          <h2 className="text-4xl font-bold text-center mb-12">Отзывы наших учеников</h2>
+          {reviews.length > 0 ? (
+            <div className="grid md:grid-cols-3 gap-8">
+              {reviews.map((review) => (
+                <Card key={review.id}>
+                  <CardHeader>
+                    <div className="flex items-center gap-4 mb-4">
+                      {review.image_url && (
+                        <img src={review.image_url} alt={review.name} className="w-12 h-12 rounded-full object-cover" />
+                      )}
+                      <div>
+                        <CardTitle className="text-lg">{review.name}</CardTitle>
+                        <div className="flex gap-1">
+                          {Array.from({ length: review.rating }).map((_, i) => (
+                            <Icon key={i} name="Star" size={16} className="text-primary fill-primary" />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription>{review.text}</CardDescription>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center text-muted-foreground py-12">
+              <Icon name="MessageSquare" size={64} className="mx-auto mb-4 opacity-30" />
+              <p>Отзывы скоро появятся</p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      <section className="py-20 px-4 bg-card">
+        <div className="container mx-auto">
+          <h2 className="text-4xl font-bold text-center mb-12">Блог</h2>
+          {blog.length > 0 ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {blog.map((post) => (
+                <Card key={post.id} className="group hover:shadow-xl transition">
+                  {post.image_url && (
+                    <div className="aspect-video overflow-hidden">
+                      <img
+                        src={post.image_url}
+                        alt={post.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition"
+                      />
+                    </div>
+                  )}
+                  <CardHeader>
+                    <CardTitle>{post.title}</CardTitle>
+                    <CardDescription>{post.excerpt}</CardDescription>
+                  </CardHeader>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center text-muted-foreground py-12">
+              <Icon name="BookOpen" size={64} className="mx-auto mb-4 opacity-30" />
+              <p>Статьи скоро появятся</p>
+            </div>
+          )}
+        </div>
+      </section>
+
       <section id="contact" className="py-20 px-4">
         <div className="container mx-auto">
           <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-3xl p-12 max-w-3xl mx-auto text-center">
             <Icon name="Sparkles" size={64} className="mx-auto mb-6 text-primary" />
-            <h2 className="text-4xl font-bold mb-4">Начните путь к мастерству</h2>
-            <p className="text-xl text-muted-foreground mb-8">
-              Запишитесь на курс ораторского искусства и раскройте свой потенциал
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">Ваш голос — ваша сила!</h2>
+            <p className="text-xl md:text-2xl mb-4">
+              Начните говорить так, чтобы вас не только слышали, но и <span className="text-primary font-semibold">слушали с восхищением</span>! 
+            </p>
+            <p className="text-lg text-muted-foreground mb-8">
+              Запишитесь на курс ораторского искусства прямо сейчас и откройте в себе силу убедительного слова. 
+              Каждое выступление станет вашим триумфом!
             </p>
             <form onSubmit={(e) => handleSubmit(e, 'footer')} className="space-y-4">
               <Input
