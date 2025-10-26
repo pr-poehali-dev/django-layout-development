@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Icon from '@/components/ui/icon';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import PhoneForm from '@/components/PhoneForm';
 import { api, CourseModule, Review, FAQ, GalleryImage, BlogPost, SiteContent } from '@/lib/api';
 
 export default function ActingPage() {
-  const [phone, setPhone] = useState('');
-  const [loading, setLoading] = useState(false);
   const [modules, setModules] = useState<CourseModule[]>([]);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [faq, setFAQ] = useState<FAQ[]>([]);
@@ -47,39 +46,11 @@ export default function ActingPage() {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent, source: string) => {
-    e.preventDefault();
-    if (!phone) return;
 
-    setLoading(true);
-    try {
-      await api.leads.create(phone, source);
-      alert('Спасибо! Мы свяжемся с вами в ближайшее время.');
-      setPhone('');
-    } catch (error) {
-      alert('Ошибка отправки. Попробуйте позже.');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-border">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="text-2xl font-bold text-primary">Школа Казбека Меретукова</div>
-          <nav className="hidden md:flex gap-6">
-            <a href="#modules" className="hover:text-primary transition">Модули</a>
-            <a href="#about" className="hover:text-primary transition">О школе</a>
-            <a href="#reviews" className="hover:text-primary transition">Отзывы</a>
-            <a href="#blog" className="hover:text-primary transition">Блог</a>
-            <a href="/oratory" className="text-muted-foreground hover:text-primary transition">Ораторское искусство</a>
-          </nav>
-          <Button asChild>
-            <a href="#contact">Записаться</a>
-          </Button>
-        </div>
-      </header>
+      <Header />
 
       <section className="pt-32 pb-20 px-4 relative overflow-hidden min-h-[90vh] flex items-center">
         <div className="absolute inset-0">
@@ -111,18 +82,13 @@ export default function ActingPage() {
                 <span>Старт: {content.course_start_date || '1 декабря'}</span>
               </div>
             </div>
-            <form onSubmit={(e) => handleSubmit(e, 'hero')} className="flex flex-col sm:flex-row gap-3">
-              <Input
-                type="tel"
-                placeholder="+7 (999) 123-45-67"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                className="max-w-xs bg-card/90 backdrop-blur-sm"
-              />
-              <Button type="submit" disabled={loading} size="lg">
-                {loading ? 'Отправка...' : 'Записаться на пробный урок'}
-              </Button>
-            </form>
+            <PhoneForm 
+              source="hero_acting"
+              triggerText="Записаться на пробный урок"
+              triggerSize="lg"
+              title="Запись на пробное занятие"
+              description="Оставьте номер телефона, и мы пригласим вас на бесплатное пробное занятие"
+            />
           </div>
         </div>
       </section>
@@ -187,19 +153,14 @@ export default function ActingPage() {
               </CardContent>
             </Card>
           </div>
-          <div className="bg-card p-8 rounded-2xl max-w-md mx-auto">
-            <h3 className="text-2xl font-bold mb-4 text-center">Оставьте заявку</h3>
-            <form onSubmit={(e) => handleSubmit(e, 'for_whom')} className="space-y-4">
-              <Input
-                type="tel"
-                placeholder="+7 (999) 123-45-67"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-              />
-              <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? 'Отправка...' : 'Записаться на курс'}
-              </Button>
-            </form>
+          <div className="bg-card p-8 rounded-2xl max-w-md mx-auto text-center">
+            <h3 className="text-2xl font-bold mb-4">Оставьте заявку</h3>
+            <p className="text-muted-foreground mb-6">Запишитесь на курс прямо сейчас</p>
+            <PhoneForm 
+              source="for_whom_acting"
+              triggerText="Записаться на курс"
+              triggerClassName="w-full"
+            />
           </div>
         </div>
       </section>
@@ -308,18 +269,12 @@ export default function ActingPage() {
             <p className="text-muted-foreground mb-8">
               Оставьте номер телефона, и мы свяжемся с вами для записи на пробное занятие
             </p>
-            <form onSubmit={(e) => handleSubmit(e, 'footer_form')} className="space-y-4">
-              <Input
-                type="tel"
-                placeholder="+7 (999) 123-45-67"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                className="max-w-md mx-auto"
-              />
-              <Button type="submit" size="lg" disabled={loading}>
-                {loading ? 'Отправка...' : 'Записаться сейчас'}
-              </Button>
-            </form>
+            <PhoneForm 
+              source="footer_acting"
+              triggerText="Записаться сейчас"
+              triggerSize="lg"
+              triggerClassName="w-full max-w-md mx-auto"
+            />
           </div>
         </div>
       </section>
@@ -433,17 +388,7 @@ export default function ActingPage() {
         </section>
       )}
 
-      <footer className="py-12 px-4 bg-card border-t border-border">
-        <div className="container mx-auto text-center">
-          <div className="text-2xl font-bold text-primary mb-4">Школа Казбека Меретукова</div>
-          <p className="text-muted-foreground mb-6">Актерское и ораторское мастерство в Москве</p>
-          <div className="flex justify-center gap-6">
-            <a href="/" className="hover:text-primary transition">Актерское мастерство</a>
-            <a href="/oratory" className="hover:text-primary transition">Ораторское искусство</a>
-            <a href="/admin" className="text-muted-foreground hover:text-primary transition text-sm">Админка</a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import Icon from '@/components/ui/icon';
+import Footer from '@/components/Footer';
 import { api, Lead, SiteContent } from '@/lib/api';
 
 export default function AdminPage() {
@@ -321,6 +322,8 @@ export default function AdminPage() {
           </TabsContent>
         </Tabs>
       </div>
+      
+      <Footer />
     </div>
   );
 }

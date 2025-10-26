@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import PhoneForm from '@/components/PhoneForm';
 import { api, SiteContent, Review, GalleryImage, BlogPost } from '@/lib/api';
 
 export default function OratoryPage() {
-  const [phone, setPhone] = useState('');
-  const [loading, setLoading] = useState(false);
   const [content, setContent] = useState<Record<string, string>>({});
   const [reviews, setReviews] = useState<Review[]>([]);
   const [gallery, setGallery] = useState<GalleryImage[]>([]);
@@ -39,21 +38,7 @@ export default function OratoryPage() {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent, source: string) => {
-    e.preventDefault();
-    if (!phone) return;
 
-    setLoading(true);
-    try {
-      await api.leads.create(phone, `oratory_${source}`);
-      alert('Спасибо! Мы свяжемся с вами в ближайшее время.');
-      setPhone('');
-    } catch (error) {
-      alert('Ошибка отправки. Попробуйте позже.');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const oratorySkills = [
     {
@@ -99,20 +84,7 @@ export default function OratoryPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-border">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="text-2xl font-bold text-primary">Школа Казбека Меретукова</div>
-          <nav className="hidden md:flex gap-6">
-            <a href="/" className="text-muted-foreground hover:text-primary transition">Актерское мастерство</a>
-            <a href="#skills" className="hover:text-primary transition">Навыки</a>
-            <a href="#about" className="hover:text-primary transition">О преподавателе</a>
-            <a href="#program" className="hover:text-primary transition">Программа</a>
-          </nav>
-          <Button asChild>
-            <a href="#contact">Записаться</a>
-          </Button>
-        </div>
-      </header>
+      <Header />
 
       <section className="pt-32 pb-20 px-4 relative overflow-hidden min-h-[90vh] flex items-center">
         <div className="absolute inset-0">
@@ -148,18 +120,13 @@ export default function OratoryPage() {
                 <div className="text-sm text-muted-foreground">Практики и тренингов</div>
               </div>
             </div>
-            <form onSubmit={(e) => handleSubmit(e, 'hero')} className="flex flex-col sm:flex-row gap-3">
-              <Input
-                type="tel"
-                placeholder="+7 (999) 123-45-67"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                className="max-w-xs bg-card/90 backdrop-blur-sm"
-              />
-              <Button type="submit" disabled={loading} size="lg">
-                {loading ? 'Отправка...' : 'Записаться на пробное занятие'}
-              </Button>
-            </form>
+            <PhoneForm 
+              source="hero_oratory"
+              triggerText="Записаться на пробное занятие"
+              triggerSize="lg"
+              title="Запись на пробное занятие"
+              description="Оставьте номер телефона, и мы пригласим вас на бесплатное пробное занятие по ораторскому мастерству"
+            />
           </div>
         </div>
       </section>
@@ -433,33 +400,17 @@ export default function OratoryPage() {
               Запишитесь на курс ораторского искусства прямо сейчас и откройте в себе силу убедительного слова. 
               Каждое выступление станет вашим триумфом!
             </p>
-            <form onSubmit={(e) => handleSubmit(e, 'footer')} className="space-y-4">
-              <Input
-                type="tel"
-                placeholder="+7 (999) 123-45-67"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                className="max-w-md mx-auto"
-              />
-              <Button type="submit" size="lg" disabled={loading}>
-                {loading ? 'Отправка...' : 'Записаться на курс'}
-              </Button>
-            </form>
+            <PhoneForm 
+              source="footer_oratory"
+              triggerText="Записаться на курс"
+              triggerSize="lg"
+              triggerClassName="w-full max-w-md mx-auto"
+            />
           </div>
         </div>
       </section>
 
-      <footer className="py-12 px-4 bg-card border-t border-border">
-        <div className="container mx-auto text-center">
-          <div className="text-2xl font-bold text-primary mb-4">Школа Казбека Меретукова</div>
-          <p className="text-muted-foreground mb-6">Актерское и ораторское мастерство в Москве</p>
-          <div className="flex justify-center gap-6">
-            <a href="/" className="hover:text-primary transition">Актерское мастерство</a>
-            <a href="/oratory" className="hover:text-primary transition">Ораторское искусство</a>
-            <a href="/admin" className="text-muted-foreground hover:text-primary transition text-sm">Админка</a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
