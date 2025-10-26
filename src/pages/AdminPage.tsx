@@ -3,12 +3,16 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import Icon from '@/components/ui/icon';
-import Footer from '@/components/Footer';
-import { api, Lead, SiteContent, CourseModule, FAQ } from '@/lib/api';
-import { Textarea } from '@/components/ui/textarea';
+import { api, Lead, SiteContent, CourseModule, FAQ, Review, GalleryImage, BlogPost } from '@/lib/api';
+import ContentManager from '@/components/admin/ContentManager';
+import GalleryManager from '@/components/admin/GalleryManager';
+import ReviewsManager from '@/components/admin/ReviewsManager';
+import BlogManager from '@/components/admin/BlogManager';
+import LeadsManager from '@/components/admin/LeadsManager';
+import ModulesManager from '@/components/admin/ModulesManager';
+import FAQManager from '@/components/admin/FAQManager';
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -21,7 +25,6 @@ export default function AdminPage() {
   const [editingKey, setEditingKey] = useState('');
   const [editingValue, setEditingValue] = useState('');
   
-  // Modules state
   const [modules, setModules] = useState<CourseModule[]>([]);
   const [editingModule, setEditingModule] = useState<CourseModule | null>(null);
   const [newModule, setNewModule] = useState({
@@ -32,12 +35,38 @@ export default function AdminPage() {
     image_url: ''
   });
   
-  // FAQ state
   const [faqs, setFaqs] = useState<FAQ[]>([]);
   const [editingFAQ, setEditingFAQ] = useState<FAQ | null>(null);
   const [newFAQ, setNewFAQ] = useState({
     question: '',
     answer: ''
+  });
+
+  const [gallery, setGallery] = useState<GalleryImage[]>([]);
+  const [editingGalleryImage, setEditingGalleryImage] = useState<GalleryImage | null>(null);
+  const [newGalleryImage, setNewGalleryImage] = useState({
+    image_url: '',
+    title: '',
+    description: ''
+  });
+
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [editingReview, setEditingReview] = useState<Review | null>(null);
+  const [newReview, setNewReview] = useState({
+    author_name: '',
+    author_role: '',
+    text: '',
+    rating: 5
+  });
+
+  const [blog, setBlog] = useState<BlogPost[]>([]);
+  const [editingBlogPost, setEditingBlogPost] = useState<BlogPost | null>(null);
+  const [newBlogPost, setNewBlogPost] = useState({
+    title: '',
+    excerpt: '',
+    content: '',
+    image_url: '',
+    author: ''
   });
 
   useEffect(() => {
@@ -51,16 +80,22 @@ export default function AdminPage() {
 
   const loadData = async (authToken: string) => {
     try {
-      const [leadsData, contentData, modulesData, faqData] = await Promise.all([
+      const [leadsData, contentData, modulesData, faqData, galleryData, reviewsData, blogData] = await Promise.all([
         api.leads.getAll(authToken),
         api.content.getAll(),
         api.modules.getAll(),
-        api.gallery.getFAQ()
+        api.gallery.getFAQ(),
+        api.gallery.getImages(),
+        api.gallery.getReviews(),
+        api.gallery.getBlog()
       ]);
       setLeads(leadsData);
       setContent(contentData);
       setModules(modulesData);
       setFaqs(faqData);
+      setGallery(galleryData);
+      setReviews(reviewsData);
+      setBlog(blogData);
     } catch (error) {
       console.error('Error loading data:', error);
     }
@@ -121,7 +156,6 @@ export default function AdminPage() {
     setEditingValue(item.value);
   };
 
-  // Module handlers
   const handleCreateModule = async () => {
     if (!newModule.title || !newModule.description) {
       alert('Заполните обязательные поля');
@@ -166,7 +200,6 @@ export default function AdminPage() {
     }
   };
 
-  // FAQ handlers
   const handleCreateFAQ = async () => {
     if (!newFAQ.question || !newFAQ.answer) {
       alert('Заполните все поля');
@@ -202,6 +235,120 @@ export default function AdminPage() {
       alert('FAQ удален');
     } catch (error) {
       alert('Ошибка удаления FAQ');
+    }
+  };
+
+  const handleCreateGalleryImage = async () => {
+    if (!newGalleryImage.image_url || !newGalleryImage.title) {
+      alert('Заполните обязательные поля');
+      return;
+    }
+    try {
+      await api.gallery.createImage(newGalleryImage, token);
+      await loadData(token);
+      setNewGalleryImage({ image_url: '', title: '', description: '' });
+      alert('Изображение добавлено');
+    } catch (error) {
+      alert('Ошибка добавления изображения');
+    }
+  };
+
+  const handleUpdateGalleryImage = async () => {
+    if (!editingGalleryImage) return;
+    try {
+      await api.gallery.updateImage(editingGalleryImage, token);
+      await loadData(token);
+      setEditingGalleryImage(null);
+      alert('Изображение обновлено');
+    } catch (error) {
+      alert('Ошибка обновления изображения');
+    }
+  };
+
+  const handleDeleteGalleryImage = async (id: number) => {
+    if (!confirm('Удалить изображение?')) return;
+    try {
+      await api.gallery.deleteImage(id, token);
+      await loadData(token);
+      alert('Изображение удалено');
+    } catch (error) {
+      alert('Ошибка удаления изображения');
+    }
+  };
+
+  const handleCreateReview = async () => {
+    if (!newReview.author_name || !newReview.text) {
+      alert('Заполните обязательные поля');
+      return;
+    }
+    try {
+      await api.gallery.createReview(newReview, token);
+      await loadData(token);
+      setNewReview({ author_name: '', author_role: '', text: '', rating: 5 });
+      alert('Отзыв добавлен');
+    } catch (error) {
+      alert('Ошибка добавления отзыва');
+    }
+  };
+
+  const handleUpdateReview = async () => {
+    if (!editingReview) return;
+    try {
+      await api.gallery.updateReview(editingReview, token);
+      await loadData(token);
+      setEditingReview(null);
+      alert('Отзыв обновлен');
+    } catch (error) {
+      alert('Ошибка обновления отзыва');
+    }
+  };
+
+  const handleDeleteReview = async (id: number) => {
+    if (!confirm('Удалить отзыв?')) return;
+    try {
+      await api.gallery.deleteReview(id, token);
+      await loadData(token);
+      alert('Отзыв удален');
+    } catch (error) {
+      alert('Ошибка удаления отзыва');
+    }
+  };
+
+  const handleCreateBlogPost = async () => {
+    if (!newBlogPost.title || !newBlogPost.content) {
+      alert('Заполните обязательные поля');
+      return;
+    }
+    try {
+      await api.gallery.createBlog(newBlogPost, token);
+      await loadData(token);
+      setNewBlogPost({ title: '', excerpt: '', content: '', image_url: '', author: '' });
+      alert('Статья добавлена');
+    } catch (error) {
+      alert('Ошибка добавления статьи');
+    }
+  };
+
+  const handleUpdateBlogPost = async () => {
+    if (!editingBlogPost) return;
+    try {
+      await api.gallery.updateBlog(editingBlogPost, token);
+      await loadData(token);
+      setEditingBlogPost(null);
+      alert('Статья обновлена');
+    } catch (error) {
+      alert('Ошибка обновления статьи');
+    }
+  };
+
+  const handleDeleteBlogPost = async (id: number) => {
+    if (!confirm('Удалить статью?')) return;
+    try {
+      await api.gallery.deleteBlog(id, token);
+      await loadData(token);
+      alert('Статья удалена');
+    } catch (error) {
+      alert('Ошибка удаления статьи');
     }
   };
 
@@ -268,467 +415,113 @@ export default function AdminPage() {
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-8">
-        <Tabs defaultValue="leads" className="w-full">
-          <TabsList className="mb-8">
-            <TabsTrigger value="leads">
-              <Icon name="Users" size={18} className="mr-2" />
-              Заявки ({leads.length})
-            </TabsTrigger>
-            <TabsTrigger value="content">
-              <Icon name="FileText" size={18} className="mr-2" />
-              Контент
-            </TabsTrigger>
-            <TabsTrigger value="modules">
-              <Icon name="BookOpen" size={18} className="mr-2" />
-              Модули курса
-            </TabsTrigger>
-            <TabsTrigger value="faq">
-              <Icon name="HelpCircle" size={18} className="mr-2" />
-              FAQ
-            </TabsTrigger>
+      <main className="container mx-auto px-4 py-8">
+        <Tabs defaultValue="leads" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-7 lg:w-auto lg:inline-grid">
+            <TabsTrigger value="leads">Лиды</TabsTrigger>
+            <TabsTrigger value="content">Контент</TabsTrigger>
+            <TabsTrigger value="modules">Модули</TabsTrigger>
+            <TabsTrigger value="faq">FAQ</TabsTrigger>
+            <TabsTrigger value="gallery">Галерея</TabsTrigger>
+            <TabsTrigger value="reviews">Отзывы</TabsTrigger>
+            <TabsTrigger value="blog">Блог</TabsTrigger>
           </TabsList>
 
           <TabsContent value="leads">
-            <Card>
-              <CardHeader>
-                <CardTitle>Управление заявками</CardTitle>
-                <CardDescription>Просмотр и обработка заявок с сайта</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {leads.length === 0 ? (
-                    <div className="text-center py-12 text-muted-foreground">
-                      <Icon name="Inbox" size={48} className="mx-auto mb-4 opacity-50" />
-                      <p>Заявок пока нет</p>
-                    </div>
-                  ) : (
-                    leads.map((lead) => (
-                      <div
-                        key={lead.id}
-                        className="flex flex-col sm:flex-row sm:items-center justify-between p-4 border border-border rounded-lg gap-4"
-                      >
-                        <div className="flex-1">
-                          <div className="font-semibold text-lg mb-1">{lead.phone}</div>
-                          <div className="text-sm text-muted-foreground">
-                            Источник: {lead.source} • {new Date(lead.created_at).toLocaleString('ru-RU')}
-                          </div>
-                        </div>
-                        <Select
-                          value={lead.status}
-                          onValueChange={(value) => handleUpdateLeadStatus(lead.id, value)}
-                        >
-                          <SelectTrigger className="w-full sm:w-[200px]">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="new">Новая</SelectItem>
-                            <SelectItem value="trial">Записался на пробное</SelectItem>
-                            <SelectItem value="enrolled">Записался на обучение</SelectItem>
-                            <SelectItem value="thinking">Думает</SelectItem>
-                            <SelectItem value="not_target">Нецелевой</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    ))
-                  )}
-                </div>
-              </CardContent>
-            </Card>
+            <LeadsManager 
+              leads={leads}
+              onUpdateStatus={handleUpdateLeadStatus}
+            />
           </TabsContent>
 
           <TabsContent value="content">
-            <div className="grid md:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Редактирование контента</CardTitle>
-                  <CardDescription>Обновите значения для управления содержимым сайта</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div>
-                      <Label htmlFor="content-key">Ключ</Label>
-                      <Select value={editingKey} onValueChange={(value) => {
-                        setEditingKey(value);
-                        const item = content.find(c => c.key === value);
-                        if (item) setEditingValue(item.value);
-                      }}>
-                        <SelectTrigger id="content-key">
-                          <SelectValue placeholder="Выберите ключ для редактирования" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {content.map((item) => (
-                            <SelectItem key={item.id} value={item.key}>
-                              {item.key}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    {editingKey && (
-                      <>
-                        <div>
-                          <Label htmlFor="content-value">Значение</Label>
-                          <Input
-                            id="content-value"
-                            value={editingValue}
-                            onChange={(e) => setEditingValue(e.target.value)}
-                            placeholder="Введите новое значение"
-                          />
-                        </div>
-                        <Button onClick={handleUpdateContent} className="w-full">
-                          <Icon name="Save" size={18} className="mr-2" />
-                          Сохранить
-                        </Button>
-                      </>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Текущий контент</CardTitle>
-                  <CardDescription>Актуальные значения на сайте</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3 max-h-[500px] overflow-y-auto">
-                    {content.map((item) => (
-                      <div
-                        key={item.id}
-                        className="p-3 border border-border rounded-lg hover:bg-muted/50 transition cursor-pointer"
-                        onClick={() => startEditingContent(item)}
-                      >
-                        <div className="font-semibold text-sm text-primary mb-1">{item.key}</div>
-                        <div className="text-sm text-muted-foreground truncate">{item.value}</div>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            <Card className="mt-6">
-              <CardHeader>
-                <CardTitle>Основные настройки</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid gap-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <Label>Видео на главной (URL)</Label>
-                      <div className="text-sm text-muted-foreground">hero_video_url</div>
-                    </div>
-                    <div>
-                      <Label>Финальное видео (URL)</Label>
-                      <div className="text-sm text-muted-foreground">final_video_url</div>
-                    </div>
-                    <div>
-                      <Label>Дата пробного занятия</Label>
-                      <div className="text-sm text-muted-foreground">trial_date</div>
-                    </div>
-                    <div>
-                      <Label>Дата начала курса</Label>
-                      <div className="text-sm text-muted-foreground">course_start_date</div>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <ContentManager
+              content={content}
+              editingKey={editingKey}
+              editingValue={editingValue}
+              onStartEditing={startEditingContent}
+              onEditingKeyChange={setEditingKey}
+              onEditingValueChange={setEditingValue}
+              onUpdate={handleUpdateContent}
+            />
           </TabsContent>
 
           <TabsContent value="modules">
-            <div className="grid md:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Создать модуль</CardTitle>
-                  <CardDescription>Добавьте новый модуль курса</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div>
-                      <Label htmlFor="module-course">Курс</Label>
-                      <Select
-                        value={newModule.course_type}
-                        onValueChange={(value) => setNewModule({ ...newModule, course_type: value })}
-                      >
-                        <SelectTrigger id="module-course">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="acting">Актерское мастерство</SelectItem>
-                          <SelectItem value="oratory">Ораторское искусство</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div>
-                      <Label htmlFor="module-title">Название</Label>
-                      <Input
-                        id="module-title"
-                        value={newModule.title}
-                        onChange={(e) => setNewModule({ ...newModule, title: e.target.value })}
-                        placeholder="Введите название модуля"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="module-description">Описание</Label>
-                      <Input
-                        id="module-description"
-                        value={newModule.description}
-                        onChange={(e) => setNewModule({ ...newModule, description: e.target.value })}
-                        placeholder="Описание модуля"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="module-topics">Темы (через запятую)</Label>
-                      <Textarea
-                        id="module-topics"
-                        value={newModule.result}
-                        onChange={(e) => setNewModule({ ...newModule, result: e.target.value })}
-                        placeholder="Тема 1, Тема 2, Тема 3"
-                        rows={3}
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="module-image">URL изображения</Label>
-                      <Input
-                        id="module-image"
-                        value={newModule.image_url}
-                        onChange={(e) => setNewModule({ ...newModule, image_url: e.target.value })}
-                        placeholder="https://..."
-                      />
-                    </div>
-                    <Button onClick={handleCreateModule} className="w-full">
-                      <Icon name="Plus" size={18} className="mr-2" />
-                      Создать модуль
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Список модулей</CardTitle>
-                  <CardDescription>Все модули курса</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4 max-h-[600px] overflow-y-auto">
-                    {modules.length === 0 ? (
-                      <div className="text-center py-12 text-muted-foreground">
-                        <Icon name="BookOpen" size={48} className="mx-auto mb-4 opacity-50" />
-                        <p>Модулей пока нет</p>
-                      </div>
-                    ) : (
-                      modules.map((module) => (
-                        <div
-                          key={module.id}
-                          className="p-4 border border-border rounded-lg space-y-2"
-                        >
-                          {editingModule?.id === module.id ? (
-                            <div className="space-y-3">
-                              <Select
-                                value={editingModule.course_type}
-                                onValueChange={(value) => setEditingModule({ ...editingModule, course_type: value })}
-                              >
-                                <SelectTrigger>
-                                  <SelectValue />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectItem value="acting">Актерское мастерство</SelectItem>
-                                  <SelectItem value="oratory">Ораторское искусство</SelectItem>
-                                </SelectContent>
-                              </Select>
-                              <Input
-                                value={editingModule.title}
-                                onChange={(e) => setEditingModule({ ...editingModule, title: e.target.value })}
-                                placeholder="Название"
-                              />
-                              <Input
-                                value={editingModule.description}
-                                onChange={(e) => setEditingModule({ ...editingModule, description: e.target.value })}
-                                placeholder="Описание"
-                              />
-                              <Textarea
-                                value={editingModule.result}
-                                onChange={(e) => setEditingModule({ ...editingModule, result: e.target.value })}
-                                placeholder="Темы"
-                                rows={3}
-                              />
-                              <Input
-                                value={editingModule.image_url || ''}
-                                onChange={(e) => setEditingModule({ ...editingModule, image_url: e.target.value })}
-                                placeholder="URL изображения"
-                              />
-                              <div className="flex gap-2">
-                                <Button onClick={handleUpdateModule} className="flex-1">
-                                  <Icon name="Save" size={18} className="mr-2" />
-                                  Сохранить
-                                </Button>
-                                <Button onClick={() => setEditingModule(null)} variant="outline" className="flex-1">
-                                  Отмена
-                                </Button>
-                              </div>
-                            </div>
-                          ) : (
-                            <>
-                              <div className="flex items-start justify-between">
-                                <div className="flex-1">
-                                  <div className="font-semibold text-lg">{module.title}</div>
-                                  <div className="text-sm text-muted-foreground mb-2">
-                                    {module.course_type === 'acting' ? 'Актерское мастерство' : 'Ораторское искусство'}
-                                  </div>
-                                  <div className="text-sm mb-2">{module.description}</div>
-                                  <div className="text-sm text-muted-foreground">
-                                    Темы: {module.result}
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="flex gap-2 pt-2">
-                                <Button
-                                  onClick={() => setEditingModule(module)}
-                                  variant="outline"
-                                  size="sm"
-                                  className="flex-1"
-                                >
-                                  <Icon name="Edit" size={16} className="mr-2" />
-                                  Редактировать
-                                </Button>
-                                <Button
-                                  onClick={() => handleDeleteModule(module.id)}
-                                  variant="outline"
-                                  size="sm"
-                                  className="flex-1"
-                                >
-                                  <Icon name="Trash2" size={16} className="mr-2" />
-                                  Удалить
-                                </Button>
-                              </div>
-                            </>
-                          )}
-                        </div>
-                      ))
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+            <ModulesManager
+              modules={modules}
+              newModule={newModule}
+              editingModule={editingModule}
+              onNewModuleChange={(field, value) => setNewModule({ ...newModule, [field]: value })}
+              onEditingModuleChange={(field, value) => editingModule && setEditingModule({ ...editingModule, [field]: value })}
+              onCreate={handleCreateModule}
+              onUpdate={handleUpdateModule}
+              onDelete={handleDeleteModule}
+              onStartEditing={setEditingModule}
+              onCancelEditing={() => setEditingModule(null)}
+            />
           </TabsContent>
 
           <TabsContent value="faq">
-            <div className="grid md:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Создать FAQ</CardTitle>
-                  <CardDescription>Добавьте новый вопрос и ответ</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div>
-                      <Label htmlFor="faq-question">Вопрос</Label>
-                      <Input
-                        id="faq-question"
-                        value={newFAQ.question}
-                        onChange={(e) => setNewFAQ({ ...newFAQ, question: e.target.value })}
-                        placeholder="Введите вопрос"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="faq-answer">Ответ</Label>
-                      <Textarea
-                        id="faq-answer"
-                        value={newFAQ.answer}
-                        onChange={(e) => setNewFAQ({ ...newFAQ, answer: e.target.value })}
-                        placeholder="Введите ответ"
-                        rows={5}
-                      />
-                    </div>
-                    <Button onClick={handleCreateFAQ} className="w-full">
-                      <Icon name="Plus" size={18} className="mr-2" />
-                      Создать FAQ
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+            <FAQManager
+              faqs={faqs}
+              newFAQ={newFAQ}
+              editingFAQ={editingFAQ}
+              onNewFAQChange={(field, value) => setNewFAQ({ ...newFAQ, [field]: value })}
+              onEditingFAQChange={(field, value) => editingFAQ && setEditingFAQ({ ...editingFAQ, [field]: value })}
+              onCreate={handleCreateFAQ}
+              onUpdate={handleUpdateFAQ}
+              onDelete={handleDeleteFAQ}
+              onStartEditing={setEditingFAQ}
+              onCancelEditing={() => setEditingFAQ(null)}
+            />
+          </TabsContent>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle>Список FAQ</CardTitle>
-                  <CardDescription>Все вопросы и ответы</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4 max-h-[600px] overflow-y-auto">
-                    {faqs.length === 0 ? (
-                      <div className="text-center py-12 text-muted-foreground">
-                        <Icon name="HelpCircle" size={48} className="mx-auto mb-4 opacity-50" />
-                        <p>FAQ пока нет</p>
-                      </div>
-                    ) : (
-                      faqs.map((faq) => (
-                        <div
-                          key={faq.id}
-                          className="p-4 border border-border rounded-lg space-y-2"
-                        >
-                          {editingFAQ?.id === faq.id ? (
-                            <div className="space-y-3">
-                              <Input
-                                value={editingFAQ.question}
-                                onChange={(e) => setEditingFAQ({ ...editingFAQ, question: e.target.value })}
-                                placeholder="Вопрос"
-                              />
-                              <Textarea
-                                value={editingFAQ.answer}
-                                onChange={(e) => setEditingFAQ({ ...editingFAQ, answer: e.target.value })}
-                                placeholder="Ответ"
-                                rows={5}
-                              />
-                              <div className="flex gap-2">
-                                <Button onClick={handleUpdateFAQ} className="flex-1">
-                                  <Icon name="Save" size={18} className="mr-2" />
-                                  Сохранить
-                                </Button>
-                                <Button onClick={() => setEditingFAQ(null)} variant="outline" className="flex-1">
-                                  Отмена
-                                </Button>
-                              </div>
-                            </div>
-                          ) : (
-                            <>
-                              <div className="font-semibold text-lg">{faq.question}</div>
-                              <div className="text-sm text-muted-foreground">{faq.answer}</div>
-                              <div className="flex gap-2 pt-2">
-                                <Button
-                                  onClick={() => setEditingFAQ(faq)}
-                                  variant="outline"
-                                  size="sm"
-                                  className="flex-1"
-                                >
-                                  <Icon name="Edit" size={16} className="mr-2" />
-                                  Редактировать
-                                </Button>
-                                <Button
-                                  onClick={() => handleDeleteFAQ(faq.id)}
-                                  variant="outline"
-                                  size="sm"
-                                  className="flex-1"
-                                >
-                                  <Icon name="Trash2" size={16} className="mr-2" />
-                                  Удалить
-                                </Button>
-                              </div>
-                            </>
-                          )}
-                        </div>
-                      ))
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+          <TabsContent value="gallery">
+            <GalleryManager
+              gallery={gallery}
+              newGalleryImage={newGalleryImage}
+              editingGalleryImage={editingGalleryImage}
+              onNewImageChange={(field, value) => setNewGalleryImage({ ...newGalleryImage, [field]: value })}
+              onEditingImageChange={(field, value) => editingGalleryImage && setEditingGalleryImage({ ...editingGalleryImage, [field]: value })}
+              onCreate={handleCreateGalleryImage}
+              onUpdate={handleUpdateGalleryImage}
+              onDelete={handleDeleteGalleryImage}
+              onStartEditing={setEditingGalleryImage}
+              onCancelEditing={() => setEditingGalleryImage(null)}
+            />
+          </TabsContent>
+
+          <TabsContent value="reviews">
+            <ReviewsManager
+              reviews={reviews}
+              newReview={newReview}
+              editingReview={editingReview}
+              onNewReviewChange={(field, value) => setNewReview({ ...newReview, [field]: value })}
+              onEditingReviewChange={(field, value) => editingReview && setEditingReview({ ...editingReview, [field]: value })}
+              onCreate={handleCreateReview}
+              onUpdate={handleUpdateReview}
+              onDelete={handleDeleteReview}
+              onStartEditing={setEditingReview}
+              onCancelEditing={() => setEditingReview(null)}
+            />
+          </TabsContent>
+
+          <TabsContent value="blog">
+            <BlogManager
+              blog={blog}
+              newBlogPost={newBlogPost}
+              editingBlogPost={editingBlogPost}
+              onNewPostChange={(field, value) => setNewBlogPost({ ...newBlogPost, [field]: value })}
+              onEditingPostChange={(field, value) => editingBlogPost && setEditingBlogPost({ ...editingBlogPost, [field]: value })}
+              onCreate={handleCreateBlogPost}
+              onUpdate={handleUpdateBlogPost}
+              onDelete={handleDeleteBlogPost}
+              onStartEditing={setEditingBlogPost}
+              onCancelEditing={() => setEditingBlogPost(null)}
+            />
           </TabsContent>
         </Tabs>
-      </div>
-      
-      <Footer />
+      </main>
     </div>
   );
 }
