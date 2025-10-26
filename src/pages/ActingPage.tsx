@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -10,6 +12,7 @@ import { api, CourseModule, Review, FAQ, GalleryImage, BlogPost, SiteContent } f
 import { formatDate } from '@/lib/dates';
 
 export default function ActingPage() {
+  const navigate = useNavigate();
   const [modules, setModules] = useState<CourseModule[]>([]);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [faq, setFAQ] = useState<FAQ[]>([]);
@@ -113,10 +116,10 @@ export default function ActingPage() {
         <div className="container mx-auto">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-3 md:mb-4">Для кого этот курс?</h2>
           <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-            Курс подходит для всех, кто хочет развить актерские навыки и уверенность в себе
+            Курс подходит для всех, кто хочет развить актерские навыки, уверенность в себе и раскрыть свой творческий потенциал
           </p>
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
-            <Card>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            <Card className="hover:shadow-lg transition">
               <CardHeader>
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                   <Icon name="Users" className="text-primary" size={24} />
@@ -129,7 +132,7 @@ export default function ActingPage() {
                 </CardDescription>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="hover:shadow-lg transition">
               <CardHeader>
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                   <Icon name="Camera" className="text-primary" size={24} />
@@ -142,27 +145,56 @@ export default function ActingPage() {
                 </CardDescription>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="hover:shadow-lg transition">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  <Icon name="Star" className="text-primary" size={24} />
+                </div>
+                <CardTitle>Стать актером</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription>
+                  Мечтаете сниматься в кино и на ТВ? Начните свой путь к профессии актера с нашего курса
+                </CardDescription>
+              </CardContent>
+            </Card>
+            <Card className="hover:shadow-lg transition">
               <CardHeader>
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                   <Icon name="Sparkles" className="text-primary" size={24} />
                 </div>
-                <CardTitle>Обрести уверенность</CardTitle>
+                <CardTitle>Раскрыть потенциал</CardTitle>
               </CardHeader>
               <CardContent>
                 <CardDescription>
-                  Поверьте в свои силы и раскройте внутренний потенциал
+                  Откройте в себе творческие способности и научитесь выражать эмоции через актерскую игру
                 </CardDescription>
               </CardContent>
             </Card>
           </div>
-          <div className="max-w-md mx-auto">
-            <LeadForm 
-              source="for_whom_acting"
-              title="Оставьте заявку"
-              description="Запишитесь на курс прямо сейчас"
-              buttonText="Записаться на курс"
-            />
+        </div>
+      </section>
+
+      <section className="py-12 px-4 md:py-20 md:px-4 bg-gradient-to-br from-primary/5 to-background">
+        <div className="container mx-auto max-w-4xl">
+          <div className="bg-card rounded-2xl md:rounded-3xl p-8 md:p-12 shadow-xl border border-primary/10">
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
+                <Icon name="Phone" className="text-primary" size={32} />
+              </div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3">Готовы начать?</h2>
+              <p className="text-muted-foreground text-sm md:text-base max-w-xl mx-auto">
+                Оставьте заявку, и мы расскажем подробнее о курсе и пригласим на бесплатное пробное занятие
+              </p>
+            </div>
+            <div className="max-w-md mx-auto">
+              <LeadForm 
+                source="for_whom_acting"
+                title="Записаться на курс"
+                description="Укажите ваше имя и номер телефона"
+                buttonText="Отправить заявку"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -335,25 +367,48 @@ export default function ActingPage() {
         <div className="container mx-auto">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12">Блог</h2>
           {blog.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {blog.map((post) => (
-                <Card key={post.id} className="group hover:shadow-xl transition">
-                  {post.image_url && (
-                    <div className="aspect-video overflow-hidden">
-                      <img
-                        src={post.image_url}
-                        alt={post.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition"
-                      />
-                    </div>
-                  )}
-                  <CardHeader>
-                    <CardTitle>{post.title}</CardTitle>
-                    <CardDescription>{post.excerpt}</CardDescription>
-                  </CardHeader>
-                </Card>
-              ))}
-            </div>
+            <>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                {blog.slice(0, 3).map((post) => (
+                  <Card 
+                    key={post.id} 
+                    className="group hover:shadow-xl transition cursor-pointer"
+                    onClick={() => navigate(`/blog/${post.slug}`)}
+                  >
+                    {post.image_url && (
+                      <div className="aspect-video overflow-hidden">
+                        <img
+                          src={post.image_url}
+                          alt={post.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition"
+                        />
+                      </div>
+                    )}
+                    <CardHeader>
+                      <CardTitle className="group-hover:text-primary transition">{post.title}</CardTitle>
+                      <CardDescription>{post.excerpt}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <Button variant="ghost" className="w-full group-hover:bg-primary/10 transition">
+                        Читать статью
+                        <Icon name="ArrowRight" size={16} className="ml-2" />
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+              <div className="text-center">
+                <Button 
+                  onClick={() => navigate('/blog')} 
+                  size="lg"
+                  variant="outline"
+                  className="group"
+                >
+                  Больше статей
+                  <Icon name="BookOpen" size={20} className="ml-2 group-hover:translate-x-1 transition" />
+                </Button>
+              </div>
+            </>
           ) : (
             <div className="text-center text-muted-foreground py-12">
               <Icon name="BookOpen" size={64} className="mx-auto mb-4 opacity-30" />
