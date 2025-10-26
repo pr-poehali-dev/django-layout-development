@@ -1,4 +1,5 @@
 {
+  "get-chat-id": "https://functions.poehali.dev/bad8fc35-1ffb-4728-8242-25eac20c45a4",
   "telegram-webhook-setup": "https://functions.poehali.dev/2911b2a8-e17f-47c9-a5d7-f9b7aec1d2aa",
   "telegram-bot": "https://functions.poehali.dev/ee18a8c5-48c7-4ecd-bf90-d69fbfc2d751",
   "gallery": "https://functions.poehali.dev/42a4a1c9-5ce7-4d3d-8760-f3ef702ed550",
