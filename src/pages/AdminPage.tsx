@@ -1,11 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Label } from '@/components/ui/label';
-import Icon from '@/components/ui/icon';
 import { api, Lead, SiteContent, CourseModule, FAQ, Review, GalleryImage, BlogPost } from '@/lib/api';
+import LoginForm from '@/components/admin/LoginForm';
+import AdminHeader from '@/components/admin/AdminHeader';
 import ContentManager from '@/components/admin/ContentManager';
 import GalleryManager from '@/components/admin/GalleryManager';
 import ReviewsManager from '@/components/admin/ReviewsManager';
@@ -17,8 +14,6 @@ import FAQManager from '@/components/admin/FAQManager';
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [token, setToken] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [leads, setLeads] = useState<Lead[]>([]);
   const [content, setContent] = useState<SiteContent[]>([]);
@@ -101,10 +96,8 @@ export default function AdminPage() {
     }
   };
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleLogin = async (username: string, password: string) => {
     setLoading(true);
-
     try {
       const response = await api.auth.login(username, password);
       if (response.success) {
@@ -249,187 +242,18 @@ export default function AdminPage() {
     }
   };
 
-  const handleCreateGalleryImage = async () => {
-    if (!newGalleryImage.image_url || !newGalleryImage.title) {
-      alert('Заполните обязательные поля');
-      return;
-    }
-    try {
-      await api.gallery.createImage(newGalleryImage, token);
-      await loadData(token);
-      setNewGalleryImage({ image_url: '', title: '', description: '' });
-      alert('Изображение добавлено');
-    } catch (error) {
-      alert('Ошибка добавления изображения');
-    }
-  };
-
-  const handleUpdateGalleryImage = async () => {
-    if (!editingGalleryImage) return;
-    try {
-      await api.gallery.updateImage(editingGalleryImage, token);
-      await loadData(token);
-      setEditingGalleryImage(null);
-      alert('Изображение обновлено');
-    } catch (error) {
-      alert('Ошибка обновления изображения');
-    }
-  };
-
-  const handleDeleteGalleryImage = async (id: number) => {
-    if (!confirm('Удалить изображение?')) return;
-    try {
-      await api.gallery.deleteImage(id, token);
-      await loadData(token);
-      alert('Изображение удалено');
-    } catch (error) {
-      alert('Ошибка удаления изображения');
-    }
-  };
-
-  const handleCreateReview = async () => {
-    if (!newReview.author_name || !newReview.text) {
-      alert('Заполните обязательные поля');
-      return;
-    }
-    try {
-      await api.gallery.createReview(newReview, token);
-      await loadData(token);
-      setNewReview({ author_name: '', author_role: '', text: '', rating: 5 });
-      alert('Отзыв добавлен');
-    } catch (error) {
-      alert('Ошибка добавления отзыва');
-    }
-  };
-
-  const handleUpdateReview = async () => {
-    if (!editingReview) return;
-    try {
-      await api.gallery.updateReview(editingReview, token);
-      await loadData(token);
-      setEditingReview(null);
-      alert('Отзыв обновлен');
-    } catch (error) {
-      alert('Ошибка обновления отзыва');
-    }
-  };
-
-  const handleDeleteReview = async (id: number) => {
-    if (!confirm('Удалить отзыв?')) return;
-    try {
-      await api.gallery.deleteReview(id, token);
-      await loadData(token);
-      alert('Отзыв удален');
-    } catch (error) {
-      alert('Ошибка удаления отзыва');
-    }
-  };
-
-  const handleCreateBlogPost = async () => {
-    if (!newBlogPost.title || !newBlogPost.content) {
-      alert('Заполните обязательные поля');
-      return;
-    }
-    try {
-      await api.gallery.createBlog(newBlogPost, token);
-      await loadData(token);
-      setNewBlogPost({ title: '', excerpt: '', content: '', image_url: '', author: '' });
-      alert('Статья добавлена');
-    } catch (error) {
-      alert('Ошибка добавления статьи');
-    }
-  };
-
-  const handleUpdateBlogPost = async () => {
-    if (!editingBlogPost) return;
-    try {
-      await api.gallery.updateBlog(editingBlogPost, token);
-      await loadData(token);
-      setEditingBlogPost(null);
-      alert('Статья обновлена');
-    } catch (error) {
-      alert('Ошибка обновления статьи');
-    }
-  };
-
-  const handleDeleteBlogPost = async (id: number) => {
-    if (!confirm('Удалить статью?')) return;
-    try {
-      await api.gallery.deleteBlog(id, token);
-      await loadData(token);
-      alert('Статья удалена');
-    } catch (error) {
-      alert('Ошибка удаления статьи');
-    }
-  };
-
   if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-4">
-        <Card className="w-full max-w-md">
-          <CardHeader className="text-center">
-            <Icon name="Lock" size={48} className="mx-auto mb-4 text-primary" />
-            <CardTitle className="text-2xl">Вход в админку</CardTitle>
-            <CardDescription>Введите учетные данные для доступа</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleLogin} className="space-y-4">
-              <div>
-                <Label htmlFor="username">Логин</Label>
-                <Input
-                  id="username"
-                  type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  placeholder="admin"
-                  required
-                />
-              </div>
-              <div>
-                <Label htmlFor="password">Пароль</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  required
-                />
-              </div>
-              <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? 'Вход...' : 'Войти'}
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-      </div>
-    );
+    return <LoginForm onLogin={handleLogin} loading={loading} />;
   }
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b border-border bg-card">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Icon name="Shield" className="text-primary" size={24} />
-            <div className="text-xl font-bold">Админка</div>
-          </div>
-          <div className="flex items-center gap-4">
-            <Button variant="outline" asChild>
-              <a href="/">Вернуться на сайт</a>
-            </Button>
-            <Button variant="ghost" onClick={handleLogout}>
-              <Icon name="LogOut" size={18} className="mr-2" />
-              Выйти
-            </Button>
-          </div>
-        </div>
-      </header>
-
-      <main className="container mx-auto px-4 py-8">
-        <Tabs defaultValue="leads" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-7 lg:w-auto lg:inline-grid">
-            <TabsTrigger value="leads">Лиды</TabsTrigger>
+      <AdminHeader onLogout={handleLogout} />
+      
+      <div className="container mx-auto px-4 py-8">
+        <Tabs defaultValue="leads" className="space-y-4">
+          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-7">
+            <TabsTrigger value="leads">Заявки</TabsTrigger>
             <TabsTrigger value="content">Контент</TabsTrigger>
             <TabsTrigger value="modules">Модули</TabsTrigger>
             <TabsTrigger value="faq">FAQ</TabsTrigger>
@@ -440,8 +264,8 @@ export default function AdminPage() {
 
           <TabsContent value="leads">
             <LeadsManager 
-              leads={leads}
-              onUpdateStatus={handleUpdateLeadStatus}
+              leads={leads} 
+              onUpdateStatus={handleUpdateLeadStatus} 
             />
           </TabsContent>
 
@@ -451,9 +275,12 @@ export default function AdminPage() {
               editingKey={editingKey}
               editingValue={editingValue}
               onStartEditing={startEditingContent}
-              onEditingKeyChange={setEditingKey}
-              onEditingValueChange={setEditingValue}
+              onValueChange={setEditingValue}
               onUpdate={handleUpdateContent}
+              onCancel={() => {
+                setEditingKey('');
+                setEditingValue('');
+              }}
             />
           </TabsContent>
 
@@ -462,8 +289,8 @@ export default function AdminPage() {
               modules={modules}
               newModule={newModule}
               editingModule={editingModule}
-              onNewModuleChange={(field, value) => setNewModule({ ...newModule, [field]: value })}
-              onEditingModuleChange={(field, value) => editingModule && setEditingModule({ ...editingModule, [field]: value })}
+              onNewModuleChange={setNewModule}
+              onEditingModuleChange={setEditingModule}
               onCreate={handleCreateModule}
               onUpdate={handleUpdateModule}
               onDelete={handleDeleteModule}
@@ -477,8 +304,8 @@ export default function AdminPage() {
               faqs={faqs}
               newFAQ={newFAQ}
               editingFAQ={editingFAQ}
-              onNewFAQChange={(field, value) => setNewFAQ({ ...newFAQ, [field]: value })}
-              onEditingFAQChange={(field, value) => editingFAQ && setEditingFAQ({ ...editingFAQ, [field]: value })}
+              onNewFAQChange={setNewFAQ}
+              onEditingFAQChange={setEditingFAQ}
               onCreate={handleCreateFAQ}
               onUpdate={handleUpdateFAQ}
               onDelete={handleDeleteFAQ}
@@ -488,51 +315,18 @@ export default function AdminPage() {
           </TabsContent>
 
           <TabsContent value="gallery">
-            <GalleryManager
-              gallery={gallery}
-              newGalleryImage={newGalleryImage}
-              editingGalleryImage={editingGalleryImage}
-              onNewImageChange={(field, value) => setNewGalleryImage({ ...newGalleryImage, [field]: value })}
-              onEditingImageChange={(field, value) => editingGalleryImage && setEditingGalleryImage({ ...editingGalleryImage, [field]: value })}
-              onCreate={handleCreateGalleryImage}
-              onUpdate={handleUpdateGalleryImage}
-              onDelete={handleDeleteGalleryImage}
-              onStartEditing={setEditingGalleryImage}
-              onCancelEditing={() => setEditingGalleryImage(null)}
-            />
+            <GalleryManager gallery={gallery} token={token} onReload={() => loadData(token)} />
           </TabsContent>
 
           <TabsContent value="reviews">
-            <ReviewsManager
-              reviews={reviews}
-              newReview={newReview}
-              editingReview={editingReview}
-              onNewReviewChange={(field, value) => setNewReview({ ...newReview, [field]: value })}
-              onEditingReviewChange={(field, value) => editingReview && setEditingReview({ ...editingReview, [field]: value })}
-              onCreate={handleCreateReview}
-              onUpdate={handleUpdateReview}
-              onDelete={handleDeleteReview}
-              onStartEditing={setEditingReview}
-              onCancelEditing={() => setEditingReview(null)}
-            />
+            <ReviewsManager reviews={reviews} token={token} onReload={() => loadData(token)} />
           </TabsContent>
 
           <TabsContent value="blog">
-            <BlogManager
-              blog={blog}
-              newBlogPost={newBlogPost}
-              editingBlogPost={editingBlogPost}
-              onNewPostChange={(field, value) => setNewBlogPost({ ...newBlogPost, [field]: value })}
-              onEditingPostChange={(field, value) => editingBlogPost && setEditingBlogPost({ ...editingBlogPost, [field]: value })}
-              onCreate={handleCreateBlogPost}
-              onUpdate={handleUpdateBlogPost}
-              onDelete={handleDeleteBlogPost}
-              onStartEditing={setEditingBlogPost}
-              onCancelEditing={() => setEditingBlogPost(null)}
-            />
+            <BlogManager blog={blog} token={token} onReload={() => loadData(token)} />
           </TabsContent>
         </Tabs>
-      </main>
+      </div>
     </div>
   );
 }
