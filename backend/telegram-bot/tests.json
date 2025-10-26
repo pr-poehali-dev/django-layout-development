@@ -1,0 +1,18 @@
+{
+  "tests": [
+    {
+      "name": "GET request returns OK",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200,
+      "expectedBody": "Telegram Bot Webhook OK",
+      "bodyMatcher": "exact"
+    },
+    {
+      "name": "OPTIONS request for CORS",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    }
+  ]
+}
