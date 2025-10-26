@@ -1,24 +1,41 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import Icon from '@/components/ui/icon';
 import PhoneForm from './PhoneForm';
 import { useLocation } from 'react-router-dom';
+import { api } from '@/lib/api';
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [phone, setPhone] = useState('+7 (999) 123-45-67');
   const location = useLocation();
+
+  useEffect(() => {
+    api.content.getAll().then((data) => {
+      const phoneContent = data.find((item) => item.key === 'phone');
+      if (phoneContent) setPhone(phoneContent.value);
+    }).catch(() => {});
+  }, []);
 
   const menuItems = [
     { href: '/', label: 'Актерское мастерство' },
-    { href: '/oratory', label: 'Ораторское искусство' }
+    { href: '/oratory', label: 'Ораторское искусство' },
+    { href: '/team', label: 'Команда' },
+    { href: '/reviews', label: 'Отзывы' },
+    { href: '/blog', label: 'Блог' },
+    { href: '/contacts', label: 'Контакты' }
   ];
 
   return (
     <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <a href="/" className="text-xl md:text-2xl font-bold text-primary hover:opacity-80 transition">
-          Школа Казбека Меретукова
+        <a href="/" className="flex items-center hover:opacity-80 transition">
+          <img 
+            src="https://i.1.creatium.io/disk2/c6/65/76/a52e2f86d1891f143cdb23e60a4460b61f/184x67/w_logo_text.svg" 
+            alt="Школа Казбека Меретукова" 
+            className="h-10 md:h-12"
+          />
         </a>
 
         <nav className="hidden md:flex items-center gap-6">
@@ -36,6 +53,13 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
+          <a 
+            href={`tel:${phone.replace(/\D/g, '')}`} 
+            className="hidden lg:flex items-center gap-2 text-sm font-medium hover:text-primary transition"
+          >
+            <Icon name="Phone" size={18} />
+            {phone}
+          </a>
           <PhoneForm 
             source="header" 
             triggerText="Записаться"

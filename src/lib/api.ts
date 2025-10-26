@@ -58,12 +58,22 @@ export interface GalleryImage {
 export interface BlogPost {
   id: number;
   title: string;
-  slug: string;
+  slug?: string;
   content: string;
   excerpt?: string;
-  image_url?: string;
-  published: boolean;
+  cover_image_url?: string;
+  author?: string;
+  published_at?: string;
   created_at: string;
+}
+
+export interface TeamMember {
+  id: number;
+  name: string;
+  role: string;
+  bio?: string;
+  photo_url?: string;
+  sort_order: number;
 }
 
 export const api = {
@@ -180,6 +190,10 @@ export const api = {
     },
     getBlog: async (): Promise<BlogPost[]> => {
       const response = await fetch(`${API_URLS.gallery}?resource=blog`);
+      return response.json();
+    },
+    getTeam: async (): Promise<TeamMember[]> => {
+      const response = await fetch(`${API_URLS.gallery}?resource=team`);
       return response.json();
     }
   }

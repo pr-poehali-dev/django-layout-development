@@ -7,6 +7,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ActingPage from "./pages/ActingPage";
 import OratoryPage from "./pages/OratoryPage";
 import AdminPage from "./pages/AdminPage";
+import BlogPage from "./pages/BlogPage";
+import ReviewsPage from "./pages/ReviewsPage";
+import TeamPage from "./pages/TeamPage";
+import ContactsPage from "./pages/ContactsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -20,6 +24,10 @@ const App = () => (
         <Routes>
           <Route path="/" element={<ActingPage />} />
           <Route path="/oratory" element={<OratoryPage />} />
+          <Route path="/team" element={<TeamPage />} />
+          <Route path="/reviews" element={<ReviewsPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/contacts" element={<ContactsPage />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

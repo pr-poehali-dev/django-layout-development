@@ -6,6 +6,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PhoneForm from '@/components/PhoneForm';
 import { api, CourseModule, Review, FAQ, GalleryImage, BlogPost, SiteContent } from '@/lib/api';
+import { formatDate } from '@/lib/dates';
 
 export default function ActingPage() {
   const [modules, setModules] = useState<CourseModule[]>([]);
@@ -52,7 +53,7 @@ export default function ActingPage() {
     <div className="min-h-screen bg-background text-foreground">
       <Header />
 
-      <section className="pt-32 pb-20 px-4 relative overflow-hidden min-h-[90vh] flex items-center">
+      <section className="pt-32 pb-20 px-6 md:px-4 relative overflow-hidden min-h-[90vh] flex items-center">
         <div className="absolute inset-0">
           <img
             src="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/0c090e0f-2880-4f27-8c3e-d4c43afc5fda.jpg"
@@ -75,11 +76,11 @@ export default function ActingPage() {
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
               <div className="flex items-center gap-2 bg-card/80 backdrop-blur-sm px-4 py-2 rounded-lg">
                 <Icon name="Calendar" className="text-primary" size={20} />
-                <span>Пробное: {content.trial_date || '15 ноября'}</span>
+                <span>Пробное: {content.trial_date ? formatDate(content.trial_date) : '25 марта 2025'}</span>
               </div>
               <div className="flex items-center gap-2 bg-card/80 backdrop-blur-sm px-4 py-2 rounded-lg">
                 <Icon name="PlayCircle" className="text-primary" size={20} />
-                <span>Старт: {content.course_start_date || '1 декабря'}</span>
+                <span>Старт: {content.course_start_date ? formatDate(content.course_start_date) : '1 апреля 2025'}</span>
               </div>
             </div>
             <PhoneForm 
@@ -93,7 +94,7 @@ export default function ActingPage() {
         </div>
       </section>
 
-      <section className="py-16 px-4 bg-card">
+      <section className="py-16 px-6 md:px-4 bg-card">
         <div className="container mx-auto">
           <div className="aspect-video max-w-4xl mx-auto rounded-xl overflow-hidden shadow-2xl">
             <iframe
@@ -106,7 +107,7 @@ export default function ActingPage() {
         </div>
       </section>
 
-      <section className="py-20 px-4">
+      <section className="py-20 px-6 md:px-4">
         <div className="container mx-auto">
           <h2 className="text-4xl font-bold text-center mb-4">Для кого этот курс?</h2>
           <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
@@ -165,7 +166,7 @@ export default function ActingPage() {
         </div>
       </section>
 
-      <section id="modules" className="py-20 px-4 bg-card">
+      <section id="modules" className="py-20 px-6 md:px-4 bg-card">
         <div className="container mx-auto">
           <h2 className="text-4xl font-bold text-center mb-4">Программа курса</h2>
           <p className="text-center text-muted-foreground mb-12">6 модулей от базы до съемок собственного кино</p>
@@ -197,7 +198,7 @@ export default function ActingPage() {
         </div>
       </section>
 
-      <section className="py-20 px-4">
+      <section className="py-20 px-6 md:px-4">
         <div className="container mx-auto">
           <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-3xl p-12 text-center">
             <Icon name="Film" size={64} className="mx-auto mb-6 text-primary" />
@@ -228,7 +229,7 @@ export default function ActingPage() {
         </div>
       </section>
 
-      <section id="about" className="py-20 px-4 bg-card">
+      <section id="about" className="py-20 px-6 md:px-4 bg-card">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
             <div className="relative h-[500px] rounded-2xl overflow-hidden">
@@ -262,7 +263,7 @@ export default function ActingPage() {
         </div>
       </section>
 
-      <section id="contact" className="py-20 px-4">
+      <section id="contact" className="py-20 px-6 md:px-4">
         <div className="container mx-auto">
           <div className="bg-card p-12 rounded-3xl max-w-2xl mx-auto text-center">
             <h2 className="text-4xl font-bold mb-4">Запишитесь на курс</h2>
@@ -279,7 +280,7 @@ export default function ActingPage() {
         </div>
       </section>
 
-      <section className="py-20 px-4 bg-card">
+      <section className="py-20 px-6 md:px-4 bg-card">
         <div className="container mx-auto">
           <h2 className="text-4xl font-bold text-center mb-12">Галерея</h2>
           {gallery.length > 0 ? (
@@ -303,7 +304,7 @@ export default function ActingPage() {
         </div>
       </section>
 
-      <section id="reviews" className="py-20 px-4">
+      <section id="reviews" className="py-20 px-6 md:px-4">
         <div className="container mx-auto">
           <h2 className="text-4xl font-bold text-center mb-12">Отзывы наших учеников</h2>
           {reviews.length > 0 ? (
@@ -340,7 +341,7 @@ export default function ActingPage() {
         </div>
       </section>
 
-      <section id="blog" className="py-20 px-4 bg-card">
+      <section id="blog" className="py-20 px-6 md:px-4 bg-card">
         <div className="container mx-auto">
           <h2 className="text-4xl font-bold text-center mb-12">Блог</h2>
           {blog.length > 0 ? (
@@ -373,7 +374,7 @@ export default function ActingPage() {
       </section>
 
       {faq.length > 0 && (
-        <section className="py-20 px-4">
+        <section className="py-20 px-6 md:px-4">
           <div className="container mx-auto max-w-3xl">
             <h2 className="text-4xl font-bold text-center mb-12">Частые вопросы</h2>
             <Accordion type="single" collapsible className="space-y-4">

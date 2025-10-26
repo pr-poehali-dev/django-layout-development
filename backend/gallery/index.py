@@ -6,7 +6,7 @@ from psycopg2.extras import RealDictCursor
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     '''
-    Business: Manage gallery images, reviews, FAQ, blog
+    Business: Manage gallery images, reviews, FAQ, blog, team
     Args: event with httpMethod, body, queryStringParameters
     Returns: HTTP response with data
     '''
@@ -39,7 +39,9 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             elif resource == 'faq':
                 cur.execute("SELECT * FROM faq ORDER BY order_num")
             elif resource == 'blog':
-                cur.execute("SELECT * FROM blog_posts WHERE published = true ORDER BY created_at DESC")
+                cur.execute("SELECT * FROM blog_posts ORDER BY created_at DESC")
+            elif resource == 'team':
+                cur.execute("SELECT * FROM team_members ORDER BY sort_order")
             
             items = cur.fetchall()
             result = [dict(row) for row in items]

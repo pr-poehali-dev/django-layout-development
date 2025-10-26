@@ -5,6 +5,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PhoneForm from '@/components/PhoneForm';
 import { api, SiteContent, Review, GalleryImage, BlogPost } from '@/lib/api';
+import { formatDate } from '@/lib/dates';
 
 export default function OratoryPage() {
   const [content, setContent] = useState<Record<string, string>>({});
@@ -86,7 +87,7 @@ export default function OratoryPage() {
     <div className="min-h-screen bg-background text-foreground">
       <Header />
 
-      <section className="pt-32 pb-20 px-4 relative overflow-hidden min-h-[90vh] flex items-center">
+      <section className="pt-32 pb-20 px-6 md:px-4 relative overflow-hidden min-h-[90vh] flex items-center">
         <div className="absolute inset-0">
           <img
             src="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/829de8e6-6182-458d-9aa3-3afb8faa0acc.jpg"
@@ -131,7 +132,7 @@ export default function OratoryPage() {
         </div>
       </section>
 
-      <section id="skills" className="py-20 px-4">
+      <section id="skills" className="py-20 px-6 md:px-4">
         <div className="container mx-auto">
           <h2 className="text-4xl font-bold text-center mb-4">Чему вы научитесь</h2>
           <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
@@ -155,7 +156,7 @@ export default function OratoryPage() {
         </div>
       </section>
 
-      <section className="py-20 px-4 bg-card">
+      <section className="py-20 px-6 md:px-4 bg-card">
         <div className="container mx-auto">
           <div className="max-w-5xl mx-auto">
             <h2 className="text-4xl font-bold text-center mb-12">Почему это важно?</h2>
@@ -295,7 +296,7 @@ export default function OratoryPage() {
         </div>
       </section>
 
-      <section className="py-20 px-4 bg-card">
+      <section className="py-20 px-6 md:px-4 bg-card">
         <div className="container mx-auto">
           <h2 className="text-4xl font-bold text-center mb-12">Галерея</h2>
           {gallery.length > 0 ? (
@@ -356,7 +357,7 @@ export default function OratoryPage() {
         </div>
       </section>
 
-      <section className="py-20 px-4 bg-card">
+      <section className="py-20 px-6 md:px-4 bg-card">
         <div className="container mx-auto">
           <h2 className="text-4xl font-bold text-center mb-12">Блог</h2>
           {blog.length > 0 ? (
