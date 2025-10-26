@@ -3,6 +3,10 @@ import os
 from typing import Dict, Any
 import psycopg2
 from psycopg2.extras import RealDictCursor
+import urllib.request
+
+BOT_TOKEN = "8238321643:AAEV7kBinohHb-RSLah7VSBJ2XSsXTQUpW4"
+ADMIN_CHAT_ID = os.environ.get('TELEGRAM_ADMIN_CHAT_ID', '')
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     '''
@@ -63,6 +67,12 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             cur.close()
             conn.close()
             
+            if ADMIN_CHAT_ID:
+                try:
+                    send_telegram_notification(dict(lead))
+                except Exception as e:
+                    print(f"Failed to send telegram notification: {e}")
+            
             return {
                 'statusCode': 201,
                 'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
@@ -118,3 +128,36 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
         'body': json.dumps({'error': 'Method not allowed'})
     }
+
+def send_telegram_notification(lead: dict):
+    '''Отправка уведомления в Telegram о новой заявке'''
+    message = (
+        f"🔔 <b>Новая заявка с сайта!</b>\n\n"
+        f"📞 Телефон: <code>{lead.get('phone')}</code>\n"
+        f"📍 Источник: {lead.get('source')}\n"
+        f"🕐 Время: {lead.get('created_at')}\n"
+        f"🆔 ID: {lead.get('id')}"
+    )
+    
+    if lead.get('name'):
+        message = message.replace('📞', f"👤 Имя: {lead.get('name')}\n📞")
+    if lead.get('email'):
+        message = message.replace('📍', f"📧 Email: {lead.get('email')}\n📍")
+    if lead.get('message'):
+        message += f"\n\n💬 Сообщение:\n{lead.get('message')}"
+    
+    url = f'https://api.telegram.org/bot{BOT_TOKEN}/sendMessage'
+    data = json.dumps({
+        'chat_id': ADMIN_CHAT_ID,
+        'text': message,
+        'parse_mode': 'HTML'
+    }).encode('utf-8')
+    
+    req = urllib.request.Request(
+        url,
+        data=data,
+        headers={'Content-Type': 'application/json'}
+    )
+    
+    with urllib.request.urlopen(req) as response:
+        return json.loads(response.read().decode('utf-8'))
