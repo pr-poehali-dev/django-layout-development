@@ -8,8 +8,9 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PhoneForm from '@/components/PhoneForm';
 import LeadForm from '@/components/LeadForm';
-import { api, CourseModule, Review, FAQ, GalleryImage, BlogPost, SiteContent } from '@/lib/api';
+import { api, CourseModule, Review, FAQ, GalleryImage, BlogPost, SiteContent, TeamMember } from '@/lib/api';
 import { formatDate } from '@/lib/dates';
+import useEmblaCarousel from 'embla-carousel-react';
 
 export default function ActingPage() {
   const navigate = useNavigate();
@@ -18,7 +19,9 @@ export default function ActingPage() {
   const [faq, setFAQ] = useState<FAQ[]>([]);
   const [gallery, setGallery] = useState<GalleryImage[]>([]);
   const [blog, setBlog] = useState<BlogPost[]>([]);
+  const [team, setTeam] = useState<TeamMember[]>([]);
   const [content, setContent] = useState<Record<string, string>>({});
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start' });
 
   useEffect(() => {
     loadData();
@@ -26,12 +29,13 @@ export default function ActingPage() {
 
   const loadData = async () => {
     try {
-      const [modulesData, reviewsData, faqData, galleryData, blogData, contentData] = await Promise.all([
+      const [modulesData, reviewsData, faqData, galleryData, blogData, teamData, contentData] = await Promise.all([
         api.modules.getByCourse('acting'),
         api.gallery.getReviews(),
         api.gallery.getFAQ(),
         api.gallery.getImages(),
         api.gallery.getBlog(),
+        api.gallery.getTeam(),
         api.content.getAll()
       ]);
 
@@ -40,6 +44,7 @@ export default function ActingPage() {
       setFAQ(faqData);
       setGallery(galleryData);
       setBlog(blogData);
+      setTeam(teamData);
 
       const contentMap: Record<string, string> = {};
       contentData.forEach((item: SiteContent) => {
@@ -326,38 +331,118 @@ export default function ActingPage() {
         </div>
       </section>
 
-      <section id="reviews" className="py-12 px-4 md:py-20 md:px-4">
+      <section id="reviews" className="py-12 px-4 md:py-20 md:px-4 bg-gradient-to-b from-background to-card/50">
         <div className="container mx-auto">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12">Отзывы наших учеников</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-3 md:mb-4">Отзывы наших учеников</h2>
+          <p className="text-center text-muted-foreground mb-8 md:mb-12 max-w-2xl mx-auto">
+            Что говорят те, кто уже прошёл наши курсы
+          </p>
           {reviews.length > 0 ? (
-            <div className="grid md:grid-cols-3 gap-8">
-              {reviews.map((review) => (
-                <Card key={review.id}>
-                  <CardHeader>
-                    <div className="flex items-center gap-4 mb-4">
-                      {review.image_url && (
-                        <img src={review.image_url} alt={review.name} className="w-12 h-12 rounded-full object-cover" />
-                      )}
-                      <div>
-                        <CardTitle className="text-lg">{review.name}</CardTitle>
-                        <div className="flex gap-1">
-                          {Array.from({ length: review.rating }).map((_, i) => (
-                            <Icon key={i} name="Star" size={16} className="text-primary fill-primary" />
-                          ))}
+            <div className="overflow-hidden" ref={emblaRef}>
+              <div className="flex gap-4 md:gap-6">
+                {reviews.map((review) => (
+                  <div key={review.id} className="flex-[0_0_100%] md:flex-[0_0_calc(50%-12px)] lg:flex-[0_0_calc(33.333%-16px)] min-w-0">
+                    <Card className="h-full bg-card/80 backdrop-blur-sm border-primary/10 hover:border-primary/30 transition">
+                      <CardHeader>
+                        <div className="flex items-start gap-4 mb-4">
+                          <div className="relative">
+                            {review.image_url ? (
+                              <img src={review.image_url} alt={review.name} className="w-16 h-16 rounded-full object-cover ring-2 ring-primary/20" />
+                            ) : (
+                              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center ring-2 ring-primary/20">
+                                <Icon name="User" className="text-primary" size={28} />
+                              </div>
+                            )}
+                            <div className="absolute -bottom-1 -right-1 bg-primary rounded-full p-1">
+                              <Icon name="Quote" className="text-primary-foreground" size={14} />
+                            </div>
+                          </div>
+                          <div className="flex-1">
+                            <CardTitle className="text-lg mb-1">{review.name}</CardTitle>
+                            <div className="flex gap-0.5">
+                              {Array.from({ length: review.rating }).map((_, i) => (
+                                <Icon key={i} name="Star" size={14} className="text-primary fill-primary" />
+                              ))}
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription>{review.text}</CardDescription>
-                  </CardContent>
-                </Card>
-              ))}
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-muted-foreground text-sm leading-relaxed italic">"{review.text}"</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                ))}
+              </div>
             </div>
           ) : (
             <div className="text-center text-muted-foreground py-12">
               <Icon name="MessageSquare" size={64} className="mx-auto mb-4 opacity-30" />
               <p>Отзывы скоро появятся</p>
+            </div>
+          )}
+          {reviews.length > 0 && (
+            <div className="flex justify-center gap-3 mt-8">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => emblaApi?.scrollPrev()}
+                className="rounded-full"
+              >
+                <Icon name="ChevronLeft" size={20} />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => emblaApi?.scrollNext()}
+                className="rounded-full"
+              >
+                <Icon name="ChevronRight" size={20} />
+              </Button>
+            </div>
+          )}
+        </div>
+      </section>
+
+      <section id="team" className="py-12 px-4 md:py-20 md:px-4 bg-card">
+        <div className="container mx-auto">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-3 md:mb-4">Наша команда</h2>
+          <p className="text-center text-muted-foreground mb-8 md:mb-12 max-w-2xl mx-auto">
+            Профессионалы с многолетним опытом, которые помогут вам раскрыть свой потенциал
+          </p>
+          {team.length > 0 ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              {team.map((member) => (
+                <Card key={member.id} className="group hover:shadow-xl transition overflow-hidden">
+                  <div className="aspect-square overflow-hidden bg-gradient-to-br from-primary/5 to-primary/20">
+                    {member.photo_url ? (
+                      <img
+                        src={member.photo_url}
+                        alt={member.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <Icon name="User" className="text-primary/30" size={80} />
+                      </div>
+                    )}
+                  </div>
+                  <CardHeader>
+                    <CardTitle className="text-xl">{member.name}</CardTitle>
+                    <CardDescription className="text-primary font-semibold">{member.role}</CardDescription>
+                  </CardHeader>
+                  {member.bio && (
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground">{member.bio}</p>
+                    </CardContent>
+                  )}
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center text-muted-foreground py-12">
+              <Icon name="Users" size={64} className="mx-auto mb-4 opacity-30" />
+              <p>Информация о команде скоро появится</p>
             </div>
           )}
         </div>
