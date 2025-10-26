@@ -12,14 +12,14 @@ export default function LeadFormSection() {
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3">Готовы начать?</h2>
             <p className="text-muted-foreground text-sm md:text-base max-w-xl mx-auto">
-              Оставьте заявку, и мы расскажем подробнее о курсе и пригласим на бесплатное пробное занятие
+              Оставьте заявку, и мы расскажем подробнее о курсе и пригласим на пробное занятие
             </p>
           </div>
           <div className="max-w-md mx-auto">
             <LeadForm 
               source="for_whom_oratory"
               title="Записаться на курс"
-              description="Укажите ваше имя и номер телефона"
+              description="Укажите номер телефона"
               buttonText="Отправить заявку"
             />
           </div>

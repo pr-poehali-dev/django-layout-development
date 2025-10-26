@@ -19,7 +19,6 @@ export default function LeadForm({
   description = "Оставьте номер телефона, и мы свяжемся с вами",
   buttonText = "Записаться"
 }: LeadFormProps) {
-  const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -29,9 +28,8 @@ export default function LeadForm({
     setLoading(true);
 
     try {
-      await api.leads.create({ name, phone, source });
+      await api.leads.create({ phone, source });
       setSubmitted(true);
-      setName('');
       setPhone('');
       
       if (typeof window !== 'undefined' && (window as any).ym) {
@@ -65,19 +63,6 @@ export default function LeadForm({
       {description && <p className="text-sm md:text-base text-muted-foreground mb-6">{description}</p>}
       
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <Label htmlFor={`name-${source}`}>Ваше имя</Label>
-          <Input
-            id={`name-${source}`}
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Иван Иванов"
-            required
-            className="mt-1"
-          />
-        </div>
-        
         <div>
           <Label htmlFor={`phone-${source}`}>Номер телефона</Label>
           <InputMask

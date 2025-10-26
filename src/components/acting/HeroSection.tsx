@@ -23,7 +23,7 @@ export default function HeroSection({ content }: HeroSectionProps) {
             Станьте <span className="text-primary">звездой</span> своего кино
           </h1>
           <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground mb-3 md:mb-4">
-            Запишитесь на <span className="text-primary font-semibold">бесплатное пробное занятие</span> по актерскому мастерству
+            Запишитесь на <span className="text-primary font-semibold">пробное занятие</span> по актерскому мастерству
           </p>
           <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-6 md:mb-8">
             Профессиональное обучение от режиссера Казбека Меретукова. Преодолейте страх камеры, обретите уверенность и снимите свое настоящее кино с прослушиванием!
@@ -44,7 +44,7 @@ export default function HeroSection({ content }: HeroSectionProps) {
             triggerText="Записаться на пробный урок"
             triggerSize="lg"
             title="Запись на пробное занятие"
-            description="Оставьте номер телефона, и мы пригласим вас на бесплатное пробное занятие"
+            description="Оставьте номер телефона, и мы пригласим вас на пробное занятие"
           />
         </div>
       </div>

@@ -18,7 +18,7 @@ export default function LeadFormSection() {
               <span className="text-primary font-semibold text-sm">Начните прямо сейчас</span>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">
-              Готовы <span className="text-primary">раскрыть</span> свой талант?
+              Запишитесь на <span className="text-primary">курс</span>
             </h2>
             <p className="text-base md:text-lg text-muted-foreground mb-6">
               Оставьте заявку прямо сейчас и получите:
@@ -29,7 +29,7 @@ export default function LeadFormSection() {
                   <Icon name="CheckCircle2" className="text-primary" size={20} />
                 </div>
                 <div>
-                  <h3 className="font-semibold mb-1">Бесплатное пробное занятие</h3>
+                  <h3 className="font-semibold mb-1">Пробное занятие</h3>
                   <p className="text-sm text-muted-foreground">Познакомьтесь с преподавателем и форматом обучения</p>
                 </div>
               </div>
@@ -57,7 +57,7 @@ export default function LeadFormSection() {
           <div className="bg-card/80 backdrop-blur-sm rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-2xl border border-primary/20">
             <div className="mb-6">
               <h3 className="text-xl font-bold mb-2">Запишитесь на курс</h3>
-              <p className="text-sm text-muted-foreground">Укажите ваше имя и номер телефона</p>
+              <p className="text-sm text-muted-foreground">Укажите номер телефона</p>
             </div>
             <LeadForm 
               source="for_whom_acting"
