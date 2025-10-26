@@ -75,10 +75,10 @@ export default function ReviewsPage() {
                   <Card key={review.id} className="group hover:shadow-xl transition-all duration-300">
                     <CardContent className="pt-4 md:pt-6">
                       <div className="flex items-start gap-3 md:gap-4 mb-4">
-                        {review.photo_url ? (
+                        {review.image_url ? (
                           <img 
-                            src={review.photo_url} 
-                            alt={review.author_name}
+                            src={review.image_url} 
+                            alt={review.name}
                             className="w-16 h-16 rounded-full object-cover"
                           />
                         ) : (
@@ -87,17 +87,14 @@ export default function ReviewsPage() {
                           </div>
                         )}
                         <div className="flex-1">
-                          <h3 className="font-semibold text-base md:text-lg">{review.author_name}</h3>
-                          {review.author_role && (
-                            <p className="text-sm text-muted-foreground">{review.author_role}</p>
-                          )}
+                          <h3 className="font-semibold text-base md:text-lg">{review.name}</h3>
                           <div className="flex gap-0.5 md:gap-1 mt-2">
                             {renderStars(review.rating || 5)}
                           </div>
                         </div>
                       </div>
                       <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-                        {review.content}
+                        {review.text}
                       </p>
                     </CardContent>
                   </Card>

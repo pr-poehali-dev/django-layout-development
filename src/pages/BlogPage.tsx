@@ -56,10 +56,10 @@ export default function BlogPage() {
               {posts.map((post) => (
                 <a key={post.id} href={`/blog/${post.slug}`}>
                   <Card className="group hover:shadow-xl transition-all duration-300 overflow-hidden h-full">
-                    {post.cover_image_url && (
+                    {(post.cover_image_url || post.image_url) && (
                       <div className="aspect-video overflow-hidden">
                         <img 
-                          src={post.cover_image_url} 
+                          src={post.cover_image_url || post.image_url} 
                           alt={post.title}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />

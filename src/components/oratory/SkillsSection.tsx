@@ -1,5 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
+import PhoneForm from '@/components/PhoneForm';
 
 const oratorySkills = [
   {
@@ -56,6 +57,23 @@ export default function SkillsSection() {
               </CardContent>
             </Card>
           ))}
+        </div>
+        
+        <div className="mt-12 md:mt-16 text-center">
+          <div className="inline-block bg-card/80 backdrop-blur-sm border border-primary/20 rounded-2xl p-6 md:p-8">
+            <h3 className="text-xl md:text-2xl font-bold mb-3">Готовы развить свои навыки?</h3>
+            <p className="text-muted-foreground mb-6 max-w-md mx-auto text-sm md:text-base">
+              Запишитесь на пробное занятие и узнайте больше о программе курса
+            </p>
+            <PhoneForm 
+              source="skills_oratory"
+              course="oratory"
+              triggerText="Записаться на пробное занятие"
+              triggerSize="lg"
+              title="Запись на пробное занятие"
+              description="Оставьте номер телефона, и мы пригласим вас на пробное занятие"
+            />
+          </div>
         </div>
       </div>
     </section>
