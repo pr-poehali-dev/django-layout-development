@@ -2,7 +2,7 @@ import json
 import os
 from typing import Dict, Any
 
-BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN', '')
+BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN', '8238321643:AAEV7kBinohHb-RSLah7VSBJ2XSsXTQUpW4')
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     '''
@@ -43,9 +43,11 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     
     try:
         body_str = event.get('body', '{}')
+        print(f"Received update: {body_str}")
         update = json.loads(body_str)
         
         if 'message' not in update:
+            print("No message in update")
             return {
                 'statusCode': 200,
                 'headers': {'Content-Type': 'application/json'},
@@ -56,6 +58,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         message = update['message']
         chat_id = message['chat']['id']
         text = message.get('text', '')
+        print(f"Chat ID: {chat_id}, Text: {text}")
         
         if text == '/start':
             response_text = (
@@ -99,7 +102,9 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 'Используйте /courses чтобы узнать больше о наших программах.'
             )
         
-        send_message(chat_id, response_text)
+        print(f"Sending message to {chat_id}")
+        result = send_message(chat_id, response_text)
+        print(f"Message sent: {result}")
         
         return {
             'statusCode': 200,
@@ -109,6 +114,9 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         }
         
     except Exception as e:
+        print(f"Error: {str(e)}")
+        import traceback
+        traceback.print_exc()
         return {
             'statusCode': 200,
             'headers': {'Content-Type': 'application/json'},
