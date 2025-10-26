@@ -109,6 +109,12 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             conn.close()
             
             if lead:
+                if ADMIN_CHAT_ID and lead.get('message_id'):
+                    try:
+                        update_telegram_message(dict(lead))
+                    except Exception as e:
+                        print(f"Failed to update telegram message: {e}")
+                
                 return {
                     'statusCode': 200,
                     'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
@@ -188,3 +194,63 @@ def send_telegram_notification(lead: dict):
     with urllib.request.urlopen(req) as response:
         result = json.loads(response.read().decode('utf-8'))
         return result.get('result', {}).get('message_id')
+
+def update_telegram_message(lead: dict):
+    '''Обновление сообщения в Telegram при смене статуса в админке'''
+    from datetime import datetime
+    
+    created_at = lead.get('created_at')
+    if isinstance(created_at, str):
+        created_at = datetime.fromisoformat(created_at.replace('Z', '+00:00'))
+    
+    months_ru = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 
+                 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
+    
+    formatted_date = f"{created_at.day} {months_ru[created_at.month - 1]} {created_at.year} года в {created_at.strftime('%H:%M')}"
+    
+    course_emoji = '🎭' if lead.get('course') == 'acting' else '🎤' if lead.get('course') == 'oratory' else '❓'
+    course_name = 'Актёрское мастерство' if lead.get('course') == 'acting' else 'Ораторское искусство' if lead.get('course') == 'oratory' else 'Не указан'
+    
+    status = lead.get('status', 'new')
+    status_names = {
+        'new': 'Новая заявка',
+        'trial': 'Записался на пробное',
+        'enrolled': 'Записался на обучение',
+        'thinking': 'Думает',
+        'irrelevant': 'Нецелевой'
+    }
+    
+    status_emojis = {
+        'new': '🔔',
+        'trial': '✅',
+        'enrolled': '🎓',
+        'thinking': '🤔',
+        'irrelevant': '❌'
+    }
+    
+    message = (
+        f"━━━━━━━━━━━━━━━━━━━\n"
+        f"{status_emojis.get(status, '🔔')} <b>{status_names.get(status, 'ЗАЯВКА').upper()}</b>\n"
+        f"━━━━━━━━━━━━━━━━━━━\n\n"
+        f"📞 <b>Телефон:</b> <code>{lead.get('phone')}</code>\n"
+        f"{course_emoji} <b>Курс:</b> {course_name}\n"
+        f"📅 <b>Дата:</b> {formatted_date}\n\n"
+        f"━━━━━━━━━━━━━━━━━━━"
+    )
+    
+    url = f'https://api.telegram.org/bot{BOT_TOKEN}/editMessageText'
+    data = json.dumps({
+        'chat_id': ADMIN_CHAT_ID,
+        'message_id': lead.get('message_id'),
+        'text': message,
+        'parse_mode': 'HTML'
+    }).encode('utf-8')
+    
+    req = urllib.request.Request(
+        url,
+        data=data,
+        headers={'Content-Type': 'application/json'}
+    )
+    
+    with urllib.request.urlopen(req) as response:
+        return json.loads(response.read().decode('utf-8'))
