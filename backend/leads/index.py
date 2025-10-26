@@ -50,6 +50,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             body_data = json.loads(event.get('body', '{}'))
             phone = body_data.get('phone')
             source = body_data.get('source', 'website')
+            course = body_data.get('course')
             
             if not phone:
                 return {
@@ -59,19 +60,26 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 }
             
             cur.execute(
-                "INSERT INTO leads (phone, source) VALUES (%s, %s) RETURNING *",
-                (phone, source)
+                "INSERT INTO leads (phone, source, course, status) VALUES (%s, %s, %s, 'new') RETURNING *",
+                (phone, source, course)
             )
             lead = cur.fetchone()
             conn.commit()
-            cur.close()
-            conn.close()
             
             if ADMIN_CHAT_ID:
                 try:
-                    send_telegram_notification(dict(lead))
+                    message_id = send_telegram_notification(dict(lead))
+                    if message_id:
+                        cur.execute(
+                            "UPDATE leads SET message_id = %s WHERE id = %s",
+                            (message_id, lead['id'])
+                        )
+                        conn.commit()
                 except Exception as e:
                     print(f"Failed to send telegram notification: {e}")
+            
+            cur.close()
+            conn.close()
             
             return {
                 'statusCode': 201,
@@ -131,26 +139,44 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
 
 def send_telegram_notification(lead: dict):
     '''Отправка уведомления в Telegram о новой заявке'''
-    message = (
-        f"🔔 <b>Новая заявка с сайта!</b>\n\n"
-        f"📞 Телефон: <code>{lead.get('phone')}</code>\n"
-        f"📍 Источник: {lead.get('source')}\n"
-        f"🕐 Время: {lead.get('created_at')}\n"
-        f"🆔 ID: {lead.get('id')}"
-    )
+    from datetime import datetime
     
-    if lead.get('name'):
-        message = message.replace('📞', f"👤 Имя: {lead.get('name')}\n📞")
-    if lead.get('email'):
-        message = message.replace('📍', f"📧 Email: {lead.get('email')}\n📍")
-    if lead.get('message'):
-        message += f"\n\n💬 Сообщение:\n{lead.get('message')}"
+    created_at = lead.get('created_at')
+    if isinstance(created_at, str):
+        created_at = datetime.fromisoformat(created_at.replace('Z', '+00:00'))
+    
+    months_ru = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 
+                 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
+    
+    formatted_date = f"{created_at.day} {months_ru[created_at.month - 1]} {created_at.year} года в {created_at.strftime('%H:%M')}"
+    
+    course_emoji = '🎭' if lead.get('course') == 'acting' else '🎤' if lead.get('course') == 'oratory' else '❓'
+    course_name = 'Актёрское мастерство' if lead.get('course') == 'acting' else 'Ораторское искусство' if lead.get('course') == 'oratory' else 'Не указан'
+    
+    message = (
+        f"━━━━━━━━━━━━━━━━━━━\n"
+        f"🔔 <b>НОВАЯ ЗАЯВКА</b>\n"
+        f"━━━━━━━━━━━━━━━━━━━\n\n"
+        f"📞 <b>Телефон:</b> <code>{lead.get('phone')}</code>\n"
+        f"{course_emoji} <b>Курс:</b> {course_name}\n"
+        f"📅 <b>Дата:</b> {formatted_date}\n\n"
+        f"━━━━━━━━━━━━━━━━━━━"
+    )
     
     url = f'https://api.telegram.org/bot{BOT_TOKEN}/sendMessage'
     data = json.dumps({
         'chat_id': ADMIN_CHAT_ID,
         'text': message,
-        'parse_mode': 'HTML'
+        'parse_mode': 'HTML',
+        'reply_markup': {
+            'inline_keyboard': [[
+                {'text': '✅ Записался на пробное', 'callback_data': f'status_{lead.get("id")}_trial'},
+                {'text': '🎓 Записался на обучение', 'callback_data': f'status_{lead.get("id")}_enrolled'}
+            ], [
+                {'text': '🤔 Думает', 'callback_data': f'status_{lead.get("id")}_thinking'},
+                {'text': '❌ Нецелевой', 'callback_data': f'status_{lead.get("id")}_irrelevant'}
+            ]]
+        }
     }).encode('utf-8')
     
     req = urllib.request.Request(
@@ -160,4 +186,5 @@ def send_telegram_notification(lead: dict):
     )
     
     with urllib.request.urlopen(req) as response:
-        return json.loads(response.read().decode('utf-8'))
+        result = json.loads(response.read().decode('utf-8'))
+        return result.get('result', {}).get('message_id')

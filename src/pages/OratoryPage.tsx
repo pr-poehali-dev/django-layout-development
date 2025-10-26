@@ -123,6 +123,7 @@ export default function OratoryPage() {
             </div>
             <PhoneForm 
               source="hero_oratory"
+              course="oratory"
               triggerText="Записаться на пробное занятие"
               triggerSize="lg"
               title="Запись на пробное занятие"
@@ -403,6 +404,7 @@ export default function OratoryPage() {
             </p>
             <PhoneForm 
               source="footer_oratory"
+              course="oratory"
               triggerText="Записаться на курс"
               triggerSize="lg"
               triggerClassName="w-full max-w-md mx-auto"

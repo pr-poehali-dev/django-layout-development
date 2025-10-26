@@ -86,6 +86,7 @@ export default function ActingPage() {
             </div>
             <PhoneForm 
               source="hero_acting"
+              course="acting"
               triggerText="Записаться на пробный урок"
               triggerSize="lg"
               title="Запись на пробное занятие"

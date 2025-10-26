@@ -28,6 +28,8 @@ export interface Lead {
   phone: string;
   status: string;
   source: string;
+  course?: string;
+  message_id?: number;
   created_at: string;
   updated_at: string;
 }
@@ -125,11 +127,11 @@ export const api = {
       });
       return response.json();
     },
-    create: async (phone: string, source: string = 'website') => {
+    create: async (phone: string, source: string = 'website', course?: string) => {
       const response = await fetch(API_URLS.leads, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone, source })
+        body: JSON.stringify({ phone, source, course })
       });
       return response.json();
     },

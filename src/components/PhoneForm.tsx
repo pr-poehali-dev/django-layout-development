@@ -8,6 +8,7 @@ import { api } from '@/lib/api';
 
 interface PhoneFormProps {
   source: string;
+  course?: 'acting' | 'oratory';
   triggerText?: string;
   triggerVariant?: 'default' | 'outline' | 'ghost';
   triggerSize?: 'default' | 'sm' | 'lg';
@@ -18,6 +19,7 @@ interface PhoneFormProps {
 
 export default function PhoneForm({
   source,
+  course,
   triggerText = 'Записаться',
   triggerVariant = 'default',
   triggerSize = 'default',
@@ -73,7 +75,7 @@ export default function PhoneForm({
 
     setLoading(true);
     try {
-      await api.leads.create(phone, source);
+      await api.leads.create(phone, source, course);
       setSuccess(true);
       setTimeout(() => {
         setOpen(false);
