@@ -3,8 +3,8 @@ import Icon from '@/components/ui/icon';
 export default function Footer() {
   return (
     <footer className="bg-card border-t border-border">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid md:grid-cols-4 gap-8">
+      <div className="container mx-auto px-4 py-8 md:py-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
           <div className="md:col-span-2">
             <h3 className="text-2xl font-bold text-primary mb-4">
               Школа Казбека Меретукова
@@ -43,7 +43,33 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4">Контакты</h4>
+            <h4 className="font-semibold mb-4">О школе</h4>
+            <ul className="space-y-2">
+              <li>
+                <a href="/team" className="text-muted-foreground hover:text-primary transition">
+                  Команда
+                </a>
+              </li>
+              <li>
+                <a href="/reviews" className="text-muted-foreground hover:text-primary transition">
+                  Отзывы
+                </a>
+              </li>
+              <li>
+                <a href="/blog" className="text-muted-foreground hover:text-primary transition">
+                  Блог
+                </a>
+              </li>
+              <li>
+                <a href="/contacts" className="text-muted-foreground hover:text-primary transition">
+                  Контакты
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-4">Связаться</h4>
             <ul className="space-y-3 text-muted-foreground">
               <li className="flex items-center gap-2">
                 <Icon name="MapPin" size={18} className="text-primary" />

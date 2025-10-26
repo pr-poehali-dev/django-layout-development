@@ -147,6 +147,10 @@ export const api = {
   },
   
   modules: {
+    getAll: async (): Promise<CourseModule[]> => {
+      const response = await fetch(API_URLS.modules);
+      return response.json();
+    },
     getByCourse: async (courseType: string): Promise<CourseModule[]> => {
       const response = await fetch(`${API_URLS.modules}?course_type=${courseType}`);
       return response.json();
@@ -172,6 +176,17 @@ export const api = {
         body: JSON.stringify(module)
       });
       return response.json();
+    },
+    delete: async (id: number, token: string) => {
+      const response = await fetch(API_URLS.modules, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Auth-Token': token
+        },
+        body: JSON.stringify({ id })
+      });
+      return response.json();
     }
   },
   
@@ -186,6 +201,39 @@ export const api = {
     },
     getFAQ: async (): Promise<FAQ[]> => {
       const response = await fetch(`${API_URLS.gallery}?resource=faq`);
+      return response.json();
+    },
+    createFAQ: async (faq: Partial<FAQ>, token: string) => {
+      const response = await fetch(API_URLS.gallery, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Auth-Token': token
+        },
+        body: JSON.stringify({ resource: 'faq', ...faq })
+      });
+      return response.json();
+    },
+    updateFAQ: async (faq: FAQ, token: string) => {
+      const response = await fetch(API_URLS.gallery, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Auth-Token': token
+        },
+        body: JSON.stringify({ resource: 'faq', ...faq })
+      });
+      return response.json();
+    },
+    deleteFAQ: async (id: number, token: string) => {
+      const response = await fetch(API_URLS.gallery, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Auth-Token': token
+        },
+        body: JSON.stringify({ resource: 'faq', id })
+      });
       return response.json();
     },
     getBlog: async (): Promise<BlogPost[]> => {
