@@ -54,39 +54,47 @@ export default function BlogPage() {
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
               {posts.map((post) => (
-                <Card key={post.id} className="group hover:shadow-xl transition-all duration-300 overflow-hidden">
-                  {post.cover_image_url && (
-                    <div className="aspect-video overflow-hidden">
-                      <img 
-                        src={post.cover_image_url} 
-                        alt={post.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                  )}
-                  <CardHeader>
-                    <CardTitle className="line-clamp-2">{post.title}</CardTitle>
-                    <CardDescription className="flex items-center gap-4 text-sm">
-                      {post.author && (
-                        <span className="flex items-center gap-1">
-                          <Icon name="User" size={14} />
-                          {post.author}
-                        </span>
-                      )}
-                      {post.published_at && (
-                        <span className="flex items-center gap-1">
-                          <Icon name="Calendar" size={14} />
-                          {formatDate(post.published_at)}
-                        </span>
-                      )}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm md:text-base text-muted-foreground line-clamp-3">
-                      {post.excerpt || post.content}
-                    </p>
-                  </CardContent>
-                </Card>
+                <a key={post.id} href={`/blog/${post.slug}`}>
+                  <Card className="group hover:shadow-xl transition-all duration-300 overflow-hidden h-full">
+                    {post.cover_image_url && (
+                      <div className="aspect-video overflow-hidden">
+                        <img 
+                          src={post.cover_image_url} 
+                          alt={post.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                    )}
+                    <CardHeader>
+                      <CardTitle className="line-clamp-2 group-hover:text-primary transition">
+                        {post.title}
+                      </CardTitle>
+                      <CardDescription className="flex items-center gap-4 text-sm">
+                        {post.author && (
+                          <span className="flex items-center gap-1">
+                            <Icon name="User" size={14} />
+                            {post.author}
+                          </span>
+                        )}
+                        {post.published_at && (
+                          <span className="flex items-center gap-1">
+                            <Icon name="Calendar" size={14} />
+                            {formatDate(post.published_at)}
+                          </span>
+                        )}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm md:text-base text-muted-foreground line-clamp-3 mb-4">
+                        {post.excerpt || post.content}
+                      </p>
+                      <span className="text-primary text-sm font-medium flex items-center gap-2 group-hover:gap-3 transition-all">
+                        Читать далее
+                        <Icon name="ArrowRight" size={16} />
+                      </span>
+                    </CardContent>
+                  </Card>
+                </a>
               ))}
             </div>
           )}

@@ -8,6 +8,7 @@ import ActingPage from "./pages/ActingPage";
 import OratoryPage from "./pages/OratoryPage";
 import AdminPage from "./pages/AdminPage";
 import BlogPage from "./pages/BlogPage";
+import BlogPostPage from "./pages/BlogPostPage";
 import ReviewsPage from "./pages/ReviewsPage";
 import TeamPage from "./pages/TeamPage";
 import ContactsPage from "./pages/ContactsPage";
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/team" element={<TeamPage />} />
           <Route path="/reviews" element={<ReviewsPage />} />
           <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:slug" element={<BlogPostPage />} />
           <Route path="/contacts" element={<ContactsPage />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="*" element={<NotFound />} />

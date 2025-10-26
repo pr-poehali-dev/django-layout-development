@@ -5,6 +5,7 @@ import Icon from '@/components/ui/icon';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PhoneForm from '@/components/PhoneForm';
+import LeadForm from '@/components/LeadForm';
 import { api, CourseModule, Review, FAQ, GalleryImage, BlogPost, SiteContent } from '@/lib/api';
 import { formatDate } from '@/lib/dates';
 
@@ -154,13 +155,12 @@ export default function ActingPage() {
               </CardContent>
             </Card>
           </div>
-          <div className="bg-card p-8 rounded-2xl max-w-md mx-auto text-center">
-            <h3 className="text-2xl font-bold mb-4">Оставьте заявку</h3>
-            <p className="text-muted-foreground mb-6">Запишитесь на курс прямо сейчас</p>
-            <PhoneForm 
+          <div className="max-w-md mx-auto">
+            <LeadForm 
               source="for_whom_acting"
-              triggerText="Записаться на курс"
-              triggerClassName="w-full"
+              title="Оставьте заявку"
+              description="Запишитесь на курс прямо сейчас"
+              buttonText="Записаться на курс"
             />
           </div>
         </div>
@@ -259,19 +259,13 @@ export default function ActingPage() {
       </section>
 
       <section id="contact" className="py-12 px-4 md:py-20 md:px-4">
-        <div className="container mx-auto">
-          <div className="bg-card p-6 md:p-12 rounded-2xl md:rounded-3xl max-w-2xl mx-auto text-center">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4">Запишитесь на курс</h2>
-            <p className="text-muted-foreground mb-8">
-              Оставьте номер телефона, и мы свяжемся с вами для записи на пробное занятие
-            </p>
-            <PhoneForm 
-              source="footer_acting"
-              triggerText="Записаться сейчас"
-              triggerSize="lg"
-              triggerClassName="w-full max-w-md mx-auto"
-            />
-          </div>
+        <div className="container mx-auto max-w-2xl">
+          <LeadForm 
+            source="footer_acting"
+            title="Запишитесь на курс"
+            description="Оставьте номер телефона, и мы свяжемся с вами для записи на пробное занятие"
+            buttonText="Записаться сейчас"
+          />
         </div>
       </section>
 

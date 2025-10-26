@@ -102,10 +102,10 @@ export default function OratoryPage() {
               Курс с Ольгой Штерц
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6 leading-tight">
-              Говорите так, чтобы <span className="text-primary">вас слушали</span>
+              Говорите так, чтобы <span className="text-primary">вас слышали!</span>
             </h1>
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground mb-3 md:mb-4">
-              Запишитесь на <span className="text-primary font-semibold">бесплатное пробное занятие</span> по ораторскому мастерству
+              Запишитесь на <span className="text-primary font-semibold">пробное занятие</span> по ораторскому мастерству
             </p>
             <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-6 md:mb-8">
               Профессиональный курс публичных выступлений от эксперта Ольги Штерц. Научитесь выступать уверенно, убедительно и харизматично. 
@@ -126,7 +126,7 @@ export default function OratoryPage() {
               triggerText="Записаться на пробное занятие"
               triggerSize="lg"
               title="Запись на пробное занятие"
-              description="Оставьте номер телефона, и мы пригласим вас на бесплатное пробное занятие по ораторскому мастерству"
+              description="Оставьте номер телефона, и мы пригласим вас на пробное занятие по ораторскому мастерству"
             />
           </div>
         </div>
