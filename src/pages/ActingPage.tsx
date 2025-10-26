@@ -12,6 +12,7 @@ import AboutSection from '@/components/acting/AboutSection';
 import GallerySection from '@/components/acting/GallerySection';
 import ReviewsSection from '@/components/acting/ReviewsSection';
 import TeamSection from '@/components/acting/TeamSection';
+import CallToActionSection from '@/components/acting/CallToActionSection';
 import BlogSection from '@/components/acting/BlogSection';
 import FAQSection from '@/components/acting/FAQSection';
 import { api, CourseModule, Review, FAQ, GalleryImage, BlogPost, SiteContent, TeamMember } from '@/lib/api';
@@ -72,6 +73,7 @@ export default function ActingPage() {
       <GallerySection gallery={gallery} />
       <ReviewsSection reviews={reviews} />
       <TeamSection team={team} />
+      <CallToActionSection />
       <BlogSection 
         blog={blog} 
         onNavigate={(slug) => navigate(`/blog/${slug}`)}
