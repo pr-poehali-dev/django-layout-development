@@ -344,26 +344,17 @@ export default function ActingPage() {
                   <div key={review.id} className="flex-[0_0_100%] md:flex-[0_0_calc(50%-12px)] lg:flex-[0_0_calc(33.333%-16px)] min-w-0">
                     <Card className="h-full bg-card/80 backdrop-blur-sm border-primary/10 hover:border-primary/30 transition">
                       <CardHeader>
-                        <div className="flex items-start gap-4 mb-4">
-                          <div className="relative">
-                            {review.image_url ? (
-                              <img src={review.image_url} alt={review.name} className="w-16 h-16 rounded-full object-cover ring-2 ring-primary/20" />
-                            ) : (
-                              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center ring-2 ring-primary/20">
-                                <Icon name="User" className="text-primary" size={28} />
-                              </div>
-                            )}
-                            <div className="absolute -bottom-1 -right-1 bg-primary rounded-full p-1">
-                              <Icon name="Quote" className="text-primary-foreground" size={14} />
+                        <div className="mb-4">
+                          <div className="flex items-center justify-between mb-3">
+                            <CardTitle className="text-lg">{review.name}</CardTitle>
+                            <div className="bg-primary/10 rounded-full p-2">
+                              <Icon name="Quote" className="text-primary" size={16} />
                             </div>
                           </div>
-                          <div className="flex-1">
-                            <CardTitle className="text-lg mb-1">{review.name}</CardTitle>
-                            <div className="flex gap-0.5">
-                              {Array.from({ length: review.rating }).map((_, i) => (
-                                <Icon key={i} name="Star" size={14} className="text-primary fill-primary" />
-                              ))}
-                            </div>
+                          <div className="flex gap-0.5">
+                            {Array.from({ length: review.rating }).map((_, i) => (
+                              <Icon key={i} name="Star" size={14} className="text-primary fill-primary" />
+                            ))}
                           </div>
                         </div>
                       </CardHeader>
