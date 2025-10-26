@@ -29,31 +29,31 @@ export default function TeamPage() {
     <div className="min-h-screen bg-background text-foreground">
       <Header />
 
-      <section className="pt-32 pb-20 px-6 md:px-4">
+      <section className="pt-20 pb-12 px-4 md:pt-32 md:pb-20 md:px-4">
         <div className="container mx-auto">
-          <div className="text-center mb-12">
-            <h1 className="text-5xl md:text-6xl font-bold mb-4">
+          <div className="text-center mb-8 md:mb-12">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 md:mb-4">
               Наша <span className="text-primary">команда</span>
             </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
               Профессионалы своего дела, которые помогут вам раскрыть потенциал
             </p>
           </div>
 
           {loading ? (
-            <div className="text-center py-20">
+            <div className="text-center py-12 md:py-20">
               <Icon name="Loader2" className="animate-spin mx-auto text-primary" size={48} />
             </div>
           ) : team.length === 0 ? (
-            <div className="text-center py-20">
+            <div className="text-center py-12 md:py-20">
               <Icon name="Users" className="mx-auto mb-4 text-muted-foreground" size={64} />
-              <p className="text-xl text-muted-foreground">
+              <p className="text-base md:text-lg lg:text-xl text-muted-foreground">
                 Скоро здесь появится информация о нашей команде!
               </p>
             </div>
           ) : (
             <>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 mb-8 md:mb-16">
                 {team.map((member) => (
                   <Card key={member.id} className="group hover:shadow-xl transition-all duration-300">
                     <div className="aspect-[3/4] overflow-hidden rounded-t-lg">
@@ -69,11 +69,11 @@ export default function TeamPage() {
                         </div>
                       )}
                     </div>
-                    <CardContent className="pt-6">
-                      <h3 className="text-2xl font-bold mb-2">{member.name}</h3>
-                      <p className="text-primary font-semibold mb-4">{member.role}</p>
+                    <CardContent className="pt-4 md:pt-6">
+                      <h3 className="text-xl md:text-2xl font-bold mb-2">{member.name}</h3>
+                      <p className="text-sm md:text-base text-primary font-semibold mb-3 md:mb-4">{member.role}</p>
                       {member.bio && (
-                        <p className="text-muted-foreground leading-relaxed">
+                        <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
                           {member.bio}
                         </p>
                       )}
@@ -82,10 +82,10 @@ export default function TeamPage() {
                 ))}
               </div>
 
-              <div className="bg-card p-12 rounded-3xl max-w-2xl mx-auto text-center">
-                <Icon name="GraduationCap" size={48} className="mx-auto mb-4 text-primary" />
-                <h2 className="text-3xl font-bold mb-4">Учитесь у лучших</h2>
-                <p className="text-muted-foreground mb-6">
+              <div className="bg-card p-6 md:p-12 rounded-2xl md:rounded-3xl max-w-2xl mx-auto text-center">
+                <Icon name="GraduationCap" size={40} className="mx-auto mb-3 md:mb-4 text-primary md:w-12 md:h-12" />
+                <h2 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4">Учитесь у лучших</h2>
+                <p className="text-sm md:text-base text-muted-foreground mb-4 md:mb-6">
                   Запишитесь на курс и работайте с профессионалами
                 </p>
                 <PhoneForm 

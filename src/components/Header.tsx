@@ -28,22 +28,22 @@ export default function Header() {
   ];
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-border">
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+    <header className="fixed top-0 w-full z-50 bg-background/95 backdrop-blur-md border-b border-border">
+      <div className="container mx-auto px-3 sm:px-4 h-14 sm:h-16 flex items-center justify-between">
         <a href="/" className="flex items-center hover:opacity-80 transition">
           <img 
             src="https://i.1.creatium.io/disk2/c6/65/76/a52e2f86d1891f143cdb23e60a4460b61f/184x67/w_logo_text.svg" 
             alt="Школа Казбека Меретукова" 
-            className="h-10 md:h-12"
+            className="h-8 sm:h-10 md:h-12"
           />
         </a>
 
-        <nav className="hidden md:flex items-center gap-6">
+        <nav className="hidden md:flex items-center gap-4 lg:gap-6">
           {menuItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className={`hover:text-primary transition ${
+              className={`text-sm lg:text-base hover:text-primary transition ${
                 location.pathname === item.href ? 'text-primary font-semibold' : ''
               }`}
             >
@@ -52,18 +52,18 @@ export default function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <a 
             href={`tel:${phone.replace(/\D/g, '')}`} 
             className="hidden lg:flex items-center gap-2 text-sm font-medium hover:text-primary transition"
           >
-            <Icon name="Phone" size={18} />
-            {phone}
+            <Icon name="Phone" size={16} />
+            <span className="text-xs lg:text-sm">{phone}</span>
           </a>
           <PhoneForm 
             source="header" 
             triggerText="Записаться"
-            triggerClassName="hidden sm:flex"
+            triggerClassName="hidden sm:flex text-sm"
           />
           
           <Sheet open={open} onOpenChange={setOpen}>

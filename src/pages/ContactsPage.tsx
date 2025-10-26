@@ -54,44 +54,44 @@ export default function ContactsPage() {
     <div className="min-h-screen bg-background text-foreground">
       <Header />
 
-      <section className="pt-32 pb-20 px-6 md:px-4">
+      <section className="pt-20 pb-12 px-4 md:pt-32 md:pb-20 md:px-4">
         <div className="container mx-auto">
-          <div className="text-center mb-12">
-            <h1 className="text-5xl md:text-6xl font-bold mb-4">
+          <div className="text-center mb-8 md:mb-12">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 md:mb-4">
               <span className="text-primary">Контакты</span>
             </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
               Свяжитесь с нами удобным для вас способом
             </p>
           </div>
 
           {loading ? (
-            <div className="text-center py-20">
+            <div className="text-center py-12 md:py-20">
               <Icon name="Loader2" className="animate-spin mx-auto text-primary" size={48} />
             </div>
           ) : (
-            <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-              <div className="space-y-6">
-                <h2 className="text-3xl font-bold mb-6">Как нас найти</h2>
+            <div className="grid lg:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto">
+              <div className="space-y-4 md:space-y-6">
+                <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Как нас найти</h2>
                 
-                <div className="grid gap-6">
+                <div className="grid gap-4 md:gap-6">
                   {contactInfo.map((item, index) => (
                     <Card key={index} className="group hover:shadow-lg transition">
-                      <CardContent className="p-6 flex items-start gap-4">
-                        <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                          <Icon name={item.icon as any} className="text-primary" size={24} />
+                      <CardContent className="p-4 md:p-6 flex items-start gap-3 md:gap-4">
+                        <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                          <Icon name={item.icon as any} className="text-primary" size={20} />
                         </div>
                         <div className="flex-1">
-                          <h3 className="font-semibold mb-1">{item.title}</h3>
+                          <h3 className="font-semibold mb-1 text-sm md:text-base">{item.title}</h3>
                           {item.link ? (
                             <a 
                               href={item.link} 
-                              className="text-muted-foreground hover:text-primary transition"
+                              className="text-sm md:text-base text-muted-foreground hover:text-primary transition"
                             >
                               {item.value}
                             </a>
                           ) : (
-                            <p className="text-muted-foreground">{item.value}</p>
+                            <p className="text-sm md:text-base text-muted-foreground">{item.value}</p>
                           )}
                         </div>
                       </CardContent>
@@ -100,9 +100,9 @@ export default function ContactsPage() {
                 </div>
 
                 <Card className="bg-gradient-to-br from-primary/10 to-primary/5">
-                  <CardContent className="p-8 text-center">
-                    <h3 className="text-2xl font-bold mb-4">Запишитесь на курс</h3>
-                    <p className="text-muted-foreground mb-6">
+                  <CardContent className="p-6 md:p-8 text-center">
+                    <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">Запишитесь на курс</h3>
+                    <p className="text-sm md:text-base text-muted-foreground mb-4 md:mb-6">
                       Оставьте номер телефона, и мы свяжемся с вами в ближайшее время
                     </p>
                     <PhoneForm 
@@ -114,8 +114,8 @@ export default function ContactsPage() {
                 </Card>
               </div>
 
-              <div className="space-y-6">
-                <h2 className="text-3xl font-bold mb-6">Мы на карте</h2>
+              <div className="space-y-4 md:space-y-6">
+                <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Мы на карте</h2>
                 
                 <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
                   {content.map_embed ? (
@@ -136,12 +136,12 @@ export default function ContactsPage() {
                 </div>
 
                 <Card>
-                  <CardContent className="p-6">
-                    <h3 className="font-semibold mb-4 flex items-center gap-2">
+                  <CardContent className="p-4 md:p-6">
+                    <h3 className="font-semibold mb-3 md:mb-4 flex items-center gap-2 text-sm md:text-base">
                       <Icon name="Clock" className="text-primary" size={20} />
                       Режим работы
                     </h3>
-                    <div className="space-y-2 text-muted-foreground">
+                    <div className="space-y-2 text-sm md:text-base text-muted-foreground">
                       <div className="flex justify-between">
                         <span>Понедельник - Пятница</span>
                         <span className="font-semibold">10:00 - 20:00</span>

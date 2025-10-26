@@ -29,30 +29,30 @@ export default function BlogPage() {
     <div className="min-h-screen bg-background text-foreground">
       <Header />
 
-      <section className="pt-32 pb-20 px-6 md:px-4">
+      <section className="pt-20 pb-12 px-4 md:pt-32 md:pb-20 md:px-4">
         <div className="container mx-auto">
-          <div className="text-center mb-12">
-            <h1 className="text-5xl md:text-6xl font-bold mb-4">
+          <div className="text-center mb-8 md:mb-12">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 md:mb-4">
               Блог <span className="text-primary">школы</span>
             </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
               Полезные материалы, новости и истории успеха наших учеников
             </p>
           </div>
 
           {loading ? (
-            <div className="text-center py-20">
+            <div className="text-center py-12 md:py-20">
               <Icon name="Loader2" className="animate-spin mx-auto text-primary" size={48} />
             </div>
           ) : posts.length === 0 ? (
-            <div className="text-center py-20">
+            <div className="text-center py-12 md:py-20">
               <Icon name="FileText" className="mx-auto mb-4 text-muted-foreground" size={64} />
-              <p className="text-xl text-muted-foreground">
+              <p className="text-base md:text-lg lg:text-xl text-muted-foreground">
                 Пока статей нет. Скоро здесь появятся интересные материалы!
               </p>
             </div>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
               {posts.map((post) => (
                 <Card key={post.id} className="group hover:shadow-xl transition-all duration-300 overflow-hidden">
                   {post.cover_image_url && (
@@ -82,7 +82,7 @@ export default function BlogPage() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-muted-foreground line-clamp-3">
+                    <p className="text-sm md:text-base text-muted-foreground line-clamp-3">
                       {post.excerpt || post.content}
                     </p>
                   </CardContent>

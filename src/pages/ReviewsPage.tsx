@@ -30,7 +30,7 @@ export default function ReviewsPage() {
       <Icon
         key={index}
         name={index < rating ? 'Star' : 'Star'}
-        size={20}
+        size={16}
         className={index < rating ? 'text-primary fill-primary' : 'text-muted-foreground'}
       />
     ));
@@ -40,25 +40,25 @@ export default function ReviewsPage() {
     <div className="min-h-screen bg-background text-foreground">
       <Header />
 
-      <section className="pt-32 pb-20 px-6 md:px-4">
+      <section className="pt-20 pb-12 px-4 md:pt-32 md:pb-20 md:px-4">
         <div className="container mx-auto">
-          <div className="text-center mb-12">
-            <h1 className="text-5xl md:text-6xl font-bold mb-4">
+          <div className="text-center mb-8 md:mb-12">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 md:mb-4">
               Отзывы <span className="text-primary">учеников</span>
             </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
               Истории успеха тех, кто прошел наши курсы и изменил свою жизнь
             </p>
           </div>
 
           {loading ? (
-            <div className="text-center py-20">
+            <div className="text-center py-12 md:py-20">
               <Icon name="Loader2" className="animate-spin mx-auto text-primary" size={48} />
             </div>
           ) : reviews.length === 0 ? (
-            <div className="text-center py-20">
+            <div className="text-center py-12 md:py-20">
               <Icon name="MessageSquare" className="mx-auto mb-4 text-muted-foreground" size={64} />
-              <p className="text-xl text-muted-foreground mb-8">
+              <p className="text-base md:text-lg lg:text-xl text-muted-foreground mb-6 md:mb-8">
                 Скоро здесь появятся первые отзывы наших учеников!
               </p>
               <PhoneForm 
@@ -70,11 +70,11 @@ export default function ReviewsPage() {
             </div>
           ) : (
             <>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 mb-8 md:mb-16">
                 {reviews.map((review) => (
                   <Card key={review.id} className="group hover:shadow-xl transition-all duration-300">
-                    <CardContent className="pt-6">
-                      <div className="flex items-start gap-4 mb-4">
+                    <CardContent className="pt-4 md:pt-6">
+                      <div className="flex items-start gap-3 md:gap-4 mb-4">
                         {review.photo_url ? (
                           <img 
                             src={review.photo_url} 
@@ -82,21 +82,21 @@ export default function ReviewsPage() {
                             className="w-16 h-16 rounded-full object-cover"
                           />
                         ) : (
-                          <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
-                            <Icon name="User" className="text-primary" size={32} />
+                          <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                            <Icon name="User" className="text-primary" size={28} />
                           </div>
                         )}
                         <div className="flex-1">
-                          <h3 className="font-semibold text-lg">{review.author_name}</h3>
+                          <h3 className="font-semibold text-base md:text-lg">{review.author_name}</h3>
                           {review.author_role && (
                             <p className="text-sm text-muted-foreground">{review.author_role}</p>
                           )}
-                          <div className="flex gap-1 mt-2">
+                          <div className="flex gap-0.5 md:gap-1 mt-2">
                             {renderStars(review.rating || 5)}
                           </div>
                         </div>
                       </div>
-                      <p className="text-muted-foreground leading-relaxed">
+                      <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
                         {review.content}
                       </p>
                     </CardContent>
@@ -104,10 +104,10 @@ export default function ReviewsPage() {
                 ))}
               </div>
 
-              <div className="bg-card p-12 rounded-3xl max-w-2xl mx-auto text-center">
-                <Icon name="Sparkles" size={48} className="mx-auto mb-4 text-primary" />
-                <h2 className="text-3xl font-bold mb-4">Станьте частью истории успеха</h2>
-                <p className="text-muted-foreground mb-6">
+              <div className="bg-card p-6 md:p-12 rounded-2xl md:rounded-3xl max-w-2xl mx-auto text-center">
+                <Icon name="Sparkles" size={40} className="mx-auto mb-3 md:mb-4 text-primary md:w-12 md:h-12" />
+                <h2 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4">Станьте частью истории успеха</h2>
+                <p className="text-sm md:text-base text-muted-foreground mb-4 md:mb-6">
                   Запишитесь на курс и поделитесь своим опытом
                 </p>
                 <PhoneForm 

@@ -53,34 +53,34 @@ export default function ActingPage() {
     <div className="min-h-screen bg-background text-foreground">
       <Header />
 
-      <section className="pt-32 pb-20 px-6 md:px-4 relative overflow-hidden min-h-[90vh] flex items-center">
+      <section className="pt-20 pb-12 px-4 md:pt-32 md:pb-20 md:px-4 relative overflow-hidden min-h-[85vh] md:min-h-[90vh] flex items-center">
         <div className="absolute inset-0">
           <img
             src="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/0c090e0f-2880-4f27-8c3e-d4c43afc5fda.jpg"
             alt="Актерское мастерство"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/60"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/70"></div>
         </div>
         <div className="container mx-auto relative z-10">
           <div className="max-w-2xl">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6 leading-tight">
               Станьте <span className="text-primary">звездой</span> своего кино
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-4">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground mb-3 md:mb-4">
               Запишитесь на <span className="text-primary font-semibold">бесплатное пробное занятие</span> по актерскому мастерству
             </p>
-            <p className="text-lg text-muted-foreground mb-8">
+            <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-6 md:mb-8">
               Профессиональное обучение от режиссера Казбека Меретукова. Преодолейте страх камеры, обретите уверенность и снимите свое настоящее кино с прослушиванием!
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 mb-8">
-              <div className="flex items-center gap-2 bg-card/80 backdrop-blur-sm px-4 py-2 rounded-lg">
-                <Icon name="Calendar" className="text-primary" size={20} />
-                <span>Пробное: {content.trial_date ? formatDate(content.trial_date) : '25 марта 2025'}</span>
+            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-6 md:mb-8">
+              <div className="flex items-center gap-2 bg-card/80 backdrop-blur-sm px-3 py-2 rounded-lg text-sm md:text-base">
+                <Icon name="Calendar" className="text-primary flex-shrink-0" size={18} />
+                <span className="whitespace-nowrap">Пробное: {content.trial_date ? formatDate(content.trial_date) : '25 марта 2025'}</span>
               </div>
-              <div className="flex items-center gap-2 bg-card/80 backdrop-blur-sm px-4 py-2 rounded-lg">
-                <Icon name="PlayCircle" className="text-primary" size={20} />
-                <span>Старт: {content.course_start_date ? formatDate(content.course_start_date) : '1 апреля 2025'}</span>
+              <div className="flex items-center gap-2 bg-card/80 backdrop-blur-sm px-3 py-2 rounded-lg text-sm md:text-base">
+                <Icon name="PlayCircle" className="text-primary flex-shrink-0" size={18} />
+                <span className="whitespace-nowrap">Старт: {content.course_start_date ? formatDate(content.course_start_date) : '1 апреля 2025'}</span>
               </div>
             </div>
             <PhoneForm 
@@ -94,7 +94,7 @@ export default function ActingPage() {
         </div>
       </section>
 
-      <section className="py-16 px-6 md:px-4 bg-card">
+      <section className="py-8 px-4 md:py-16 md:px-4 bg-card">
         <div className="container mx-auto">
           <div className="aspect-video max-w-4xl mx-auto rounded-xl overflow-hidden shadow-2xl">
             <iframe
@@ -107,9 +107,9 @@ export default function ActingPage() {
         </div>
       </section>
 
-      <section className="py-20 px-6 md:px-4">
+      <section className="py-12 px-4 md:py-20 md:px-4">
         <div className="container mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-4">Для кого этот курс?</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-3 md:mb-4">Для кого этот курс?</h2>
           <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
             Курс подходит для всех, кто хочет развить актерские навыки и уверенность в себе
           </p>
@@ -166,10 +166,10 @@ export default function ActingPage() {
         </div>
       </section>
 
-      <section id="modules" className="py-20 px-6 md:px-4 bg-card">
+      <section id="modules" className="py-12 px-4 md:py-20 md:px-4 bg-card">
         <div className="container mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-4">Программа курса</h2>
-          <p className="text-center text-muted-foreground mb-12">6 модулей от базы до съемок собственного кино</p>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-3 md:mb-4">Программа курса</h2>
+          <p className="text-center text-muted-foreground mb-8 md:mb-12 text-sm md:text-base">6 модулей от базы до съемок собственного кино</p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {modules.map((module, index) => (
               <Card key={module.id} className="group hover:shadow-xl transition-all duration-300 hover:scale-105">
@@ -198,19 +198,19 @@ export default function ActingPage() {
         </div>
       </section>
 
-      <section className="py-20 px-6 md:px-4">
+      <section className="py-12 px-4 md:py-20 md:px-4">
         <div className="container mx-auto">
-          <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-3xl p-12 text-center">
+          <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-2xl md:rounded-3xl p-6 md:p-12 text-center">
             <Icon name="Film" size={64} className="mx-auto mb-6 text-primary" />
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">Снимите свое настоящее кино!</h2>
-            <p className="text-xl md:text-2xl mb-6 max-w-3xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6">Снимите свое настоящее кино!</h2>
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-4 md:mb-6 max-w-3xl mx-auto">
               Представьте: вы на съемочной площадке. Свет, камера, мотор! 🎬
             </p>
-            <p className="text-lg text-muted-foreground mb-4 max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-3 md:mb-4 max-w-2xl mx-auto">
               Это не мечта — это реальность нашего курса! По завершении обучения вы не просто получите сертификат. 
               Вы станете <span className="text-primary font-semibold">главным героем собственного короткометражного фильма</span>.
             </p>
-            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-6 md:mb-8 max-w-2xl mx-auto">
               Профессиональная съемочная группа, опытный режиссер Казбек Меретуков, настоящая кинокамера и прослушивание — 
               всё по-настоящему, как в большом кино! Вы пройдете кастинг, получите роль и сыграете её перед камерой. 
               А после премьеры сможете с гордостью показать свой фильм друзьям и семье. Это ваш первый шаг к большой сцене!
@@ -229,10 +229,10 @@ export default function ActingPage() {
         </div>
       </section>
 
-      <section id="about" className="py-20 px-6 md:px-4 bg-card">
+      <section id="about" className="py-12 px-4 md:py-20 md:px-4 bg-card">
         <div className="container mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
-            <div className="relative h-[500px] rounded-2xl overflow-hidden">
+          <div className="grid md:grid-cols-2 gap-6 md:gap-12 items-center max-w-5xl mx-auto">
+            <div className="relative h-[300px] md:h-[500px] rounded-2xl overflow-hidden">
               <img
                 src="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/2f9cd495-aad4-4dd8-8ef8-16f99e26b165.jpg"
                 alt="Казбек Меретуков"
@@ -240,8 +240,8 @@ export default function ActingPage() {
               />
             </div>
             <div>
-              <h2 className="text-4xl font-bold mb-6">Казбек Меретуков</h2>
-              <p className="text-lg text-muted-foreground mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6">Казбек Меретуков</h2>
+              <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-4 md:mb-6">
                 {content.kazbek_bio || 'Российский режиссер и педагог актерского мастерства с многолетним опытом работы в кино и театре.'}
               </p>
               <div className="space-y-4">
@@ -263,10 +263,10 @@ export default function ActingPage() {
         </div>
       </section>
 
-      <section id="contact" className="py-20 px-6 md:px-4">
+      <section id="contact" className="py-12 px-4 md:py-20 md:px-4">
         <div className="container mx-auto">
-          <div className="bg-card p-12 rounded-3xl max-w-2xl mx-auto text-center">
-            <h2 className="text-4xl font-bold mb-4">Запишитесь на курс</h2>
+          <div className="bg-card p-6 md:p-12 rounded-2xl md:rounded-3xl max-w-2xl mx-auto text-center">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4">Запишитесь на курс</h2>
             <p className="text-muted-foreground mb-8">
               Оставьте номер телефона, и мы свяжемся с вами для записи на пробное занятие
             </p>
@@ -280,9 +280,9 @@ export default function ActingPage() {
         </div>
       </section>
 
-      <section className="py-20 px-6 md:px-4 bg-card">
+      <section className="py-12 px-4 md:py-20 md:px-4 bg-card">
         <div className="container mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12">Галерея</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12">Галерея</h2>
           {gallery.length > 0 ? (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {gallery.map((image) => (
@@ -304,9 +304,9 @@ export default function ActingPage() {
         </div>
       </section>
 
-      <section id="reviews" className="py-20 px-6 md:px-4">
+      <section id="reviews" className="py-12 px-4 md:py-20 md:px-4">
         <div className="container mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12">Отзывы наших учеников</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12">Отзывы наших учеников</h2>
           {reviews.length > 0 ? (
             <div className="grid md:grid-cols-3 gap-8">
               {reviews.map((review) => (
@@ -341,9 +341,9 @@ export default function ActingPage() {
         </div>
       </section>
 
-      <section id="blog" className="py-20 px-6 md:px-4 bg-card">
+      <section id="blog" className="py-12 px-4 md:py-20 md:px-4 bg-card">
         <div className="container mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12">Блог</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12">Блог</h2>
           {blog.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {blog.map((post) => (
@@ -374,9 +374,9 @@ export default function ActingPage() {
       </section>
 
       {faq.length > 0 && (
-        <section className="py-20 px-6 md:px-4">
+        <section className="py-12 px-4 md:py-20 md:px-4">
           <div className="container mx-auto max-w-3xl">
-            <h2 className="text-4xl font-bold text-center mb-12">Частые вопросы</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12">Частые вопросы</h2>
             <Accordion type="single" collapsible className="space-y-4">
               {faq.map((item) => (
                 <AccordionItem key={item.id} value={`item-${item.id}`} className="bg-card px-6 rounded-lg border-0">
