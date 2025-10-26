@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PhoneForm from '@/components/PhoneForm';
+import LeadForm from '@/components/LeadForm';
 import { api, SiteContent, Review, GalleryImage, BlogPost } from '@/lib/api';
 import { formatDate } from '@/lib/dates';
 
 export default function OratoryPage() {
+  const navigate = useNavigate();
   const [content, setContent] = useState<Record<string, string>>({});
   const [reviews, setReviews] = useState<Review[]>([]);
   const [gallery, setGallery] = useState<GalleryImage[]>([]);
@@ -159,6 +163,64 @@ export default function OratoryPage() {
 
       <section className="py-12 px-4 md:py-20 md:px-4 bg-card">
         <div className="container mx-auto">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-3 md:mb-4">Для кого этот курс?</h2>
+          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            Курс подходит для всех, кто хочет научиться выступать публично, убедительно общаться и влиять на аудиторию
+          </p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-16">
+            <Card className="hover:shadow-lg transition">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  <Icon name="Briefcase" className="text-primary" size={24} />
+                </div>
+                <CardTitle>Для карьеры</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription>
+                  Руководители, менеджеры, предприниматели — для тех, кто хочет вдохновлять команду и убеждать партнёров
+                </CardDescription>
+              </CardContent>
+            </Card>
+            <Card className="hover:shadow-lg transition">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  <Icon name="Presentation" className="text-primary" size={24} />
+                </div>
+                <CardTitle>Для презентаций</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription>
+                  Специалисты, которые проводят презентации, питчи, защищают проекты или выступают на конференциях
+                </CardDescription>
+              </CardContent>
+            </Card>
+            <Card className="hover:shadow-lg transition">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  <Icon name="Users" className="text-primary" size={24} />
+                </div>
+                <CardTitle>Побороть страх</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription>
+                  Для тех, кто боится выступать публично и хочет преодолеть волнение перед аудиторией
+                </CardDescription>
+              </CardContent>
+            </Card>
+            <Card className="hover:shadow-lg transition">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  <Icon name="Star" className="text-primary" size={24} />
+                </div>
+                <CardTitle>Развить харизму</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription>
+                  Для всех, кто хочет говорить убедительно, ярко и запоминающеся в любой ситуации
+                </CardDescription>
+              </CardContent>
+            </Card>
+          </div>
           <div className="max-w-5xl mx-auto">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12">Почему это важно?</h2>
             <div className="grid md:grid-cols-2 gap-6 md:gap-8">
@@ -362,31 +424,78 @@ export default function OratoryPage() {
         <div className="container mx-auto">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12">Блог</h2>
           {blog.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              {blog.map((post) => (
-                <Card key={post.id} className="group hover:shadow-xl transition">
-                  {post.image_url && (
-                    <div className="aspect-video overflow-hidden">
-                      <img
-                        src={post.image_url}
-                        alt={post.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition"
-                      />
-                    </div>
-                  )}
-                  <CardHeader>
-                    <CardTitle className="text-lg md:text-xl">{post.title}</CardTitle>
-                    <CardDescription>{post.excerpt}</CardDescription>
-                  </CardHeader>
-                </Card>
-              ))}
-            </div>
+            <>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12">
+                {blog.slice(0, 3).map((post) => (
+                  <Card 
+                    key={post.id} 
+                    className="group hover:shadow-xl transition cursor-pointer"
+                    onClick={() => navigate(`/blog/${post.slug}`)}
+                  >
+                    {post.image_url && (
+                      <div className="aspect-video overflow-hidden">
+                        <img
+                          src={post.image_url}
+                          alt={post.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition"
+                        />
+                      </div>
+                    )}
+                    <CardHeader>
+                      <CardTitle className="text-lg md:text-xl group-hover:text-primary transition">{post.title}</CardTitle>
+                      <CardDescription>{post.excerpt}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <Button variant="ghost" className="w-full group-hover:bg-primary/10 transition">
+                        Читать статью
+                        <Icon name="ArrowRight" size={16} className="ml-2" />
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+              <div className="text-center">
+                <Button 
+                  onClick={() => navigate('/blog')} 
+                  size="lg"
+                  variant="outline"
+                  className="group"
+                >
+                  Больше статей
+                  <Icon name="BookOpen" size={20} className="ml-2 group-hover:translate-x-1 transition" />
+                </Button>
+              </div>
+            </>
           ) : (
             <div className="text-center text-muted-foreground py-12">
               <Icon name="BookOpen" size={64} className="mx-auto mb-4 opacity-30" />
               <p>Статьи скоро появятся</p>
             </div>
           )}
+        </div>
+      </section>
+
+      <section className="py-12 px-4 md:py-20 md:px-4 bg-gradient-to-br from-primary/5 to-background">
+        <div className="container mx-auto max-w-4xl">
+          <div className="bg-card rounded-2xl md:rounded-3xl p-8 md:p-12 shadow-xl border border-primary/10">
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
+                <Icon name="Phone" className="text-primary" size={32} />
+              </div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3">Готовы начать?</h2>
+              <p className="text-muted-foreground text-sm md:text-base max-w-xl mx-auto">
+                Оставьте заявку, и мы расскажем подробнее о курсе и пригласим на бесплатное пробное занятие
+              </p>
+            </div>
+            <div className="max-w-md mx-auto">
+              <LeadForm 
+                source="for_whom_oratory"
+                title="Записаться на курс"
+                description="Укажите ваше имя и номер телефона"
+                buttonText="Отправить заявку"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
