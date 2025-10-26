@@ -48,6 +48,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         
         elif method == 'POST':
             body_data = json.loads(event.get('body', '{}'))
+            name = body_data.get('name')
             phone = body_data.get('phone')
             source = body_data.get('source', 'website')
             course = body_data.get('course')
@@ -60,8 +61,8 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 }
             
             cur.execute(
-                "INSERT INTO leads (phone, source, course, status) VALUES (%s, %s, %s, 'new') RETURNING *",
-                (phone, source, course)
+                "INSERT INTO leads (name, phone, source, course, status) VALUES (%s, %s, %s, %s, 'new') RETURNING *",
+                (name, phone, source, course)
             )
             lead = cur.fetchone()
             conn.commit()
@@ -159,10 +160,13 @@ def send_telegram_notification(lead: dict):
     course_emoji = '🎭' if lead.get('course') == 'acting' else '🎤' if lead.get('course') == 'oratory' else '❓'
     course_name = 'Актёрское мастерство' if lead.get('course') == 'acting' else 'Ораторское искусство' if lead.get('course') == 'oratory' else 'Не указан'
     
+    name_line = f"👤 <b>Имя:</b> {lead.get('name')}\n" if lead.get('name') else ""
+    
     message = (
         f"━━━━━━━━━━━━━━━━━━━\n"
         f"🔔 <b>НОВАЯ ЗАЯВКА</b>\n"
         f"━━━━━━━━━━━━━━━━━━━\n\n"
+        f"{name_line}"
         f"📞 <b>Телефон:</b> <code>{lead.get('phone')}</code>\n"
         f"{course_emoji} <b>Курс:</b> {course_name}\n"
         f"📅 <b>Дата:</b> {formatted_date}\n\n"
@@ -228,10 +232,13 @@ def update_telegram_message(lead: dict):
         'irrelevant': '❌'
     }
     
+    name_line = f"👤 <b>Имя:</b> {lead.get('name')}\n" if lead.get('name') else ""
+    
     message = (
         f"━━━━━━━━━━━━━━━━━━━\n"
         f"{status_emojis.get(status, '🔔')} <b>{status_names.get(status, 'ЗАЯВКА').upper()}</b>\n"
         f"━━━━━━━━━━━━━━━━━━━\n\n"
+        f"{name_line}"
         f"📞 <b>Телефон:</b> <code>{lead.get('phone')}</code>\n"
         f"{course_emoji} <b>Курс:</b> {course_name}\n"
         f"📅 <b>Дата:</b> {formatted_date}\n\n"

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import InputMask from 'react-input-mask';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -18,6 +19,7 @@ export default function LeadForm({
   description = "Оставьте номер телефона, и мы свяжемся с вами",
   buttonText = "Записаться"
 }: LeadFormProps) {
+  const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -27,8 +29,9 @@ export default function LeadForm({
     setLoading(true);
 
     try {
-      await api.leads.create({ phone, source });
+      await api.leads.create({ name, phone, source });
       setSubmitted(true);
+      setName('');
       setPhone('');
       
       if (typeof window !== 'undefined' && (window as any).ym) {
@@ -58,21 +61,41 @@ export default function LeadForm({
 
   return (
     <div className="bg-card border border-border rounded-lg p-6">
-      <h3 className="text-xl md:text-2xl font-bold mb-2">{title}</h3>
-      <p className="text-sm md:text-base text-muted-foreground mb-6">{description}</p>
+      {title && <h3 className="text-xl md:text-2xl font-bold mb-2">{title}</h3>}
+      {description && <p className="text-sm md:text-base text-muted-foreground mb-6">{description}</p>}
       
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <Label htmlFor={`phone-${source}`}>Номер телефона</Label>
+          <Label htmlFor={`name-${source}`}>Ваше имя</Label>
           <Input
-            id={`phone-${source}`}
-            type="tel"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder="+7 (999) 123-45-67"
+            id={`name-${source}`}
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Иван Иванов"
             required
             className="mt-1"
           />
+        </div>
+        
+        <div>
+          <Label htmlFor={`phone-${source}`}>Номер телефона</Label>
+          <InputMask
+            mask="+7 (999) 999-99-99"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          >
+            {((inputProps: any) => (
+              <Input
+                {...inputProps}
+                id={`phone-${source}`}
+                type="tel"
+                placeholder="+7 (999) 999-99-99"
+                required
+                className="mt-1"
+              />
+            )) as any}
+          </InputMask>
         </div>
         
         <Button type="submit" disabled={loading} className="w-full" size="lg">

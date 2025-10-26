@@ -72,6 +72,12 @@ export default function LeadsManager({ leads, onUpdateStatus }: LeadsManagerProp
                   <CardContent className="pt-6">
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex-1">
+                        {lead.name && (
+                          <div className="flex items-center gap-2 mb-1">
+                            <Icon name="User" size={16} className="text-muted-foreground" />
+                            <span className="font-semibold">{lead.name}</span>
+                          </div>
+                        )}
                         <div className="flex items-center gap-2 mb-1">
                           <Icon name="Phone" size={16} className="text-primary" />
                           <a href={`tel:${lead.phone}`} className="font-semibold hover:text-primary">

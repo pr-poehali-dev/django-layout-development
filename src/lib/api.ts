@@ -25,6 +25,7 @@ export interface CourseModule {
 
 export interface Lead {
   id: number;
+  name?: string;
   phone: string;
   status: string;
   source: string;
@@ -127,11 +128,11 @@ export const api = {
       });
       return response.json();
     },
-    create: async (phone: string, source: string = 'website', course?: string) => {
+    create: async (data: { name?: string; phone: string; source: string; course?: string }) => {
       const response = await fetch(API_URLS.leads, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone, source, course })
+        body: JSON.stringify(data)
       });
       return response.json();
     },
