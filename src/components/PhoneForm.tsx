@@ -77,6 +77,11 @@ export default function PhoneForm({
     try {
       await api.leads.create(phone, source, course);
       setSuccess(true);
+      
+      if (typeof window !== 'undefined' && (window as any).ym) {
+        (window as any).ym(104854671, 'reachGoal', 'send_form');
+      }
+      
       setTimeout(() => {
         setOpen(false);
         setSuccess(false);

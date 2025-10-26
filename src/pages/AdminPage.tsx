@@ -132,6 +132,17 @@ export default function AdminPage() {
     try {
       await api.leads.updateStatus(leadId, status, token);
       await loadData(token);
+      
+      const metrikaGoals: Record<string, string> = {
+        'trial': 'trial',
+        'enrolled': 'course',
+        'thinking': 'wait',
+        'irrelevant': 'close'
+      };
+      
+      if (status in metrikaGoals && typeof window !== 'undefined' && (window as any).ym) {
+        (window as any).ym(104854671, 'reachGoal', metrikaGoals[status]);
+      }
     } catch (error) {
       alert('Ошибка обновления статуса');
     }

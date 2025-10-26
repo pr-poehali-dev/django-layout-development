@@ -57,17 +57,15 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 }})(window, document,'script','https://mc.yandex.ru/metrika/tag.js', 'ym');
 
                 ym(104854671, 'init', {{
+                    ssr: true,
                     clickmap:true,
                     trackLinks:true,
                     accurateTrackBounce:true,
-                    webvisor:true
+                    webvisor:true,
+                    ecommerce:"dataLayer"
                 }});
                 
                 ym(104854671, 'reachGoal', '{goal}');
-                
-                setTimeout(function() {{
-                    window.close();
-                }}, 1000);
             </script>
         </head>
         <body>

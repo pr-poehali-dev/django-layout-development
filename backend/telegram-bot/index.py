@@ -232,6 +232,19 @@ def handle_callback(callback_query: dict):
                 
                 with urllib.request.urlopen(req) as response:
                     pass
+                
+                metrika_goals = {
+                    'trial': 'trial',
+                    'enrolled': 'course',
+                    'thinking': 'wait',
+                    'irrelevant': 'close'
+                }
+                
+                if status in metrika_goals:
+                    try:
+                        send_metrika_goal(metrika_goals[status])
+                    except Exception as e:
+                        print(f"Failed to send metrika goal: {e}")
         
         except Exception as e:
             print(f"Error updating status: {e}")
@@ -257,3 +270,20 @@ def handle_callback(callback_query: dict):
         'body': json.dumps({'ok': True}),
         'isBase64Encoded': False
     }
+
+def send_metrika_goal(goal: str):
+    '''Отправка цели в Яндекс.Метрику'''
+    import urllib.request
+    
+    metrika_url = 'https://functions.poehali.dev/30856b9e-1809-4ef3-9ef0-a8f4a03ddf11'
+    
+    data = json.dumps({'goal': goal}).encode('utf-8')
+    
+    req = urllib.request.Request(
+        metrika_url,
+        data=data,
+        headers={'Content-Type': 'application/json'}
+    )
+    
+    with urllib.request.urlopen(req) as response:
+        return json.loads(response.read().decode('utf-8'))

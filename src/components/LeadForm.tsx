@@ -30,6 +30,11 @@ export default function LeadForm({
       await api.leads.create({ phone, source });
       setSubmitted(true);
       setPhone('');
+      
+      if (typeof window !== 'undefined' && (window as any).ym) {
+        (window as any).ym(104854671, 'reachGoal', 'send_form');
+      }
+      
       setTimeout(() => setSubmitted(false), 3000);
     } catch (error) {
       console.error('Error submitting form:', error);
