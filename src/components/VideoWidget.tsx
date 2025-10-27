@@ -32,38 +32,33 @@ export default function VideoWidget() {
   }
 
   return (
-    <div className="fixed bottom-6 left-6 z-50 bg-background rounded-3xl shadow-2xl border-2 border-primary overflow-hidden">
-      <div className="flex items-center justify-between bg-primary text-primary-foreground px-4 py-2">
-        <span className="font-semibold text-sm">Видео о нас</span>
-        <div className="flex gap-2">
-          <Button
-            onClick={() => setIsMinimized(true)}
-            variant="ghost"
-            size="sm"
-            className="h-8 w-8 p-0 hover:bg-primary-foreground/20"
-          >
-            <Icon name="Minimize2" size={16} />
-          </Button>
-        </div>
-      </div>
+    <div className="fixed bottom-4 left-4 z-50 rounded-2xl overflow-hidden shadow-xl">
       <div 
-        className="relative w-64 h-[28rem] cursor-pointer group"
+        className="relative w-40 h-72 cursor-pointer group"
         onClick={handleUnmute}
       >
+        <Button
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsMinimized(true);
+          }}
+          variant="ghost"
+          size="sm"
+          className="absolute top-2 right-2 z-10 h-7 w-7 p-0 bg-black/50 hover:bg-black/70 text-white rounded-full"
+        >
+          <Icon name="X" size={14} />
+        </Button>
         <iframe
           ref={videoRef}
           src={videoUrl}
-          className="w-full h-full"
+          className="w-full h-full rounded-2xl"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         />
         {isMuted && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition-colors">
-            <div className="bg-primary text-primary-foreground rounded-full p-4 shadow-lg">
-              <Icon name="Volume2" size={32} />
-            </div>
-            <div className="absolute bottom-8 left-0 right-0 text-center text-white font-semibold text-sm bg-black/50 py-2">
-              Нажмите для включения звука
+          <div className="absolute inset-0 flex items-center justify-center group-hover:bg-black/20 transition-colors rounded-2xl">
+            <div className="bg-white/90 text-foreground rounded-full p-3 shadow-lg">
+              <Icon name="Volume2" size={24} />
             </div>
           </div>
         )}

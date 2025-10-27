@@ -78,6 +78,11 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                     "INSERT INTO blog_posts (title, slug, content, excerpt, image_url, published) VALUES (%s, %s, %s, %s, %s, %s) RETURNING *",
                     (body_data.get('title'), body_data.get('slug'), body_data.get('content'), body_data.get('excerpt'), body_data.get('image_url'), body_data.get('published', False))
                 )
+            elif resource == 'team':
+                cur.execute(
+                    "INSERT INTO team_members (name, role, bio, photo_url, sort_order) VALUES (%s, %s, %s, %s, %s) RETURNING *",
+                    (body_data.get('name'), body_data.get('role'), body_data.get('bio'), body_data.get('photo_url'), body_data.get('sort_order', 0))
+                )
             
             item = cur.fetchone()
             conn.commit()
@@ -88,6 +93,67 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 'statusCode': 201,
                 'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
                 'body': json.dumps(dict(item), default=str)
+            }
+        
+        elif method == 'PUT':
+            body_data = json.loads(event.get('body', '{}'))
+            item_id = params.get('id') if params else None
+            
+            if not item_id:
+                return {
+                    'statusCode': 400,
+                    'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+                    'body': json.dumps({'error': 'ID is required'})
+                }
+            
+            if resource == 'team':
+                cur.execute(
+                    "UPDATE team_members SET name = %s, role = %s, bio = %s, photo_url = %s, sort_order = %s WHERE id = %s RETURNING *",
+                    (body_data.get('name'), body_data.get('role'), body_data.get('bio'), body_data.get('photo_url'), body_data.get('sort_order', 0), item_id)
+                )
+            
+            item = cur.fetchone()
+            
+            if not item:
+                cur.close()
+                conn.close()
+                return {
+                    'statusCode': 404,
+                    'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+                    'body': json.dumps({'error': 'Item not found'})
+                }
+            
+            conn.commit()
+            cur.close()
+            conn.close()
+            
+            return {
+                'statusCode': 200,
+                'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+                'body': json.dumps(dict(item), default=str)
+            }
+        
+        elif method == 'DELETE':
+            item_id = params.get('id') if params else None
+            
+            if not item_id:
+                return {
+                    'statusCode': 400,
+                    'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+                    'body': json.dumps({'error': 'ID is required'})
+                }
+            
+            if resource == 'team':
+                cur.execute("DELETE FROM team_members WHERE id = %s", (item_id,))
+            
+            conn.commit()
+            cur.close()
+            conn.close()
+            
+            return {
+                'statusCode': 200,
+                'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+                'body': json.dumps({'success': True})
             }
         
         cur.close()

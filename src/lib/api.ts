@@ -247,6 +247,38 @@ export const api = {
     getTeam: async (): Promise<TeamMember[]> => {
       const response = await fetch(`${API_URLS.gallery}?resource=team`);
       return response.json();
+    },
+    createTeamMember: async (member: Partial<TeamMember>, token: string) => {
+      const response = await fetch(`${API_URLS.gallery}?resource=team`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Auth-Token': token
+        },
+        body: JSON.stringify(member)
+      });
+      return response.json();
+    },
+    updateTeamMember: async (member: TeamMember, token: string) => {
+      const response = await fetch(`${API_URLS.gallery}?resource=team&id=${member.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Auth-Token': token
+        },
+        body: JSON.stringify(member)
+      });
+      return response.json();
+    },
+    deleteTeamMember: async (id: number, token: string) => {
+      const response = await fetch(`${API_URLS.gallery}?resource=team&id=${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Auth-Token': token
+        }
+      });
+      return response.json();
     }
   }
 };

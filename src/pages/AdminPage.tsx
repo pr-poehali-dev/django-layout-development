@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { api, Lead, SiteContent, CourseModule, FAQ, Review, GalleryImage, BlogPost } from '@/lib/api';
+import { api, Lead, SiteContent, CourseModule, FAQ, Review, GalleryImage, BlogPost, TeamMember } from '@/lib/api';
 import LoginForm from '@/components/admin/LoginForm';
 import AdminHeader from '@/components/admin/AdminHeader';
 import ContentManager from '@/components/admin/ContentManager';
@@ -10,6 +10,7 @@ import BlogManager from '@/components/admin/BlogManager';
 import LeadsManager from '@/components/admin/LeadsManager';
 import ModulesManager from '@/components/admin/ModulesManager';
 import FAQManager from '@/components/admin/FAQManager';
+import TeamManager from '@/components/admin/TeamManager';
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -64,6 +65,15 @@ export default function AdminPage() {
     author: ''
   });
 
+  const [team, setTeam] = useState<TeamMember[]>([]);
+  const [editingTeamMember, setEditingTeamMember] = useState<TeamMember | null>(null);
+  const [newTeamMember, setNewTeamMember] = useState({
+    name: '',
+    role: '',
+    bio: '',
+    photo_url: ''
+  });
+
   useEffect(() => {
     const savedToken = localStorage.getItem('admin_token');
     if (savedToken) {
@@ -75,14 +85,15 @@ export default function AdminPage() {
 
   const loadData = async (authToken: string) => {
     try {
-      const [leadsData, contentData, modulesData, faqData, galleryData, reviewsData, blogData] = await Promise.all([
+      const [leadsData, contentData, modulesData, faqData, galleryData, reviewsData, blogData, teamData] = await Promise.all([
         api.leads.getAll(authToken),
         api.content.getAll(),
         api.modules.getAll(),
         api.gallery.getFAQ(),
         api.gallery.getImages(),
         api.gallery.getReviews(),
-        api.gallery.getBlog()
+        api.gallery.getBlog(),
+        api.gallery.getTeam()
       ]);
       setLeads(leadsData);
       setContent(contentData);
@@ -91,6 +102,7 @@ export default function AdminPage() {
       setGallery(galleryData);
       setReviews(reviewsData);
       setBlog(blogData);
+      setTeam(teamData);
     } catch (error) {
       console.error('Error loading data:', error);
     }
@@ -242,6 +254,44 @@ export default function AdminPage() {
     }
   };
 
+  const handleCreateTeamMember = async () => {
+    if (!newTeamMember.name || !newTeamMember.role) {
+      alert('Заполните имя и должность');
+      return;
+    }
+    try {
+      await api.gallery.createTeamMember(newTeamMember, token);
+      await loadData(token);
+      setNewTeamMember({ name: '', role: '', bio: '', photo_url: '' });
+      alert('Член команды добавлен');
+    } catch (error) {
+      alert('Ошибка создания');
+    }
+  };
+
+  const handleUpdateTeamMember = async () => {
+    if (!editingTeamMember) return;
+    try {
+      await api.gallery.updateTeamMember(editingTeamMember, token);
+      await loadData(token);
+      setEditingTeamMember(null);
+      alert('Данные обновлены');
+    } catch (error) {
+      alert('Ошибка обновления');
+    }
+  };
+
+  const handleDeleteTeamMember = async (id: number) => {
+    if (!confirm('Удалить члена команды?')) return;
+    try {
+      await api.gallery.deleteTeamMember(id, token);
+      await loadData(token);
+      alert('Удалено');
+    } catch (error) {
+      alert('Ошибка удаления');
+    }
+  };
+
   if (!isAuthenticated) {
     return <LoginForm onLogin={handleLogin} loading={loading} />;
   }
@@ -252,7 +302,7 @@ export default function AdminPage() {
       
       <div className="container mx-auto px-4 py-8">
         <Tabs defaultValue="leads" className="space-y-4">
-          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-7">
+          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-8">
             <TabsTrigger value="leads">Заявки</TabsTrigger>
             <TabsTrigger value="content">Контент</TabsTrigger>
             <TabsTrigger value="modules">Модули</TabsTrigger>
@@ -260,6 +310,7 @@ export default function AdminPage() {
             <TabsTrigger value="gallery">Галерея</TabsTrigger>
             <TabsTrigger value="reviews">Отзывы</TabsTrigger>
             <TabsTrigger value="blog">Блог</TabsTrigger>
+            <TabsTrigger value="team">Команда</TabsTrigger>
           </TabsList>
 
           <TabsContent value="leads">
@@ -324,6 +375,21 @@ export default function AdminPage() {
 
           <TabsContent value="blog">
             <BlogManager blog={blog} token={token} onReload={() => loadData(token)} />
+          </TabsContent>
+
+          <TabsContent value="team">
+            <TeamManager
+              team={team}
+              editingMember={editingTeamMember}
+              newMember={newTeamMember}
+              onNewMemberChange={(field, value) => setNewTeamMember(prev => ({...prev, [field]: value}))}
+              onEditingMemberChange={(field, value) => setEditingTeamMember(prev => prev ? {...prev, [field]: value} : null)}
+              onCreate={handleCreateTeamMember}
+              onUpdate={handleUpdateTeamMember}
+              onDelete={handleDeleteTeamMember}
+              onStartEditing={setEditingTeamMember}
+              onCancelEditing={() => setEditingTeamMember(null)}
+            />
           </TabsContent>
         </Tabs>
       </div>
