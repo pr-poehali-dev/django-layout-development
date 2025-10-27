@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -5,8 +6,28 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import Image from '@/components/ui/image';
 import Icon from '@/components/ui/icon';
 import PhoneForm from '@/components/PhoneForm';
+import { Card, CardContent } from '@/components/ui/card';
+import { api, TeamMember } from '@/lib/api';
 
 export default function TeacherPage() {
+  const [team, setTeam] = useState<TeamMember[]>([]);
+  const [loadingTeam, setLoadingTeam] = useState(true);
+
+  useEffect(() => {
+    loadTeam();
+  }, []);
+
+  const loadTeam = async () => {
+    try {
+      const data = await api.gallery.getTeam();
+      setTeam(data);
+    } catch (error) {
+      console.error('Error loading team:', error);
+    } finally {
+      setLoadingTeam(false);
+    }
+  };
+
   const achievements = [
     {
       icon: 'Trophy',
@@ -151,23 +172,45 @@ export default function TeacherPage() {
                   </li>
                 ))}
               </ul>
+            </div>
 
-              <div className="border-t border-border pt-8">
-                <h3 className="text-xl md:text-2xl font-bold mb-6 text-center">Команда поддержки</h3>
-                <p className="text-center text-muted-foreground mb-6">
-                  Вместе с Казбеком работает профессиональная команда, которая помогает в организации обучения и развитии учеников
-                </p>
-                <div className="text-center">
-                  <a 
-                    href="/team"
-                    className="inline-flex items-center gap-2 text-primary hover:underline font-semibold"
-                  >
-                    <Icon name="Users" size={20} />
-                    Познакомиться с командой
-                  </a>
+            {loadingTeam ? (
+              <div className="text-center py-12 mb-16">
+                <Icon name="Loader2" className="animate-spin mx-auto text-primary" size={48} />
+              </div>
+            ) : team.length > 0 && (
+              <div className="mb-16">
+                <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Наша команда</h2>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                  {team.map((member) => (
+                    <Card key={member.id} className="group hover:shadow-xl transition-all duration-300">
+                      <div className="aspect-[3/4] overflow-hidden rounded-t-lg">
+                        {member.photo_url ? (
+                          <img 
+                            src={member.photo_url} 
+                            alt={member.name}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
+                            <Icon name="User" className="text-primary/30" size={80} />
+                          </div>
+                        )}
+                      </div>
+                      <CardContent className="pt-4 md:pt-6">
+                        <h3 className="text-xl md:text-2xl font-bold mb-2">{member.name}</h3>
+                        <p className="text-sm md:text-base text-primary font-semibold mb-3 md:mb-4">{member.role}</p>
+                        {member.bio && (
+                          <p className="text-sm md:text-base text-muted-foreground leading-relaxed line-clamp-4 whitespace-pre-line">
+                            {member.bio}
+                          </p>
+                        )}
+                      </CardContent>
+                    </Card>
+                  ))}
                 </div>
               </div>
-            </div>
+            )}
 
             <div className="bg-primary/5 border border-primary/20 rounded-2xl p-8 text-center">
               <h2 className="text-2xl md:text-3xl font-bold mb-4">Запишитесь на курс</h2>

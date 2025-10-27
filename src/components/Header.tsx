@@ -22,8 +22,7 @@ export default function Header() {
     { href: '/', label: 'Актерское мастерство' },
     { href: '/showreel', label: 'Визитки' },
     { href: '/oratory', label: 'Ораторское искусство' },
-    { href: '/teacher', label: 'О преподавателе' },
-    { href: '/team', label: 'Команда' },
+    { href: '/teacher', label: 'О преподавателях' },
     { href: '/reviews', label: 'Отзывы' },
     { href: '/blog', label: 'Блог' }
   ];
