@@ -130,10 +130,6 @@ export default function TeacherPage() {
                   className="w-full rounded-2xl shadow-2xl"
                   eager
                 />
-                <div className="absolute -bottom-6 -right-6 bg-primary text-primary-foreground p-6 rounded-xl shadow-xl">
-                  <p className="text-3xl font-bold">15+</p>
-                  <p className="text-sm">лет в кино</p>
-                </div>
               </div>
             </div>
 

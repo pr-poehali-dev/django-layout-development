@@ -3,27 +3,74 @@ import PhoneForm from '@/components/PhoneForm';
 
 export default function CTASection() {
   return (
-    <section id="contact" className="py-12 px-4 md:py-20 md:px-4">
-      <div className="container mx-auto">
-        <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-2xl md:rounded-3xl p-6 md:p-8 lg:p-12 max-w-3xl mx-auto text-center">
-          <Icon name="Sparkles" size={48} className="mx-auto mb-4 md:mb-6 text-primary md:w-16 md:h-16" />
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6">Ваш голос — ваша сила!</h2>
-          <p className="text-base md:text-lg lg:text-xl xl:text-2xl mb-3 md:mb-4">
-            Начните говорить так, чтобы вас не только слышали, но и <span className="text-primary font-semibold">слушали с восхищением</span>! 
-          </p>
-          <p className="text-sm md:text-base lg:text-lg text-muted-foreground mb-6 md:mb-8">
-            Запишитесь на курс ораторского искусства прямо сейчас и откройте в себе силу убедительного слова. 
-            Каждое выступление станет вашим триумфом!
-          </p>
-          <PhoneForm 
-            source="cta_oratory"
-            course="oratory"
-            triggerText="Записаться на курс"
-            triggerSize="lg"
-            triggerClassName="w-full max-w-md mx-auto"
-            title="Готовы развить свои навыки?"
-            description="Оставьте номер телефона, и мы свяжемся с вами для записи на курс ораторского искусства"
-          />
+    <section id="contact" className="py-12 px-4 md:py-20 md:px-4 relative overflow-hidden bg-background">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-background"></div>
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-10 right-10 w-72 h-72 bg-primary rounded-full blur-3xl"></div>
+        <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
+      </div>
+      
+      <div className="container mx-auto max-w-5xl relative z-10">
+        <div className="grid md:grid-cols-2 gap-8 items-center">
+          <div className="bg-card/80 backdrop-blur-sm rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-2xl border border-primary/20">
+            <div className="mb-6">
+              <h3 className="text-xl font-bold mb-2">Запишитесь на пробное занятие</h3>
+              <p className="text-sm text-muted-foreground">Укажите ваше имя и номер телефона</p>
+            </div>
+            <PhoneForm 
+              source="cta_oratory"
+              course="oratory"
+              triggerText="Отправить заявку"
+              title=""
+              description=""
+            />
+            <div className="mt-6 flex items-center gap-2 text-xs text-muted-foreground">
+              <Icon name="Lock" size={14} />
+              <span>Ваши данные защищены и не передаются третьим лицам</span>
+            </div>
+          </div>
+
+          <div>
+            <div className="inline-flex items-center gap-2 bg-primary/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
+              <Icon name="Star" className="text-primary" size={18} />
+              <span className="text-primary font-semibold text-sm">Присоединяйтесь к нам</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">
+              Раскройте силу <span className="text-primary">своего голоса</span>
+            </h2>
+            <p className="text-base md:text-lg text-muted-foreground mb-6">
+              Запишитесь на пробное занятие и получите:
+            </p>
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <Icon name="Users" className="text-primary" size={20} />
+                </div>
+                <div>
+                  <h3 className="font-semibold mb-1">Обучение от профессионалов</h3>
+                  <p className="text-sm text-muted-foreground">Занятия с опытными ораторами и преподавателями</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <Icon name="Mic" className="text-primary" size={20} />
+                </div>
+                <div>
+                  <h3 className="font-semibold mb-1">Практика публичных выступлений</h3>
+                  <p className="text-sm text-muted-foreground">Реальный опыт выступлений перед аудиторией</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <Icon name="Award" className="text-primary" size={20} />
+                </div>
+                <div>
+                  <h3 className="font-semibold mb-1">Сертификат об окончании</h3>
+                  <p className="text-sm text-muted-foreground">Официальный документ после завершения курса</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
