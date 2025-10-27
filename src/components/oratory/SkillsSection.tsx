@@ -66,12 +66,12 @@ export default function SkillsSection() {
           ))}
         </div>
         
-        <div className="mt-16 text-center">
-          <div className="inline-block bg-gradient-to-br from-primary/5 to-primary/10 backdrop-blur-sm border border-primary/20 rounded-2xl p-8 md:p-10 shadow-xl">
-            <h3 className="text-2xl md:text-3xl font-bold mb-3">
+        <div className="mt-16">
+          <div className="bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-sm border border-primary/20 rounded-2xl md:rounded-3xl p-8 md:p-12 shadow-2xl max-w-3xl mx-auto text-center">
+            <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
               Готовы развить свои <span className="text-primary">навыки?</span>
             </h3>
-            <p className="text-muted-foreground mb-6 max-w-md mx-auto text-base md:text-lg">
+            <p className="text-muted-foreground mb-8 max-w-xl mx-auto text-lg md:text-xl">
               Запишитесь на пробное занятие и узнайте больше о программе курса
             </p>
             <PhoneForm 
@@ -79,8 +79,7 @@ export default function SkillsSection() {
               course="oratory"
               triggerText="Записаться на пробное занятие"
               triggerSize="lg"
-              title="Запись на пробное занятие"
-              description="Оставьте номер телефона, и мы пригласим вас на пробное занятие"
+              triggerClassName="text-base md:text-lg px-8 py-6"
             />
           </div>
         </div>
