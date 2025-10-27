@@ -153,6 +153,26 @@ def send_message(chat_id: int, text: str):
     with urllib.request.urlopen(req) as response:
         return json.loads(response.read().decode('utf-8'))
 
+def send_metrika_goal(goal: str, client_id: str):
+    '''Отправка цели в Яндекс.Метрику через metrika-goal-sender'''
+    import urllib.request
+    
+    url = 'https://functions.poehali.dev/3d824f97-2f09-44e4-8c9a-54af8aa6ccce'
+    
+    data = json.dumps({
+        'goal': goal,
+        'client_id': client_id
+    }).encode('utf-8')
+    
+    req = urllib.request.Request(
+        url,
+        data=data,
+        headers={'Content-Type': 'application/json'}
+    )
+    
+    with urllib.request.urlopen(req) as response:
+        return response.read().decode('utf-8')
+
 def handle_callback(callback_query: dict):
     '''Обработка нажатий на inline кнопки'''
     import urllib.request
@@ -205,6 +225,13 @@ def handle_callback(callback_query: dict):
             conn.close()
             
             ym_client_id = lead.get('ym_client_id') if lead else None
+            
+            if status == 'trial' and ym_client_id:
+                try:
+                    send_metrika_goal('trial', ym_client_id)
+                    print(f"✅ Цель 'trial' отправлена в метрику для client_id: {ym_client_id}")
+                except Exception as e:
+                    print(f"❌ Ошибка отправки цели в метрику: {str(e)}")
             
             if lead:
                 from datetime import datetime

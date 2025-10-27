@@ -88,15 +88,8 @@ export default function PhoneForm({
       });
       setSuccess(true);
       
-      if (typeof window !== 'undefined') {
-        const ym = (window as any).ym;
-        if (ym) {
-          console.log('✅ Отправляем цель в Яндекс.Метрику: trial_lesson');
-          ym(104854671, 'reachGoal', 'trial_lesson');
-          console.log('✅ Цель trial_lesson отправлена');
-        } else {
-          console.warn('⚠️ Яндекс.Метрика не загружена');
-        }
+      if (typeof window !== 'undefined' && (window as any).ym) {
+        (window as any).ym(104854671, 'reachGoal', 'send_form');
       }
       
       setTimeout(() => {
