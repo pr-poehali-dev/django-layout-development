@@ -162,7 +162,17 @@ def handle_callback(callback_query: dict):
     message_id = callback_query['message']['message_id']
     data = callback_query['data']
     
-    if data.startswith('status_'):
+    if data.startswith('called_'):
+        lead_id = int(data.split('_')[1])
+        return handle_called(callback_id, chat_id, message_id, lead_id)
+    
+    elif data.startswith('target_'):
+        parts = data.split('_')
+        lead_id = int(parts[1])
+        is_target = parts[2] == 'yes'
+        return handle_target_response(callback_id, chat_id, message_id, lead_id, is_target)
+    
+    elif data.startswith('status_'):
         parts = data.split('_')
         lead_id = int(parts[1])
         status = parts[2]
@@ -293,3 +303,219 @@ def send_metrika_goal(goal: str, client_id: str = None):
     
     with urllib.request.urlopen(req) as response:
         return json.loads(response.read().decode('utf-8'))
+
+def handle_called(callback_id: str, chat_id: int, message_id: int, lead_id: int):
+    '''Обработка нажатия кнопки "Позвонил клиенту"'''
+    import urllib.request
+    
+    try:
+        conn = psycopg2.connect(os.environ['DATABASE_URL'])
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+        
+        cur.execute(
+            "UPDATE leads SET call_status = 'called', updated_at = CURRENT_TIMESTAMP WHERE id = %s RETURNING *",
+            (lead_id,)
+        )
+        lead = cur.fetchone()
+        conn.commit()
+        cur.close()
+        conn.close()
+        
+        if lead:
+            from datetime import datetime
+            created_at = lead['created_at']
+            
+            months_ru = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 
+                         'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
+            
+            formatted_date = f"{created_at.day} {months_ru[created_at.month - 1]} {created_at.year} года в {created_at.strftime('%H:%M')}"
+            
+            course_emoji = '🎭' if lead.get('course') == 'acting' else '🎤' if lead.get('course') == 'oratory' else '❓'
+            course_name = 'Актёрское мастерство' if lead.get('course') == 'acting' else 'Ораторское искусство' if lead.get('course') == 'oratory' else 'Не указан'
+            
+            new_message = (
+                f"───────────────────\n"
+                f"📞 <b>ПОЗВОНИЛИ КЛИЕНТУ</b>\n"
+                f"───────────────────\n\n"
+                f"📞 <b>Телефон:</b> <code>{lead['phone']}</code>\n"
+                f"{course_emoji} <b>Курс:</b> {course_name}\n"
+                f"📅 <b>Дата:</b> {formatted_date}\n\n"
+                f"<b>Клиент целевой и ему интересно?</b>"
+            )
+            
+            url = f'https://api.telegram.org/bot{BOT_TOKEN}/editMessageText'
+            data_update = json.dumps({
+                'chat_id': chat_id,
+                'message_id': message_id,
+                'text': new_message,
+                'parse_mode': 'HTML',
+                'reply_markup': {
+                    'inline_keyboard': [[
+                        {'text': '✅ Да, целевой и интересно', 'callback_data': f'target_{lead_id}_yes'},
+                        {'text': '❌ Нет, не заинтересован', 'callback_data': f'target_{lead_id}_no'}
+                    ]]
+                }
+            }).encode('utf-8')
+            
+            req = urllib.request.Request(
+                url,
+                data=data_update,
+                headers={'Content-Type': 'application/json'}
+            )
+            
+            with urllib.request.urlopen(req) as response:
+                pass
+    
+    except Exception as e:
+        print(f"Error in handle_called: {e}")
+    
+    answer_url = f'https://api.telegram.org/bot{BOT_TOKEN}/answerCallbackQuery'
+    answer_data = json.dumps({
+        'callback_query_id': callback_id,
+        'text': '✅ Отмечено: позвонили клиенту'
+    }).encode('utf-8')
+    
+    req = urllib.request.Request(
+        answer_url,
+        data=answer_data,
+        headers={'Content-Type': 'application/json'}
+    )
+    
+    with urllib.request.urlopen(req) as response:
+        pass
+    
+    return {
+        'statusCode': 200,
+        'headers': {'Content-Type': 'application/json'},
+        'body': json.dumps({'ok': True}),
+        'isBase64Encoded': False
+    }
+
+def handle_target_response(callback_id: str, chat_id: int, message_id: int, lead_id: int, is_target: bool):
+    '''Обработка ответа о целевом клиенте и запуск WhatsApp рассылки'''
+    import urllib.request
+    
+    try:
+        conn = psycopg2.connect(os.environ['DATABASE_URL'])
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+        
+        cur.execute(
+            """UPDATE leads 
+               SET is_target = %s, 
+                   whatsapp_campaign_active = %s, 
+                   status = %s,
+                   updated_at = CURRENT_TIMESTAMP 
+               WHERE id = %s RETURNING *""",
+            (is_target, is_target, 'target_interested' if is_target else 'not_interested', lead_id)
+        )
+        lead = cur.fetchone()
+        conn.commit()
+        
+        if is_target and lead:
+            schedule_whatsapp_campaign(cur, conn, lead)
+        
+        cur.close()
+        conn.close()
+        
+        if lead:
+            from datetime import datetime
+            created_at = lead['created_at']
+            
+            months_ru = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 
+                         'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
+            
+            formatted_date = f"{created_at.day} {months_ru[created_at.month - 1]} {created_at.year} года в {created_at.strftime('%H:%M')}"
+            
+            course_emoji = '🎭' if lead.get('course') == 'acting' else '🎤' if lead.get('course') == 'oratory' else '❓'
+            course_name = 'Актёрское мастерство' if lead.get('course') == 'acting' else 'Ораторское искусство' if lead.get('course') == 'oratory' else 'Не указан'
+            
+            status_text = '✅ ЦЕЛЕВОЙ И ИНТЕРЕСНО' if is_target else '❌ НЕ ЗАИНТЕРЕСОВАН'
+            whatsapp_text = '\n\n🎯 <b>WhatsApp рассылка запущена!</b>' if is_target else ''
+            
+            new_message = (
+                f"───────────────────\n"
+                f"{status_text}\n"
+                f"───────────────────\n\n"
+                f"📞 <b>Телефон:</b> <code>{lead['phone']}</code>\n"
+                f"{course_emoji} <b>Курс:</b> {course_name}\n"
+                f"📅 <b>Дата:</b> {formatted_date}"
+                f"{whatsapp_text}\n\n"
+                f"───────────────────"
+            )
+            
+            url = f'https://api.telegram.org/bot{BOT_TOKEN}/editMessageText'
+            data_update = json.dumps({
+                'chat_id': chat_id,
+                'message_id': message_id,
+                'text': new_message,
+                'parse_mode': 'HTML'
+            }).encode('utf-8')
+            
+            req = urllib.request.Request(
+                url,
+                data=data_update,
+                headers={'Content-Type': 'application/json'}
+            )
+            
+            with urllib.request.urlopen(req) as response:
+                pass
+    
+    except Exception as e:
+        print(f"Error in handle_target_response: {e}")
+        import traceback
+        traceback.print_exc()
+    
+    answer_text = '🎯 WhatsApp рассылка запущена!' if is_target else 'Отмечено как не заинтересован'
+    
+    answer_url = f'https://api.telegram.org/bot{BOT_TOKEN}/answerCallbackQuery'
+    answer_data = json.dumps({
+        'callback_query_id': callback_id,
+        'text': answer_text
+    }).encode('utf-8')
+    
+    req = urllib.request.Request(
+        answer_url,
+        data=answer_data,
+        headers={'Content-Type': 'application/json'}
+    )
+    
+    with urllib.request.urlopen(req) as response:
+        pass
+    
+    return {
+        'statusCode': 200,
+        'headers': {'Content-Type': 'application/json'},
+        'body': json.dumps({'ok': True}),
+        'isBase64Encoded': False
+    }
+
+def schedule_whatsapp_campaign(cur, conn, lead: dict):
+    '''Создание очереди WhatsApp сообщений для прогрева клиента'''
+    from datetime import datetime, timedelta
+    
+    course = lead.get('course')
+    phone = lead.get('phone', '').replace('+', '').replace(' ', '').replace('(', '').replace(')', '').replace('-', '')
+    
+    cur.execute(
+        "SELECT * FROM whatsapp_templates WHERE active = TRUE AND (course = %s OR course IS NULL) ORDER BY delay_days",
+        (course,)
+    )
+    templates = cur.fetchall()
+    
+    for template in templates:
+        scheduled_time = datetime.now() + timedelta(days=template['delay_days'])
+        
+        message_text = template['content']
+        if '{{instructor_name}}' in message_text:
+            instructor = 'Казбек Меретуков' if course == 'acting' else 'Ольга Штерц'
+            message_text = message_text.replace('{{instructor_name}}', instructor)
+        
+        cur.execute(
+            """INSERT INTO whatsapp_queue 
+               (lead_id, phone, message_template, message_text, scheduled_at, status)
+               VALUES (%s, %s, %s, %s, %s, 'pending')""",
+            (lead['id'], phone, template['name'], message_text, scheduled_time)
+        )
+    
+    conn.commit()
+    print(f"Scheduled {len(templates)} WhatsApp messages for lead {lead['id']}")
