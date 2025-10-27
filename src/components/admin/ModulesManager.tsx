@@ -55,7 +55,7 @@ export default function ModulesManager({
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent modal={false}>
                 <SelectItem value="acting">Актерское мастерство</SelectItem>
                 <SelectItem value="oratory">Ораторское искусство</SelectItem>
               </SelectContent>
@@ -122,7 +122,7 @@ export default function ModulesManager({
                           <SelectTrigger>
                             <SelectValue />
                           </SelectTrigger>
-                          <SelectContent>
+                          <SelectContent modal={false}>
                             <SelectItem value="acting">Актерское мастерство</SelectItem>
                             <SelectItem value="oratory">Ораторское искусство</SelectItem>
                           </SelectContent>
