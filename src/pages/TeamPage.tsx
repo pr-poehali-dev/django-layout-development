@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import { Card, CardContent } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
 import Header from '@/components/Header';
@@ -26,7 +27,15 @@ export default function TeamPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <>
+      <Helmet>
+        <title>Наша команда - Профессиональные преподаватели | Школа актёрского мастерства</title>
+        <meta name="description" content="Познакомьтесь с нашей командой профессиональных преподавателей ораторского искусства и актёрского мастерства. Опытные наставники для вашего развития." />
+        <link rel="canonical" href="https://acting-school.poehali.dev/team" />
+        <meta property="og:url" content="https://acting-school.poehali.dev/team" />
+        <meta property="og:title" content="Команда преподавателей школы актёрского мастерства" />
+      </Helmet>
+      <div className="min-h-screen bg-background text-foreground">
       <Header />
 
       <section className="pt-20 pb-12 px-4 md:pt-32 md:pb-20 md:px-4">
@@ -101,5 +110,6 @@ export default function TeamPage() {
 
       <Footer />
     </div>
+    </>
   );
 }

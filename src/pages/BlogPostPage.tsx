@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -53,7 +54,17 @@ export default function BlogPostPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <>
+      <Helmet>
+        <title>{post.title} | Блог школы актёрского мастерства</title>
+        <meta name="description" content={post.excerpt || post.content.substring(0, 160)} />
+        <link rel="canonical" href={`https://acting-school.poehali.dev/blog/${post.slug}`} />
+        <meta property="og:url" content={`https://acting-school.poehali.dev/blog/${post.slug}`} />
+        <meta property="og:title" content={post.title} />
+        <meta property="og:type" content="article" />
+        {post.image_url && <meta property="og:image" content={post.image_url} />}
+      </Helmet>
+      <div className="min-h-screen bg-background text-foreground">
       <Header />
 
       <article className="pt-20 md:pt-32 pb-12 md:pb-20">
@@ -115,5 +126,6 @@ export default function BlogPostPage() {
 
       <Footer />
     </div>
+    </>
   );
 }

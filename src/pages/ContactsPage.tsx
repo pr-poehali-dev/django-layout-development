@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import { Card, CardContent } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
 import Header from '@/components/Header';
@@ -51,7 +52,15 @@ export default function ContactsPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <>
+      <Helmet>
+        <title>Контакты - Свяжитесь с нами | Школа актёрского мастерства</title>
+        <meta name="description" content="Свяжитесь с нами удобным способом. Контактная информация школы актёрского мастерства: адрес, телефон, email и режим работы." />
+        <link rel="canonical" href="https://acting-school.poehali.dev/contacts" />
+        <meta property="og:url" content="https://acting-school.poehali.dev/contacts" />
+        <meta property="og:title" content="Контакты школы актёрского мастерства" />
+      </Helmet>
+      <div className="min-h-screen bg-background text-foreground">
       <Header />
 
       <section className="pt-20 pb-12 px-4 md:pt-32 md:pb-20 md:px-4">
@@ -161,5 +170,6 @@ export default function ContactsPage() {
 
       <Footer />
     </div>
+    </>
   );
 }

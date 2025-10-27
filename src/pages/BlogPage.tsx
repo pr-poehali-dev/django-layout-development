@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
 import Header from '@/components/Header';
@@ -26,7 +27,15 @@ export default function BlogPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <>
+      <Helmet>
+        <title>Блог школы - Полезные материалы и новости | Школа актёрского мастерства</title>
+        <meta name="description" content="Читайте полезные материалы, новости и истории успеха наших учеников. Советы по развитию ораторских навыков и актёрского мастерства." />
+        <link rel="canonical" href="https://acting-school.poehali.dev/blog" />
+        <meta property="og:url" content="https://acting-school.poehali.dev/blog" />
+        <meta property="og:title" content="Блог школы актёрского мастерства" />
+      </Helmet>
+      <div className="min-h-screen bg-background text-foreground">
       <Header />
 
       <section className="pt-20 pb-12 px-4 md:pt-32 md:pb-20 md:px-4">
@@ -103,5 +112,6 @@ export default function BlogPage() {
 
       <Footer />
     </div>
+    </>
   );
 }

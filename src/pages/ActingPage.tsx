@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import HeroSection from '@/components/acting/HeroSection';
@@ -61,7 +62,14 @@ export default function ActingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <>
+      <Helmet>
+        <title>Курсы актёрского мастерства в Москве от режиссёра Казбека Меретукова | Актёрская школа</title>
+        <meta name="description" content="Профессиональные курсы актёрского мастерства от режиссёра телесериалов. Победитель ТЕФИ-2012. Обучение актёрскому мастерству, работа на камеру, съёмка короткометражного фильма. Пробное занятие бесплатно." />
+        <link rel="canonical" href="https://acting-school.poehali.dev/" />
+        <meta property="og:url" content="https://acting-school.poehali.dev/" />
+      </Helmet>
+      <div className="min-h-screen bg-background text-foreground">
       <Header />
       <HeroSection content={content} />
       <VideoSection content={content} />
@@ -82,6 +90,7 @@ export default function ActingPage() {
       />
       <FAQSection faq={faq} />
       <Footer />
-    </div>
+      </div>
+    </>
   );
 }
