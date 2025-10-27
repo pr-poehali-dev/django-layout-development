@@ -33,7 +33,11 @@ export default function LeadForm({
       setPhone('');
       
       if (typeof window !== 'undefined' && (window as any).ym) {
+        console.log('Отправляем цель в Яндекс.Метрику: send_form');
         (window as any).ym(104854671, 'reachGoal', 'send_form');
+        console.log('Цель отправлена успешно');
+      } else {
+        console.warn('Яндекс.Метрика не загружена');
       }
       
       setTimeout(() => setSubmitted(false), 3000);
