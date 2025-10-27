@@ -285,10 +285,11 @@ def handle_callback(callback_query: dict):
 
 def send_metrika_goal(goal: str, client_id: str = None):
     '''
-    Отправка цели в Яндекс.Метрику через HTTP Measurement Protocol
+    Отправка цели в Яндекс.Метрику через pixel tracking
     '''
     import urllib.request
     import urllib.parse
+    import time
     
     counter_id = '104854671'
     
@@ -296,10 +297,15 @@ def send_metrika_goal(goal: str, client_id: str = None):
         print("[METRIKA] No client_id provided, skipping goal")
         return False
     
+    timestamp = int(time.time())
+    random_val = timestamp % 100000
+    
     params = {
-        'browser-info': f'ar:1:pv:1:rqnl:1:pa:1:nm:1:nb:1',
-        'site-info': json.dumps({'goal': goal}),
-        'page-url': f'https://acting-school.poehali.dev/?goal={goal}',
+        'browser-info': f'ar:1:pv:1:rqnl:1:lt:{timestamp}:en:utf-8',
+        'site-info': json.dumps({goal: 1}),
+        'page-url': f'https://acting-school.poehali.dev/goal/{goal}',
+        'page-ref': 'https://acting-school.poehali.dev/',
+        'rn': str(random_val),
     }
     
     url = f'https://mc.yandex.ru/watch/{counter_id}?{urllib.parse.urlencode(params)}'
@@ -308,15 +314,19 @@ def send_metrika_goal(goal: str, client_id: str = None):
         req = urllib.request.Request(
             url,
             headers={
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-                'Cookie': f'_ym_uid={client_id}'
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Referer': 'https://acting-school.poehali.dev/',
+                'Cookie': f'_ym_uid={client_id}; _ym_d={timestamp}'
             }
         )
         with urllib.request.urlopen(req, timeout=5) as response:
-            print(f"[METRIKA] Goal sent: {goal}, client_id: {client_id}, status: {response.status}")
+            result = response.read()
+            print(f"[METRIKA] Goal sent: {goal}, client_id: {client_id}, status: {response.status}, response_length: {len(result)}")
             return True
     except Exception as e:
         print(f"[METRIKA] Failed to send goal: {e}")
+        import traceback
+        traceback.print_exc()
         return False
 
 def handle_called(callback_id: str, chat_id: int, message_id: int, lead_id: int):
