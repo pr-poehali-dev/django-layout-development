@@ -13,7 +13,6 @@ import ReviewsPage from "./pages/ReviewsPage";
 import TeamPage from "./pages/TeamPage";
 import ContactsPage from "./pages/ContactsPage";
 import NotFound from "./pages/NotFound";
-import VideoWidget from "./components/VideoWidget";
 
 const queryClient = new QueryClient();
 
@@ -34,7 +33,6 @@ const App = () => (
           <Route path="/admin" element={<AdminPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-        <VideoWidget />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
