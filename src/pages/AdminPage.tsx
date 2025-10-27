@@ -346,8 +346,8 @@ export default function AdminPage() {
               modules={modules}
               newModule={newModule}
               editingModule={editingModule}
-              onNewModuleChange={setNewModule}
-              onEditingModuleChange={setEditingModule}
+              onNewModuleChange={(field, value) => setNewModule({ ...newModule, [field]: value })}
+              onEditingModuleChange={(field, value) => setEditingModule(editingModule ? { ...editingModule, [field]: value } : null)}
               onCreate={handleCreateModule}
               onUpdate={handleUpdateModule}
               onDelete={handleDeleteModule}
