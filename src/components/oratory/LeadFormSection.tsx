@@ -1,5 +1,6 @@
 import Icon from '@/components/ui/icon';
-import LeadForm from '@/components/LeadForm';
+import PhoneForm from '@/components/PhoneForm';
+import { Button } from '@/components/ui/button';
 
 export default function LeadFormSection() {
   return (
@@ -18,12 +19,12 @@ export default function LeadFormSection() {
           <p className="text-base md:text-lg text-muted-foreground mb-6">
             Запишитесь на пробное занятие и узнайте больше о программе курса
           </p>
-          <LeadForm 
+          <PhoneForm 
             source="lead_form_oratory"
             course="oratory"
-            title=""
-            description=""
-            buttonText="Записаться на пробное занятие"
+            triggerText="Записаться на пробное занятие"
+            triggerSize="lg"
+            triggerClassName="w-full max-w-md mx-auto"
           />
         </div>
       </div>
