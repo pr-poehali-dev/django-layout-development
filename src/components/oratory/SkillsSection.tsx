@@ -66,21 +66,73 @@ export default function SkillsSection() {
           ))}
         </div>
         
-        <div className="mt-16">
-          <div className="bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-sm border border-primary/20 rounded-2xl md:rounded-3xl p-8 md:p-12 shadow-2xl max-w-3xl mx-auto text-center">
-            <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-              Готовы развить свои <span className="text-primary">навыки?</span>
-            </h3>
-            <p className="text-muted-foreground mb-8 max-w-xl mx-auto text-lg md:text-xl">
-              Запишитесь на пробное занятие и узнайте больше о программе курса
-            </p>
-            <PhoneForm 
-              source="skills_oratory"
-              course="oratory"
-              triggerText="Записаться на пробное занятие"
-              triggerSize="lg"
-              triggerClassName="text-base md:text-lg px-8 py-6"
-            />
+        <div className="mt-16 relative overflow-hidden rounded-3xl">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-background"></div>
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute top-10 right-10 w-72 h-72 bg-primary rounded-full blur-3xl"></div>
+            <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
+          </div>
+          
+          <div className="max-w-5xl mx-auto relative z-10 py-12 md:py-16 px-4 md:px-8">
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div className="bg-card/80 backdrop-blur-sm rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-2xl border border-primary/20">
+                <div className="mb-6">
+                  <h3 className="text-xl font-bold mb-2">Запишитесь на пробное занятие</h3>
+                  <p className="text-sm text-muted-foreground">Укажите номер телефона</p>
+                </div>
+                <PhoneForm 
+                  source="skills_oratory"
+                  course="oratory"
+                  triggerText="Отправить заявку"
+                />
+                <div className="mt-6 flex items-center gap-2 text-xs text-muted-foreground">
+                  <Icon name="Lock" size={14} />
+                  <span>Ваши данные защищены и не передаются третьим лицам</span>
+                </div>
+              </div>
+
+              <div>
+                <div className="inline-flex items-center gap-2 bg-primary/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
+                  <Icon name="Star" className="text-primary" size={18} />
+                  <span className="text-primary font-semibold text-sm">Присоединяйтесь к нам</span>
+                </div>
+                <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">
+                  Готовы развить свои <span className="text-primary">навыки?</span>
+                </h3>
+                <p className="text-base md:text-lg text-muted-foreground mb-6">
+                  Запишитесь на пробное занятие и получите:
+                </p>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Icon name="Users" className="text-primary" size={20} />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">Обучение от профессионалов</h4>
+                      <p className="text-sm text-muted-foreground">Занятия с опытными ораторами и преподавателями</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Icon name="Mic" className="text-primary" size={20} />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">Практика публичных выступлений</h4>
+                      <p className="text-sm text-muted-foreground">Реальный опыт выступлений перед аудиторией</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Icon name="Award" className="text-primary" size={20} />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">Сертификат об окончании</h4>
+                      <p className="text-sm text-muted-foreground">Официальный документ после завершения курса</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
