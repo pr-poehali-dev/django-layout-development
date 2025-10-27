@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Breadcrumbs from '@/components/Breadcrumbs';
 import HeroSection from '@/components/oratory/HeroSection';
 import SkillsSection from '@/components/oratory/SkillsSection';
 import ForWhomSection from '@/components/oratory/ForWhomSection';
@@ -59,6 +60,7 @@ export default function OratoryPage() {
       </Helmet>
       <div className="min-h-screen bg-background text-foreground">
       <Header />
+      <Breadcrumbs />
       <HeroSection />
       <SkillsSection />
       <ForWhomSection />
