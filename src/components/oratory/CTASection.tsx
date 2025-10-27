@@ -21,8 +21,8 @@ export default function CTASection() {
               source="cta_oratory"
               course="oratory"
               triggerText="Отправить заявку"
-              title=""
-              description=""
+              title="Запишитесь на пробное занятие"
+              description="Оставьте номер телефона, и мы свяжемся с вами для записи на курс ораторского искусства"
             />
             <div className="mt-6 flex items-center gap-2 text-xs text-muted-foreground">
               <Icon name="Lock" size={14} />

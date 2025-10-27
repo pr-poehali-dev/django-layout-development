@@ -25,9 +25,11 @@ export default function PhoneForm({
   triggerVariant = 'default',
   triggerSize = 'default',
   triggerClassName = '',
-  title = 'Записаться на курс',
-  description = 'Оставьте свой номер телефона, и мы свяжемся с вами в ближайшее время'
+  title,
+  description
 }: PhoneFormProps) {
+  const defaultTitle = title !== undefined ? title : 'Записаться на курс';
+  const defaultDescription = description !== undefined ? description : 'Оставьте свой номер телефона, и мы свяжемся с вами в ближайшее время';
   const [open, setOpen] = useState(false);
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
@@ -113,8 +115,8 @@ export default function PhoneForm({
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-2xl">{title}</DialogTitle>
-          <DialogDescription>{description}</DialogDescription>
+          <DialogTitle className="text-2xl">{defaultTitle}</DialogTitle>
+          <DialogDescription>{defaultDescription}</DialogDescription>
         </DialogHeader>
         
         {success ? (
