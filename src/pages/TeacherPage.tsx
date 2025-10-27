@@ -143,7 +143,7 @@ export default function TeacherPage() {
 
             <div className="bg-card border border-border rounded-2xl p-8 mb-16">
               <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center">Авторская методика обучения</h2>
-              <ul className="space-y-4">
+              <ul className="space-y-4 mb-12">
                 {methodology.map((item, index) => (
                   <li key={index} className="flex gap-4 items-start">
                     <Icon name="CheckCircle" className="text-primary flex-shrink-0 mt-1" size={24} />
@@ -151,6 +151,22 @@ export default function TeacherPage() {
                   </li>
                 ))}
               </ul>
+
+              <div className="border-t border-border pt-8">
+                <h3 className="text-xl md:text-2xl font-bold mb-6 text-center">Команда поддержки</h3>
+                <p className="text-center text-muted-foreground mb-6">
+                  Вместе с Казбеком работает профессиональная команда, которая помогает в организации обучения и развитии учеников
+                </p>
+                <div className="text-center">
+                  <a 
+                    href="/team"
+                    className="inline-flex items-center gap-2 text-primary hover:underline font-semibold"
+                  >
+                    <Icon name="Users" size={20} />
+                    Познакомиться с командой
+                  </a>
+                </div>
+              </div>
             </div>
 
             <div className="bg-primary/5 border border-primary/20 rounded-2xl p-8 text-center">
@@ -159,6 +175,8 @@ export default function TeacherPage() {
                 Учитесь у практикующего режиссёра федеральных телесериалов
               </p>
               <PhoneForm
+                source="teacher_page"
+                course="acting"
                 triggerText="Записаться на обучение"
                 title="Запишитесь на курс актёрского мастерства"
                 description="Оставьте номер телефона, и мы расскажем о программе обучения"

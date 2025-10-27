@@ -12,8 +12,8 @@ export default function HeroSection() {
           className="w-full h-full object-cover"
           eager={true}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-background/95 to-primary/10"></div>
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-background"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/70"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-card"></div>
       </div>
       <div className="container mx-auto relative z-10">
         <div className="max-w-2xl">
@@ -32,19 +32,19 @@ export default function HeroSection() {
             Проводите презентации, вдохновляйте аудиторию и становитесь лидером мнений!
           </p>
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-6 md:mb-8">
-            <div className="bg-card/80 backdrop-blur-sm p-3 md:p-4 rounded-lg border border-primary/20">
-              <div className="text-xs md:text-sm text-muted-foreground mb-1">Пробное занятие</div>
-              <div className="text-xl md:text-2xl font-bold text-primary">27 ноября</div>
+            <div className="flex items-center gap-2 bg-card/80 backdrop-blur-sm px-3 py-2 rounded-lg text-sm md:text-base">
+              <Icon name="Calendar" className="text-primary flex-shrink-0" size={18} />
+              <span className="whitespace-nowrap">Пробное: 27 ноября</span>
             </div>
-            <div className="bg-card/80 backdrop-blur-sm p-3 md:p-4 rounded-lg border border-primary/20">
-              <div className="text-xs md:text-sm text-muted-foreground mb-1">Начало курса</div>
-              <div className="text-xl md:text-2xl font-bold text-primary">4 декабря</div>
+            <div className="flex items-center gap-2 bg-card/80 backdrop-blur-sm px-3 py-2 rounded-lg text-sm md:text-base">
+              <Icon name="PlayCircle" className="text-primary flex-shrink-0" size={18} />
+              <span className="whitespace-nowrap">Старт: 4 декабря</span>
             </div>
           </div>
           <PhoneForm 
             source="hero_oratory"
             course="oratory"
-            triggerText="Записаться на пробное занятие"
+            triggerText="Записаться на пробный урок"
             triggerSize="lg"
             title="Запись на пробное занятие"
             description="Оставьте номер телефона, и мы пригласим вас на пробное занятие по ораторскому мастерству"

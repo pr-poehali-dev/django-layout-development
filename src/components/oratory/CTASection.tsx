@@ -16,11 +16,13 @@ export default function CTASection() {
             Каждое выступление станет вашим триумфом!
           </p>
           <PhoneForm 
-            source="footer_oratory"
+            source="cta_oratory"
             course="oratory"
             triggerText="Записаться на курс"
             triggerSize="lg"
             triggerClassName="w-full max-w-md mx-auto"
+            title="Готовы развить свои навыки?"
+            description="Оставьте номер телефона, и мы свяжемся с вами для записи на курс ораторского искусства"
           />
         </div>
       </div>

@@ -19,10 +19,11 @@ export default function Header() {
   }, []);
 
   const menuItems = [
-    { href: '/', label: 'Актерское' },
+    { href: '/', label: 'Актерское мастерство' },
     { href: '/showreel', label: 'Визитки' },
-    { href: '/oratory', label: 'Ораторское' },
+    { href: '/oratory', label: 'Ораторское искусство' },
     { href: '/teacher', label: 'О преподавателе' },
+    { href: '/team', label: 'Команда' },
     { href: '/reviews', label: 'Отзывы' },
     { href: '/blog', label: 'Блог' }
   ];

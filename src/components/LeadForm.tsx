@@ -8,13 +8,15 @@ import { api } from '@/lib/api';
 
 interface LeadFormProps {
   source: string;
+  course?: 'acting' | 'oratory';
   title?: string;
   description?: string;
   buttonText?: string;
 }
 
 export default function LeadForm({ 
-  source, 
+  source,
+  course,
   title = "Запись на пробное занятие",
   description = "Оставьте номер телефона, и мы свяжемся с вами",
   buttonText = "Записаться"
@@ -28,7 +30,7 @@ export default function LeadForm({
     setLoading(true);
 
     try {
-      await api.leads.create({ phone, source });
+      await api.leads.create({ phone, source, course });
       setSubmitted(true);
       setPhone('');
       

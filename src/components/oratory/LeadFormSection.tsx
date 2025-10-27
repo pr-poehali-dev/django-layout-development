@@ -60,7 +60,8 @@ export default function LeadFormSection() {
               <p className="text-sm text-muted-foreground">Укажите номер телефона</p>
             </div>
             <LeadForm 
-              source="for_whom_oratory"
+              source="lead_form_oratory"
+              course="oratory"
               title=""
               description=""
               buttonText="Отправить заявку"
