@@ -6,7 +6,7 @@ from psycopg2.extras import RealDictCursor
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     '''
-    Business: Manage gallery images, reviews, FAQ, blog, team
+    Business: Manage gallery images, reviews, FAQ, blog, team (v2)
     Args: event with httpMethod, body, queryStringParameters
     Returns: HTTP response with data
     '''
