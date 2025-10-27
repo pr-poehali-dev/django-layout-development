@@ -11,6 +11,7 @@ import LeadsManager from '@/components/admin/LeadsManager';
 import ModulesManager from '@/components/admin/ModulesManager';
 import FAQManager from '@/components/admin/FAQManager';
 import TeamManager from '@/components/admin/TeamManager';
+import WhatsAppManager from '@/components/admin/WhatsAppManager';
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -302,8 +303,9 @@ export default function AdminPage() {
       
       <div className="container mx-auto px-4 py-8">
         <Tabs defaultValue="leads" className="space-y-4">
-          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-8">
+          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-9">
             <TabsTrigger value="leads">Заявки</TabsTrigger>
+            <TabsTrigger value="whatsapp">WhatsApp</TabsTrigger>
             <TabsTrigger value="content">Контент</TabsTrigger>
             <TabsTrigger value="modules">Модули</TabsTrigger>
             <TabsTrigger value="faq">FAQ</TabsTrigger>
@@ -318,6 +320,10 @@ export default function AdminPage() {
               leads={leads} 
               onUpdateStatus={handleUpdateLeadStatus} 
             />
+          </TabsContent>
+
+          <TabsContent value="whatsapp">
+            <WhatsAppManager token={token} />
           </TabsContent>
 
           <TabsContent value="content">

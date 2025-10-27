@@ -430,7 +430,7 @@ def handle_target_response(callback_id: str, chat_id: int, message_id: int, lead
             course_name = 'Актёрское мастерство' if lead.get('course') == 'acting' else 'Ораторское искусство' if lead.get('course') == 'oratory' else 'Не указан'
             
             status_text = '✅ ЦЕЛЕВОЙ И ИНТЕРЕСНО' if is_target else '❌ НЕ ЗАИНТЕРЕСОВАН'
-            whatsapp_text = '\n\n🎯 <b>WhatsApp рассылка запущена!</b>' if is_target else ''
+            whatsapp_text = '\n🎯 <b>WhatsApp рассылка запущена!</b>' if is_target else ''
             
             new_message = (
                 f"───────────────────\n"
@@ -440,16 +440,30 @@ def handle_target_response(callback_id: str, chat_id: int, message_id: int, lead
                 f"{course_emoji} <b>Курс:</b> {course_name}\n"
                 f"📅 <b>Дата:</b> {formatted_date}"
                 f"{whatsapp_text}\n\n"
-                f"───────────────────"
+                f"<b>Отметьте статус клиента:</b>"
             )
             
+            reply_markup = {
+                'inline_keyboard': [[
+                    {'text': '✅ Записался на пробное', 'callback_data': f'status_{lead_id}_trial'},
+                    {'text': '🎓 Записался на обучение', 'callback_data': f'status_{lead_id}_enrolled'}
+                ], [
+                    {'text': '🤔 Думает', 'callback_data': f'status_{lead_id}_thinking'},
+                    {'text': '❌ Нецелевой', 'callback_data': f'status_{lead_id}_irrelevant'}
+                ]]
+            } if is_target else None
+            
             url = f'https://api.telegram.org/bot{BOT_TOKEN}/editMessageText'
-            data_update = json.dumps({
+            payload = {
                 'chat_id': chat_id,
                 'message_id': message_id,
                 'text': new_message,
                 'parse_mode': 'HTML'
-            }).encode('utf-8')
+            }
+            if reply_markup:
+                payload['reply_markup'] = reply_markup
+            
+            data_update = json.dumps(payload).encode('utf-8')
             
             req = urllib.request.Request(
                 url,

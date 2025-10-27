@@ -3,7 +3,9 @@ const API_URLS = {
   content: 'https://functions.poehali.dev/61658db6-95ff-425a-9741-d83782aae247',
   leads: 'https://functions.poehali.dev/ec40ed33-a116-4026-8c8a-a3974e78b2fa',
   modules: 'https://functions.poehali.dev/c068a827-a908-48e9-8afa-9996a1421fe0',
-  gallery: 'https://functions.poehali.dev/42a4a1c9-5ce7-4d3d-8760-f3ef702ed550'
+  gallery: 'https://functions.poehali.dev/42a4a1c9-5ce7-4d3d-8760-f3ef702ed550',
+  whatsapp: 'https://functions.poehali.dev/ea8edaad-cd4c-4b81-9401-3e985f910159',
+  whatsappSender: 'https://functions.poehali.dev/056bc93d-3039-4809-b29d-580752202bea'
 };
 
 export interface SiteContent {
@@ -285,6 +287,57 @@ export const api = {
           'X-Auth-Token': token
         }
       });
+      return response.json();
+    }
+  },
+  
+  whatsapp: {
+    getQueue: async (token: string, status?: string) => {
+      const url = status 
+        ? `${API_URLS.whatsapp}?resource=queue&status=${status}`
+        : `${API_URLS.whatsapp}?resource=queue`;
+      
+      const response = await fetch(url, {
+        headers: { 'X-Auth-Token': token }
+      });
+      return response.json();
+    },
+    getTemplates: async (token: string) => {
+      const response = await fetch(`${API_URLS.whatsapp}?resource=templates`, {
+        headers: { 'X-Auth-Token': token }
+      });
+      return response.json();
+    },
+    getStats: async (token: string) => {
+      const response = await fetch(`${API_URLS.whatsapp}?resource=stats`, {
+        headers: { 'X-Auth-Token': token }
+      });
+      return response.json();
+    },
+    updateTemplate: async (template: any, token: string) => {
+      const response = await fetch(`${API_URLS.whatsapp}?resource=templates`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Auth-Token': token
+        },
+        body: JSON.stringify(template)
+      });
+      return response.json();
+    },
+    sendNow: async (queueId: number, token: string) => {
+      const response = await fetch(`${API_URLS.whatsapp}?resource=send_now`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Auth-Token': token
+        },
+        body: JSON.stringify({ queue_id: queueId })
+      });
+      return response.json();
+    },
+    processQueue: async () => {
+      const response = await fetch(API_URLS.whatsappSender);
       return response.json();
     }
   }
