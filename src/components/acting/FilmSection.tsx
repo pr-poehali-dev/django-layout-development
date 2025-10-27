@@ -20,7 +20,7 @@ export default function FilmSection({ content }: FilmSectionProps) {
             Это не мечта — это реальность нашего курса! По завершении обучения вы не просто получите сертификат. 
             Вы станете <span className="text-primary font-semibold">главным героем собственного короткометражного фильма</span>.
           </p>
-          <div className="aspect-video w-full md:max-w-3xl md:mx-auto md:rounded-xl overflow-hidden shadow-2xl -mx-6 md:mx-auto">
+          <div className="aspect-video w-full md:max-w-3xl mx-auto rounded-xl overflow-hidden shadow-2xl">
             <iframe
               src="https://player.vimeo.com/video/997328344?h=0d19d04d2a"
               className="w-full h-full"
