@@ -8,6 +8,7 @@ interface HeroSectionProps {
 
 export default function HeroSection({ content }: HeroSectionProps) {
   return (
+    <>
     <section className="pt-20 pb-12 px-4 md:pt-32 md:pb-20 md:px-4 relative overflow-hidden min-h-[85vh] md:min-h-[90vh] flex items-center">
       <div className="absolute inset-0">
         <img
@@ -49,5 +50,7 @@ export default function HeroSection({ content }: HeroSectionProps) {
         </div>
       </div>
     </section>
+    <div className="h-24 md:h-32 bg-gradient-to-b from-background to-card"></div>
+    </>
   );
 }

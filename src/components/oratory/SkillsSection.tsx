@@ -37,7 +37,7 @@ const oratorySkills = [
 
 export default function SkillsSection() {
   return (
-    <section id="skills" className="py-12 px-4 md:py-20 md:px-4">
+    <section id="skills" className="py-12 px-4 md:py-20 md:px-4 bg-card">
       <div className="container mx-auto">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-3 md:mb-4">Чему вы научитесь</h2>
         <p className="text-center text-muted-foreground mb-8 md:mb-12 max-w-2xl mx-auto text-sm md:text-base">
