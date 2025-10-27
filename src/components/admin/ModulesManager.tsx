@@ -111,9 +111,9 @@ export default function ModulesManager({
             {modules.map((module) => (
               <div key={module.id}>
                 {editingModule?.id === module.id ? (
-                  <Card onClick={(e) => e.stopPropagation()}>
+                  <Card>
                     <CardContent className="pt-6 space-y-3">
-                      <div onClick={(e) => e.stopPropagation()}>
+                      <div>
                         <Label>Тип курса</Label>
                         <Select
                           value={editingModule.course_type}
@@ -128,38 +128,34 @@ export default function ModulesManager({
                           </SelectContent>
                         </Select>
                       </div>
-                      <div onClick={(e) => e.stopPropagation()}>
+                      <div>
                         <Label>Название</Label>
                         <Input
                           value={editingModule.title}
                           onChange={(e) => onEditingModuleChange('title', e.target.value)}
-                          onClick={(e) => e.stopPropagation()}
                         />
                       </div>
-                      <div onClick={(e) => e.stopPropagation()}>
+                      <div>
                         <Label>Описание</Label>
                         <Textarea
                           value={editingModule.description}
                           onChange={(e) => onEditingModuleChange('description', e.target.value)}
-                          onClick={(e) => e.stopPropagation()}
                           rows={3}
                         />
                       </div>
-                      <div onClick={(e) => e.stopPropagation()}>
+                      <div>
                         <Label>Результат</Label>
                         <Textarea
                           value={editingModule.result}
                           onChange={(e) => onEditingModuleChange('result', e.target.value)}
-                          onClick={(e) => e.stopPropagation()}
                           rows={2}
                         />
                       </div>
-                      <div onClick={(e) => e.stopPropagation()}>
+                      <div>
                         <Label>URL изображения</Label>
                         <Input
                           value={editingModule.image_url}
                           onChange={(e) => onEditingModuleChange('image_url', e.target.value)}
-                          onClick={(e) => e.stopPropagation()}
                         />
                       </div>
                       <div className="flex gap-2">
