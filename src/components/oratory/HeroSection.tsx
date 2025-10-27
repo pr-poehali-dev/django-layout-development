@@ -10,12 +10,13 @@ export default function HeroSection() {
           alt="Ораторское мастерство"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/60"></div>
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-card"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-background/95 to-primary/10"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-background"></div>
       </div>
       <div className="container mx-auto relative z-10">
         <div className="max-w-2xl">
-          <div className="inline-block px-3 py-1.5 md:px-4 md:py-2 bg-primary/10 backdrop-blur-sm rounded-full text-primary font-semibold mb-4 md:mb-6 text-sm md:text-base">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-primary/10 backdrop-blur-sm rounded-full text-primary font-semibold mb-4 md:mb-6 text-sm md:text-base border border-primary/20">
+            <Icon name="Sparkles" size={16} className="md:w-5 md:h-5" />
             Курс с Ольгой Штерц
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6 leading-tight">
