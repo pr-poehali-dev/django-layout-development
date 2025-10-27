@@ -284,25 +284,40 @@ def handle_callback(callback_query: dict):
     }
 
 def send_metrika_goal(goal: str, client_id: str = None):
-    '''Отправка цели в Яндекс.Метрику с Client ID'''
+    '''Отправка цели в Яндекс.Метрику через прямой hit API'''
     import urllib.request
+    import urllib.parse
+    import time
     
-    metrika_url = 'https://functions.poehali.dev/30856b9e-1809-4ef3-9ef0-a8f4a03ddf11'
+    counter_id = '104854671'
+    timestamp = int(time.time())
     
-    payload = {'goal': goal}
+    params = {
+        'browser-info': f'ar:1:pv:1:ts:{timestamp}',
+        'page-url': f'https://acting-school.poehali.dev/?goal={goal}',
+        'page-ref': 'https://acting-school.poehali.dev/',
+    }
+    
     if client_id:
-        payload['client_id'] = client_id
+        params['uid'] = client_id
     
-    data = json.dumps(payload).encode('utf-8')
+    metrika_url = f'https://mc.yandex.ru/watch/{counter_id}?{urllib.parse.urlencode(params)}'
     
     req = urllib.request.Request(
         metrika_url,
-        data=data,
-        headers={'Content-Type': 'application/json'}
+        headers={
+            'User-Agent': 'Mozilla/5.0 (compatible; TelegramBot/1.0)',
+            'Accept': '*/*'
+        }
     )
     
-    with urllib.request.urlopen(req) as response:
-        return json.loads(response.read().decode('utf-8'))
+    try:
+        with urllib.request.urlopen(req, timeout=5) as response:
+            print(f"Metrika goal sent: {goal}, client_id: {client_id}, status: {response.status}")
+            return True
+    except Exception as e:
+        print(f"Failed to send metrika goal: {e}")
+        return False
 
 def handle_called(callback_id: str, chat_id: int, message_id: int, lead_id: int):
     '''Обработка нажатия кнопки "Позвонил клиенту"'''

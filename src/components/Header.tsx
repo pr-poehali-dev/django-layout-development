@@ -19,13 +19,11 @@ export default function Header() {
   }, []);
 
   const menuItems = [
-    { href: '/', label: 'Актерское мастерство' },
-    { href: '/showreel', label: 'Актерская визитка' },
-    { href: '/oratory', label: 'Ораторское искусство' },
-    { href: '/team', label: 'Команда' },
+    { href: '/', label: 'Актерское' },
+    { href: '/showreel', label: 'Визитки' },
+    { href: '/oratory', label: 'Ораторское' },
     { href: '/reviews', label: 'Отзывы' },
-    { href: '/blog', label: 'Блог' },
-    { href: '/contacts', label: 'Контакты' }
+    { href: '/blog', label: 'Блог' }
   ];
 
   return (
