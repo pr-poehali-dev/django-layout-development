@@ -194,6 +194,8 @@ def handle_callback(callback_query: dict):
             cur.close()
             conn.close()
             
+            ym_client_id = lead.get('ym_client_id') if lead else None
+            
             if lead:
                 from datetime import datetime
                 created_at = lead['created_at']
@@ -242,7 +244,7 @@ def handle_callback(callback_query: dict):
                 
                 if status in metrika_goals:
                     try:
-                        send_metrika_goal(metrika_goals[status])
+                        send_metrika_goal(metrika_goals[status], ym_client_id)
                     except Exception as e:
                         print(f"Failed to send metrika goal: {e}")
         
@@ -271,13 +273,17 @@ def handle_callback(callback_query: dict):
         'isBase64Encoded': False
     }
 
-def send_metrika_goal(goal: str):
-    '''Отправка цели в Яндекс.Метрику'''
+def send_metrika_goal(goal: str, client_id: str = None):
+    '''Отправка цели в Яндекс.Метрику с Client ID'''
     import urllib.request
     
     metrika_url = 'https://functions.poehali.dev/30856b9e-1809-4ef3-9ef0-a8f4a03ddf11'
     
-    data = json.dumps({'goal': goal}).encode('utf-8')
+    payload = {'goal': goal}
+    if client_id:
+        payload['client_id'] = client_id
+    
+    data = json.dumps(payload).encode('utf-8')
     
     req = urllib.request.Request(
         metrika_url,

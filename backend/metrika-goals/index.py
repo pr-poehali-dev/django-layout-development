@@ -35,6 +35,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     try:
         body_data = json.loads(event.get('body', '{}'))
         goal = body_data.get('goal')
+        client_id = body_data.get('client_id')
         
         if not goal:
             return {
@@ -43,6 +44,8 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 'body': json.dumps({'error': 'Goal is required'}),
                 'isBase64Encoded': False
             }
+        
+        user_id_js = f"_ym_uid: '{client_id}'," if client_id else ""
         
         html_content = f'''
         <!DOCTYPE html>
@@ -57,6 +60,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 }})(window, document,'script','https://mc.yandex.ru/metrika/tag.js', 'ym');
 
                 ym(104854671, 'init', {{
+                    {user_id_js}
                     ssr: true,
                     clickmap:true,
                     trackLinks:true,

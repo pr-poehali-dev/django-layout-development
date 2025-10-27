@@ -129,7 +129,14 @@ export const api = {
       });
       return response.json();
     },
-    create: async (data: { name?: string; phone: string; source: string; course?: string }) => {
+    create: async (data: { 
+      name?: string; 
+      phone: string; 
+      source: string; 
+      course?: string;
+      utm?: any;
+      ym_client_id?: string;
+    }) => {
       const response = await fetch(API_URLS.leads, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

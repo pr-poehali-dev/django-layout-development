@@ -1,4 +1,5 @@
 
+import { useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -13,10 +14,16 @@ import ReviewsPage from "./pages/ReviewsPage";
 import TeamPage from "./pages/TeamPage";
 import ContactsPage from "./pages/ContactsPage";
 import NotFound from "./pages/NotFound";
+import { saveUTMToStorage } from "./lib/utm";
 
 const queryClient = new QueryClient();
 
-const App = () => (
+const App = () => {
+  useEffect(() => {
+    saveUTMToStorage();
+  }, []);
+
+  return (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />

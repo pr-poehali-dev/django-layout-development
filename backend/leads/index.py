@@ -53,6 +53,16 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             source = body_data.get('source', 'website')
             course = body_data.get('course')
             
+            utm = body_data.get('utm', {})
+            utm_source = utm.get('utm_source')
+            utm_medium = utm.get('utm_medium')
+            utm_campaign = utm.get('utm_campaign')
+            utm_content = utm.get('utm_content')
+            utm_term = utm.get('utm_term')
+            yclid = utm.get('yclid')
+            gclid = utm.get('gclid')
+            ym_client_id = body_data.get('ym_client_id')
+            
             if not phone:
                 return {
                     'statusCode': 400,
@@ -61,8 +71,13 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 }
             
             cur.execute(
-                "INSERT INTO leads (name, phone, source, course, status) VALUES (%s, %s, %s, %s, 'new') RETURNING *",
-                (name, phone, source, course)
+                """INSERT INTO leads (name, phone, source, course, status, 
+                   utm_source, utm_medium, utm_campaign, utm_content, utm_term, 
+                   yclid, gclid, ym_client_id) 
+                   VALUES (%s, %s, %s, %s, 'new', %s, %s, %s, %s, %s, %s, %s, %s) 
+                   RETURNING *""",
+                (name, phone, source, course, utm_source, utm_medium, utm_campaign, 
+                 utm_content, utm_term, yclid, gclid, ym_client_id)
             )
             lead = cur.fetchone()
             conn.commit()
