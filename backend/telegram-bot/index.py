@@ -285,25 +285,38 @@ def handle_callback(callback_query: dict):
 
 def send_metrika_goal(goal: str, client_id: str = None):
     '''
-    Отправка цели через вызов специального endpoint на фронтенде
-    который выполнит ym(counter, 'reachGoal', goal)
+    Отправка цели в Яндекс.Метрику через HTTP Measurement Protocol
     '''
     import urllib.request
+    import urllib.parse
     
-    goal_url = f'https://acting-school.poehali.dev/metrika-goal?goal={goal}&client_id={client_id or ""}'
+    counter_id = '104854671'
+    
+    if not client_id:
+        print("[METRIKA] No client_id provided, skipping goal")
+        return False
+    
+    params = {
+        'browser-info': f'ar:1:pv:1:rqnl:1:pa:1:nm:1:nb:1',
+        'site-info': json.dumps({'goal': goal}),
+        'page-url': f'https://acting-school.poehali.dev/?goal={goal}',
+    }
+    
+    url = f'https://mc.yandex.ru/watch/{counter_id}?{urllib.parse.urlencode(params)}'
     
     try:
         req = urllib.request.Request(
-            goal_url,
+            url,
             headers={
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+                'Cookie': f'_ym_uid={client_id}'
             }
         )
-        with urllib.request.urlopen(req, timeout=10) as response:
-            print(f"[METRIKA] Goal page loaded: {goal}, client_id: {client_id}, status: {response.status}")
+        with urllib.request.urlopen(req, timeout=5) as response:
+            print(f"[METRIKA] Goal sent: {goal}, client_id: {client_id}, status: {response.status}")
             return True
     except Exception as e:
-        print(f"[METRIKA] Failed to load goal page: {e}")
+        print(f"[METRIKA] Failed to send goal: {e}")
         return False
 
 def handle_called(callback_id: str, chat_id: int, message_id: int, lead_id: int):
