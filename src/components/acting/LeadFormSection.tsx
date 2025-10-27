@@ -10,7 +10,7 @@ export default function LeadFormSection() {
         <div className="absolute bottom-10 right-10 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
       </div>
       
-      <div className="container mx-auto max-w-5xl relative z-10">
+      <div id="lead-form" className="container mx-auto max-w-5xl relative z-10">
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div>
             <div className="inline-flex items-center gap-2 bg-primary/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
@@ -44,11 +44,11 @@ export default function LeadFormSection() {
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <Icon name="Gift" className="text-primary" size={20} />
+                  <Icon name="Star" className="text-primary" size={20} />
                 </div>
                 <div>
-                  <h3 className="font-semibold mb-1">Бонусные материалы</h3>
-                  <p className="text-sm text-muted-foreground">Методичка по актёрскому мастерству и упражнения для тренировки</p>
+                  <h3 className="font-semibold mb-1">Индивидуальный подход</h3>
+                  <p className="text-sm text-muted-foreground">Учитываем ваш уровень и темп обучения</p>
                 </div>
               </div>
             </div>
