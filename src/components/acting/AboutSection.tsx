@@ -14,27 +14,42 @@ export default function AboutSection({ content, team }: AboutSectionProps) {
   }
 
   return (
-    <section id="about" className="py-12 px-4 md:py-20 md:px-4 bg-card">
-      <div className="container mx-auto">
-        <div className="grid md:grid-cols-2 gap-6 md:gap-12 items-center max-w-5xl mx-auto">
-          <div className="relative h-[300px] md:h-[500px] rounded-2xl overflow-hidden">
-            {kazbek.photo_url ? (
-              <img
-                src={kazbek.photo_url}
-                alt={kazbek.name}
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <div className="w-full h-full bg-gradient-to-br from-primary/5 to-primary/20 flex items-center justify-center">
-                <Icon name="User" className="text-primary/30" size={120} />
-              </div>
-            )}
+    <section id="about" className="py-12 px-4 md:py-20 md:px-4 bg-gradient-to-br from-primary/5 via-background to-primary/5 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(var(--primary-rgb),0.1),transparent_50%)]"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(var(--primary-rgb),0.08),transparent_50%)]"></div>
+      
+      <div className="container mx-auto relative z-10">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center max-w-6xl mx-auto">
+          <div className="relative group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-primary to-primary/50 rounded-3xl blur opacity-25 group-hover:opacity-40 transition duration-500"></div>
+            <div className="relative h-[350px] md:h-[550px] rounded-2xl overflow-hidden shadow-2xl">
+              {kazbek.photo_url ? (
+                <img
+                  src={kazbek.photo_url}
+                  alt={kazbek.name}
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition duration-700"
+                />
+              ) : (
+                <div className="w-full h-full bg-gradient-to-br from-primary/10 to-primary/30 flex items-center justify-center">
+                  <Icon name="User" className="text-primary/40" size={120} />
+                </div>
+              )}
+            </div>
           </div>
-          <div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6">{kazbek.name}</h2>
-            <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-4 md:mb-6 whitespace-pre-line">
-              {kazbek.bio}
-            </p>
+          
+          <div className="space-y-6">
+            <div>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+                {kazbek.name}
+              </h2>
+              <div className="h-1 w-20 bg-gradient-to-r from-primary to-primary/50 rounded-full"></div>
+            </div>
+            
+            <div className="prose prose-lg max-w-none">
+              <p className="text-base md:text-lg leading-relaxed whitespace-pre-line text-foreground/90">
+                {kazbek.bio}
+              </p>
+            </div>
           </div>
         </div>
       </div>
