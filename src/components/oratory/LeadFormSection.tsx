@@ -44,11 +44,11 @@ export default function LeadFormSection() {
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <Icon name="Gift" className="text-primary" size={20} />
+                  <Icon name="Star" className="text-primary" size={20} />
                 </div>
                 <div>
-                  <h3 className="font-semibold mb-1">Специальные условия</h3>
-                  <p className="text-sm text-muted-foreground">Для первых 10 записавшихся — скидка 20%</p>
+                  <h3 className="font-semibold mb-1">Индивидуальный подход</h3>
+                  <p className="text-sm text-muted-foreground">Учитываем ваш уровень и темп обучения</p>
                 </div>
               </div>
             </div>

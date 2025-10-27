@@ -32,13 +32,13 @@ export default function HeroSection() {
             Проводите презентации, вдохновляйте аудиторию и становитесь лидером мнений!
           </p>
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-6 md:mb-8">
-            <div className="bg-card/80 backdrop-blur-sm p-3 md:p-4 rounded-lg">
-              <div className="text-2xl md:text-3xl font-bold text-primary mb-1">8 недель</div>
-              <div className="text-xs md:text-sm text-muted-foreground">Длительность курса</div>
+            <div className="bg-card/80 backdrop-blur-sm p-3 md:p-4 rounded-lg border border-primary/20">
+              <div className="text-xs md:text-sm text-muted-foreground mb-1">Пробное занятие</div>
+              <div className="text-xl md:text-2xl font-bold text-primary">27 ноября</div>
             </div>
-            <div className="bg-card/80 backdrop-blur-sm p-3 md:p-4 rounded-lg">
-              <div className="text-2xl md:text-3xl font-bold text-primary mb-1">24 часа</div>
-              <div className="text-xs md:text-sm text-muted-foreground">Практики и тренингов</div>
+            <div className="bg-card/80 backdrop-blur-sm p-3 md:p-4 rounded-lg border border-primary/20">
+              <div className="text-xs md:text-sm text-muted-foreground mb-1">Начало курса</div>
+              <div className="text-xl md:text-2xl font-bold text-primary">4 декабря</div>
             </div>
           </div>
           <PhoneForm 

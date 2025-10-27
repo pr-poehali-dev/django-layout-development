@@ -9,6 +9,7 @@ import SkillsSection from '@/components/oratory/SkillsSection';
 import ForWhomSection from '@/components/oratory/ForWhomSection';
 import AboutSection from '@/components/oratory/AboutSection';
 import ProgramSection from '@/components/oratory/ProgramSection';
+import ResultsSection from '@/components/oratory/ResultsSection';
 import GallerySection from '@/components/oratory/GallerySection';
 import ReviewsSection from '@/components/oratory/ReviewsSection';
 import BlogSection from '@/components/oratory/BlogSection';
@@ -64,8 +65,11 @@ export default function OratoryPage() {
       <HeroSection />
       <SkillsSection />
       <ForWhomSection />
+      <LeadFormSection />
       <AboutSection content={content} />
       <ProgramSection />
+      <ResultsSection />
+      <LeadFormSection />
       <GallerySection gallery={gallery} />
       <ReviewsSection reviews={reviews} />
       <BlogSection 
@@ -73,7 +77,6 @@ export default function OratoryPage() {
         onNavigate={(slug) => navigate(`/blog/${slug}`)}
         onNavigateToBlog={() => navigate('/blog')}
       />
-      <LeadFormSection />
       <CTASection />
       <Footer />
       </div>
