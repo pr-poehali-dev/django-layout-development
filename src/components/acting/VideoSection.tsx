@@ -5,7 +5,7 @@ interface VideoSectionProps {
 export default function VideoSection({ content }: VideoSectionProps) {
 
   return (
-    <section className="py-12 px-4 md:py-20 md:px-4 bg-card">
+    <section className="py-12 px-4 md:py-20 md:px-4 bg-card -mt-24 md:-mt-32 pt-24 md:pt-32">
       <div className="container mx-auto">
         <div className="text-center mb-8 md:mb-12">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">

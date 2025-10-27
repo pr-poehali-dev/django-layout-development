@@ -3,8 +3,7 @@ import PhoneForm from '@/components/PhoneForm';
 
 export default function HeroSection() {
   return (
-    <>
-    <section className="pt-20 pb-12 px-4 md:pt-32 md:pb-20 md:px-4 relative overflow-hidden min-h-[85vh] md:min-h-[90vh] flex items-center">
+    <section className="pt-20 pb-32 px-4 md:pt-32 md:pb-40 md:px-4 relative overflow-hidden min-h-[85vh] md:min-h-[90vh] flex items-center">
       <div className="absolute inset-0">
         <img
           src="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/829de8e6-6182-458d-9aa3-3afb8faa0acc.jpg"
@@ -12,6 +11,7 @@ export default function HeroSection() {
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/60"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-card"></div>
       </div>
       <div className="container mx-auto relative z-10">
         <div className="max-w-2xl">
@@ -49,7 +49,5 @@ export default function HeroSection() {
         </div>
       </div>
     </section>
-    <div className="h-24 md:h-32 bg-gradient-to-b from-background to-card"></div>
-    </>
   );
 }

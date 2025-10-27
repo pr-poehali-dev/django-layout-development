@@ -8,8 +8,7 @@ interface HeroSectionProps {
 
 export default function HeroSection({ content }: HeroSectionProps) {
   return (
-    <>
-    <section className="pt-20 pb-12 px-4 md:pt-32 md:pb-20 md:px-4 relative overflow-hidden min-h-[85vh] md:min-h-[90vh] flex items-center">
+    <section className="pt-20 pb-32 px-4 md:pt-32 md:pb-40 md:px-4 relative overflow-hidden min-h-[85vh] md:min-h-[90vh] flex items-center">
       <div className="absolute inset-0">
         <img
           src="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/0c090e0f-2880-4f27-8c3e-d4c43afc5fda.jpg"
@@ -17,6 +16,7 @@ export default function HeroSection({ content }: HeroSectionProps) {
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/70"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-card"></div>
       </div>
       <div className="container mx-auto relative z-10">
         <div className="max-w-2xl">
@@ -50,7 +50,5 @@ export default function HeroSection({ content }: HeroSectionProps) {
         </div>
       </div>
     </section>
-    <div className="h-24 md:h-32 bg-gradient-to-b from-background to-card"></div>
-    </>
   );
 }
