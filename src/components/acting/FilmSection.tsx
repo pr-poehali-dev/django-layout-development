@@ -18,16 +18,15 @@ export default function FilmSection({ content }: FilmSectionProps) {
             Это не мечта — это реальность нашего курса! По завершении обучения вы не просто получите сертификат. 
             Вы станете <span className="text-primary font-semibold">главным героем собственного короткометражного фильма</span>.
           </p>
-          {content.final_video_url && (
-            <div className="aspect-video w-full md:max-w-3xl md:mx-auto md:rounded-xl overflow-hidden shadow-2xl -mx-6 md:mx-auto">
-              <iframe
-                src={content.final_video_url}
-                className="w-full h-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            </div>
-          )}
+          <div className="aspect-video w-full md:max-w-3xl md:mx-auto md:rounded-xl overflow-hidden shadow-2xl -mx-6 md:mx-auto">
+            <iframe
+              src="https://player.vimeo.com/video/997328344?h=0d19d04d2a"
+              className="w-full h-full"
+              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+              allowFullScreen
+              title="Снимите свое кино"
+            ></iframe>
+          </div>
         </div>
       </div>
     </section>

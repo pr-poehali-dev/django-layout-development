@@ -10,12 +10,10 @@ export default function HeroSection({ content }: HeroSectionProps) {
   return (
     <section className="pt-20 pb-12 px-4 md:pt-32 md:pb-20 md:px-4 relative overflow-hidden min-h-[85vh] md:min-h-[90vh] flex items-center">
       <div className="absolute inset-0">
-        <iframe 
-          src="https://player.vimeo.com/video/997327815?h=da8107aa0b&autoplay=1&loop=1&muted=1&background=1" 
+        <img
+          src="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/0c090e0f-2880-4f27-8c3e-d4c43afc5fda.jpg"
+          alt="Актерское мастерство"
           className="w-full h-full object-cover"
-          style={{ border: 0, position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-          allow="autoplay; fullscreen; picture-in-picture"
-          title="Актерское мастерство"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/70"></div>
       </div>

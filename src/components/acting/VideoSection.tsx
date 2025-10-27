@@ -8,7 +8,7 @@ export default function VideoSection({ content }: VideoSectionProps) {
       <div className="container mx-auto md:px-4">
         <div className="aspect-video w-full md:max-w-4xl md:mx-auto md:rounded-xl overflow-hidden shadow-2xl">
           <iframe
-            src="https://player.vimeo.com/video/997328344?h=0d19d04d2a"
+            src="https://player.vimeo.com/video/997327815?h=da8107aa0b"
             className="w-full h-full"
             allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
             allowFullScreen
