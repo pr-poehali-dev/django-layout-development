@@ -284,70 +284,26 @@ def handle_callback(callback_query: dict):
     }
 
 def send_metrika_goal(goal: str, client_id: str = None):
-    '''Отправка цели в Яндекс.Метрику через Measurement Protocol'''
+    '''
+    Отправка цели через вызов специального endpoint на фронтенде
+    который выполнит ym(counter, 'reachGoal', goal)
+    '''
     import urllib.request
-    import urllib.parse
-    import time
-    import random
     
-    counter_id = '104854671'
-    timestamp = int(time.time())
-    
-    params = {
-        'browser-info': f'ar:1:pv:1:ts:{timestamp}:i:{random.randint(1, 999999999)}',
-        'page-url': f'https://acting-school.poehali.dev/',
-        'page-ref': 'https://acting-school.poehali.dev/',
-        'ut': 'noindex',
-    }
-    
-    if client_id:
-        params['browser-info'] += f':s:1920x1080x24:sk:1:adb:0:f:0:fpr:0:cn:1:w:1920x937:z:180:i:{timestamp}:et:{timestamp}:en:UTF-8:v:1410:c:1:la:ru:ar:1:ls:1:rqn:1:rn:{random.randint(1, 999999999)}:hid:{random.randint(1, 999999999)}:ds:0,0,0,0,0,0,0,0,0,0,0,0:np:1:ns:1730051760:eu:0'
-        params['uid'] = str(client_id)
-    
-    goal_url = f'https://mc.yandex.ru/watch/{counter_id}/1?{urllib.parse.urlencode(params)}'
-    
-    req = urllib.request.Request(
-        goal_url,
-        headers={
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            'Accept': 'image/webp,*/*',
-            'Referer': 'https://acting-school.poehali.dev/'
-        }
-    )
+    goal_url = f'https://acting-school.poehali.dev/metrika-goal?goal={goal}&client_id={client_id or ""}'
     
     try:
-        with urllib.request.urlopen(req, timeout=5) as response:
-            print(f"Metrika pageview sent: client_id: {client_id}, status: {response.status}")
-    except Exception as e:
-        print(f"Failed to send metrika pageview: {e}")
-    
-    goal_params = {
-        'browser-info': params['browser-info'],
-        'page-url': f'https://acting-school.poehali.dev/',
-        'page-ref': f'https://acting-school.poehali.dev/',
-        'site-info': f'{{"goal":"{goal}"}}',
-    }
-    
-    if client_id:
-        goal_params['uid'] = str(client_id)
-    
-    goal_request_url = f'https://mc.yandex.ru/watch/{counter_id}/1?{urllib.parse.urlencode(goal_params)}'
-    
-    req2 = urllib.request.Request(
-        goal_request_url,
-        headers={
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            'Accept': 'image/webp,*/*',
-            'Referer': 'https://acting-school.poehali.dev/'
-        }
-    )
-    
-    try:
-        with urllib.request.urlopen(req2, timeout=5) as response:
-            print(f"Metrika goal sent: {goal}, client_id: {client_id}, status: {response.status}")
+        req = urllib.request.Request(
+            goal_url,
+            headers={
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+            }
+        )
+        with urllib.request.urlopen(req, timeout=10) as response:
+            print(f"[METRIKA] Goal page loaded: {goal}, client_id: {client_id}, status: {response.status}")
             return True
     except Exception as e:
-        print(f"Failed to send metrika goal: {e}")
+        print(f"[METRIKA] Failed to load goal page: {e}")
         return False
 
 def handle_called(callback_id: str, chat_id: int, message_id: int, lead_id: int):
