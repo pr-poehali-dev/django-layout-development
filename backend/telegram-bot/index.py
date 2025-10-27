@@ -154,21 +154,24 @@ def send_message(chat_id: int, text: str):
         return json.loads(response.read().decode('utf-8'))
 
 def send_metrika_goal(goal: str, client_id: str):
-    '''Отправка цели в Яндекс.Метрику через metrika-goal-sender'''
+    '''Отправка цели в Яндекс.Метрику через Measurement Protocol API'''
     import urllib.request
+    import urllib.parse
     
-    url = 'https://functions.poehali.dev/3d824f97-2f09-44e4-8c9a-54af8aa6ccce'
+    counter_id = '104854671'
     
-    data = json.dumps({
-        'goal': goal,
-        'client_id': client_id
-    }).encode('utf-8')
+    params = {
+        'browser-info': f'ar:1:pv:1:ls:1:en:utf-8',
+        'site-info': json.dumps({
+            'clientId': client_id,
+            'reachGoal': goal
+        })
+    }
     
-    req = urllib.request.Request(
-        url,
-        data=data,
-        headers={'Content-Type': 'application/json'}
-    )
+    url = f'https://mc.yandex.ru/watch/{counter_id}?' + urllib.parse.urlencode(params)
+    
+    req = urllib.request.Request(url)
+    req.add_header('User-Agent', 'Mozilla/5.0')
     
     with urllib.request.urlopen(req) as response:
         return response.read().decode('utf-8')
