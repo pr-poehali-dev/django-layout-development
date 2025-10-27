@@ -1,4 +1,5 @@
 import Icon from '@/components/ui/icon';
+import Image from '@/components/ui/image';
 import { GalleryImage } from '@/lib/api';
 
 interface GallerySectionProps {

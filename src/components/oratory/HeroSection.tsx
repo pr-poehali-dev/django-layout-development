@@ -1,14 +1,16 @@
 import Icon from '@/components/ui/icon';
+import Image from '@/components/ui/image';
 import PhoneForm from '@/components/PhoneForm';
 
 export default function HeroSection() {
   return (
     <section className="pt-20 pb-32 px-4 md:pt-32 md:pb-40 md:px-4 relative overflow-hidden min-h-[85vh] md:min-h-[90vh] flex items-center">
       <div className="absolute inset-0">
-        <img
+        <Image
           src="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/829de8e6-6182-458d-9aa3-3afb8faa0acc.jpg"
           alt="Ораторское мастерство"
           className="w-full h-full object-cover"
+          eager={true}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-background via-background/95 to-primary/10"></div>
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-background"></div>

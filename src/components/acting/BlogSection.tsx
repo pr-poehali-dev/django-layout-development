@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
+import Image from '@/components/ui/image';
 import { BlogPost } from '@/lib/api';
 
 interface BlogSectionProps {

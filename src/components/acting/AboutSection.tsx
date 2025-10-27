@@ -1,4 +1,5 @@
 import Icon from '@/components/ui/icon';
+import Image from '@/components/ui/image';
 import { TeamMember } from '@/lib/api';
 
 interface AboutSectionProps {

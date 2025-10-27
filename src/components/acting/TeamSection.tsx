@@ -1,5 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
+import Image from '@/components/ui/image';
 import { TeamMember } from '@/lib/api';
 
 interface TeamSectionProps {

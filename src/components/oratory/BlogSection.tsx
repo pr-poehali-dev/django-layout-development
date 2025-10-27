@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
+import Image from '@/components/ui/image';
 import { BlogPost } from '@/lib/api';
 
 interface BlogSectionProps {
@@ -25,7 +26,7 @@ export default function BlogSection({ blog, onNavigate, onNavigateToBlog }: Blog
                 >
                   {post.image_url && (
                     <div className="aspect-video overflow-hidden">
-                      <img
+                      <Image
                         src={post.image_url}
                         alt={post.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition"
