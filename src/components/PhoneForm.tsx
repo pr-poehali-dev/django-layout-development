@@ -75,7 +75,7 @@ export default function PhoneForm({
 
     setLoading(true);
     try {
-      await api.leads.create(phone, source, course);
+      await api.leads.create({ phone, source, course });
       setSuccess(true);
       
       if (typeof window !== 'undefined' && (window as any).ym) {

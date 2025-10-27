@@ -9,7 +9,10 @@ export default function GallerySection({ gallery }: GallerySectionProps) {
   return (
     <section className="py-12 px-4 md:py-20 md:px-4">
       <div className="container mx-auto">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12">Галерея</h2>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-3 md:mb-4">Фото с обучения</h2>
+        <p className="text-center text-muted-foreground mb-8 md:mb-12 max-w-2xl mx-auto">
+          Атмосфера занятий, работа на камеру и первые успехи наших студентов
+        </p>
         {gallery.length > 0 ? (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
             {gallery.map((image) => (

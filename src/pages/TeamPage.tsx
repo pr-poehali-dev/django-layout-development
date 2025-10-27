@@ -73,7 +73,7 @@ export default function TeamPage() {
                       <h3 className="text-xl md:text-2xl font-bold mb-2">{member.name}</h3>
                       <p className="text-sm md:text-base text-primary font-semibold mb-3 md:mb-4">{member.role}</p>
                       {member.bio && (
-                        <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                        <p className="text-sm md:text-base text-muted-foreground leading-relaxed line-clamp-4 whitespace-pre-line">
                           {member.bio}
                         </p>
                       )}

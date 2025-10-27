@@ -69,6 +69,7 @@ export default function ActingPage() {
       <LeadFormSection />
       <ModulesSection modules={modules} />
       <FilmSection content={content} />
+      <LeadFormSection />
       <AboutSection content={content} team={team} />
       <GallerySection gallery={gallery} />
       <ReviewsSection reviews={reviews} />

@@ -37,7 +37,7 @@ export default function TeamSection({ team }: TeamSectionProps) {
                 </CardHeader>
                 {member.bio && (
                   <CardContent>
-                    <p className="text-sm text-muted-foreground">{member.bio}</p>
+                    <p className="text-sm text-muted-foreground line-clamp-3">{member.bio}</p>
                   </CardContent>
                 )}
               </Card>

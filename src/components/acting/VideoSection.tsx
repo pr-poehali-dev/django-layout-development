@@ -8,10 +8,11 @@ export default function VideoSection({ content }: VideoSectionProps) {
       <div className="container mx-auto md:px-4">
         <div className="aspect-video w-full md:max-w-4xl md:mx-auto md:rounded-xl overflow-hidden shadow-2xl">
           <iframe
-            src={content.hero_video_url || 'https://www.youtube.com/embed/dQw4w9WgXcQ'}
+            src="https://player.vimeo.com/video/997328344?h=0d19d04d2a"
             className="w-full h-full"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
             allowFullScreen
+            title="Видео о курсе"
           ></iframe>
         </div>
       </div>
