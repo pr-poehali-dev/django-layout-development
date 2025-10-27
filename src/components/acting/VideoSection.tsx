@@ -63,9 +63,16 @@ export default function VideoSection({ content }: VideoSectionProps) {
               ))}
             </div>
 
-            <div className="text-center mt-8">
-              <p className="text-lg md:text-xl text-muted-foreground mb-4">
-                Мы знаем, как помочь вам преодолеть каждый барьер
+            <div className="text-center bg-primary/5 rounded-xl p-6 md:p-8 border border-primary/20">
+              <div className="inline-flex items-center gap-2 bg-primary/10 px-4 py-2 rounded-full mb-4">
+                <Icon name="Sparkles" className="text-primary" size={18} />
+                <span className="text-primary font-semibold text-sm">Первый шаг к мечте</span>
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold mb-3">
+                Приходите на <span className="text-primary">пробное занятие</span>
+              </h3>
+              <p className="text-base md:text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
+                Познакомитесь с преподавателем, попробуете первые упражнения и поймёте, подходит ли вам этот путь
               </p>
               <Button 
                 size="lg" 
