@@ -1,24 +1,8 @@
-import Icon from '@/components/ui/icon';
-import { Button } from '@/components/ui/button';
-
 interface VideoSectionProps {
   content: Record<string, string>;
 }
 
-const problems = [
-  { icon: 'UserX', text: 'Застенчивость перед камерой' },
-  { icon: 'Drama', text: 'Зажатость и скованность' },
-  { icon: 'AlertCircle', text: 'Страх съемок' },
-  { icon: 'HelpCircle', text: 'Не знаете, с чего начать' }
-];
-
 export default function VideoSection({ content }: VideoSectionProps) {
-  const scrollToForm = () => {
-    const formSection = document.getElementById('lead-form');
-    if (formSection) {
-      formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
 
   return (
     <section className="py-12 px-4 md:py-20 md:px-4 bg-card">
@@ -32,7 +16,7 @@ export default function VideoSection({ content }: VideoSectionProps) {
           </p>
         </div>
         
-        <div className="aspect-video w-full md:max-w-4xl md:mx-auto md:rounded-xl overflow-hidden shadow-2xl mb-8 md:mb-12">
+        <div className="aspect-video w-full md:max-w-4xl md:mx-auto md:rounded-xl overflow-hidden shadow-2xl">
           <iframe
             src="https://player.vimeo.com/video/997327815?h=da8107aa0b"
             className="w-full h-full"
@@ -40,50 +24,6 @@ export default function VideoSection({ content }: VideoSectionProps) {
             allowFullScreen
             title="Видео о курсе"
           ></iframe>
-        </div>
-
-        <div className="max-w-5xl mx-auto">
-          <div className="bg-gradient-to-br from-background/80 to-card/50 backdrop-blur-sm rounded-2xl md:rounded-3xl p-6 md:p-10 border border-primary/20 shadow-xl">
-            <div className="grid sm:grid-cols-2 gap-4 md:gap-6 mb-8 md:mb-10">
-              {problems.map((problem, index) => (
-                <div key={index} className="flex items-start gap-4 bg-card/50 rounded-xl p-4 md:p-5 border border-primary/10 hover:border-primary/30 transition-all hover:shadow-lg">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Icon name={problem.icon} className="text-primary" size={24} />
-                  </div>
-                  <div>
-                    <span className="text-base md:text-lg font-semibold block mb-1">{problem.text}</span>
-                    <span className="text-xs md:text-sm text-muted-foreground">
-                      {index === 0 && 'Научитесь уверенно чувствовать себя перед объективом'}
-                      {index === 1 && 'Раскрепоститесь и обретёте свободу движения'}
-                      {index === 2 && 'Превратите волнение в энергию для роли'}
-                      {index === 3 && 'Получите чёткий план развития от профессионала'}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="text-center bg-primary/5 rounded-xl p-6 md:p-8 border border-primary/20">
-              <div className="inline-flex items-center gap-2 bg-primary/10 px-4 py-2 rounded-full mb-4">
-                <Icon name="Sparkles" className="text-primary" size={18} />
-                <span className="text-primary font-semibold text-sm">Первый шаг к мечте</span>
-              </div>
-              <h3 className="text-2xl md:text-3xl font-bold mb-3">
-                Приходите на <span className="text-primary">пробное занятие</span>
-              </h3>
-              <p className="text-base md:text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
-                Познакомитесь с преподавателем, попробуете первые упражнения и поймёте, подходит ли вам этот путь
-              </p>
-              <Button 
-                size="lg" 
-                className="text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all"
-                onClick={scrollToForm}
-              >
-                Записаться на пробное занятие
-                <Icon name="ArrowRight" size={20} className="ml-2" />
-              </Button>
-            </div>
-          </div>
         </div>
       </div>
     </section>
