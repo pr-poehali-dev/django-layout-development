@@ -7,11 +7,11 @@ export default function VideoWidget() {
   const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef<HTMLIFrameElement>(null);
 
-  const videoUrl = "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&loop=1&playlist=dQw4w9WgXcQ&controls=0&modestbranding=1";
+  const videoUrl = "https://player.vimeo.com/video/997327815?h=da8107aa0b&autoplay=1&muted=1&loop=1&autopause=0";
 
   const handleUnmute = () => {
     if (isMuted && videoRef.current) {
-      const newUrl = videoUrl.replace('mute=1', 'mute=0');
+      const newUrl = videoUrl.replace('muted=1', 'muted=0');
       videoRef.current.src = newUrl;
       setIsMuted(false);
     }
