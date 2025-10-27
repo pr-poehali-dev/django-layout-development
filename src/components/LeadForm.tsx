@@ -49,24 +49,28 @@ export default function LeadForm({
 
   if (submitted) {
     return (
-      <div className="bg-primary/10 border border-primary/20 rounded-lg p-6 text-center">
-        <Icon name="CheckCircle" className="text-primary mx-auto mb-3" size={48} />
-        <h3 className="text-xl font-semibold mb-2">Спасибо!</h3>
-        <p className="text-muted-foreground">
-          Мы получили вашу заявку и скоро свяжемся с вами
+      <div className="bg-gradient-to-br from-primary/20 to-primary/10 border-2 border-primary/40 rounded-2xl md:rounded-3xl p-8 text-center backdrop-blur-sm">
+        <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4">
+          <Icon name="CheckCircle" className="text-primary" size={32} />
+        </div>
+        <h3 className="text-2xl font-bold mb-2">Заявка отправлена!</h3>
+        <p className="text-muted-foreground text-lg">
+          Мы свяжемся с вами в ближайшее время
         </p>
       </div>
     );
   }
 
   return (
-    <div className="bg-card/80 backdrop-blur-sm border border-primary/20 rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-2xl">
+    <div className="bg-card/90 backdrop-blur-md border-2 border-primary/20 rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-2xl hover:border-primary/40 transition-all duration-300">
       {title && <h3 className="text-xl font-bold mb-2">{title}</h3>}
       {description && <p className="text-sm text-muted-foreground mb-6">{description}</p>}
       
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-5">
         <div>
-          <Label htmlFor={`phone-${source}`}>Номер телефона</Label>
+          <Label htmlFor={`phone-${source}`} className="text-base font-semibold mb-2 block">
+            Номер телефона
+          </Label>
           <InputMask
             mask="+7 (999) 999-99-99"
             value={phone}
@@ -79,21 +83,26 @@ export default function LeadForm({
                 type="tel"
                 placeholder="+7 (999) 999-99-99"
                 required
-                className="mt-1"
+                className="h-12 text-base border-2 border-primary/20 focus:border-primary/60 transition-colors"
               />
             )) as any}
           </InputMask>
         </div>
         
-        <Button type="submit" disabled={loading} className="w-full" size="lg">
+        <Button 
+          type="submit" 
+          disabled={loading} 
+          className="w-full h-12 text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-300" 
+          size="lg"
+        >
           {loading ? (
             <>
-              <Icon name="Loader2" className="animate-spin mr-2" size={18} />
+              <Icon name="Loader2" className="animate-spin mr-2" size={20} />
               Отправка...
             </>
           ) : (
             <>
-              <Icon name="Phone" className="mr-2" size={18} />
+              <Icon name="Send" className="mr-2" size={20} />
               {buttonText}
             </>
           )}
