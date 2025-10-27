@@ -8,6 +8,7 @@ import VideoSection from '@/components/acting/VideoSection';
 import ForWhomSection from '@/components/acting/ForWhomSection';
 import LeadFormSection from '@/components/acting/LeadFormSection';
 import ModulesSection from '@/components/acting/ModulesSection';
+import FilmSection from '@/components/acting/FilmSection';
 import AboutSection from '@/components/acting/AboutSection';
 import GallerySection from '@/components/acting/GallerySection';
 import ReviewsSection from '@/components/acting/ReviewsSection';
@@ -75,6 +76,7 @@ export default function ActingPage() {
       <ForWhomSection />
       <LeadFormSection />
       <ModulesSection modules={modules} />
+      <FilmSection content={content} />
       <LeadFormSection />
       <AboutSection content={content} team={team} />
       <GallerySection gallery={gallery} />

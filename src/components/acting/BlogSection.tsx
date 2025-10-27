@@ -26,7 +26,7 @@ export default function BlogSection({ blog, onNavigate, onNavigateToBlog }: Blog
                 >
                   {post.image_url && (
                     <div className="aspect-video overflow-hidden">
-                      <img
+                      <Image
                         src={post.image_url}
                         alt={post.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition"
