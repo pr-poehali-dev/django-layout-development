@@ -60,9 +60,9 @@ export default function LeadForm({
   }
 
   return (
-    <div className="bg-card border border-border rounded-lg p-6">
-      {title && <h3 className="text-xl md:text-2xl font-bold mb-2">{title}</h3>}
-      {description && <p className="text-sm md:text-base text-muted-foreground mb-6">{description}</p>}
+    <div className="bg-card/80 backdrop-blur-sm border border-primary/20 rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-2xl">
+      {title && <h3 className="text-xl font-bold mb-2">{title}</h3>}
+      {description && <p className="text-sm text-muted-foreground mb-6">{description}</p>}
       
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -88,7 +88,7 @@ export default function LeadForm({
         <Button type="submit" disabled={loading} className="w-full" size="lg">
           {loading ? (
             <>
-              <Icon name="Loader" className="animate-spin mr-2" size={18} />
+              <Icon name="Loader2" className="animate-spin mr-2" size={18} />
               Отправка...
             </>
           ) : (

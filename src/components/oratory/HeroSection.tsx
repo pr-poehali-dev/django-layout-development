@@ -13,6 +13,7 @@ export default function HeroSection() {
           eager={true}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/70"></div>
+        <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-background to-transparent"></div>
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-card"></div>
       </div>
       <div className="container mx-auto relative z-10">

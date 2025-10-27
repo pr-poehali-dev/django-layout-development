@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
-import PhoneForm from '@/components/PhoneForm';
+import LeadForm from '@/components/LeadForm';
 
 const oratorySkills = [
   {
@@ -37,7 +37,7 @@ const oratorySkills = [
 
 export default function SkillsSection() {
   return (
-    <section id="skills" className="py-12 px-4 md:py-20 md:px-4 bg-gradient-to-b from-background to-card/30 -mt-24 md:-mt-32 pt-24 md:pt-32">
+    <section id="skills" className="py-12 px-4 md:py-20 md:px-4 bg-gradient-to-b from-background via-background/50 to-card/30 -mt-24 md:-mt-32 pt-24 md:pt-32">
       <div className="container mx-auto">
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary font-semibold mb-4 text-sm border border-primary/20">
@@ -75,17 +75,15 @@ export default function SkillsSection() {
           
           <div className="max-w-5xl mx-auto relative z-10 py-12 md:py-16 px-4 md:px-8">
             <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div className="bg-card/80 backdrop-blur-sm rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-2xl border border-primary/20">
-                <div className="mb-6">
-                  <h3 className="text-xl font-bold mb-2">Запишитесь на пробное занятие</h3>
-                  <p className="text-sm text-muted-foreground">Укажите номер телефона</p>
-                </div>
-                <PhoneForm 
+              <div>
+                <LeadForm 
                   source="skills_oratory"
                   course="oratory"
-                  triggerText="Отправить заявку"
+                  title=""
+                  description=""
+                  buttonText="Отправить заявку"
                 />
-                <div className="mt-6 flex items-center gap-2 text-xs text-muted-foreground">
+                <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
                   <Icon name="Lock" size={14} />
                   <span>Ваши данные защищены и не передаются третьим лицам</span>
                 </div>
