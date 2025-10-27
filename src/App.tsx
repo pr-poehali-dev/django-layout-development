@@ -14,6 +14,7 @@ import BlogPostPage from "./pages/BlogPostPage";
 import ReviewsPage from "./pages/ReviewsPage";
 import TeamPage from "./pages/TeamPage";
 import ContactsPage from "./pages/ContactsPage";
+import MetrikaGoalPage from "./pages/MetrikaGoalPage";
 import NotFound from "./pages/NotFound";
 import { saveUTMToStorage } from "./lib/utm";
 
@@ -39,6 +40,7 @@ const App = () => {
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/contacts" element={<ContactsPage />} />
+            <Route path="/metrika-goal" element={<MetrikaGoalPage />} />
             <Route path="/admin" element={<AdminPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
