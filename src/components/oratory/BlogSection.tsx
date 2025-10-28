@@ -21,7 +21,7 @@ export default function BlogSection({ blog, onNavigate, onNavigateToBlog }: Blog
               {blog.slice(0, 3).map((post) => (
                 <Card 
                   key={post.id} 
-                  className="group hover:shadow-xl transition cursor-pointer"
+                  className="group hover:shadow-xl transition cursor-pointer flex flex-col"
                   onClick={() => onNavigate(post.slug || '')}
                 >
                   {post.image_url && (
@@ -33,11 +33,11 @@ export default function BlogSection({ blog, onNavigate, onNavigateToBlog }: Blog
                       />
                     </div>
                   )}
-                  <CardHeader>
+                  <CardHeader className="flex-1">
                     <CardTitle className="text-lg md:text-xl group-hover:text-primary transition">{post.title}</CardTitle>
                     <CardDescription>{post.excerpt}</CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="mt-auto">
                     <Button variant="ghost" className="w-full group-hover:bg-primary/10 transition">
                       Читать статью
                       <Icon name="ArrowRight" size={16} className="ml-2" />
