@@ -1,6 +1,7 @@
 import Icon from '@/components/ui/icon';
 import Image from '@/components/ui/image';
 import PhoneForm from '@/components/PhoneForm';
+import SeatsCounter from '@/components/ui/seats-counter';
 
 interface HeroSectionProps {
   trialDate?: string;
@@ -55,6 +56,15 @@ export default function HeroSection({ trialDate, courseStartDate }: HeroSectionP
               </div>
             )}
           </div>
+          {trialDate && (
+            <div className="mb-6 md:mb-8">
+              <SeatsCounter 
+                trialDate={trialDate} 
+                maxSeats={10}
+                minSeats={2}
+              />
+            </div>
+          )}
           <PhoneForm 
             source="hero_oratory"
             course="oratory"

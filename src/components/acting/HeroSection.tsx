@@ -2,6 +2,7 @@ import Icon from '@/components/ui/icon';
 import Image from '@/components/ui/image';
 import PhoneForm from '@/components/PhoneForm';
 import { formatDate } from '@/lib/dates';
+import SeatsCounter from '@/components/ui/seats-counter';
 
 interface HeroSectionProps {
   content: Record<string, string>;
@@ -41,6 +42,15 @@ export default function HeroSection({ content }: HeroSectionProps) {
               <span className="whitespace-nowrap">Старт: {content.course_start_date ? formatDate(content.course_start_date) : '1 апреля 2025'}</span>
             </div>
           </div>
+          {content.trial_date && (
+            <div className="mb-6 md:mb-8">
+              <SeatsCounter 
+                trialDate={content.trial_date} 
+                maxSeats={12}
+                minSeats={2}
+              />
+            </div>
+          )}
           <PhoneForm 
             source="hero_acting"
             course="acting"

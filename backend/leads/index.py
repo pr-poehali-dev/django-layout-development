@@ -1,12 +1,61 @@
 import json
 import os
 from typing import Dict, Any
+from datetime import datetime
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import urllib.request
 
 BOT_TOKEN = "8238321643:AAEV7kBinohHb-RSLah7VSBJ2XSsXTQUpW4"
 ADMIN_CHAT_ID = os.environ.get('TELEGRAM_ADMIN_CHAT_ID', '')
+
+def get_seats_remaining(course: str) -> dict:
+    '''Подсчет оставшихся мест на основе даты пробного занятия'''
+    try:
+        conn = psycopg2.connect(os.environ['DATABASE_URL'])
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+        
+        if course == 'acting':
+            cur.execute("SELECT trial_date FROM content WHERE id = 1")
+            max_seats = 12
+        elif course == 'oratory':
+            cur.execute("SELECT oratory_trial_date as trial_date FROM content WHERE id = 1")
+            max_seats = 10
+        else:
+            return None
+        
+        result = cur.fetchone()
+        cur.close()
+        conn.close()
+        
+        if not result or not result.get('trial_date'):
+            return None
+        
+        trial_date = result['trial_date']
+        if isinstance(trial_date, str):
+            trial_date = datetime.fromisoformat(trial_date.replace('Z', '+00:00'))
+        
+        now = datetime.now()
+        total_days = 30
+        min_seats = 2
+        days_until_trial = max(0, (trial_date - now).days)
+        
+        if days_until_trial <= 0:
+            seats = min_seats
+        else:
+            progress = max(0, min(1, 1 - (days_until_trial / total_days)))
+            seats = max(min_seats, round(max_seats - (progress * (max_seats - min_seats))))
+        
+        if seats <= 3:
+            emoji = '🔥'
+        elif seats <= 5:
+            emoji = '⚠️'
+        else:
+            emoji = '✅'
+        
+        return {'seats': seats, 'emoji': emoji}
+    except:
+        return None
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     '''
@@ -205,6 +254,9 @@ def send_telegram_notification(lead: dict):
     
     name_line = f"👤 <b>Имя:</b> {lead.get('name')}\n" if lead.get('name') else ""
     
+    seats_info = get_seats_remaining(lead.get('course'))
+    seats_line = f"\n🪑 <b>Осталось мест:</b> {seats_info['seats']} {seats_info['emoji']}" if seats_info else ""
+    
     message = (
         f"━━━━━━━━━━━━━━━━━━━\n"
         f"🔔 <b>НОВАЯ ЗАЯВКА</b>\n"
@@ -212,7 +264,7 @@ def send_telegram_notification(lead: dict):
         f"{name_line}"
         f"📞 <b>Телефон:</b> <code>{lead.get('phone')}</code>\n"
         f"{course_emoji} <b>Курс:</b> {course_name}\n"
-        f"📅 <b>Дата:</b> {formatted_date}\n\n"
+        f"📅 <b>Дата:</b> {formatted_date}{seats_line}\n\n"
         f"━━━━━━━━━━━━━━━━━━━"
     )
     
