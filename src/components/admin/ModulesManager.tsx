@@ -73,10 +73,21 @@ export default function ModulesManager({
             <Label>Описание</Label>
             <Textarea
               value={newModule.description}
-              onChange={(e) => onNewModuleChange('description', e.target.value)}
-              placeholder="Что изучается в модуле..."
+              onChange={(e) => {
+                const value = e.target.value;
+                const lines = value.split('\n').map(line => {
+                  const trimmed = line.trim();
+                  if (trimmed && !trimmed.startsWith('-')) {
+                    return '- ' + trimmed;
+                  }
+                  return line;
+                });
+                onNewModuleChange('description', lines.join('\n'));
+              }}
+              placeholder="Каждая строка автоматически станет пунктом списка..."
               rows={3}
             />
+            <p className="text-xs text-muted-foreground mt-1">Каждая строка автоматически превратится в пункт списка</p>
           </div>
           <div>
             <Label>Результат</Label>
@@ -139,9 +150,20 @@ export default function ModulesManager({
                         <Label>Описание</Label>
                         <Textarea
                           value={editingModule.description}
-                          onChange={(e) => onEditingModuleChange('description', e.target.value)}
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            const lines = value.split('\n').map(line => {
+                              const trimmed = line.trim();
+                              if (trimmed && !trimmed.startsWith('-')) {
+                                return '- ' + trimmed;
+                              }
+                              return line;
+                            });
+                            onEditingModuleChange('description', lines.join('\n'));
+                          }}
                           rows={3}
                         />
+                        <p className="text-xs text-muted-foreground mt-1">Каждая строка автоматически превратится в пункт списка</p>
                       </div>
                       <div>
                         <Label>Результат</Label>
