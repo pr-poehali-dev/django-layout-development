@@ -1,4 +1,5 @@
 {
+  "test-metrika-goal": "https://functions.poehali.dev/0d6e802f-4a1c-4876-9a2c-6b66f8080883",
   "metrika-conversion": "https://functions.poehali.dev/5fc35f97-7314-4016-a1bf-571b1d77a189",
   "conversions-csv": "https://functions.poehali.dev/1a9bbb75-d228-4675-a1c3-2774ec3ba543",
   "metrika-goal-sender": "https://functions.poehali.dev/3d824f97-2f09-44e4-8c9a-54af8aa6ccce",
