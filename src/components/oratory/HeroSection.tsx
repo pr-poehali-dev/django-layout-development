@@ -56,15 +56,6 @@ export default function HeroSection({ trialDate, courseStartDate }: HeroSectionP
               </div>
             )}
           </div>
-          {trialDate && (
-            <div className="mb-6 md:mb-8">
-              <SeatsCounter 
-                trialDate={trialDate} 
-                maxSeats={10}
-                minSeats={2}
-              />
-            </div>
-          )}
           <PhoneForm 
             source="hero_oratory"
             course="oratory"
@@ -72,6 +63,13 @@ export default function HeroSection({ trialDate, courseStartDate }: HeroSectionP
             triggerSize="lg"
             title="Запись на пробное занятие"
             description="Оставьте номер телефона, и мы пригласим вас на пробное занятие по ораторскому мастерству"
+            seatsCounter={trialDate && (
+              <SeatsCounter 
+                trialDate={trialDate} 
+                maxSeats={10}
+                minSeats={2}
+              />
+            )}
           />
         </div>
       </div>

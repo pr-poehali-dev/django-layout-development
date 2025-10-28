@@ -49,20 +49,14 @@ export default function SeatsCounter({
   const isCritical = seatsLeft <= 3;
 
   return (
-    <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
-      isCritical 
-        ? 'bg-destructive/20 text-destructive border-2 border-destructive animate-pulse' 
-        : isLowSeats 
-        ? 'bg-orange-500/20 text-orange-600 dark:text-orange-400 border-2 border-orange-500/50' 
-        : 'bg-primary/10 text-primary border-2 border-primary/30'
-    }`}>
+    <div className="inline-flex items-center gap-2 px-4 py-3 rounded-lg font-medium text-sm bg-card/80 backdrop-blur-sm border border-border">
       <Icon 
-        name={isCritical ? "AlertCircle" : "Users"} 
+        name="Users" 
         size={18} 
-        className="flex-shrink-0"
+        className="flex-shrink-0 text-muted-foreground"
       />
-      <span>
-        {isCritical ? 'Последние' : 'Осталось'} <span className="text-lg font-bold">{seatsLeft}</span> {
+      <span className="text-foreground">
+        Осталось <span className="font-bold">{seatsLeft}</span> {
           seatsLeft === 1 ? 'место' : seatsLeft < 5 ? 'места' : 'мест'
         }
       </span>

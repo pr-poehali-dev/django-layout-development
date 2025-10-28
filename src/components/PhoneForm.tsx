@@ -16,6 +16,7 @@ interface PhoneFormProps {
   triggerClassName?: string;
   title?: string;
   description?: string;
+  seatsCounter?: React.ReactNode;
 }
 
 export default function PhoneForm({
@@ -26,7 +27,8 @@ export default function PhoneForm({
   triggerSize = 'default',
   triggerClassName = '',
   title,
-  description
+  description,
+  seatsCounter
 }: PhoneFormProps) {
   const defaultTitle = title !== undefined ? title : 'Записаться на курс';
   const defaultDescription = description !== undefined ? description : 'Оставьте свой номер телефона, и мы свяжемся с вами в ближайшее время';
@@ -108,11 +110,14 @@ export default function PhoneForm({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant={triggerVariant} size={triggerSize} className={triggerClassName}>
-          {triggerText}
-        </Button>
-      </DialogTrigger>
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+        <DialogTrigger asChild>
+          <Button variant={triggerVariant} size={triggerSize} className={triggerClassName}>
+            {triggerText}
+          </Button>
+        </DialogTrigger>
+        {seatsCounter && seatsCounter}
+      </div>
       <DialogContent className="sm:max-w-md w-[calc(100vw-2rem)]">
         <DialogHeader>
           <DialogTitle className="text-lg sm:text-xl leading-tight">{defaultTitle}</DialogTitle>
