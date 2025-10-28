@@ -3,7 +3,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
 import { QueueItem } from './types';
-import { getStatusBadge, formatDate, getCourseInfo } from './utils';
+import { formatDate, getCourseInfo } from './utils';
+import StatusBadge from './StatusBadge';
 
 interface QueueTabProps {
   queue: QueueItem[];
@@ -86,7 +87,7 @@ export default function QueueTab({
                         <Badge className={`${courseInfo.color} border-0 font-medium`}>
                           {courseInfo.emoji} {courseInfo.name}
                         </Badge>
-                        {getStatusBadge(item.status)}
+                        <StatusBadge status={item.status} />
                       </div>
                       
                       <div className="space-y-2">

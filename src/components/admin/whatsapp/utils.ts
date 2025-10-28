@@ -1,21 +1,11 @@
-import { Badge } from '@/components/ui/badge';
-import Icon from '@/components/ui/icon';
-
-export const getStatusBadge = (status: string) => {
+export const getStatusConfig = (status: string) => {
   const config: Record<string, { variant: 'default' | 'secondary' | 'destructive' | 'outline', icon: string, label: string }> = {
     pending: { variant: 'secondary', icon: 'Clock', label: 'В очереди' },
     sent: { variant: 'default', icon: 'CheckCircle2', label: 'Отправлено' },
     failed: { variant: 'destructive', icon: 'XCircle', label: 'Ошибка' }
   };
 
-  const { variant, icon, label } = config[status] || { variant: 'outline', icon: 'HelpCircle', label: status };
-
-  return (
-    <Badge variant={variant} className="gap-1">
-      <Icon name={icon} size={12} />
-      {label}
-    </Badge>
-  );
+  return config[status] || { variant: 'outline' as const, icon: 'HelpCircle', label: status };
 };
 
 export const formatDate = (dateString: string) => {

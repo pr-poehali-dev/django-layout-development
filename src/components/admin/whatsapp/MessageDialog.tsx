@@ -3,7 +3,8 @@ import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { QueueItem } from './types';
-import { getStatusBadge, formatDate, getCourseInfo } from './utils';
+import { formatDate, getCourseInfo } from './utils';
+import StatusBadge from './StatusBadge';
 
 interface MessageDialogProps {
   message: QueueItem | null;
@@ -27,7 +28,7 @@ export default function MessageDialog({ message, onClose }: MessageDialogProps) 
             <Badge className={`${courseInfo.color} border-0 font-medium text-base px-3 py-1`}>
               {courseInfo.emoji} {courseInfo.name}
             </Badge>
-            {getStatusBadge(message.status)}
+            <StatusBadge status={message.status} />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
