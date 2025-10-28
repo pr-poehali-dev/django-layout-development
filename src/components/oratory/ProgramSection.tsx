@@ -13,7 +13,7 @@ export default function ProgramSection() {
 
   const loadModules = async () => {
     try {
-      const data = await api.modules.getByType('oratory');
+      const data = await api.modules.getByCourse('oratory');
       setModules(data);
     } catch (error) {
       console.error('Error loading modules:', error);
