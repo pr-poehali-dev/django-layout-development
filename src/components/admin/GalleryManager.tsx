@@ -8,13 +8,12 @@ import { GalleryImage } from '@/lib/api';
 interface GalleryManagerProps {
   gallery: GalleryImage[];
   newGalleryImage: {
-    image_url: string;
-    title: string;
-    description: string;
+    url: string;
+    caption: string;
   };
   editingGalleryImage: GalleryImage | null;
   onNewImageChange: (field: string, value: string) => void;
-  onEditingImageChange: (field: string, value: string) => void;
+  onEditingImageChange: (field: string, value: string | number) => void;
   onCreate: () => void;
   onUpdate: () => void;
   onDelete: (id: number) => void;
@@ -45,25 +44,17 @@ export default function GalleryManager({
           <div>
             <Label>URL изображения</Label>
             <Input
-              value={newGalleryImage.image_url}
-              onChange={(e) => onNewImageChange('image_url', e.target.value)}
+              value={newGalleryImage.url}
+              onChange={(e) => onNewImageChange('url', e.target.value)}
               placeholder="https://example.com/image.jpg"
-            />
-          </div>
-          <div>
-            <Label>Название</Label>
-            <Input
-              value={newGalleryImage.title}
-              onChange={(e) => onNewImageChange('title', e.target.value)}
-              placeholder="Название изображения"
             />
           </div>
           <div>
             <Label>Описание</Label>
             <Input
-              value={newGalleryImage.description}
-              onChange={(e) => onNewImageChange('description', e.target.value)}
-              placeholder="Описание"
+              value={newGalleryImage.caption}
+              onChange={(e) => onNewImageChange('caption', e.target.value)}
+              placeholder="Описание изображения"
             />
           </div>
           <Button onClick={onCreate} className="w-full">
@@ -87,22 +78,23 @@ export default function GalleryManager({
                       <div>
                         <Label>URL</Label>
                         <Input
-                          value={editingGalleryImage.image_url}
-                          onChange={(e) => onEditingImageChange('image_url', e.target.value)}
-                        />
-                      </div>
-                      <div>
-                        <Label>Название</Label>
-                        <Input
-                          value={editingGalleryImage.title}
-                          onChange={(e) => onEditingImageChange('title', e.target.value)}
+                          value={editingGalleryImage.url}
+                          onChange={(e) => onEditingImageChange('url', e.target.value)}
                         />
                       </div>
                       <div>
                         <Label>Описание</Label>
                         <Input
-                          value={editingGalleryImage.description}
-                          onChange={(e) => onEditingImageChange('description', e.target.value)}
+                          value={editingGalleryImage.caption || ''}
+                          onChange={(e) => onEditingImageChange('caption', e.target.value)}
+                        />
+                      </div>
+                      <div>
+                        <Label>Порядок</Label>
+                        <Input
+                          type="number"
+                          value={editingGalleryImage.order_num}
+                          onChange={(e) => onEditingImageChange('order_num', parseInt(e.target.value))}
                         />
                       </div>
                       <div className="flex gap-2">
@@ -119,14 +111,13 @@ export default function GalleryManager({
                   <Card className="overflow-hidden">
                     <div className="aspect-video relative">
                       <img
-                        src={image.image_url}
-                        alt={image.title}
+                        src={image.url}
+                        alt={image.caption || 'Изображение'}
                         className="w-full h-full object-cover"
                       />
                     </div>
                     <CardContent className="pt-4">
-                      <h3 className="font-semibold mb-1">{image.title}</h3>
-                      <p className="text-sm text-muted-foreground mb-3">{image.description}</p>
+                      <p className="text-sm text-muted-foreground mb-3">{image.caption || 'Без описания'}</p>
                       <div className="flex gap-2">
                         <Button
                           variant="outline"

@@ -42,16 +42,14 @@ export default function AdminPage() {
   const [gallery, setGallery] = useState<GalleryImage[]>([]);
   const [editingGalleryImage, setEditingGalleryImage] = useState<GalleryImage | null>(null);
   const [newGalleryImage, setNewGalleryImage] = useState({
-    image_url: '',
-    title: '',
-    description: ''
+    url: '',
+    caption: ''
   });
 
   const [reviews, setReviews] = useState<Review[]>([]);
   const [editingReview, setEditingReview] = useState<Review | null>(null);
   const [newReview, setNewReview] = useState({
-    author_name: '',
-    author_role: '',
+    name: '',
     text: '',
     rating: 5
   });
@@ -361,8 +359,8 @@ export default function AdminPage() {
               faqs={faqs}
               newFAQ={newFAQ}
               editingFAQ={editingFAQ}
-              onNewFAQChange={setNewFAQ}
-              onEditingFAQChange={setEditingFAQ}
+              onNewFAQChange={(field, value) => setNewFAQ({ ...newFAQ, [field]: value })}
+              onEditingFAQChange={(field, value) => setEditingFAQ(editingFAQ ? { ...editingFAQ, [field]: value } : null)}
               onCreate={handleCreateFAQ}
               onUpdate={handleUpdateFAQ}
               onDelete={handleDeleteFAQ}
@@ -372,15 +370,48 @@ export default function AdminPage() {
           </TabsContent>
 
           <TabsContent value="gallery">
-            <GalleryManager gallery={gallery} token={token} onReload={() => loadData(token)} />
+            <GalleryManager
+              gallery={gallery}
+              newGalleryImage={newGalleryImage}
+              editingGalleryImage={editingGalleryImage}
+              onNewImageChange={(field, value) => setNewGalleryImage({ ...newGalleryImage, [field]: value })}
+              onEditingImageChange={(field, value) => setEditingGalleryImage(editingGalleryImage ? { ...editingGalleryImage, [field]: value } : null)}
+              onCreate={() => alert('Функция в разработке')}
+              onUpdate={() => alert('Функция в разработке')}
+              onDelete={() => alert('Функция в разработке')}
+              onStartEditing={setEditingGalleryImage}
+              onCancelEditing={() => setEditingGalleryImage(null)}
+            />
           </TabsContent>
 
           <TabsContent value="reviews">
-            <ReviewsManager reviews={reviews} token={token} onReload={() => loadData(token)} />
+            <ReviewsManager
+              reviews={reviews}
+              newReview={newReview}
+              editingReview={editingReview}
+              onNewReviewChange={(field, value) => setNewReview({ ...newReview, [field]: value })}
+              onEditingReviewChange={(field, value) => setEditingReview(editingReview ? { ...editingReview, [field]: value } : null)}
+              onCreate={() => alert('Функция в разработке')}
+              onUpdate={() => alert('Функция в разработке')}
+              onDelete={() => alert('Функция в разработке')}
+              onStartEditing={setEditingReview}
+              onCancelEditing={() => setEditingReview(null)}
+            />
           </TabsContent>
 
           <TabsContent value="blog">
-            <BlogManager blog={blog} token={token} onReload={() => loadData(token)} />
+            <BlogManager
+              blog={blog}
+              newBlogPost={newBlogPost}
+              editingBlogPost={editingBlogPost}
+              onNewPostChange={(field, value) => setNewBlogPost({ ...newBlogPost, [field]: value })}
+              onEditingPostChange={(field, value) => setEditingBlogPost(editingBlogPost ? { ...editingBlogPost, [field]: value } : null)}
+              onCreate={() => alert('Функция в разработке')}
+              onUpdate={() => alert('Функция в разработке')}
+              onDelete={() => alert('Функция в разработке')}
+              onStartEditing={setEditingBlogPost}
+              onCancelEditing={() => setEditingBlogPost(null)}
+            />
           </TabsContent>
 
           <TabsContent value="team">

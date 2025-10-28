@@ -9,8 +9,7 @@ import { Review } from '@/lib/api';
 interface ReviewsManagerProps {
   reviews: Review[];
   newReview: {
-    author_name: string;
-    author_role: string;
+    name: string;
     text: string;
     rating: number;
   };
@@ -47,17 +46,9 @@ export default function ReviewsManager({
           <div>
             <Label>Имя автора</Label>
             <Input
-              value={newReview.author_name}
-              onChange={(e) => onNewReviewChange('author_name', e.target.value)}
+              value={newReview.name}
+              onChange={(e) => onNewReviewChange('name', e.target.value)}
               placeholder="Иван Иванов"
-            />
-          </div>
-          <div>
-            <Label>Роль/Описание</Label>
-            <Input
-              value={newReview.author_role}
-              onChange={(e) => onNewReviewChange('author_role', e.target.value)}
-              placeholder="Студент курса актерского мастерства"
             />
           </div>
           <div>
@@ -100,15 +91,8 @@ export default function ReviewsManager({
                       <div>
                         <Label>Имя автора</Label>
                         <Input
-                          value={editingReview.author_name}
-                          onChange={(e) => onEditingReviewChange('author_name', e.target.value)}
-                        />
-                      </div>
-                      <div>
-                        <Label>Роль</Label>
-                        <Input
-                          value={editingReview.author_role}
-                          onChange={(e) => onEditingReviewChange('author_role', e.target.value)}
+                          value={editingReview.name}
+                          onChange={(e) => onEditingReviewChange('name', e.target.value)}
                         />
                       </div>
                       <div>
@@ -144,8 +128,7 @@ export default function ReviewsManager({
                     <CardContent className="pt-6">
                       <div className="flex items-start justify-between mb-3">
                         <div>
-                          <div className="font-semibold">{review.author_name}</div>
-                          <div className="text-sm text-muted-foreground">{review.author_role}</div>
+                          <div className="font-semibold">{review.name}</div>
                         </div>
                         <div className="flex items-center gap-1 text-yellow-500">
                           {Array.from({ length: review.rating }).map((_, i) => (
