@@ -33,7 +33,8 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             key = params.get('key') if params else None
             
             if key:
-                cur.execute("SELECT * FROM site_content WHERE key = %s", (key,))
+                escaped_key = key.replace("'", "''")
+                cur.execute(f"SELECT * FROM site_content WHERE key = '{escaped_key}'")
                 content = cur.fetchone()
                 result = dict(content) if content else None
             else:
@@ -62,15 +63,17 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                     'body': json.dumps({'error': 'Key is required'})
                 }
             
+            escaped_key = key.replace("'", "''")
+            escaped_value = value.replace("'", "''") if value else ''
+            
             cur.execute(
-                """
+                f"""
                 INSERT INTO site_content (key, value, updated_at)
-                VALUES (%s, %s, CURRENT_TIMESTAMP)
+                VALUES ('{escaped_key}', '{escaped_value}', CURRENT_TIMESTAMP)
                 ON CONFLICT (key)
                 DO UPDATE SET value = EXCLUDED.value, updated_at = CURRENT_TIMESTAMP
                 RETURNING *
-                """,
-                (key, value)
+                """
             )
             updated = cur.fetchone()
             conn.commit()
