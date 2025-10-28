@@ -3,71 +3,77 @@ import PhoneForm from '@/components/PhoneForm';
 
 export default function CTASection() {
   return (
-    <section id="contact" className="py-12 px-4 md:py-20 md:px-4 relative overflow-hidden bg-background">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-background"></div>
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-10 right-10 w-72 h-72 bg-primary rounded-full blur-3xl"></div>
-        <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
-      </div>
-      
-      <div className="container mx-auto max-w-5xl relative z-10">
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-          <div className="bg-card/80 backdrop-blur-sm rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-2xl border border-primary/20">
-            <div className="mb-6">
-              <h3 className="text-xl font-bold mb-2">Запишитесь на пробное занятие</h3>
-              <p className="text-sm text-muted-foreground">Укажите ваше имя и номер телефона</p>
+    <section id="contact" className="py-12 px-4 md:py-20 md:px-4 bg-background">
+      <div className="container mx-auto">
+        <div className="text-center mb-8 md:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4">Контакты</h2>
+          <p className="text-center text-muted-foreground text-sm md:text-base">
+            Свяжитесь с нами удобным способом
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <div className="space-y-6">
+            <div className="bg-card p-6 rounded-xl border border-border/50">
+              <div className="flex items-start gap-4">
+                <div className="p-3 bg-primary/10 rounded-lg">
+                  <Icon name="Phone" className="text-primary" size={24} />
+                </div>
+                <div>
+                  <h3 className="font-semibold mb-2">Телефон</h3>
+                  <a href="tel:+79283161248" className="text-muted-foreground hover:text-primary transition">
+                    +7 (928) 316-12-48
+                  </a>
+                </div>
+              </div>
             </div>
-            <PhoneForm 
-              source="cta_oratory"
-              course="oratory"
-              triggerText="Отправить заявку"
-            />
-            <div className="mt-6 flex items-center gap-2 text-xs text-muted-foreground">
-              <Icon name="Lock" size={14} />
-              <span>Ваши данные защищены и не передаются третьим лицам</span>
+
+            <div className="bg-card p-6 rounded-xl border border-border/50">
+              <div className="flex items-start gap-4">
+                <div className="p-3 bg-primary/10 rounded-lg">
+                  <Icon name="MapPin" className="text-primary" size={24} />
+                </div>
+                <div>
+                  <h3 className="font-semibold mb-2">Адрес</h3>
+                  <p className="text-muted-foreground">
+                    Москва
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-card p-6 rounded-xl border border-border/50">
+              <div className="flex items-start gap-4">
+                <div className="p-3 bg-primary/10 rounded-lg">
+                  <Icon name="Clock" className="text-primary" size={24} />
+                </div>
+                <div>
+                  <h3 className="font-semibold mb-2">Режим работы</h3>
+                  <p className="text-muted-foreground">
+                    Ежедневно: 10:00 - 21:00
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-primary/5 p-6 rounded-xl border border-primary/20">
+              <h3 className="font-bold mb-4 text-lg">Запишитесь на пробное занятие</h3>
+              <p className="text-muted-foreground mb-4 text-sm">
+                Оставьте заявку, и мы свяжемся с вами для уточнения деталей
+              </p>
+              <PhoneForm source="contact_oratory" course="oratory" triggerText="Оставить заявку" triggerClassName="w-full" />
             </div>
           </div>
 
-          <div>
-            <div className="inline-flex items-center gap-2 bg-primary/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
-              <Icon name="Star" className="text-primary" size={18} />
-              <span className="text-primary font-semibold text-sm">Присоединяйтесь к нам</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">
-              Раскройте силу <span className="text-primary">своего голоса</span>
-            </h2>
-            <p className="text-base md:text-lg text-muted-foreground mb-6">
-              Запишитесь на пробное занятие и получите:
-            </p>
-            <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <Icon name="Users" className="text-primary" size={20} />
-                </div>
-                <div>
-                  <h3 className="font-semibold mb-1">Обучение от профессионалов</h3>
-                  <p className="text-sm text-muted-foreground">Занятия с опытными ораторами и преподавателями</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <Icon name="Mic" className="text-primary" size={20} />
-                </div>
-                <div>
-                  <h3 className="font-semibold mb-1">Практика публичных выступлений</h3>
-                  <p className="text-sm text-muted-foreground">Реальный опыт выступлений перед аудиторией</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <Icon name="Award" className="text-primary" size={20} />
-                </div>
-                <div>
-                  <h3 className="font-semibold mb-1">Сертификат об окончании</h3>
-                  <p className="text-sm text-muted-foreground">Официальный документ после завершения курса</p>
-                </div>
-              </div>
-            </div>
+          <div className="relative h-[400px] lg:h-full min-h-[400px] rounded-xl overflow-hidden">
+            <iframe
+              src="https://yandex.ru/map-widget/v1/?um=constructor%3A4c7f8e0a8f9a8c8d8e8f8e8f8e8f8e8f&amp;source=constructor"
+              width="100%"
+              height="100%"
+              frameBorder="0"
+              className="absolute inset-0"
+              title="Карта расположения"
+            ></iframe>
           </div>
         </div>
       </div>

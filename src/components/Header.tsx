@@ -20,7 +20,6 @@ export default function Header() {
 
   const menuItems = [
     { href: '/', label: 'Актерское мастерство' },
-    { href: '/showreel', label: 'Визитки' },
     { href: '/oratory', label: 'Ораторское искусство' },
     { href: '/teacher', label: 'О преподавателях' },
     { href: '/contacts', label: 'Контакты' },
