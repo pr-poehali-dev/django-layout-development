@@ -19,6 +19,7 @@ import MetrikaGoalPage from "./pages/MetrikaGoalPage";
 import SitemapPage from "./pages/SitemapPage";
 import NotFound from "./pages/NotFound";
 import { saveUTMToStorage } from "./lib/utm";
+import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ const App = () => {
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <ScrollToTop />
           <Routes>
             <Route path="/" element={<ActingPage />} />
             <Route path="/oratory" element={<OratoryPage />} />
