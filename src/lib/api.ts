@@ -33,6 +33,7 @@ export interface Lead {
   source: string;
   course?: string;
   message_id?: number;
+  ym_client_id?: string;
   created_at: string;
   updated_at: string;
 }

@@ -151,6 +151,33 @@ export default function AdminPage() {
     }
   };
 
+  const handleMarkAsTargeted = async (lead: Lead) => {
+    if (!confirm(`Отметить клиента ${lead.phone} как целевого и отправить событие в Метрику?`)) return;
+    
+    try {
+      if (typeof window !== 'undefined' && (window as any).ym) {
+        const params: any = {
+          phone: lead.phone,
+          source: lead.source,
+          course: lead.course
+        };
+        
+        if (lead.ym_client_id) {
+          params.client_id = lead.ym_client_id;
+        }
+        
+        (window as any).ym(104854671, 'reachGoal', 'target_client', params);
+        
+        alert(`Целевой клиент отправлен в Метрику!\n\nТелефон: ${lead.phone}\nКурс: ${lead.course || 'не указан'}\nClientID: ${lead.ym_client_id || 'нет'}`);
+      } else {
+        alert('Яндекс.Метрика не загружена');
+      }
+    } catch (error) {
+      console.error('Error marking as targeted:', error);
+      alert('Ошибка отправки в Метрику');
+    }
+  };
+
   const handleUpdateContent = async () => {
     if (!editingKey || !editingValue) return;
 
@@ -435,7 +462,8 @@ export default function AdminPage() {
           <TabsContent value="leads">
             <LeadsManager 
               leads={leads} 
-              onUpdateStatus={handleUpdateLeadStatus} 
+              onUpdateStatus={handleUpdateLeadStatus}
+              onMarkAsTargeted={handleMarkAsTargeted}
             />
           </TabsContent>
 

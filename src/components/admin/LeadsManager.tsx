@@ -8,9 +8,10 @@ import { formatDate } from '@/lib/dates';
 interface LeadsManagerProps {
   leads: Lead[];
   onUpdateStatus: (leadId: number, status: string) => void;
+  onMarkAsTargeted?: (lead: Lead) => void;
 }
 
-export default function LeadsManager({ leads, onUpdateStatus }: LeadsManagerProps) {
+export default function LeadsManager({ leads, onUpdateStatus, onMarkAsTargeted }: LeadsManagerProps) {
   const getStatusBadge = (status: string) => {
     const styles = {
       new: 'bg-blue-500/10 text-blue-500',
@@ -99,25 +100,38 @@ export default function LeadsManager({ leads, onUpdateStatus }: LeadsManagerProp
                         {getStatusLabel(lead.status)}
                       </div>
                     </div>
-                    <div className="flex items-center justify-between pt-3 border-t border-border">
-                      <div className="text-xs text-muted-foreground">
-                        <div>Дата: {formatDate(lead.created_at)}</div>
+                    <div className="space-y-3 pt-3 border-t border-border">
+                      <div className="flex items-center justify-between">
+                        <div className="text-xs text-muted-foreground">
+                          <div>Дата: {formatDate(lead.created_at)}</div>
+                        </div>
+                        <Select
+                          value={lead.status}
+                          onValueChange={(value) => onUpdateStatus(lead.id, value)}
+                        >
+                          <SelectTrigger className="w-[220px]">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="new">Новый</SelectItem>
+                            <SelectItem value="trial">Записался на пробное</SelectItem>
+                            <SelectItem value="enrolled">Записался на обучение</SelectItem>
+                            <SelectItem value="thinking">Думает</SelectItem>
+                            <SelectItem value="irrelevant">Нецелевой</SelectItem>
+                          </SelectContent>
+                        </Select>
                       </div>
-                      <Select
-                        value={lead.status}
-                        onValueChange={(value) => onUpdateStatus(lead.id, value)}
-                      >
-                        <SelectTrigger className="w-[220px]">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="new">Новый</SelectItem>
-                          <SelectItem value="trial">Записался на пробное</SelectItem>
-                          <SelectItem value="enrolled">Записался на обучение</SelectItem>
-                          <SelectItem value="thinking">Думает</SelectItem>
-                          <SelectItem value="irrelevant">Нецелевой</SelectItem>
-                        </SelectContent>
-                      </Select>
+                      {onMarkAsTargeted && (
+                        <Button
+                          onClick={() => onMarkAsTargeted(lead)}
+                          variant="default"
+                          size="sm"
+                          className="w-full"
+                        >
+                          <Icon name="Target" size={16} className="mr-2" />
+                          Отметить как целевого
+                        </Button>
+                      )}
                     </div>
                   </CardContent>
                 </Card>
