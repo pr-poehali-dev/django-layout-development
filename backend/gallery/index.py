@@ -56,7 +56,18 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             }
         
         elif method == 'POST':
+            headers = event.get('headers', {})
+            token = headers.get('X-Auth-Token') or headers.get('x-auth-token')
+            
+            if not token:
+                return {
+                    'statusCode': 401,
+                    'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+                    'body': json.dumps({'error': 'Authorization required'})
+                }
+            
             body_data = json.loads(event.get('body', '{}'))
+            resource = body_data.get('resource', resource)
             
             if resource == 'gallery':
                 cur.execute(
@@ -96,7 +107,18 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             }
         
         elif method == 'PUT':
+            headers = event.get('headers', {})
+            token = headers.get('X-Auth-Token') or headers.get('x-auth-token')
+            
+            if not token:
+                return {
+                    'statusCode': 401,
+                    'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+                    'body': json.dumps({'error': 'Authorization required'})
+                }
+            
             body_data = json.loads(event.get('body', '{}'))
+            resource = body_data.get('resource', resource)
             item_id = body_data.get('id') or (params.get('id') if params else None)
             
             if not item_id:
@@ -154,7 +176,18 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             }
         
         elif method == 'DELETE':
+            headers = event.get('headers', {})
+            token = headers.get('X-Auth-Token') or headers.get('x-auth-token')
+            
+            if not token:
+                return {
+                    'statusCode': 401,
+                    'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+                    'body': json.dumps({'error': 'Authorization required'})
+                }
+            
             body_data = json.loads(event.get('body', '{}')) if event.get('body') else {}
+            resource = body_data.get('resource', resource)
             item_id = body_data.get('id') or (params.get('id') if params else None)
             
             if not item_id:
