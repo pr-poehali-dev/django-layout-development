@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Icon from '@/components/ui/icon';
 import { api } from '@/lib/api';
+import { getStoredUTM, getYandexClientID } from '@/lib/utm';
 
 interface LeadFormProps {
   source: string;
@@ -30,7 +31,17 @@ export default function LeadForm({
     setLoading(true);
 
     try {
-      await api.leads.create({ phone, source, course });
+      const utm = getStoredUTM();
+      const clientId = await getYandexClientID();
+
+      await api.leads.create({ 
+        phone, 
+        source, 
+        course,
+        ym_client_id: clientId || undefined,
+        utm
+      });
+      
       setSubmitted(true);
       setPhone('');
       
