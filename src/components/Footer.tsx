@@ -1,6 +1,29 @@
+import { useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
+import { api } from '@/lib/api';
 
 export default function Footer() {
+  const [phone, setPhone] = useState('+7 (999) 123-45-67');
+  const [email, setEmail] = useState('info@school.ru');
+  const [address, setAddress] = useState('г. Москва');
+  const [instagram, setInstagram] = useState('https://instagram.com/');
+  const [youtube, setYoutube] = useState('https://youtube.com/');
+  const [telegram, setTelegram] = useState('https://t.me/');
+  const [whatsapp, setWhatsapp] = useState('https://wa.me/');
+
+  useEffect(() => {
+    api.content.getAll().then((data) => {
+      data.forEach(item => {
+        if (item.key === 'phone') setPhone(item.value);
+        if (item.key === 'email') setEmail(item.value);
+        if (item.key === 'address') setAddress(item.value);
+        if (item.key === 'instagram_url') setInstagram(item.value);
+        if (item.key === 'youtube_url') setYoutube(item.value);
+        if (item.key === 'telegram_url') setTelegram(item.value);
+        if (item.key === 'whatsapp_url') setWhatsapp(item.value);
+      });
+    }).catch(() => {});
+  }, []);
   return (
     <footer className="bg-card border-t border-border">
       <div className="container mx-auto px-4 py-8 md:py-12">
@@ -14,14 +37,17 @@ export default function Footer() {
               Преодолейте страх сцены и камеры, станьте уверенным в себе и харизматичным.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 rounded-full bg-muted flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition">
+              <a href={instagram} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-muted flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition">
                 <Icon name="Instagram" size={20} />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-muted flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition">
+              <a href={youtube} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-muted flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition">
                 <Icon name="Youtube" size={20} />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-muted flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition">
-                <Icon name="Mail" size={20} />
+              <a href={telegram} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-muted flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition">
+                <Icon name="Send" size={20} />
+              </a>
+              <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-muted flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition">
+                <Icon name="MessageCircle" size={20} />
               </a>
             </div>
           </div>
@@ -73,18 +99,18 @@ export default function Footer() {
             <ul className="space-y-3 text-muted-foreground">
               <li className="flex items-center gap-2">
                 <Icon name="MapPin" size={18} className="text-primary" />
-                <span>Москва</span>
+                <span>{address}</span>
               </li>
               <li className="flex items-center gap-2">
                 <Icon name="Phone" size={18} className="text-primary" />
-                <a href="tel:+79991234567" className="hover:text-primary transition">
-                  +7 (999) 123-45-67
+                <a href={`tel:${phone.replace(/\D/g, '')}`} className="hover:text-primary transition">
+                  {phone}
                 </a>
               </li>
               <li className="flex items-center gap-2">
                 <Icon name="Mail" size={18} className="text-primary" />
-                <a href="mailto:info@school.ru" className="hover:text-primary transition">
-                  info@school.ru
+                <a href={`mailto:${email}`} className="hover:text-primary transition">
+                  {email}
                 </a>
               </li>
             </ul>

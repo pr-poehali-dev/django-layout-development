@@ -9,12 +9,21 @@ import { api } from '@/lib/api';
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [phone, setPhone] = useState('+7 (999) 123-45-67');
+  const [instagram, setInstagram] = useState('https://instagram.com/');
+  const [youtube, setYoutube] = useState('https://youtube.com/');
+  const [telegram, setTelegram] = useState('https://t.me/');
+  const [whatsapp, setWhatsapp] = useState('https://wa.me/');
   const location = useLocation();
 
   useEffect(() => {
     api.content.getAll().then((data) => {
-      const phoneContent = data.find((item) => item.key === 'phone');
-      if (phoneContent) setPhone(phoneContent.value);
+      data.forEach(item => {
+        if (item.key === 'phone') setPhone(item.value);
+        if (item.key === 'instagram_url') setInstagram(item.value);
+        if (item.key === 'youtube_url') setYoutube(item.value);
+        if (item.key === 'telegram_url') setTelegram(item.value);
+        if (item.key === 'whatsapp_url') setWhatsapp(item.value);
+      });
     }).catch(() => {});
   }, []);
 
@@ -52,6 +61,21 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
+          <div className="hidden lg:flex items-center gap-3">
+            <a href={instagram} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition">
+              <Icon name="Instagram" size={20} />
+            </a>
+            <a href={youtube} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition">
+              <Icon name="Youtube" size={20} />
+            </a>
+            <a href={telegram} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition">
+              <Icon name="Send" size={20} />
+            </a>
+            <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition">
+              <Icon name="MessageCircle" size={20} />
+            </a>
+          </div>
+          <div className="hidden lg:block w-px h-6 bg-border"></div>
           <a 
             href={`tel:${phone.replace(/\D/g, '')}`} 
             className="hidden lg:flex items-center gap-2 text-sm font-medium hover:text-primary transition"

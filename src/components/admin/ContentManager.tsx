@@ -15,6 +15,28 @@ interface ContentManagerProps {
   onCancel: () => void;
 }
 
+const getContentLabel = (key: string): string => {
+  const labels: Record<string, string> = {
+    'phone': 'Телефон',
+    'email': 'Email',
+    'address': 'Адрес',
+    'instagram_url': 'Instagram',
+    'youtube_url': 'YouTube',
+    'telegram_url': 'Telegram',
+    'whatsapp_url': 'WhatsApp',
+    'trial_date': 'Дата пробного занятия',
+    'course_start_date': 'Дата начала курса'
+  };
+  return labels[key] || key;
+};
+
+const getContentCategory = (key: string): string => {
+  if (key.includes('_url')) return 'social';
+  if (key.includes('date')) return 'dates';
+  if (['phone', 'email', 'address'].includes(key)) return 'contacts';
+  return 'other';
+};
+
 export default function ContentManager({
   content,
   editingKey,
@@ -24,6 +46,49 @@ export default function ContentManager({
   onUpdate,
   onCancel
 }: ContentManagerProps) {
+  const categories = {
+    contacts: content.filter(item => getContentCategory(item.key) === 'contacts'),
+    social: content.filter(item => getContentCategory(item.key) === 'social'),
+    dates: content.filter(item => getContentCategory(item.key) === 'dates'),
+    other: content.filter(item => getContentCategory(item.key) === 'other')
+  };
+
+  const renderContentList = (items: SiteContent[], title: string) => {
+    if (items.length === 0) return null;
+    
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>{title}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-2">
+            {items.map((item) => (
+              <div
+                key={item.id}
+                className="flex items-start justify-between p-3 border border-border rounded-lg hover:bg-accent/50 transition-colors"
+              >
+                <div className="flex-1 min-w-0">
+                  <div className="text-sm font-medium text-primary">{getContentLabel(item.key)}</div>
+                  <div className="text-sm text-muted-foreground truncate">
+                    {item.value}
+                  </div>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => onStartEditing(item)}
+                >
+                  <Icon name="Edit" size={16} />
+                </Button>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    );
+  };
+
   return (
     <div className="space-y-6">
       <Card>
@@ -33,9 +98,9 @@ export default function ContentManager({
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <Label>Ключ</Label>
+            <Label>Поле</Label>
             <Input
-              value={editingKey}
+              value={editingKey ? getContentLabel(editingKey) : ''}
               disabled
               placeholder="Выберите элемент контента из списка ниже"
             />
@@ -62,35 +127,10 @@ export default function ContentManager({
         </CardContent>
       </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Список контента</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-2">
-            {content.map((item) => (
-              <div
-                key={item.id}
-                className="flex items-start justify-between p-3 border border-border rounded-lg hover:bg-accent/50 transition-colors"
-              >
-                <div className="flex-1 min-w-0">
-                  <div className="text-sm font-medium text-primary">{item.key}</div>
-                  <div className="text-sm text-muted-foreground truncate">
-                    {item.value}
-                  </div>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => onStartEditing(item)}
-                >
-                  <Icon name="Edit" size={16} />
-                </Button>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+      {renderContentList(categories.contacts, 'Контактная информация')}
+      {renderContentList(categories.social, 'Социальные сети')}
+      {renderContentList(categories.dates, 'Даты и расписание')}
+      {renderContentList(categories.other, 'Прочее')}
     </div>
   );
 }
