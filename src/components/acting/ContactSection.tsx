@@ -1,7 +1,22 @@
+import { useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 import PhoneForm from '@/components/PhoneForm';
+import { api } from '@/lib/api';
 
 export default function ContactSection() {
+  const [phone, setPhone] = useState('+7 (999) 123-45-67');
+  const [address, setAddress] = useState('Москва');
+  const [workingHours, setWorkingHours] = useState('Ежедневно: 10:00 - 21:00');
+
+  useEffect(() => {
+    api.content.getAll().then((data) => {
+      data.forEach(item => {
+        if (item.key === 'phone') setPhone(item.value);
+        if (item.key === 'address') setAddress(item.value);
+        if (item.key === 'working_hours') setWorkingHours(item.value);
+      });
+    }).catch(() => {});
+  }, []);
   return (
     <section id="contacts" className="py-12 px-4 md:py-20 md:px-4 bg-background">
       <div className="container mx-auto">
@@ -21,8 +36,8 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <h3 className="font-semibold mb-2">Телефон</h3>
-                  <a href="tel:+79283161248" className="text-muted-foreground hover:text-primary transition">
-                    +7 (928) 316-12-48
+                  <a href={`tel:${phone.replace(/\D/g, '')}`} className="text-muted-foreground hover:text-primary transition">
+                    {phone}
                   </a>
                 </div>
               </div>
@@ -36,7 +51,7 @@ export default function ContactSection() {
                 <div>
                   <h3 className="font-semibold mb-2">Адрес</h3>
                   <p className="text-muted-foreground">
-                    Москва
+                    {address}
                   </p>
                 </div>
               </div>
@@ -50,7 +65,7 @@ export default function ContactSection() {
                 <div>
                   <h3 className="font-semibold mb-2">Режим работы</h3>
                   <p className="text-muted-foreground">
-                    Ежедневно: 10:00 - 21:00
+                    {workingHours}
                   </p>
                 </div>
               </div>

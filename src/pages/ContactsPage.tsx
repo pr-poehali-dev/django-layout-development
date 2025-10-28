@@ -34,21 +34,19 @@ export default function ContactsPage() {
     {
       icon: 'MapPin',
       title: 'Адрес',
-      value: 'Москва',
-      link: null,
-      subtitle: 'Точный адрес сообщим при записи'
+      value: content.address || 'Москва',
+      link: null
     },
     {
       icon: 'Phone',
       title: 'Телефон',
-      value: '+7 (928) 316-12-48',
-      link: 'tel:+79283161248',
-      subtitle: 'Звоните с 10:00 до 21:00'
+      value: content.phone || '+7 (999) 123-45-67',
+      link: `tel:${(content.phone || '').replace(/\D/g, '')}`
     },
     {
       icon: 'Clock',
       title: 'Режим работы',
-      value: 'Ежедневно: 10:00 - 21:00',
+      value: content.working_hours || 'Ежедневно: 10:00 - 21:00',
       link: null
     }
   ];
@@ -104,9 +102,7 @@ export default function ContactsPage() {
                           ) : (
                             <p className="text-sm md:text-base text-muted-foreground">{item.value}</p>
                           )}
-                          {(item as any).subtitle && (
-                            <p className="text-xs text-muted-foreground/70 mt-1">{(item as any).subtitle}</p>
-                          )}
+
                         </div>
                       </CardContent>
                     </Card>

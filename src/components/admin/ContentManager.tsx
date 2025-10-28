@@ -20,6 +20,7 @@ const getContentLabel = (key: string): string => {
     'phone': 'Телефон',
     'email': 'Email',
     'address': 'Адрес',
+    'working_hours': 'Режим работы',
     'instagram_url': 'Instagram',
     'youtube_url': 'YouTube',
     'telegram_url': 'Telegram',
@@ -35,7 +36,7 @@ const getContentLabel = (key: string): string => {
 const getContentCategory = (key: string): string => {
   if (key.includes('_url')) return 'social';
   if (key.includes('date')) return 'dates';
-  if (['phone', 'email', 'address'].includes(key)) return 'contacts';
+  if (['phone', 'email', 'address', 'working_hours'].includes(key)) return 'contacts';
   return 'other';
 };
 
