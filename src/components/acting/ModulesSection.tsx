@@ -28,12 +28,10 @@ export default function ModulesSection({ modules }: ModulesSectionProps) {
                 <CardTitle>{module.title}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="prose prose-sm max-w-none">
-                  <div 
-                    className="text-muted-foreground leading-relaxed [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-2 [&_li]:leading-relaxed"
-                    dangerouslySetInnerHTML={{ __html: module.description.replace(/\n/g, '<br />') }}
-                  />
-                </div>
+                <div 
+                  className="text-muted-foreground leading-relaxed [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-2 [&_li]:leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: module.description.replace(/\n/g, '<br />') }}
+                />
                 <div className="flex items-start gap-3 pt-3 px-3 py-3 bg-primary/5 rounded-lg border-l-4 border-primary">
                   <Icon name="Target" size={20} className="mt-0.5 text-primary shrink-0" />
                   <div className="flex-1">
