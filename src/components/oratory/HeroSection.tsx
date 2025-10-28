@@ -11,7 +11,7 @@ export default function HeroSection({ trialDate, courseStartDate }: HeroSectionP
   const formatDate = (dateStr: string) => {
     if (!dateStr) return '';
     const date = new Date(dateStr);
-    return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
+    return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
   };
   return (
     <section className="pt-20 pb-0 px-4 md:pt-32 md:pb-0 md:px-4 relative overflow-hidden min-h-[85vh] md:min-h-[90vh] flex items-center">
