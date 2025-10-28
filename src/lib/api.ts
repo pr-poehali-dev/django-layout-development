@@ -254,6 +254,11 @@ export const api = {
         },
         body: JSON.stringify({ resource: 'reviews', ...review })
       });
+      if (!response.ok) {
+        const error = await response.text();
+        console.error('Create review failed:', error);
+        throw new Error(`Failed to create review: ${error}`);
+      }
       return response.json();
     },
     updateReview: async (review: Review, token: string) => {
@@ -265,6 +270,11 @@ export const api = {
         },
         body: JSON.stringify({ resource: 'reviews', ...review })
       });
+      if (!response.ok) {
+        const error = await response.text();
+        console.error('Update review failed:', error);
+        throw new Error(`Failed to update review: ${error}`);
+      }
       return response.json();
     },
     deleteReview: async (id: number, token: string) => {
@@ -276,6 +286,11 @@ export const api = {
         },
         body: JSON.stringify({ resource: 'reviews', id })
       });
+      if (!response.ok) {
+        const error = await response.text();
+        console.error('Delete review failed:', error);
+        throw new Error(`Failed to delete review: ${error}`);
+      }
       return response.json();
     },
     getFAQ: async (): Promise<FAQ[]> => {
@@ -328,6 +343,11 @@ export const api = {
         },
         body: JSON.stringify({ resource: 'blog', ...post })
       });
+      if (!response.ok) {
+        const error = await response.text();
+        console.error('Create blog post failed:', error);
+        throw new Error(`Failed to create blog post: ${error}`);
+      }
       return response.json();
     },
     updateBlogPost: async (post: BlogPost, token: string) => {
@@ -339,6 +359,11 @@ export const api = {
         },
         body: JSON.stringify({ resource: 'blog', ...post })
       });
+      if (!response.ok) {
+        const error = await response.text();
+        console.error('Update blog post failed:', error);
+        throw new Error(`Failed to update blog post: ${error}`);
+      }
       return response.json();
     },
     deleteBlogPost: async (id: number, token: string) => {
@@ -350,6 +375,11 @@ export const api = {
         },
         body: JSON.stringify({ resource: 'blog', id })
       });
+      if (!response.ok) {
+        const error = await response.text();
+        console.error('Delete blog post failed:', error);
+        throw new Error(`Failed to delete blog post: ${error}`);
+      }
       return response.json();
     },
     getTeam: async (): Promise<TeamMember[]> => {

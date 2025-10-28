@@ -339,7 +339,8 @@ export default function AdminPage() {
       setNewReview({ name: '', text: '', rating: 5 });
       alert('Отзыв добавлен');
     } catch (error) {
-      alert('Ошибка добавления отзыва');
+      console.error('Error creating review:', error);
+      alert(`Ошибка добавления отзыва: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   };
 
@@ -351,7 +352,8 @@ export default function AdminPage() {
       setEditingReview(null);
       alert('Отзыв обновлен');
     } catch (error) {
-      alert('Ошибка обновления отзыва');
+      console.error('Error updating review:', error);
+      alert(`Ошибка обновления отзыва: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   };
 
@@ -362,7 +364,8 @@ export default function AdminPage() {
       await loadData(token);
       alert('Отзыв удален');
     } catch (error) {
-      alert('Ошибка удаления отзыва');
+      console.error('Error deleting review:', error);
+      alert(`Ошибка удаления отзыва: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   };
 
@@ -377,7 +380,8 @@ export default function AdminPage() {
       setNewBlogPost({ title: '', excerpt: '', content: '', image_url: '' });
       alert('Статья добавлена');
     } catch (error) {
-      alert('Ошибка добавления статьи');
+      console.error('Error creating blog post:', error);
+      alert(`Ошибка добавления статьи: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   };
 
@@ -389,7 +393,8 @@ export default function AdminPage() {
       setEditingBlogPost(null);
       alert('Статья обновлена');
     } catch (error) {
-      alert('Ошибка обновления статьи');
+      console.error('Error updating blog post:', error);
+      alert(`Ошибка обновления статьи: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   };
 
@@ -400,7 +405,8 @@ export default function AdminPage() {
       await loadData(token);
       alert('Статья удалена');
     } catch (error) {
-      alert('Ошибка удаления статьи');
+      console.error('Error deleting blog post:', error);
+      alert(`Ошибка удаления статьи: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   };
 
