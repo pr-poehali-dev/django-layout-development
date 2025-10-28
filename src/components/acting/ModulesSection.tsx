@@ -27,11 +27,14 @@ export default function ModulesSection({ modules }: ModulesSectionProps) {
                 </div>
                 <CardTitle>{module.title}</CardTitle>
               </CardHeader>
-              <CardContent>
-                <CardDescription className="mb-4">{module.description}</CardDescription>
-                <div className="flex items-start gap-2 text-sm text-primary">
-                  <Icon name="CheckCircle2" size={16} className="mt-0.5" />
-                  <span className="font-medium">{module.result}</span>
+              <CardContent className="space-y-4">
+                <p className="text-muted-foreground leading-relaxed">{module.description}</p>
+                <div className="flex items-start gap-2 pt-2 border-t border-border/40">
+                  <Icon name="Target" size={18} className="mt-0.5 text-primary shrink-0" />
+                  <div>
+                    <p className="text-xs font-semibold text-muted-foreground mb-1 uppercase tracking-wide">Результат</p>
+                    <p className="text-sm font-medium text-foreground">{module.result}</p>
+                  </div>
                 </div>
               </CardContent>
             </Card>
