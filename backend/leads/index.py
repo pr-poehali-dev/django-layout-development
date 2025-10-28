@@ -115,6 +115,10 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                     'body': json.dumps({'error': 'ID and status are required'})
                 }
             
+            cur.execute("SELECT * FROM leads WHERE id = %s", (lead_id,))
+            old_lead = cur.fetchone()
+            old_status = old_lead['status'] if old_lead else None
+            
             cur.execute(
                 "UPDATE leads SET status = %s, updated_at = CURRENT_TIMESTAMP WHERE id = %s RETURNING *",
                 (status, lead_id)
@@ -130,6 +134,30 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                         update_telegram_message(dict(lead))
                     except Exception as e:
                         print(f"Failed to update telegram message: {e}")
+                
+                if old_status != status and lead.get('ym_client_id'):
+                    goal_map = {
+                        'trial_scheduled': 'trial_scheduled',
+                        'trial_completed': 'trial_completed',
+                        'enrolled': 'enrolled',
+                        'paid': 'payment_completed'
+                    }
+                    
+                    if status in goal_map:
+                        try:
+                            send_metrika_goal(
+                                goal=goal_map[status],
+                                client_id=lead['ym_client_id'],
+                                lead_id=lead['id'],
+                                params={
+                                    'status': status,
+                                    'source': lead.get('source', 'unknown'),
+                                    'course': lead.get('course', 'unknown')
+                                }
+                            )
+                            print(f"Metrika goal sent: {goal_map[status]} for lead {lead['id']}")
+                        except Exception as e:
+                            print(f"Failed to send metrika goal: {e}")
                 
                 return {
                     'statusCode': 200,
@@ -277,4 +305,25 @@ def update_telegram_message(lead: dict):
     )
     
     with urllib.request.urlopen(req) as response:
+        return json.loads(response.read().decode('utf-8'))
+
+def send_metrika_goal(goal: str, client_id: str, lead_id: int, params: dict = None):
+    '''Отправка цели в Яндекс.Метрику'''
+    metrika_url = 'https://functions.poehali.dev/3d824f97-2f09-44e4-8c9a-54af8aa6ccce'
+    
+    payload = {
+        'goal': goal,
+        'client_id': client_id,
+        'lead_id': lead_id,
+        'params': params or {}
+    }
+    
+    data = json.dumps(payload).encode('utf-8')
+    req = urllib.request.Request(
+        metrika_url,
+        data=data,
+        headers={'Content-Type': 'application/json'}
+    )
+    
+    with urllib.request.urlopen(req, timeout=5) as response:
         return json.loads(response.read().decode('utf-8'))

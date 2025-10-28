@@ -153,28 +153,28 @@ def send_message(chat_id: int, text: str):
     with urllib.request.urlopen(req) as response:
         return json.loads(response.read().decode('utf-8'))
 
-def send_metrika_goal(goal: str, client_id: str):
-    '''Отправка цели в Яндекс.Метрику через Measurement Protocol API'''
+def send_metrika_goal(goal: str, client_id: str, lead_id: int = None, params: dict = None):
+    '''Отправка цели в Яндекс.Метрику через централизованную функцию'''
     import urllib.request
-    import urllib.parse
     
-    counter_id = '104854671'
+    metrika_url = 'https://functions.poehali.dev/3d824f97-2f09-44e4-8c9a-54af8aa6ccce'
     
-    params = {
-        'browser-info': f'ar:1:pv:1:ls:1:en:utf-8',
-        'site-info': json.dumps({
-            'clientId': client_id,
-            'reachGoal': goal
-        })
+    payload = {
+        'goal': goal,
+        'client_id': client_id or f'telegram_{lead_id}',
+        'lead_id': lead_id,
+        'params': params or {}
     }
     
-    url = f'https://mc.yandex.ru/watch/{counter_id}?' + urllib.parse.urlencode(params)
+    data = json.dumps(payload).encode('utf-8')
+    req = urllib.request.Request(
+        metrika_url,
+        data=data,
+        headers={'Content-Type': 'application/json'}
+    )
     
-    req = urllib.request.Request(url)
-    req.add_header('User-Agent', 'Mozilla/5.0')
-    
-    with urllib.request.urlopen(req) as response:
-        return response.read().decode('utf-8')
+    with urllib.request.urlopen(req, timeout=5) as response:
+        return json.loads(response.read().decode('utf-8'))
 
 def handle_callback(callback_query: dict):
     '''Обработка нажатий на inline кнопки'''
@@ -229,10 +229,27 @@ def handle_callback(callback_query: dict):
             
             ym_client_id = lead.get('ym_client_id') if lead else None
             
-            if status == 'trial' and ym_client_id:
+            goal_map = {
+                'trial': 'trial_scheduled',
+                'enrolled': 'enrolled',
+                'thinking': 'considering',
+                'irrelevant': 'rejected'
+            }
+            
+            if status in goal_map:
                 try:
-                    send_metrika_goal('trial', ym_client_id)
-                    print(f"✅ Цель 'trial' отправлена в метрику для client_id: {ym_client_id}")
+                    client_for_goal = ym_client_id or f'telegram_{lead_id}'
+                    send_metrika_goal(
+                        goal=goal_map[status],
+                        client_id=client_for_goal,
+                        lead_id=lead_id,
+                        params={
+                            'status': status,
+                            'source': 'telegram_admin',
+                            'course': lead.get('course', 'unknown')
+                        }
+                    )
+                    print(f"✅ Цель '{goal_map[status]}' отправлена в метрику для lead {lead_id}")
                 except Exception as e:
                     print(f"❌ Ошибка отправки цели в метрику: {str(e)}")
             
@@ -274,19 +291,6 @@ def handle_callback(callback_query: dict):
                 
                 with urllib.request.urlopen(req) as response:
                     pass
-                
-                metrika_goals = {
-                    'trial': 'trial',
-                    'enrolled': 'course',
-                    'thinking': 'wait',
-                    'irrelevant': 'close'
-                }
-                
-                if status in metrika_goals:
-                    try:
-                        send_metrika_goal(metrika_goals[status], ym_client_id)
-                    except Exception as e:
-                        print(f"Failed to send metrika goal: {e}")
         
         except Exception as e:
             print(f"Error updating status: {e}")
