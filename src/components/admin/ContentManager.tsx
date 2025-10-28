@@ -24,8 +24,10 @@ const getContentLabel = (key: string): string => {
     'youtube_url': 'YouTube',
     'telegram_url': 'Telegram',
     'whatsapp_url': 'WhatsApp',
-    'trial_date': 'Дата пробного занятия',
-    'course_start_date': 'Дата начала курса'
+    'trial_date': 'Дата пробного занятия (Актерское)',
+    'course_start_date': 'Дата начала курса (Актерское)',
+    'oratory_trial_date': 'Дата пробного занятия (Ораторское)',
+    'oratory_course_start_date': 'Дата начала курса (Ораторское)'
   };
   return labels[key] || key;
 };

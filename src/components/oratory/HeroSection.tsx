@@ -2,7 +2,17 @@ import Icon from '@/components/ui/icon';
 import Image from '@/components/ui/image';
 import PhoneForm from '@/components/PhoneForm';
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  trialDate?: string;
+  courseStartDate?: string;
+}
+
+export default function HeroSection({ trialDate, courseStartDate }: HeroSectionProps) {
+  const formatDate = (dateStr: string) => {
+    if (!dateStr) return '';
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
+  };
   return (
     <section className="pt-20 pb-0 px-4 md:pt-32 md:pb-0 md:px-4 relative overflow-hidden min-h-[85vh] md:min-h-[90vh] flex items-center">
       <div className="absolute inset-0">
@@ -32,14 +42,18 @@ export default function HeroSection() {
             Проводите презентации, вдохновляйте аудиторию и становитесь лидером мнений!
           </p>
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-6 md:mb-8">
-            <div className="flex items-center gap-2 bg-card/80 backdrop-blur-sm px-3 py-2 rounded-lg text-sm md:text-base">
-              <Icon name="Calendar" className="text-primary flex-shrink-0" size={18} />
-              <span className="whitespace-nowrap">Пробное: 27 ноября</span>
-            </div>
-            <div className="flex items-center gap-2 bg-card/80 backdrop-blur-sm px-3 py-2 rounded-lg text-sm md:text-base">
-              <Icon name="PlayCircle" className="text-primary flex-shrink-0" size={18} />
-              <span className="whitespace-nowrap">Старт: 4 декабря</span>
-            </div>
+            {trialDate && (
+              <div className="flex items-center gap-2 bg-card/80 backdrop-blur-sm px-3 py-2 rounded-lg text-sm md:text-base">
+                <Icon name="Calendar" className="text-primary flex-shrink-0" size={18} />
+                <span className="whitespace-nowrap">Пробное: {formatDate(trialDate)}</span>
+              </div>
+            )}
+            {courseStartDate && (
+              <div className="flex items-center gap-2 bg-card/80 backdrop-blur-sm px-3 py-2 rounded-lg text-sm md:text-base">
+                <Icon name="PlayCircle" className="text-primary flex-shrink-0" size={18} />
+                <span className="whitespace-nowrap">Старт: {formatDate(courseStartDate)}</span>
+              </div>
+            )}
           </div>
           <PhoneForm 
             source="hero_oratory"

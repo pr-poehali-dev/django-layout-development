@@ -62,7 +62,10 @@ export default function OratoryPage() {
       <div className="min-h-screen bg-background text-foreground">
       <Header />
       <Breadcrumbs />
-      <HeroSection />
+      <HeroSection 
+        trialDate={content.oratory_trial_date || ''}
+        courseStartDate={content.oratory_course_start_date || ''}
+      />
       <SkillsSection />
       <ForWhomSection />
       <LeadFormSection />

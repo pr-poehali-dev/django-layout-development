@@ -67,7 +67,7 @@ export default function CTASection() {
 
           <div className="relative h-[400px] lg:h-full min-h-[400px] rounded-xl overflow-hidden">
             <iframe
-              src="https://yandex.ru/map-widget/v1/?um=constructor%3A4c7f8e0a8f9a8c8d8e8f8e8f8e8f8e8f&amp;source=constructor"
+              src="https://yandex.ru/map-widget/v1/?um=constructor%3A09c1aac3e1943f51198d94201d94d3d89db9eabc6caae19fa171fc991556a8ae&amp;source=constructorLink"
               width="100%"
               height="100%"
               frameBorder="0"
