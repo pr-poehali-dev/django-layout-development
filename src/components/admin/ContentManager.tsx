@@ -10,9 +10,9 @@ interface ContentManagerProps {
   editingKey: string;
   editingValue: string;
   onStartEditing: (item: SiteContent) => void;
-  onEditingKeyChange: (key: string) => void;
-  onEditingValueChange: (value: string) => void;
+  onValueChange: (value: string) => void;
   onUpdate: () => void;
+  onCancel: () => void;
 }
 
 export default function ContentManager({
@@ -20,9 +20,9 @@ export default function ContentManager({
   editingKey,
   editingValue,
   onStartEditing,
-  onEditingKeyChange,
-  onEditingValueChange,
-  onUpdate
+  onValueChange,
+  onUpdate,
+  onCancel
 }: ContentManagerProps) {
   return (
     <div className="space-y-6">
@@ -36,21 +36,29 @@ export default function ContentManager({
             <Label>Ключ</Label>
             <Input
               value={editingKey}
-              onChange={(e) => onEditingKeyChange(e.target.value)}
-              placeholder="hero_title"
+              disabled
+              placeholder="Выберите элемент контента из списка ниже"
             />
           </div>
           <div>
             <Label>Значение</Label>
             <Input
               value={editingValue}
-              onChange={(e) => onEditingValueChange(e.target.value)}
+              onChange={(e) => onValueChange(e.target.value)}
               placeholder="Новое значение"
+              disabled={!editingKey}
             />
           </div>
-          <Button onClick={onUpdate} className="w-full">
-            Обновить контент
-          </Button>
+          <div className="flex gap-2">
+            <Button onClick={onUpdate} className="flex-1" disabled={!editingKey}>
+              Обновить контент
+            </Button>
+            {editingKey && (
+              <Button onClick={onCancel} variant="outline">
+                Отмена
+              </Button>
+            )}
+          </div>
         </CardContent>
       </Card>
 
