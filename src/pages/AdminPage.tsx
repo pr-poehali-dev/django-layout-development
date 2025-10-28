@@ -60,8 +60,7 @@ export default function AdminPage() {
     title: '',
     excerpt: '',
     content: '',
-    image_url: '',
-    author: ''
+    image_url: ''
   });
 
   const [team, setTeam] = useState<TeamMember[]>([]);
@@ -291,6 +290,120 @@ export default function AdminPage() {
     }
   };
 
+  const handleCreateGalleryImage = async () => {
+    if (!newGalleryImage.url) {
+      alert('Укажите URL изображения');
+      return;
+    }
+    try {
+      await api.gallery.createImage(newGalleryImage, token);
+      await loadData(token);
+      setNewGalleryImage({ url: '', caption: '' });
+      alert('Изображение добавлено');
+    } catch (error) {
+      alert('Ошибка добавления изображения');
+    }
+  };
+
+  const handleUpdateGalleryImage = async () => {
+    if (!editingGalleryImage) return;
+    try {
+      await api.gallery.updateImage(editingGalleryImage, token);
+      await loadData(token);
+      setEditingGalleryImage(null);
+      alert('Изображение обновлено');
+    } catch (error) {
+      alert('Ошибка обновления изображения');
+    }
+  };
+
+  const handleDeleteGalleryImage = async (id: number) => {
+    if (!confirm('Удалить изображение?')) return;
+    try {
+      await api.gallery.deleteImage(id, token);
+      await loadData(token);
+      alert('Изображение удалено');
+    } catch (error) {
+      alert('Ошибка удаления изображения');
+    }
+  };
+
+  const handleCreateReview = async () => {
+    if (!newReview.name || !newReview.text) {
+      alert('Заполните имя и текст отзыва');
+      return;
+    }
+    try {
+      await api.gallery.createReview(newReview, token);
+      await loadData(token);
+      setNewReview({ name: '', text: '', rating: 5 });
+      alert('Отзыв добавлен');
+    } catch (error) {
+      alert('Ошибка добавления отзыва');
+    }
+  };
+
+  const handleUpdateReview = async () => {
+    if (!editingReview) return;
+    try {
+      await api.gallery.updateReview(editingReview, token);
+      await loadData(token);
+      setEditingReview(null);
+      alert('Отзыв обновлен');
+    } catch (error) {
+      alert('Ошибка обновления отзыва');
+    }
+  };
+
+  const handleDeleteReview = async (id: number) => {
+    if (!confirm('Удалить отзыв?')) return;
+    try {
+      await api.gallery.deleteReview(id, token);
+      await loadData(token);
+      alert('Отзыв удален');
+    } catch (error) {
+      alert('Ошибка удаления отзыва');
+    }
+  };
+
+  const handleCreateBlogPost = async () => {
+    if (!newBlogPost.title || !newBlogPost.content) {
+      alert('Заполните заголовок и текст статьи');
+      return;
+    }
+    try {
+      await api.gallery.createBlogPost(newBlogPost, token);
+      await loadData(token);
+      setNewBlogPost({ title: '', excerpt: '', content: '', image_url: '' });
+      alert('Статья добавлена');
+    } catch (error) {
+      alert('Ошибка добавления статьи');
+    }
+  };
+
+  const handleUpdateBlogPost = async () => {
+    if (!editingBlogPost) return;
+    try {
+      await api.gallery.updateBlogPost(editingBlogPost, token);
+      await loadData(token);
+      setEditingBlogPost(null);
+      alert('Статья обновлена');
+    } catch (error) {
+      alert('Ошибка обновления статьи');
+    }
+  };
+
+  const handleDeleteBlogPost = async (id: number) => {
+    if (!confirm('Удалить статью?')) return;
+    try {
+      await api.gallery.deleteBlogPost(id, token);
+      await loadData(token);
+      alert('Статья удалена');
+    } catch (error) {
+      alert('Ошибка удаления статьи');
+    }
+  };
+
   if (!isAuthenticated) {
     return <LoginForm onLogin={handleLogin} loading={loading} />;
   }
@@ -376,9 +489,9 @@ export default function AdminPage() {
               editingGalleryImage={editingGalleryImage}
               onNewImageChange={(field, value) => setNewGalleryImage({ ...newGalleryImage, [field]: value })}
               onEditingImageChange={(field, value) => setEditingGalleryImage(editingGalleryImage ? { ...editingGalleryImage, [field]: value } : null)}
-              onCreate={() => alert('Функция в разработке')}
-              onUpdate={() => alert('Функция в разработке')}
-              onDelete={() => alert('Функция в разработке')}
+              onCreate={handleCreateGalleryImage}
+              onUpdate={handleUpdateGalleryImage}
+              onDelete={handleDeleteGalleryImage}
               onStartEditing={setEditingGalleryImage}
               onCancelEditing={() => setEditingGalleryImage(null)}
             />
@@ -391,9 +504,9 @@ export default function AdminPage() {
               editingReview={editingReview}
               onNewReviewChange={(field, value) => setNewReview({ ...newReview, [field]: value })}
               onEditingReviewChange={(field, value) => setEditingReview(editingReview ? { ...editingReview, [field]: value } : null)}
-              onCreate={() => alert('Функция в разработке')}
-              onUpdate={() => alert('Функция в разработке')}
-              onDelete={() => alert('Функция в разработке')}
+              onCreate={handleCreateReview}
+              onUpdate={handleUpdateReview}
+              onDelete={handleDeleteReview}
               onStartEditing={setEditingReview}
               onCancelEditing={() => setEditingReview(null)}
             />
@@ -406,9 +519,9 @@ export default function AdminPage() {
               editingBlogPost={editingBlogPost}
               onNewPostChange={(field, value) => setNewBlogPost({ ...newBlogPost, [field]: value })}
               onEditingPostChange={(field, value) => setEditingBlogPost(editingBlogPost ? { ...editingBlogPost, [field]: value } : null)}
-              onCreate={() => alert('Функция в разработке')}
-              onUpdate={() => alert('Функция в разработке')}
-              onDelete={() => alert('Функция в разработке')}
+              onCreate={handleCreateBlogPost}
+              onUpdate={handleUpdateBlogPost}
+              onDelete={handleDeleteBlogPost}
               onStartEditing={setEditingBlogPost}
               onCancelEditing={() => setEditingBlogPost(null)}
             />

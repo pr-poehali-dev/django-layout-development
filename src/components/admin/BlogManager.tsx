@@ -13,7 +13,6 @@ interface BlogManagerProps {
     excerpt: string;
     content: string;
     image_url: string;
-    author: string;
   };
   editingBlogPost: BlogPost | null;
   onNewPostChange: (field: string, value: string) => void;
@@ -79,14 +78,6 @@ export default function BlogManager({
               placeholder="https://example.com/image.jpg"
             />
           </div>
-          <div>
-            <Label>Автор</Label>
-            <Input
-              value={newBlogPost.author}
-              onChange={(e) => onNewPostChange('author', e.target.value)}
-              placeholder="Ольга Штерц"
-            />
-          </div>
           <Button onClick={onCreate} className="w-full">
             <Icon name="Plus" size={16} className="mr-2" />
             Добавить статью
@@ -135,13 +126,6 @@ export default function BlogManager({
                           onChange={(e) => onEditingPostChange('image_url', e.target.value)}
                         />
                       </div>
-                      <div>
-                        <Label>Автор</Label>
-                        <Input
-                          value={editingBlogPost.author}
-                          onChange={(e) => onEditingPostChange('author', e.target.value)}
-                        />
-                      </div>
                       <div className="flex gap-2">
                         <Button onClick={onUpdate} size="sm" className="flex-1">
                           Сохранить
@@ -166,9 +150,6 @@ export default function BlogManager({
                         <div className="flex-1">
                           <h3 className="font-semibold mb-1">{post.title}</h3>
                           <p className="text-sm text-muted-foreground mb-2">{post.excerpt}</p>
-                          <div className="text-xs text-muted-foreground mb-3">
-                            Автор: {post.author}
-                          </div>
                           <div className="flex gap-2">
                             <Button
                               variant="outline"

@@ -106,7 +106,22 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                     'body': json.dumps({'error': 'ID is required'})
                 }
             
-            if resource == 'faq':
+            if resource == 'gallery':
+                cur.execute(
+                    "UPDATE gallery_images SET url = %s, caption = %s, order_num = %s WHERE id = %s RETURNING *",
+                    (body_data.get('url'), body_data.get('caption'), body_data.get('order_num', 0), item_id)
+                )
+            elif resource == 'reviews':
+                cur.execute(
+                    "UPDATE reviews SET name = %s, text = %s, rating = %s, image_url = %s, order_num = %s WHERE id = %s RETURNING *",
+                    (body_data.get('name'), body_data.get('text'), body_data.get('rating', 5), body_data.get('image_url'), body_data.get('order_num', 0), item_id)
+                )
+            elif resource == 'blog':
+                cur.execute(
+                    "UPDATE blog_posts SET title = %s, content = %s, excerpt = %s, image_url = %s WHERE id = %s RETURNING *",
+                    (body_data.get('title'), body_data.get('content'), body_data.get('excerpt'), body_data.get('image_url'), item_id)
+                )
+            elif resource == 'faq':
                 cur.execute(
                     "UPDATE faq SET question = %s, answer = %s, order_num = %s WHERE id = %s RETURNING *",
                     (body_data.get('question'), body_data.get('answer'), body_data.get('order_num', 0), item_id)
@@ -149,7 +164,13 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                     'body': json.dumps({'error': 'ID is required'})
                 }
             
-            if resource == 'faq':
+            if resource == 'gallery':
+                cur.execute("DELETE FROM gallery_images WHERE id = %s", (item_id,))
+            elif resource == 'reviews':
+                cur.execute("DELETE FROM reviews WHERE id = %s", (item_id,))
+            elif resource == 'blog':
+                cur.execute("DELETE FROM blog_posts WHERE id = %s", (item_id,))
+            elif resource == 'faq':
                 cur.execute("DELETE FROM faq WHERE id = %s", (item_id,))
             elif resource == 'team':
                 cur.execute("DELETE FROM team_members WHERE id = %s", (item_id,))

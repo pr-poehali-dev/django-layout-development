@@ -208,8 +208,74 @@ export const api = {
       const response = await fetch(`${API_URLS.gallery}?resource=gallery`);
       return response.json();
     },
+    createImage: async (image: Partial<GalleryImage>, token: string) => {
+      const response = await fetch(API_URLS.gallery, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Auth-Token': token
+        },
+        body: JSON.stringify({ resource: 'gallery', ...image })
+      });
+      return response.json();
+    },
+    updateImage: async (image: GalleryImage, token: string) => {
+      const response = await fetch(API_URLS.gallery, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Auth-Token': token
+        },
+        body: JSON.stringify({ resource: 'gallery', ...image })
+      });
+      return response.json();
+    },
+    deleteImage: async (id: number, token: string) => {
+      const response = await fetch(API_URLS.gallery, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Auth-Token': token
+        },
+        body: JSON.stringify({ resource: 'gallery', id })
+      });
+      return response.json();
+    },
     getReviews: async (): Promise<Review[]> => {
       const response = await fetch(`${API_URLS.gallery}?resource=reviews`);
+      return response.json();
+    },
+    createReview: async (review: Partial<Review>, token: string) => {
+      const response = await fetch(API_URLS.gallery, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Auth-Token': token
+        },
+        body: JSON.stringify({ resource: 'reviews', ...review })
+      });
+      return response.json();
+    },
+    updateReview: async (review: Review, token: string) => {
+      const response = await fetch(API_URLS.gallery, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Auth-Token': token
+        },
+        body: JSON.stringify({ resource: 'reviews', ...review })
+      });
+      return response.json();
+    },
+    deleteReview: async (id: number, token: string) => {
+      const response = await fetch(API_URLS.gallery, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Auth-Token': token
+        },
+        body: JSON.stringify({ resource: 'reviews', id })
+      });
       return response.json();
     },
     getFAQ: async (): Promise<FAQ[]> => {
@@ -251,6 +317,39 @@ export const api = {
     },
     getBlog: async (): Promise<BlogPost[]> => {
       const response = await fetch(`${API_URLS.gallery}?resource=blog`);
+      return response.json();
+    },
+    createBlogPost: async (post: Partial<BlogPost>, token: string) => {
+      const response = await fetch(API_URLS.gallery, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Auth-Token': token
+        },
+        body: JSON.stringify({ resource: 'blog', ...post })
+      });
+      return response.json();
+    },
+    updateBlogPost: async (post: BlogPost, token: string) => {
+      const response = await fetch(API_URLS.gallery, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Auth-Token': token
+        },
+        body: JSON.stringify({ resource: 'blog', ...post })
+      });
+      return response.json();
+    },
+    deleteBlogPost: async (id: number, token: string) => {
+      const response = await fetch(API_URLS.gallery, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Auth-Token': token
+        },
+        body: JSON.stringify({ resource: 'blog', id })
+      });
       return response.json();
     },
     getTeam: async (): Promise<TeamMember[]> => {
