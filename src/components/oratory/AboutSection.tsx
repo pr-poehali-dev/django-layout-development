@@ -13,8 +13,9 @@ export default function AboutSection({ content }: AboutSectionProps) {
           <div className="relative h-[400px] md:h-[600px] rounded-2xl overflow-hidden order-2 md:order-1">
             <Image
               src="https://optim.tildacdn.com/tild3739-6336-4831-b839-306464353966/-/resize/400x/-/format/webp/photo_2025-09-19_13-.jpg.webp"
-              alt="Ольга Штерц"
+              alt="Ольга Штерц - преподаватель ораторского искусства и актёрского мастерства"
               className="w-full h-full object-cover"
+              loading="lazy"
             />
           </div>
           

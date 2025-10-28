@@ -42,7 +42,7 @@ export default function TeamPage() {
         <div className="container mx-auto">
           <div className="text-center mb-8 md:mb-12">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 md:mb-4">
-              Наша <span className="text-primary">команда</span>
+              Преподаватели <span className="text-primary">актёрского мастерства</span>
             </h1>
             <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
               Профессионалы своего дела, которые помогут вам раскрыть потенциал
@@ -69,8 +69,9 @@ export default function TeamPage() {
                       {member.photo_url ? (
                         <img 
                           src={member.photo_url} 
-                          alt={member.name}
+                          alt={`${member.name} - ${member.role}`}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          loading="lazy"
                         />
                       ) : (
                         <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">

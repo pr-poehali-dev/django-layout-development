@@ -53,7 +53,7 @@ export default function ReviewsPage() {
         <div className="container mx-auto">
           <div className="text-center mb-8 md:mb-12">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 md:mb-4">
-              Отзывы <span className="text-primary">учеников</span>
+              Отзывы о <span className="text-primary">курсах актёрского мастерства</span>
             </h1>
             <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
               Истории успеха тех, кто прошел наши курсы и изменил свою жизнь
@@ -87,8 +87,9 @@ export default function ReviewsPage() {
                         {review.image_url ? (
                           <img 
                             src={review.image_url} 
-                            alt={review.name}
+                            alt={`Фотография ученика ${review.name}`}
                             className="w-16 h-16 rounded-full object-cover"
+                            loading="lazy"
                           />
                         ) : (
                           <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">

@@ -44,7 +44,7 @@ export default function BlogPage() {
         <div className="container mx-auto">
           <div className="text-center mb-8 md:mb-12">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 md:mb-4">
-              Блог <span className="text-primary">школы</span>
+              Блог о <span className="text-primary">актёрском мастерстве</span>
             </h1>
             <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
               Полезные материалы, новости и истории успеха наших учеников
@@ -71,8 +71,9 @@ export default function BlogPage() {
                       <div className="aspect-video overflow-hidden">
                         <img 
                           src={post.cover_image_url || post.image_url} 
-                          alt={post.title}
+                          alt={`Обложка статьи: ${post.title}`}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          loading="lazy"
                         />
                       </div>
                     )}

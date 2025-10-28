@@ -41,47 +41,63 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "EducationalOrganization",
+      "@type": "LocalBusiness",
       "name": "Школа актёрского мастерства Казбека Меретукова",
-      "description": "Профессиональные курсы актёрского мастерства от режиссёра телесериалов",
+      "description": "Профессиональные курсы актёрского мастерства от режиссёра телесериалов. Обучение актёрскому мастерству, работа на камеру, съёмка фильма.",
       "url": "https://acting-school.poehali.dev",
       "image": "https://st.business-key.com/i/files/45470/2024/02/1707986927.jpg",
       "telephone": "+7-928-316-12-48",
+      "priceRange": "$$",
       "address": {
         "@type": "PostalAddress",
+        "streetAddress": "Москва",
         "addressLocality": "Москва",
+        "addressRegion": "Москва",
+        "postalCode": "119000",
         "addressCountry": "RU"
       },
-      "instructor": {
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 55.751244,
+        "longitude": 37.618423
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "10:00",
+          "closes": "22:00"
+        }
+      ],
+      "sameAs": [],
+      "founder": {
         "@type": "Person",
         "name": "Казбек Меретуков",
         "jobTitle": "Режиссёр-постановщик",
-        "description": "Режиссёр телесериалов, победитель премии ТЕФИ-2012"
+        "description": "Режиссёр телесериалов, победитель премии ТЕФИ-2012",
+        "award": "ТЕФИ-2012 за лучшую режиссуру телесериала"
       },
-      "courseCode": "Актёрское мастерство",
-      "hasCourseInstance": {
-        "@type": "CourseInstance",
-        "courseMode": "Offline",
-        "location": {
-          "@type": "Place",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Москва",
-            "addressCountry": "RU"
+      "areaServed": {
+        "@type": "City",
+        "name": "Москва"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Курсы актёрского мастерства",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Course",
+              "name": "Курс актёрского мастерства",
+              "description": "Профессиональное обучение актёрскому мастерству с работой на камеру",
+              "provider": {
+                "@type": "Organization",
+                "name": "Школа актёрского мастерства Казбека Меретукова"
+              }
+            }
           }
-        }
-      },
-      "offers": {
-        "@type": "Offer",
-        "category": "Обучение",
-        "availability": "https://schema.org/InStock",
-        "priceCurrency": "RUB"
-      },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+7-928-316-12-48",
-        "contactType": "Приёмная комиссия",
-        "availableLanguage": "Russian"
+        ]
       }
     }
     </script>

@@ -19,7 +19,7 @@ export default function HeroSection({ trialDate, courseStartDate }: HeroSectionP
       <div className="absolute inset-0">
         <Image
           src="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/829de8e6-6182-458d-9aa3-3afb8faa0acc.jpg"
-          alt="Ораторское мастерство"
+          alt="Студенты на курсе ораторского мастерства выступают перед аудиторией"
           className="w-full h-full object-cover"
           eager={true}
         />

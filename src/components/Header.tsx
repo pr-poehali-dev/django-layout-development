@@ -41,8 +41,9 @@ export default function Header() {
         <a href="/" className="flex items-center hover:opacity-80 transition">
           <img 
             src="https://i.1.creatium.io/disk2/c6/65/76/a52e2f86d1891f143cdb23e60a4460b61f/184x67/w_logo_text.svg" 
-            alt="Школа Казбека Меретукова" 
+            alt="Логотип школы актёрского мастерства Казбека Меретукова" 
             className="h-8 sm:h-10 md:h-12"
+            loading="eager"
           />
         </a>
 

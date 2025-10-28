@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -7,6 +6,7 @@ import Icon from '@/components/ui/icon';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { api, BlogPost } from '@/lib/api';
+import { useSEO, generateArticleSchema } from '@/hooks/useSEO';
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -53,18 +53,39 @@ export default function BlogPostPage() {
     return null;
   }
 
+  const fullUrl = `https://acting-school.poehali.dev/blog/${post.slug}`;
+  const articleSchema = generateArticleSchema({
+    title: post.title,
+    description: post.excerpt || post.content.substring(0, 200),
+    content: post.content,
+    author: 'Казбек Меретуков',
+    publishedAt: post.created_at || new Date().toISOString(),
+    updatedAt: post.updated_at,
+    imageUrl: post.image_url,
+    url: fullUrl
+  });
+
+  useSEO({
+    title: `${post.title} | Блог школы актёрского мастерства`,
+    description: post.excerpt || post.content.substring(0, 160),
+    keywords: `актёрское мастерство, ${post.title.toLowerCase()}, обучение актёрскому мастерству`,
+    ogTitle: post.title,
+    ogDescription: post.excerpt || post.content.substring(0, 160),
+    ogImage: post.image_url,
+    ogType: 'article',
+    canonicalUrl: fullUrl,
+    structuredData: articleSchema,
+    article: {
+      author: 'Казбек Меретуков',
+      publishedTime: post.created_at || new Date().toISOString(),
+      modifiedTime: post.updated_at,
+      section: 'Актёрское мастерство',
+      tags: ['актёрское мастерство', 'обучение', 'курсы']
+    }
+  });
+
   return (
-    <>
-      <Helmet>
-        <title>{post.title} | Блог школы актёрского мастерства</title>
-        <meta name="description" content={post.excerpt || post.content.substring(0, 160)} />
-        <link rel="canonical" href={`https://acting-school.poehali.dev/blog/${post.slug}`} />
-        <meta property="og:url" content={`https://acting-school.poehali.dev/blog/${post.slug}`} />
-        <meta property="og:title" content={post.title} />
-        <meta property="og:type" content="article" />
-        {post.image_url && <meta property="og:image" content={post.image_url} />}
-      </Helmet>
-      <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground">
       <Header />
 
       <article className="pt-20 md:pt-32 pb-12 md:pb-20">
@@ -82,8 +103,9 @@ export default function BlogPostPage() {
             <div className="aspect-video w-full rounded-xl overflow-hidden mb-8 shadow-2xl">
               <img
                 src={post.image_url}
-                alt={post.title}
+                alt={`${post.title} - статья о актёрском мастерстве`}
                 className="w-full h-full object-cover"
+                loading="eager"
               />
             </div>
           )}
@@ -126,6 +148,5 @@ export default function BlogPostPage() {
 
       <Footer />
     </div>
-    </>
   );
 }

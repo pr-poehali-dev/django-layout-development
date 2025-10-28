@@ -46,8 +46,9 @@ export default function GallerySection({ gallery }: GallerySectionProps) {
               >
                 <img
                   src={image.url}
-                  alt={image.caption || ''}
+                  alt={image.caption || 'Студенты на курсе ораторского мастерства'}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  loading="lazy"
                 />
               </div>
             ))}
@@ -71,7 +72,7 @@ export default function GallerySection({ gallery }: GallerySectionProps) {
               </button>
               <img
                 src={selectedImage.url}
-                alt={selectedImage.caption || ''}
+                alt={selectedImage.caption || 'Студенты на курсе ораторского мастерства'}
                 className="max-w-full max-h-[95vh] object-contain"
               />
               <button

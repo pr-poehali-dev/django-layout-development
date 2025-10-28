@@ -39,8 +39,9 @@ export default function AboutSection({ content, team }: AboutSectionProps) {
             <div className="relative h-[350px] md:h-[550px] rounded-2xl overflow-hidden shadow-2xl">
               <img
                 src={kazbekPhoto}
-                alt={kazbekName}
+                alt="Казбек Меретуков - режиссёр телесериалов, победитель ТЕФИ-2012, преподаватель актёрского мастерства"
                 className="w-full h-full object-cover transform group-hover:scale-105 transition duration-700"
+                loading="lazy"
               />
             </div>
           </div>

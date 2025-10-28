@@ -43,8 +43,9 @@ export default function ProgramSection() {
                     <div className="aspect-video rounded-lg mb-4 overflow-hidden">
                       <Image
                         src={module.image_url}
-                        alt={module.title}
+                        alt={`Модуль курса ораторского мастерства: ${module.title}`}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        loading="lazy"
                       />
                     </div>
                   ) : (

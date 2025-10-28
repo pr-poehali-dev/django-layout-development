@@ -23,8 +23,9 @@ export default function TeamSection({ team }: TeamSectionProps) {
                   {member.photo_url ? (
                     <img
                       src={member.photo_url}
-                      alt={member.name}
+                      alt={`${member.name} - ${member.role}`}
                       className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                      loading="lazy"
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">

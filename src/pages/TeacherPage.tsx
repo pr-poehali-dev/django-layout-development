@@ -127,8 +127,9 @@ export default function TeacherPage() {
               <div className="relative">
                 <img
                   src="https://st.business-key.com/i/files/45470/2024/02/1707986927.jpg"
-                  alt="Казбек Меретуков - режиссёр и преподаватель актёрского мастерства"
+                  alt="Казбек Меретуков - режиссёр-постановщик, обладатель премии ТЕФИ-2012"
                   className="w-full rounded-2xl shadow-2xl"
+                  loading="eager"
                 />
               </div>
             </div>
@@ -184,8 +185,9 @@ export default function TeacherPage() {
                         {member.photo_url ? (
                           <img 
                             src={member.photo_url} 
-                            alt={member.name}
+                            alt={`${member.name} - ${member.role}`}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            loading="lazy"
                           />
                         ) : (
                           <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">

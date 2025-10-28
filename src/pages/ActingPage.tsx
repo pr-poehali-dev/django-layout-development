@@ -15,6 +15,7 @@ import ReviewsSection from '@/components/acting/ReviewsSection';
 import TeamSection from '@/components/acting/TeamSection';
 import CallToActionSection from '@/components/acting/CallToActionSection';
 import BlogSection from '@/components/acting/BlogSection';
+import SEOTextSection from '@/components/acting/SEOTextSection';
 import FAQSection from '@/components/acting/FAQSection';
 import ContactSection from '@/components/acting/ContactSection';
 import { api, CourseModule, Review, FAQ, GalleryImage, BlogPost, SiteContent, TeamMember } from '@/lib/api';
@@ -89,6 +90,7 @@ export default function ActingPage() {
         onNavigate={(slug) => navigate(`/blog/${slug}`)}
         onNavigateToBlog={() => navigate('/blog')}
       />
+      <SEOTextSection />
       <FAQSection faq={faq} />
       <ContactSection />
       <Footer />

@@ -18,7 +18,7 @@ export default function ModulesSection({ modules }: ModulesSectionProps) {
               <CardHeader>
                 <div className="aspect-video bg-muted rounded-lg mb-4 overflow-hidden">
                   {module.image_url ? (
-                    <img src={module.image_url} alt={module.title} className="w-full h-full object-cover" />
+                    <img src={module.image_url} alt={`Модуль курса: ${module.title}`} className="w-full h-full object-cover" loading="lazy" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary/5">
                       <span className="text-6xl font-bold text-primary/30">{index + 1}</span>

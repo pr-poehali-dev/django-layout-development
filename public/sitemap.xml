@@ -46,15 +46,37 @@
   <!-- Блог -->
   <url>
     <loc>https://acting-school.poehali.dev/blog</loc>
-    <lastmod>2025-10-27</lastmod>
+    <lastmod>2025-10-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
+  </url>
+  
+  <!-- Статьи блога -->
+  <url>
+    <loc>https://acting-school.poehali.dev/blog/sistema-stanislavskogo</loc>
+    <lastmod>2025-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://acting-school.poehali.dev/blog/tekhnika-rechi-dlya-aktera</loc>
+    <lastmod>2025-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://acting-school.poehali.dev/blog/rabota-nad-obrazom</loc>
+    <lastmod>2025-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   
   <!-- Контакты -->
   <url>
     <loc>https://acting-school.poehali.dev/contacts</loc>
-    <lastmod>2025-10-27</lastmod>
+    <lastmod>2025-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

@@ -47,8 +47,9 @@ export default function GallerySection({ gallery }: GallerySectionProps) {
                 >
                   <img
                     src={image.url}
-                    alt={image.caption || 'Фото с обучения актёрскому мастерству'}
+                    alt={image.caption || 'Студенты на занятиях по актёрскому мастерству'}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    loading="lazy"
                   />
                 </div>
               ))}
@@ -59,7 +60,7 @@ export default function GallerySection({ gallery }: GallerySectionProps) {
                 <div className="relative">
                   <img
                     src={gallery[selectedImageIndex]?.url}
-                    alt={gallery[selectedImageIndex]?.caption || 'Фото с обучения актёрскому мастерству'}
+                    alt={gallery[selectedImageIndex]?.caption || 'Студенты на занятиях по актёрскому мастерству'}
                     className="w-full h-auto max-h-[85vh] object-contain"
                   />
                   {gallery[selectedImageIndex]?.caption && (
