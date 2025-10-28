@@ -16,6 +16,7 @@ import TeamSection from '@/components/acting/TeamSection';
 import CallToActionSection from '@/components/acting/CallToActionSection';
 import BlogSection from '@/components/acting/BlogSection';
 import FAQSection from '@/components/acting/FAQSection';
+import ContactSection from '@/components/acting/ContactSection';
 import { api, CourseModule, Review, FAQ, GalleryImage, BlogPost, SiteContent, TeamMember } from '@/lib/api';
 
 export default function ActingPage() {
@@ -89,6 +90,7 @@ export default function ActingPage() {
         onNavigateToBlog={() => navigate('/blog')}
       />
       <FAQSection faq={faq} />
+      <ContactSection />
       <Footer />
       </div>
     </>

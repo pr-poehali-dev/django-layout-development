@@ -8,6 +8,7 @@ interface AboutSectionProps {
 }
 
 export default function AboutSection({ content, team }: AboutSectionProps) {
+  const kazbekPhoto = "https://st.business-key.com/i/files/45470/2024/02/1707986927.jpg";
   const kazbek = team.find(member => member.id === 1) || team[0];
   
   if (!kazbek) {
@@ -24,17 +25,11 @@ export default function AboutSection({ content, team }: AboutSectionProps) {
           <div className="relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-primary to-primary/50 rounded-3xl blur opacity-25 group-hover:opacity-40 transition duration-500"></div>
             <div className="relative h-[350px] md:h-[550px] rounded-2xl overflow-hidden shadow-2xl">
-              {kazbek.photo_url ? (
-                <img
-                  src={kazbek.photo_url}
-                  alt={kazbek.name}
-                  className="w-full h-full object-cover transform group-hover:scale-105 transition duration-700"
-                />
-              ) : (
-                <div className="w-full h-full bg-gradient-to-br from-primary/10 to-primary/30 flex items-center justify-center">
-                  <Icon name="User" className="text-primary/40" size={120} />
-                </div>
-              )}
+              <img
+                src={kazbekPhoto}
+                alt={kazbek.name}
+                className="w-full h-full object-cover transform group-hover:scale-105 transition duration-700"
+              />
             </div>
           </div>
           

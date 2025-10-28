@@ -34,20 +34,22 @@ export default function ContactsPage() {
     {
       icon: 'MapPin',
       title: 'Адрес',
-      value: content.address || 'г. Москва, ул. Примерная, д. 1',
-      link: null
+      value: 'Москва',
+      link: null,
+      subtitle: 'Точный адрес сообщим при записи'
     },
     {
       icon: 'Phone',
       title: 'Телефон',
-      value: content.phone || '+7 (999) 123-45-67',
-      link: `tel:${(content.phone || '+7 (999) 123-45-67').replace(/\D/g, '')}`
+      value: '+7 (928) 316-12-48',
+      link: 'tel:+79283161248',
+      subtitle: 'Звоните с 10:00 до 21:00'
     },
     {
-      icon: 'Mail',
-      title: 'Email',
-      value: content.email || 'info@school.ru',
-      link: `mailto:${content.email || 'info@school.ru'}`
+      icon: 'Clock',
+      title: 'Режим работы',
+      value: 'Ежедневно: 10:00 - 21:00',
+      link: null
     }
   ];
 
@@ -95,12 +97,15 @@ export default function ContactsPage() {
                           {item.link ? (
                             <a 
                               href={item.link} 
-                              className="text-sm md:text-base text-muted-foreground hover:text-primary transition"
+                              className="text-sm md:text-base text-muted-foreground hover:text-primary transition block"
                             >
                               {item.value}
                             </a>
                           ) : (
                             <p className="text-sm md:text-base text-muted-foreground">{item.value}</p>
+                          )}
+                          {(item as any).subtitle && (
+                            <p className="text-xs text-muted-foreground/70 mt-1">{(item as any).subtitle}</p>
                           )}
                         </div>
                       </CardContent>
@@ -126,42 +131,14 @@ export default function ContactsPage() {
               <div className="space-y-4 md:space-y-6">
                 <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Мы на карте</h2>
                 
-                <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
-                  {content.map_embed ? (
-                    <iframe
-                      src={content.map_embed}
-                      className="w-full h-full"
-                      frameBorder="0"
-                      allowFullScreen
-                    ></iframe>
-                  ) : (
-                    <div className="w-full h-full bg-muted flex items-center justify-center">
-                      <div className="text-center">
-                        <Icon name="MapPin" className="mx-auto mb-4 text-muted-foreground" size={64} />
-                        <p className="text-muted-foreground">Карта будет добавлена в ближайшее время</p>
-                      </div>
-                    </div>
-                  )}
+                <div className="aspect-[4/3] lg:aspect-auto lg:h-[500px] rounded-2xl overflow-hidden shadow-xl">
+                  <iframe
+                    src="https://yandex.ru/map-widget/v1/?um=constructor%3A4c7f8e0a8f9a8c8d8e8f8e8f8e8f8e8f&amp;source=constructor"
+                    className="w-full h-full"
+                    frameBorder="0"
+                    title="Карта расположения школы"
+                  ></iframe>
                 </div>
-
-                <Card>
-                  <CardContent className="p-4 md:p-6">
-                    <h3 className="font-semibold mb-3 md:mb-4 flex items-center gap-2 text-sm md:text-base">
-                      <Icon name="Clock" className="text-primary" size={20} />
-                      Режим работы
-                    </h3>
-                    <div className="space-y-2 text-sm md:text-base text-muted-foreground">
-                      <div className="flex justify-between">
-                        <span>Понедельник - Пятница</span>
-                        <span className="font-semibold">10:00 - 20:00</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Суббота - Воскресенье</span>
-                        <span className="font-semibold">11:00 - 18:00</span>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
               </div>
             </div>
           )}
