@@ -113,26 +113,26 @@ export default function PhoneForm({
           {triggerText}
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md w-[calc(100vw-2rem)]">
         <DialogHeader>
-          <DialogTitle className="text-xl sm:text-2xl">{defaultTitle}</DialogTitle>
-          <DialogDescription className="text-sm">{defaultDescription}</DialogDescription>
+          <DialogTitle className="text-lg sm:text-xl leading-tight">{defaultTitle}</DialogTitle>
+          <DialogDescription className="text-xs sm:text-sm">{defaultDescription}</DialogDescription>
         </DialogHeader>
         
         {success ? (
-          <div className="flex flex-col items-center justify-center py-8">
-            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-              <Icon name="Check" className="text-primary" size={32} />
+          <div className="flex flex-col items-center justify-center py-6 sm:py-8">
+            <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-primary/10 flex items-center justify-center mb-3 sm:mb-4">
+              <Icon name="Check" className="text-primary" size={24} />
             </div>
-            <h3 className="text-xl font-semibold mb-2">Спасибо за заявку!</h3>
-            <p className="text-muted-foreground text-center">
+            <h3 className="text-lg sm:text-xl font-semibold mb-2 text-center">Спасибо за заявку!</h3>
+            <p className="text-muted-foreground text-center text-sm">
               Мы свяжемся с вами в ближайшее время
             </p>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="phone">Номер телефона</Label>
+          <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+            <div className="space-y-1.5 sm:space-y-2">
+              <Label htmlFor="phone" className="text-sm">Номер телефона</Label>
               <Input
                 id="phone"
                 type="tel"
@@ -141,20 +141,21 @@ export default function PhoneForm({
                 onChange={handlePhoneChange}
                 maxLength={18}
                 required
+                className="text-sm sm:text-base"
               />
               <p className="text-xs text-muted-foreground">
                 Формат: +7 (999) 123-45-67
               </p>
             </div>
-            <Button type="submit" className="w-full" disabled={loading}>
+            <Button type="submit" className="w-full text-sm sm:text-base" disabled={loading} size="sm">
               {loading ? (
                 <>
-                  <Icon name="Loader2" className="mr-2 animate-spin" size={18} />
+                  <Icon name="Loader2" className="mr-2 animate-spin" size={16} />
                   Отправка...
                 </>
               ) : (
                 <>
-                  <Icon name="Send" className="mr-2" size={18} />
+                  <Icon name="Send" className="mr-2" size={16} />
                   Отправить заявку
                 </>
               )}
