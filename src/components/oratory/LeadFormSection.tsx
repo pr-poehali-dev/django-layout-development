@@ -11,16 +11,16 @@ export default function LeadFormSection() {
       </div>
       
       <div className="container mx-auto max-w-5xl relative z-10">
-        <div className="grid md:grid-cols-2 gap-8 items-center">
+        <div className="grid md:grid-cols-2 gap-6 md:gap-8 items-center">
           <div>
             <div className="inline-flex items-center gap-2 bg-primary/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
               <Icon name="Sparkles" className="text-primary" size={18} />
               <span className="text-primary font-semibold text-sm">Начните прямо сейчас</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight">
               Запишитесь на <span className="text-primary">пробное занятие</span>
             </h2>
-            <p className="text-base md:text-lg text-muted-foreground mb-6">
+            <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-4 sm:mb-6">
               Оставьте заявку прямо сейчас и получите:
             </p>
             <div className="space-y-4">
@@ -54,10 +54,10 @@ export default function LeadFormSection() {
             </div>
           </div>
           
-          <div className="bg-card/80 backdrop-blur-sm rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-2xl border border-primary/20">
-            <div className="mb-6">
-              <h3 className="text-xl font-bold mb-2">Запишитесь на пробное занятие</h3>
-              <p className="text-sm text-muted-foreground">Укажите номер телефона</p>
+          <div className="bg-card/80 backdrop-blur-sm rounded-xl md:rounded-2xl lg:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl border border-primary/20">
+            <div className="mb-4 sm:mb-6">
+              <h3 className="text-lg sm:text-xl font-bold mb-2">Запишитесь на пробное занятие</h3>
+              <p className="text-xs sm:text-sm text-muted-foreground">Укажите номер телефона</p>
             </div>
             <LeadForm 
               source="lead_form_oratory"
@@ -66,8 +66,8 @@ export default function LeadFormSection() {
               description=""
               buttonText="Отправить заявку"
             />
-            <div className="mt-6 flex items-center gap-2 text-xs text-muted-foreground">
-              <Icon name="Lock" size={14} />
+            <div className="mt-4 sm:mt-6 flex items-center gap-2 text-[10px] sm:text-xs text-muted-foreground">
+              <Icon name="Lock" size={12} className="flex-shrink-0" />
               <span>Ваши данные защищены и не передаются третьим лицам</span>
             </div>
           </div>

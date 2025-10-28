@@ -49,12 +49,12 @@ export default function LeadForm({
 
   if (submitted) {
     return (
-      <div className="bg-gradient-to-br from-primary/20 to-primary/10 border-2 border-primary/40 rounded-2xl md:rounded-3xl p-8 text-center backdrop-blur-sm">
+      <div className="bg-gradient-to-br from-primary/20 to-primary/10 border-2 border-primary/40 rounded-xl md:rounded-2xl lg:rounded-3xl p-6 sm:p-8 text-center backdrop-blur-sm">
         <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4">
           <Icon name="CheckCircle" className="text-primary" size={32} />
         </div>
-        <h3 className="text-2xl font-bold mb-2">Заявка отправлена!</h3>
-        <p className="text-muted-foreground text-lg">
+        <h3 className="text-xl sm:text-2xl font-bold mb-2">Заявка отправлена!</h3>
+        <p className="text-muted-foreground text-base sm:text-lg">
           Мы свяжемся с вами в ближайшее время
         </p>
       </div>
@@ -62,13 +62,13 @@ export default function LeadForm({
   }
 
   return (
-    <div className="bg-card/90 backdrop-blur-md border-2 border-primary/20 rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-2xl hover:border-primary/40 transition-all duration-300">
-      {title && <h3 className="text-xl font-bold mb-2">{title}</h3>}
-      {description && <p className="text-sm text-muted-foreground mb-6">{description}</p>}
+    <div className="bg-card/90 backdrop-blur-md border-2 border-primary/20 rounded-xl md:rounded-2xl lg:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl hover:border-primary/40 transition-all duration-300">
+      {title && <h3 className="text-lg sm:text-xl font-bold mb-2">{title}</h3>}
+      {description && <p className="text-xs sm:text-sm text-muted-foreground mb-4 sm:mb-6">{description}</p>}
       
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
-          <Label htmlFor={`phone-${source}`} className="text-base font-semibold mb-2 block">
+          <Label htmlFor={`phone-${source}`} className="text-sm sm:text-base font-semibold mb-2 block">
             Номер телефона
           </Label>
           <InputMask
@@ -83,7 +83,7 @@ export default function LeadForm({
                 type="tel"
                 placeholder="+7 (999) 999-99-99"
                 required
-                className="h-12 text-base border-2 border-primary/20 focus:border-primary/60 transition-colors"
+                className="h-11 sm:h-12 text-sm sm:text-base border-2 border-primary/20 focus:border-primary/60 transition-colors"
               />
             )) as any}
           </InputMask>
@@ -92,7 +92,7 @@ export default function LeadForm({
         <Button 
           type="submit" 
           disabled={loading} 
-          className="w-full h-12 text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-300" 
+          className="w-full h-11 sm:h-12 text-sm sm:text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-300" 
           size="lg"
         >
           {loading ? (
