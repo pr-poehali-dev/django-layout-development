@@ -10,13 +10,20 @@ interface AboutSectionProps {
 export default function AboutSection({ content, team }: AboutSectionProps) {
   const kazbekPhoto = "https://st.business-key.com/i/files/45470/2024/02/1707986927.jpg";
   const kazbekName = "Казбек Меретуков";
-  const kazbekBio = `Режиссёр-постановщик, обладатель премии ТЕФИ-2012 за лучшую режиссуру телесериала «Закрытая школа».
-
-Снял более 200 серий популярных телесериалов: «Закрытая школа», «Молодёжка», «Улица», «Реальные пацаны» и другие.
-
-В 2015 году основал школу актёрского мастерства, где передаёт свой опыт начинающим актёрам. Разработал уникальную методику обучения, сочетающую классическую актёрскую школу с современными подходами к работе на камеру.
-
-За годы работы обучил более 500 студентов, многие из которых успешно работают в кино и на телевидении.`;
+  const kazbekInfo = [
+    {
+      title: "Режиссёр федеральных телесериалов",
+      text: "Режиссёр-постановщик, обладатель премии ТЕФИ-2012 за лучшую режиссуру телесериала «Закрытая школа». Снял более 200 серий популярных телесериалов: «Закрытая школа», «Молодёжка», «Улица», «Реальные пацаны» и другие."
+    },
+    {
+      title: "Основатель школы актёрского мастерства",
+      text: "В 2015 году основал школу актёрского мастерства, где передаёт свой опыт начинающим актёрам. Разработал уникальную методику обучения, сочетающую классическую актёрскую школу с современными подходами к работе на камеру."
+    },
+    {
+      title: "Опытный преподаватель",
+      text: "За годы работы обучил более 500 студентов, многие из которых успешно работают в кино и на телевидении."
+    }
+  ];
 
   return (
     <section id="about" className="py-12 px-4 md:py-20 md:px-4 bg-gradient-to-br from-primary/5 via-background to-primary/5 relative overflow-hidden">
@@ -24,18 +31,7 @@ export default function AboutSection({ content, team }: AboutSectionProps) {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(var(--primary-rgb),0.08),transparent_50%)]"></div>
       
       <div className="container mx-auto relative z-10">
-        <div className="text-center mb-12 md:mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary font-semibold mb-4 text-sm border border-primary/20">
-            <Icon name="Award" size={16} />
-            <span>Режиссёр и основатель школы</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-            О <span className="text-primary">преподавателе</span>
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-sm md:text-base">
-            Режиссёр федеральных телесериалов с 15-летним опытом работы в индустрии
-          </p>
-        </div>
+
 
         <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center max-w-6xl mx-auto">
           <div className="relative group">
@@ -57,10 +53,17 @@ export default function AboutSection({ content, team }: AboutSectionProps) {
               <div className="h-1 w-20 bg-gradient-to-r from-primary to-primary/50 rounded-full"></div>
             </div>
             
-            <div className="prose prose-lg max-w-none">
-              <p className="text-base md:text-lg leading-relaxed whitespace-pre-line text-foreground/90">
-                {kazbekBio}
-              </p>
+            <div className="space-y-6">
+              {kazbekInfo.map((item, index) => (
+                <div key={index} className="space-y-2">
+                  <h4 className="text-lg md:text-xl font-semibold text-primary">
+                    {item.title}
+                  </h4>
+                  <p className="text-base leading-relaxed text-foreground/90">
+                    {item.text}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
