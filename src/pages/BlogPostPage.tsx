@@ -36,6 +36,37 @@ export default function BlogPostPage() {
     }
   };
 
+  const fullUrl = post ? `https://acting-school.poehali.dev/blog/${post.slug}` : '';
+  const articleSchema = post ? generateArticleSchema({
+    title: post.title,
+    description: post.excerpt || post.content.substring(0, 200),
+    content: post.content,
+    author: 'Казбек Меретуков',
+    publishedAt: post.created_at || new Date().toISOString(),
+    updatedAt: post.updated_at,
+    imageUrl: post.image_url,
+    url: fullUrl
+  }) : null;
+
+  useSEO({
+    title: post ? `${post.title} | Блог школы актёрского мастерства` : 'Загрузка статьи...',
+    description: post ? (post.excerpt || post.content.substring(0, 160)) : 'Загрузка статьи о актёрском мастерстве',
+    keywords: post ? `актёрское мастерство, ${post.title.toLowerCase()}, обучение актёрскому мастерству` : 'актёрское мастерство',
+    ogTitle: post?.title || 'Статья',
+    ogDescription: post ? (post.excerpt || post.content.substring(0, 160)) : '',
+    ogImage: post?.image_url,
+    ogType: 'article',
+    canonicalUrl: fullUrl || 'https://acting-school.poehali.dev/blog',
+    structuredData: articleSchema || undefined,
+    article: post ? {
+      author: 'Казбек Меретуков',
+      publishedTime: post.created_at || new Date().toISOString(),
+      modifiedTime: post.updated_at,
+      section: 'Актёрское мастерство',
+      tags: ['актёрское мастерство', 'обучение', 'курсы']
+    } : undefined
+  });
+
   if (loading) {
     return (
       <div className="min-h-screen bg-background text-foreground">
@@ -52,37 +83,6 @@ export default function BlogPostPage() {
   if (!post) {
     return null;
   }
-
-  const fullUrl = `https://acting-school.poehali.dev/blog/${post.slug}`;
-  const articleSchema = generateArticleSchema({
-    title: post.title,
-    description: post.excerpt || post.content.substring(0, 200),
-    content: post.content,
-    author: 'Казбек Меретуков',
-    publishedAt: post.created_at || new Date().toISOString(),
-    updatedAt: post.updated_at,
-    imageUrl: post.image_url,
-    url: fullUrl
-  });
-
-  useSEO({
-    title: `${post.title} | Блог школы актёрского мастерства`,
-    description: post.excerpt || post.content.substring(0, 160),
-    keywords: `актёрское мастерство, ${post.title.toLowerCase()}, обучение актёрскому мастерству`,
-    ogTitle: post.title,
-    ogDescription: post.excerpt || post.content.substring(0, 160),
-    ogImage: post.image_url,
-    ogType: 'article',
-    canonicalUrl: fullUrl,
-    structuredData: articleSchema,
-    article: {
-      author: 'Казбек Меретуков',
-      publishedTime: post.created_at || new Date().toISOString(),
-      modifiedTime: post.updated_at,
-      section: 'Актёрское мастерство',
-      tags: ['актёрское мастерство', 'обучение', 'курсы']
-    }
-  });
 
   return (
     <div className="min-h-screen bg-background text-foreground">
