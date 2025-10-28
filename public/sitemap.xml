@@ -53,21 +53,21 @@
   
   <!-- Статьи блога -->
   <url>
-    <loc>https://acting-school.poehali.dev/blog/sistema-stanislavskogo</loc>
+    <loc>https://acting-school.poehali.dev/blog/работа-актёра-над-образом:-путь-от-текста-к-живому</loc>
     <lastmod>2025-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://acting-school.poehali.dev/blog/tekhnika-rechi-dlya-aktera</loc>
+    <loc>https://acting-school.poehali.dev/blog/техника-речи-для-актёра:-от-дыхания-до-выразительн</loc>
     <lastmod>2025-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://acting-school.poehali.dev/blog/rabota-nad-obrazom</loc>
+    <loc>https://acting-school.poehali.dev/blog/система-станиславского:-ключ-к-естественной-игре</loc>
     <lastmod>2025-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
