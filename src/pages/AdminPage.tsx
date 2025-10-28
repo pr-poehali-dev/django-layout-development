@@ -12,6 +12,7 @@ import ModulesManager from '@/components/admin/ModulesManager';
 import FAQManager from '@/components/admin/FAQManager';
 import TeamManager from '@/components/admin/TeamManager';
 import WhatsAppManager from '@/components/admin/WhatsAppManager';
+import { sampleArticles } from '@/lib/sample-articles';
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -437,6 +438,19 @@ export default function AdminPage() {
     }
   };
 
+  const handleLoadSampleArticles = async () => {
+    try {
+      for (const article of sampleArticles) {
+        await api.gallery.createBlogPost(article, token);
+      }
+      await loadData(token);
+      alert('✅ Загружено 3 экспертных статьи по актёрскому мастерству!');
+    } catch (error) {
+      console.error('Error loading sample articles:', error);
+      alert(`Ошибка загрузки статей: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+  };
+
   if (!isAuthenticated) {
     return <LoginForm onLogin={handleLogin} loading={loading} />;
   }
@@ -558,6 +572,7 @@ export default function AdminPage() {
               onDelete={handleDeleteBlogPost}
               onStartEditing={setEditingBlogPost}
               onCancelEditing={() => setEditingBlogPost(null)}
+              onLoadSamples={handleLoadSampleArticles}
             />
           </TabsContent>
 

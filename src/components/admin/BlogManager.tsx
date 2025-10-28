@@ -5,6 +5,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Label } from '@/components/ui/label';
 import Icon from '@/components/ui/icon';
 import { BlogPost } from '@/lib/api';
+import { sampleArticles } from '@/lib/sample-articles';
+import { useState } from 'react';
 
 interface BlogManagerProps {
   blog: BlogPost[];
@@ -22,6 +24,7 @@ interface BlogManagerProps {
   onDelete: (id: number) => void;
   onStartEditing: (post: BlogPost) => void;
   onCancelEditing: () => void;
+  onLoadSamples: () => Promise<void>;
 }
 
 export default function BlogManager({
@@ -34,10 +37,44 @@ export default function BlogManager({
   onUpdate,
   onDelete,
   onStartEditing,
-  onCancelEditing
+  onCancelEditing,
+  onLoadSamples
 }: BlogManagerProps) {
+  const [loadingSamples, setLoadingSamples] = useState(false);
+
+  const handleLoadSamples = async () => {
+    setLoadingSamples(true);
+    try {
+      await onLoadSamples();
+    } finally {
+      setLoadingSamples(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
+      {blog.length === 0 && (
+        <Card className="bg-primary/5 border-primary/20">
+          <CardContent className="pt-6">
+            <div className="flex items-start gap-4">
+              <div className="flex-shrink-0">
+                <Icon name="BookOpen" size={32} className="text-primary" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-semibold mb-2">Блог пуст — начните с примеров!</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Загрузите 3 готовые экспертные статьи по актёрскому мастерству (каждая более 5000 символов). Вы сможете их отредактировать или удалить.
+                </p>
+                <Button onClick={handleLoadSamples} disabled={loadingSamples}>
+                  <Icon name="Sparkles" size={16} className="mr-2" />
+                  {loadingSamples ? 'Загружаю...' : 'Загрузить примеры статей'}
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+      
       <Card>
         <CardHeader>
           <CardTitle>Добавить статью</CardTitle>
