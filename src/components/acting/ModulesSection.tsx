@@ -1,5 +1,5 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import Icon from '@/components/ui/icon';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import Image from '@/components/ui/image';
 import { CourseModule } from '@/lib/api';
 
 interface ModulesSectionProps {
@@ -18,7 +18,11 @@ export default function ModulesSection({ modules }: ModulesSectionProps) {
               <CardHeader>
                 <div className="aspect-video bg-muted rounded-lg mb-4 overflow-hidden">
                   {module.image_url ? (
-                    <img src={module.image_url} alt={module.title} className="w-full h-full object-cover" />
+                    <Image 
+                      src={module.image_url} 
+                      alt={module.title} 
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                    />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary/5">
                       <span className="text-6xl font-bold text-primary/30">{index + 1}</span>
