@@ -97,7 +97,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         
         elif method == 'PUT':
             body_data = json.loads(event.get('body', '{}'))
-            item_id = params.get('id') if params else None
+            item_id = body_data.get('id') or (params.get('id') if params else None)
             
             if not item_id:
                 return {
@@ -106,7 +106,12 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                     'body': json.dumps({'error': 'ID is required'})
                 }
             
-            if resource == 'team':
+            if resource == 'faq':
+                cur.execute(
+                    "UPDATE faq SET question = %s, answer = %s, order_num = %s WHERE id = %s RETURNING *",
+                    (body_data.get('question'), body_data.get('answer'), body_data.get('order_num', 0), item_id)
+                )
+            elif resource == 'team':
                 cur.execute(
                     "UPDATE team_members SET name = %s, role = %s, bio = %s, photo_url = %s, sort_order = %s WHERE id = %s RETURNING *",
                     (body_data.get('name'), body_data.get('role'), body_data.get('bio'), body_data.get('photo_url'), body_data.get('sort_order', 0), item_id)
@@ -134,7 +139,8 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             }
         
         elif method == 'DELETE':
-            item_id = params.get('id') if params else None
+            body_data = json.loads(event.get('body', '{}')) if event.get('body') else {}
+            item_id = body_data.get('id') or (params.get('id') if params else None)
             
             if not item_id:
                 return {
@@ -143,7 +149,9 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                     'body': json.dumps({'error': 'ID is required'})
                 }
             
-            if resource == 'team':
+            if resource == 'faq':
+                cur.execute("DELETE FROM faq WHERE id = %s", (item_id,))
+            elif resource == 'team':
                 cur.execute("DELETE FROM team_members WHERE id = %s", (item_id,))
             
             conn.commit()
