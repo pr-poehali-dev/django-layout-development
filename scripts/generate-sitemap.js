@@ -27,7 +27,8 @@ async function generateSitemap() {
     ];
     
     let xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 `;
     
     for (const page of staticPages) {
@@ -54,7 +55,20 @@ async function generateSitemap() {
     <loc>${BASE_URL}/blog/${encodedSlug}</loc>
     <lastmod>${formattedDate}</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.7</priority>`;
+      
+      if (post.image_url) {
+        const escapedTitle = (post.title || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        const escapedCaption = (post.excerpt || post.content?.substring(0, 100) || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        xml += `
+    <image:image>
+      <image:loc>${post.image_url}</image:loc>
+      <image:title>${escapedTitle}</image:title>
+      <image:caption>${escapedCaption}</image:caption>
+    </image:image>`;
+      }
+      
+      xml += `
   </url>
 `;
       console.log(`  ✓ Added: ${post.title}`);
