@@ -115,8 +115,8 @@ export default function PhoneForm({
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-2xl">{defaultTitle}</DialogTitle>
-          <DialogDescription>{defaultDescription}</DialogDescription>
+          <DialogTitle className="text-xl sm:text-2xl">{defaultTitle}</DialogTitle>
+          <DialogDescription className="text-sm">{defaultDescription}</DialogDescription>
         </DialogHeader>
         
         {success ? (
