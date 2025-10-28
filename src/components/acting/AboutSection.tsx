@@ -24,6 +24,19 @@ export default function AboutSection({ content, team }: AboutSectionProps) {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(var(--primary-rgb),0.08),transparent_50%)]"></div>
       
       <div className="container mx-auto relative z-10">
+        <div className="text-center mb-12 md:mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary font-semibold mb-4 text-sm border border-primary/20">
+            <Icon name="Award" size={16} />
+            <span>Режиссёр и основатель школы</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+            О <span className="text-primary">преподавателе</span>
+          </h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto text-sm md:text-base">
+            Режиссёр федеральных телесериалов с 15-летним опытом работы в индустрии
+          </p>
+        </div>
+
         <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center max-w-6xl mx-auto">
           <div className="relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-primary to-primary/50 rounded-3xl blur opacity-25 group-hover:opacity-40 transition duration-500"></div>
@@ -38,9 +51,9 @@ export default function AboutSection({ content, team }: AboutSectionProps) {
           
           <div className="space-y-6">
             <div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+              <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
                 {kazbekName}
-              </h2>
+              </h3>
               <div className="h-1 w-20 bg-gradient-to-r from-primary to-primary/50 rounded-full"></div>
             </div>
             
