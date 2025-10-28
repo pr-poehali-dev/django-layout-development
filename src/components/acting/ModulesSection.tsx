@@ -28,11 +28,15 @@ export default function ModulesSection({ modules }: ModulesSectionProps) {
                 <CardTitle>{module.title}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div 
-                  className="text-muted-foreground leading-relaxed [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-2 [&_li]:leading-relaxed"
-                  dangerouslySetInnerHTML={{ __html: module.description.replace(/\n/g, '<br />') }}
-                />
-                <div className="flex items-start gap-3 pt-3 px-3 py-3 bg-primary/5 rounded-lg border-l-4 border-primary">
+                <ul className="space-y-2.5 text-muted-foreground">
+                  {module.description.split('\n').filter(line => line.trim()).map((line, i) => (
+                    <li key={i} className="flex items-start gap-2.5">
+                      <span className="text-primary mt-1.5 shrink-0">•</span>
+                      <span className="leading-relaxed">{line.replace(/^-\s*/, '')}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex items-start gap-3 px-4 py-3.5 bg-primary/5 rounded-lg border-l-4 border-primary">
                   <Icon name="Target" size={20} className="mt-0.5 text-primary shrink-0" />
                   <div className="flex-1">
                     <p className="text-xs font-bold text-primary mb-1.5 uppercase tracking-wider">Результат модуля</p>
