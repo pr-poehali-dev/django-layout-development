@@ -5,9 +5,15 @@ const BASE_URL = 'https://acting-school.poehali.dev';
 
 async function generateSitemap() {
   try {
-    console.log('Fetching blog posts...');
-    const response = await fetch(`${GALLERY_API}?type=blog`);
+    console.log('📡 Fetching blog posts from API...');
+    const response = await fetch(`${GALLERY_API}?resource=blog`);
+    
+    if (!response.ok) {
+      throw new Error(`API returned ${response.status}`);
+    }
+    
     const posts = await response.json();
+    console.log(`✅ Found ${posts.length} blog posts`);
     
     const today = new Date().toISOString().split('T')[0];
     
@@ -21,10 +27,7 @@ async function generateSitemap() {
     ];
     
     let xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-  
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 `;
     
     for (const page of staticPages) {
@@ -34,32 +37,39 @@ async function generateSitemap() {
     <changefreq>${page.changefreq}</changefreq>
     <priority>${page.priority}</priority>
   </url>
-  
 `;
     }
     
-    console.log(`Found ${posts.length} blog posts`);
     for (const post of posts) {
+      if (!post.slug) {
+        console.warn(`⚠️ Post "${post.title}" has no slug, skipping`);
+        continue;
+      }
+      
       const lastmod = post.updated_at || post.created_at || today;
       const formattedDate = lastmod.split('T')[0];
+      const encodedSlug = encodeURIComponent(post.slug);
       
       xml += `  <url>
-    <loc>${BASE_URL}/blog/${post.slug}</loc>
+    <loc>${BASE_URL}/blog/${encodedSlug}</loc>
     <lastmod>${formattedDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  
 `;
+      console.log(`  ✓ Added: ${post.title}`);
     }
     
     xml += `</urlset>`;
     
     writeFileSync('public/sitemap.xml', xml, 'utf-8');
-    console.log('✅ Sitemap generated successfully with', posts.length, 'blog posts');
+    console.log(`\n🎉 Sitemap generated successfully!`);
+    console.log(`   Static pages: ${staticPages.length}`);
+    console.log(`   Blog posts: ${posts.length}`);
+    console.log(`   Total URLs: ${staticPages.length + posts.length}`);
     
   } catch (error) {
-    console.error('❌ Error generating sitemap:', error);
+    console.error('❌ Error generating sitemap:', error.message);
     process.exit(1);
   }
 }
