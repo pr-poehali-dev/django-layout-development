@@ -12,7 +12,7 @@ export default function AboutSection({ content }: AboutSectionProps) {
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div className="relative h-[400px] md:h-[600px] rounded-2xl overflow-hidden order-2 md:order-1">
             <Image
-              src="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/829de8e6-6182-458d-9aa3-3afb8faa0acc.jpg"
+              src="https://optim.tildacdn.com/tild3739-6336-4831-b839-306464353966/-/resize/400x/-/format/webp/photo_2025-09-19_13-.jpg.webp"
               alt="Ольга Штерц"
               className="w-full h-full object-cover"
             />
