@@ -36,7 +36,7 @@ export default function ModulesSection({ modules }: ModulesSectionProps) {
                     </li>
                   ))}
                 </ul>
-                <div className="px-4 py-3.5 bg-primary/5 rounded-lg mt-auto">
+                <div className="px-4 py-3.5 bg-primary/5 rounded-lg mt-auto min-h-[100px] flex flex-col justify-center">
                   <p className="text-xs font-bold text-primary mb-2 uppercase tracking-wider">Результат модуля</p>
                   <p className="text-sm font-semibold text-foreground leading-relaxed">{module.result}</p>
                 </div>

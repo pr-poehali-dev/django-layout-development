@@ -9,11 +9,14 @@ interface AboutSectionProps {
 
 export default function AboutSection({ content, team }: AboutSectionProps) {
   const kazbekPhoto = "https://st.business-key.com/i/files/45470/2024/02/1707986927.jpg";
-  const kazbek = team.find(member => member.id === 1) || team[0];
-  
-  if (!kazbek) {
-    return null;
-  }
+  const kazbekName = "Казбек Меретуков";
+  const kazbekBio = `Режиссёр-постановщик, обладатель премии ТЕФИ-2012 за лучшую режиссуру телесериала «Закрытая школа».
+
+Снял более 200 серий популярных телесериалов: «Закрытая школа», «Молодёжка», «Улица», «Реальные пацаны» и другие.
+
+В 2015 году основал школу актёрского мастерства, где передаёт свой опыт начинающим актёрам. Разработал уникальную методику обучения, сочетающую классическую актёрскую школу с современными подходами к работе на камеру.
+
+За годы работы обучил более 500 студентов, многие из которых успешно работают в кино и на телевидении.`;
 
   return (
     <section id="about" className="py-12 px-4 md:py-20 md:px-4 bg-gradient-to-br from-primary/5 via-background to-primary/5 relative overflow-hidden">
@@ -27,7 +30,7 @@ export default function AboutSection({ content, team }: AboutSectionProps) {
             <div className="relative h-[350px] md:h-[550px] rounded-2xl overflow-hidden shadow-2xl">
               <img
                 src={kazbekPhoto}
-                alt={kazbek.name}
+                alt={kazbekName}
                 className="w-full h-full object-cover transform group-hover:scale-105 transition duration-700"
               />
             </div>
@@ -36,14 +39,14 @@ export default function AboutSection({ content, team }: AboutSectionProps) {
           <div className="space-y-6">
             <div>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-                {kazbek.name}
+                {kazbekName}
               </h2>
               <div className="h-1 w-20 bg-gradient-to-r from-primary to-primary/50 rounded-full"></div>
             </div>
             
             <div className="prose prose-lg max-w-none">
               <p className="text-base md:text-lg leading-relaxed whitespace-pre-line text-foreground/90">
-                {kazbek.bio}
+                {kazbekBio}
               </p>
             </div>
           </div>
