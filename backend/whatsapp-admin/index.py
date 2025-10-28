@@ -104,13 +104,16 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 content = body_data.get('content')
                 delay_days = body_data.get('delay_days')
                 course = body_data.get('course')
+                file_url = body_data.get('file_url')
+                file_type = body_data.get('file_type')
+                file_name = body_data.get('file_name')
                 
                 cur.execute(
                     """INSERT INTO whatsapp_templates 
-                       (name, title, content, delay_days, course, active)
-                       VALUES (%s, %s, %s, %s, %s, TRUE)
+                       (name, title, content, delay_days, course, active, file_url, file_type, file_name)
+                       VALUES (%s, %s, %s, %s, %s, TRUE, %s, %s, %s)
                        RETURNING *""",
-                    (name, title, content, delay_days, course)
+                    (name, title, content, delay_days, course, file_url, file_type, file_name)
                 )
                 template = cur.fetchone()
                 conn.commit()
@@ -161,7 +164,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 updates = []
                 values = []
                 
-                for field in ['title', 'content', 'delay_days', 'course', 'active']:
+                for field in ['title', 'content', 'delay_days', 'course', 'active', 'file_url', 'file_type', 'file_name']:
                     if field in body_data:
                         updates.append(f"{field} = %s")
                         values.append(body_data[field])
@@ -204,6 +207,30 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                     }
                 
                 cur.execute("UPDATE whatsapp_queue SET status = 'cancelled' WHERE id = %s", (queue_id,))
+                conn.commit()
+                
+                cur.close()
+                conn.close()
+                
+                return {
+                    'statusCode': 200,
+                    'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+                    'body': json.dumps({'success': True}),
+                    'isBase64Encoded': False
+                }
+            
+            elif resource == 'templates':
+                template_id = params.get('id')
+                
+                if not template_id:
+                    return {
+                        'statusCode': 400,
+                        'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+                        'body': json.dumps({'error': 'id is required'}),
+                        'isBase64Encoded': False
+                    }
+                
+                cur.execute("DELETE FROM whatsapp_templates WHERE id = %s", (template_id,))
                 conn.commit()
                 
                 cur.close()

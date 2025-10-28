@@ -9,6 +9,7 @@ import QueueTab from './whatsapp/QueueTab';
 import TemplatesTab from './whatsapp/TemplatesTab';
 import MessageDialog from './whatsapp/MessageDialog';
 import TemplateDialog from './whatsapp/TemplateDialog';
+import CreateTemplateDialog from './whatsapp/CreateTemplateDialog';
 
 interface WhatsAppManagerProps {
   token: string;
@@ -22,6 +23,7 @@ export default function WhatsAppManager({ token }: WhatsAppManagerProps) {
   const [filter, setFilter] = useState<string>('all');
   const [editingTemplate, setEditingTemplate] = useState<Template | null>(null);
   const [selectedMessage, setSelectedMessage] = useState<QueueItem | null>(null);
+  const [creatingTemplate, setCreatingTemplate] = useState(false);
 
   useEffect(() => {
     loadData();
@@ -86,6 +88,45 @@ export default function WhatsAppManager({ token }: WhatsAppManagerProps) {
     }
   };
 
+  const handleCreateTemplate = async (template: any) => {
+    setLoading(true);
+    try {
+      await api.whatsapp.createTemplate(template, token);
+      alert('✅ Шаблон успешно создан');
+      setCreatingTemplate(false);
+      loadData();
+    } catch (error) {
+      alert('Ошибка при создании шаблона');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDeleteTemplate = async (id: number) => {
+    setLoading(true);
+    try {
+      await api.whatsapp.deleteTemplate(id, token);
+      alert('✅ Шаблон удалён');
+      loadData();
+    } catch (error) {
+      alert('Ошибка при удалении шаблона');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleFileUpload = async (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64 = reader.result as string;
+        resolve(base64);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -138,6 +179,8 @@ export default function WhatsAppManager({ token }: WhatsAppManagerProps) {
           <TemplatesTab
             templates={templates}
             onEditTemplate={setEditingTemplate}
+            onDeleteTemplate={handleDeleteTemplate}
+            onCreateTemplate={() => setCreatingTemplate(true)}
           />
         </TabsContent>
       </Tabs>
@@ -153,6 +196,15 @@ export default function WhatsAppManager({ token }: WhatsAppManagerProps) {
         onChange={setEditingTemplate}
         onSave={() => editingTemplate && handleUpdateTemplate(editingTemplate)}
         onClose={() => setEditingTemplate(null)}
+        onFileUpload={handleFileUpload}
+      />
+
+      <CreateTemplateDialog
+        open={creatingTemplate}
+        loading={loading}
+        onClose={() => setCreatingTemplate(false)}
+        onCreate={handleCreateTemplate}
+        onFileUpload={handleFileUpload}
       />
     </div>
   );

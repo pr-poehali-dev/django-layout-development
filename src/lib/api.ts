@@ -468,6 +468,27 @@ export const api = {
     processQueue: async () => {
       const response = await fetch(API_URLS.whatsappSender);
       return response.json();
+    },
+    createTemplate: async (template: any, token: string) => {
+      const response = await fetch(`${API_URLS.whatsapp}?resource=templates`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Auth-Token': token
+        },
+        body: JSON.stringify(template)
+      });
+      return response.json();
+    },
+    deleteTemplate: async (id: number, token: string) => {
+      const response = await fetch(`${API_URLS.whatsapp}?resource=templates&id=${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Auth-Token': token
+        }
+      });
+      return response.json();
     }
   }
 };

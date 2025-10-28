@@ -19,6 +19,9 @@ export interface Template {
   delay_days: number;
   course: string | null;
   active: boolean;
+  file_url?: string | null;
+  file_type?: string | null;
+  file_name?: string | null;
 }
 
 export interface Stats {
