@@ -28,12 +28,17 @@ export default function ModulesSection({ modules }: ModulesSectionProps) {
                 <CardTitle>{module.title}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-muted-foreground leading-relaxed">{module.description}</p>
-                <div className="flex items-start gap-2 pt-2 border-t border-border/40">
-                  <Icon name="Target" size={18} className="mt-0.5 text-primary shrink-0" />
-                  <div>
-                    <p className="text-xs font-semibold text-muted-foreground mb-1 uppercase tracking-wide">Результат</p>
-                    <p className="text-sm font-medium text-foreground">{module.result}</p>
+                <div className="prose prose-sm max-w-none">
+                  <div 
+                    className="text-muted-foreground leading-relaxed [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-2 [&_li]:leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: module.description.replace(/\n/g, '<br />') }}
+                  />
+                </div>
+                <div className="flex items-start gap-3 pt-3 px-3 py-3 bg-primary/5 rounded-lg border-l-4 border-primary">
+                  <Icon name="Target" size={20} className="mt-0.5 text-primary shrink-0" />
+                  <div className="flex-1">
+                    <p className="text-xs font-bold text-primary mb-1.5 uppercase tracking-wider">Результат модуля</p>
+                    <p className="text-sm font-semibold text-foreground leading-relaxed">{module.result}</p>
                   </div>
                 </div>
               </CardContent>
