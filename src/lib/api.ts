@@ -5,7 +5,8 @@ const API_URLS = {
   modules: 'https://functions.poehali.dev/c068a827-a908-48e9-8afa-9996a1421fe0',
   gallery: 'https://functions.poehali.dev/42a4a1c9-5ce7-4d3d-8760-f3ef702ed550',
   whatsapp: 'https://functions.poehali.dev/ea8edaad-cd4c-4b81-9401-3e985f910159',
-  whatsappSender: 'https://functions.poehali.dev/056bc93d-3039-4809-b29d-580752202bea'
+  whatsappSender: 'https://functions.poehali.dev/056bc93d-3039-4809-b29d-580752202bea',
+  metrikaConversion: 'https://functions.poehali.dev/5fc35f97-7314-4016-a1bf-571b1d77a189'
 };
 
 export interface SiteContent {
@@ -421,6 +422,22 @@ export const api = {
     }
   },
   
+  metrika: {
+    sendConversion: async (data: {
+      client_id: string;
+      phone: string;
+      course?: string;
+      datetime?: string;
+    }) => {
+      const response = await fetch(API_URLS.metrikaConversion, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      return response.json();
+    }
+  },
+
   whatsapp: {
     getQueue: async (token: string, status?: string) => {
       const url = status 

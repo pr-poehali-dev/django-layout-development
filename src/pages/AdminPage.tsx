@@ -152,29 +152,29 @@ export default function AdminPage() {
   };
 
   const handleMarkAsTargeted = async (lead: Lead) => {
-    if (!confirm(`Отметить клиента ${lead.phone} как целевого и отправить событие в Метрику?`)) return;
+    if (!lead.ym_client_id) {
+      alert('У этого клиента нет ClientID из Метрики.\nЭто значит, что он не оставлял заявку через сайт или его данные не сохранились.');
+      return;
+    }
+
+    if (!confirm(`Отправить целевую конверсию в Яндекс.Метрику?\n\nТелефон: ${lead.phone}\nКурс: ${lead.course || 'не указан'}\nClientID: ${lead.ym_client_id}`)) return;
     
     try {
-      if (typeof window !== 'undefined' && (window as any).ym) {
-        const params: any = {
-          phone: lead.phone,
-          source: lead.source,
-          course: lead.course
-        };
-        
-        if (lead.ym_client_id) {
-          params.client_id = lead.ym_client_id;
-        }
-        
-        (window as any).ym(104854671, 'reachGoal', 'target_client', params);
-        
-        alert(`Целевой клиент отправлен в Метрику!\n\nТелефон: ${lead.phone}\nКурс: ${lead.course || 'не указан'}\nClientID: ${lead.ym_client_id || 'нет'}`);
+      const result = await api.metrika.sendConversion({
+        client_id: lead.ym_client_id,
+        phone: lead.phone,
+        course: lead.course,
+        datetime: new Date().toISOString()
+      });
+      
+      if (result.success) {
+        alert(`✅ Целевая конверсия отправлена в Яндекс.Метрику!\n\nID загрузки: ${result.upload_id}\nТелефон: ${result.phone}\nКурс: ${result.course || 'не указан'}\nClientID: ${result.client_id}\n\nТеперь в Метрике можно увидеть с какого источника пришёл этот клиент!`);
       } else {
-        alert('Яндекс.Метрика не загружена');
+        alert(`Ошибка отправки в Метрику:\n${result.error || 'Неизвестная ошибка'}\n\n${result.details || ''}`);
       }
     } catch (error) {
       console.error('Error marking as targeted:', error);
-      alert('Ошибка отправки в Метрику');
+      alert('Ошибка отправки в Метрику. Проверьте, что добавлен YANDEX_METRIKA_TOKEN в секреты проекта.');
     }
   };
 
