@@ -5,6 +5,7 @@ import Icon from '@/components/ui/icon';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PhoneForm from '@/components/PhoneForm';
+import Breadcrumbs from '@/components/Breadcrumbs';
 import { api, TeamMember } from '@/lib/api';
 
 export default function TeamPage() {
@@ -37,6 +38,7 @@ export default function TeamPage() {
       </Helmet>
       <div className="min-h-screen bg-background text-foreground">
       <Header />
+      <Breadcrumbs />
 
       <section className="pt-20 pb-12 px-4 md:pt-32 md:pb-20 md:px-4">
         <div className="container mx-auto">

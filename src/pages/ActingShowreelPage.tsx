@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Breadcrumbs from '@/components/Breadcrumbs';
 import HeroSection from '@/components/showreel/HeroSection';
 import ProcessSection from '@/components/showreel/ProcessSection';
 import ExamplesSection from '@/components/showreel/ExamplesSection';
@@ -56,6 +57,7 @@ export default function ActingShowreelPage() {
       </Helmet>
       <div className="min-h-screen bg-background text-foreground">
         <Header />
+        <Breadcrumbs />
         <HeroSection />
         <ProcessSection />
         <ExamplesSection gallery={gallery} />

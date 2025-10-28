@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Breadcrumbs from '@/components/Breadcrumbs';
 import HeroSection from '@/components/acting/HeroSection';
 import VideoSection from '@/components/acting/VideoSection';
 import ForWhomSection from '@/components/acting/ForWhomSection';
@@ -19,6 +20,7 @@ import SEOTextSection from '@/components/acting/SEOTextSection';
 import FAQSection from '@/components/acting/FAQSection';
 import ContactSection from '@/components/acting/ContactSection';
 import { api, CourseModule, Review, FAQ, GalleryImage, BlogPost, SiteContent, TeamMember } from '@/lib/api';
+import SchemaMarkup from '@/components/SchemaMarkup';
 
 export default function ActingPage() {
   const navigate = useNavigate();
@@ -70,9 +72,42 @@ export default function ActingPage() {
         <meta name="description" content="Профессиональные курсы актёрского мастерства от режиссёра телесериалов. Победитель ТЕФИ-2012. Обучение актёрскому мастерству, работа на камеру, съёмка короткометражного фильма. Пробное занятие бесплатно." />
         <link rel="canonical" href="https://acting-school.poehali.dev/" />
         <meta property="og:url" content="https://acting-school.poehali.dev/" />
+        <meta property="og:title" content="Курсы актёрского мастерства в Москве от режиссёра Казбека Меретукова" />
+        <meta property="og:description" content="Профессиональные курсы актёрского мастерства от режиссёра телесериалов. Победитель ТЕФИ-2012. Обучение актёрскому мастерству, работа на камеру, съёмка короткометражного фильма. Пробное занятие бесплатно." />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/7cddbd50-0847-4321-92b1-f534403d6a21.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Курсы актёрского мастерства в Москве от режиссёра Казбека Меретукова" />
+        <meta name="twitter:description" content="Профессиональные курсы актёрского мастерства от режиссёра телесериалов. Обучение актёрскому мастерству, работа на камеру." />
+        <meta name="twitter:image" content="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/7cddbd50-0847-4321-92b1-f534403d6a21.jpg" />
       </Helmet>
+      <SchemaMarkup 
+        type="course" 
+        courseData={{
+          name: "Курс актёрского мастерства",
+          description: "Профессиональное обучение актёрскому мастерству от режиссёра телесериалов. Работа на камеру, съёмка короткометражного фильма, практические упражнения.",
+          provider: "Школа актёрского мастерства Казбека Меретукова",
+          url: "https://acting-school.poehali.dev/"
+        }}
+      />
+      <SchemaMarkup 
+        type="reviews" 
+        reviews={reviews.map(r => ({
+          author: r.author,
+          rating: r.rating || 5,
+          text: r.text
+        }))}
+      />
+      <SchemaMarkup 
+        type="faq" 
+        faqItems={faq.map(f => ({
+          question: f.question,
+          answer: f.answer
+        }))}
+      />
       <div className="min-h-screen bg-background text-foreground">
       <Header />
+      <Breadcrumbs />
       <HeroSection content={content} />
       <VideoSection content={content} />
       <ForWhomSection />
