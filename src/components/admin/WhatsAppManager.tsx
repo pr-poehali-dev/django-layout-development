@@ -115,17 +115,7 @@ export default function WhatsAppManager({ token }: WhatsAppManagerProps) {
     }
   };
 
-  const handleFileUpload = async (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64 = reader.result as string;
-        resolve(base64);
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  };
+
 
   return (
     <div className="space-y-6">
@@ -196,7 +186,7 @@ export default function WhatsAppManager({ token }: WhatsAppManagerProps) {
         onChange={setEditingTemplate}
         onSave={() => editingTemplate && handleUpdateTemplate(editingTemplate)}
         onClose={() => setEditingTemplate(null)}
-        onFileUpload={handleFileUpload}
+        onFileUpload={async () => ''}
       />
 
       <CreateTemplateDialog
@@ -204,7 +194,7 @@ export default function WhatsAppManager({ token }: WhatsAppManagerProps) {
         loading={loading}
         onClose={() => setCreatingTemplate(false)}
         onCreate={handleCreateTemplate}
-        onFileUpload={handleFileUpload}
+        onFileUpload={async () => ''}
       />
     </div>
   );

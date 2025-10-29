@@ -25,51 +25,9 @@ export default function TemplateDialog({
   onClose,
   onFileUpload 
 }: TemplateDialogProps) {
-  const [uploading, setUploading] = useState(false);
-
   if (!template) return null;
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
 
-    setUploading(true);
-    try {
-      const fileUrl = await onFileUpload(file);
-      const fileType = file.type.startsWith('image/') ? 'image' 
-        : file.type.startsWith('video/') ? 'video' 
-        : file.type === 'application/pdf' ? 'pdf' 
-        : 'document';
-      
-      onChange({
-        ...template,
-        file_url: fileUrl,
-        file_type: fileType,
-        file_name: file.name
-      });
-    } catch (error) {
-      alert('Ошибка при загрузке файла');
-    } finally {
-      setUploading(false);
-    }
-  };
-
-  const handleRemoveFile = () => {
-    onChange({
-      ...template,
-      file_url: null,
-      file_type: null,
-      file_name: null
-    });
-  };
-
-  const getFileIcon = () => {
-    if (!template.file_type) return 'File';
-    if (template.file_type === 'image') return 'Image';
-    if (template.file_type === 'video') return 'Video';
-    if (template.file_type === 'pdf') return 'FileText';
-    return 'File';
-  };
 
   return (
     <Dialog open={!!template} onOpenChange={onClose}>
@@ -116,46 +74,51 @@ export default function TemplateDialog({
           </div>
 
           <div>
-            <Label>Прикрепить файл</Label>
-            <div className="mt-2 space-y-3">
-              {template.file_url ? (
-                <div className="flex items-center gap-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                  <Icon name={getFileIcon()} size={20} className="text-blue-600" />
-                  <div className="flex-1">
-                    <div className="font-medium text-sm text-blue-900">{template.file_name}</div>
-                    <a 
-                      href={template.file_url} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-xs text-blue-600 hover:underline"
-                    >
-                      Открыть файл
-                    </a>
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={handleRemoveFile}
-                    className="text-red-600 hover:text-red-700 hover:bg-red-50"
-                  >
-                    <Icon name="Trash2" size={16} />
-                  </Button>
-                </div>
-              ) : (
-                <div>
-                  <Input
-                    id="file"
-                    type="file"
-                    accept="image/*,video/*,.pdf"
-                    onChange={handleFileChange}
-                    disabled={uploading}
-                    className="cursor-pointer"
-                  />
-                  <p className="text-xs text-gray-500 mt-1">
-                    Поддерживаются: изображения, видео, PDF (макс. 50 МБ)
-                  </p>
-                </div>
-              )}
+            <Label htmlFor="file_url">Ссылка на файл (опционально)</Label>
+            <Input
+              id="file_url"
+              value={template.file_url || ''}
+              onChange={(e) => onChange({ ...template, file_url: e.target.value || null })}
+              placeholder="https://example.com/file.pdf"
+              className="mt-1"
+            />
+            <p className="text-xs text-gray-500 mt-1">
+              Введите прямую ссылку на файл. Файл должен быть доступен по URL без авторизации.
+            </p>
+            {template.file_url && (
+              <a 
+                href={template.file_url} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-xs text-blue-600 hover:underline mt-2 inline-block"
+              >
+                Просмотреть файл →
+              </a>
+            )}
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="file_name">Название файла</Label>
+              <Input
+                id="file_name"
+                value={template.file_name || ''}
+                onChange={(e) => onChange({ ...template, file_name: e.target.value || null })}
+                placeholder="document.pdf"
+                className="mt-1"
+                disabled={!template.file_url}
+              />
+            </div>
+            <div>
+              <Label htmlFor="file_type">Тип файла</Label>
+              <Input
+                id="file_type"
+                value={template.file_type || ''}
+                onChange={(e) => onChange({ ...template, file_type: e.target.value || null })}
+                placeholder="image, video, pdf"
+                className="mt-1"
+                disabled={!template.file_url}
+              />
             </div>
           </div>
 
@@ -176,26 +139,17 @@ export default function TemplateDialog({
           <div className="flex gap-3 pt-4">
             <Button
               onClick={onSave}
-              disabled={loading || uploading}
+              disabled={loading}
               className="flex-1 bg-green-600 hover:bg-green-700"
             >
-              {uploading ? (
-                <>
-                  <Icon name="Loader2" className="mr-2 animate-spin" size={16} />
-                  Загрузка...
-                </>
-              ) : (
-                <>
-                  <Icon name="Save" className="mr-2" size={16} />
-                  Сохранить изменения
-                </>
-              )}
+              <Icon name="Save" className="mr-2" size={16} />
+              Сохранить изменения
             </Button>
             <Button
               variant="outline"
               onClick={onClose}
               className="flex-1"
-              disabled={loading || uploading}
+              disabled={loading}
             >
               Отмена
             </Button>

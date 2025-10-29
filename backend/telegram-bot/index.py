@@ -583,11 +583,15 @@ def schedule_whatsapp_campaign(cur, conn, lead: dict):
             instructor = 'Казбек Меретуков' if course == 'acting' else 'Ольга Штерц'
             message_text = message_text.replace('{{instructor_name}}', instructor)
         
+        file_url = template.get('file_url')
+        file_name = template.get('file_name')
+        file_type = template.get('file_type')
+        
         cur.execute(
             """INSERT INTO whatsapp_queue 
-               (lead_id, phone, message_template, message_text, scheduled_at, status)
-               VALUES (%s, %s, %s, %s, %s, 'pending')""",
-            (lead['id'], phone, template['name'], message_text, scheduled_time)
+               (lead_id, phone, message_template, message_text, scheduled_at, status, file_url, file_name, file_type)
+               VALUES (%s, %s, %s, %s, %s, 'pending', %s, %s, %s)""",
+            (lead['id'], phone, template['name'], message_text, scheduled_time, file_url, file_name, file_type)
         )
     
     conn.commit()

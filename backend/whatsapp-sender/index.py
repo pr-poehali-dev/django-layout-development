@@ -63,20 +63,28 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         'isBase64Encoded': False
     }
 
-def send_whatsapp_message(phone: str, message: str) -> dict:
-    '''Отправка WhatsApp сообщения через Green API'''
+def send_whatsapp_message(phone: str, message: str, file_url: str = None, file_name: str = None) -> dict:
+    '''Отправка WhatsApp сообщения через Green API с опциональным файлом'''
     
     if not phone.startswith('7'):
         phone = '7' + phone.lstrip('+').lstrip('8')
     
     chatId = f"{phone}@c.us"
     
-    url = f"{GREEN_API_URL}/waInstance{GREEN_API_INSTANCE}/sendMessage/{GREEN_API_TOKEN}"
-    
-    payload = {
-        'chatId': chatId,
-        'message': message
-    }
+    if file_url:
+        url = f"{GREEN_API_URL}/waInstance{GREEN_API_INSTANCE}/sendFileByUrl/{GREEN_API_TOKEN}"
+        payload = {
+            'chatId': chatId,
+            'urlFile': file_url,
+            'fileName': file_name or 'file',
+            'caption': message
+        }
+    else:
+        url = f"{GREEN_API_URL}/waInstance{GREEN_API_INSTANCE}/sendMessage/{GREEN_API_TOKEN}"
+        payload = {
+            'chatId': chatId,
+            'message': message
+        }
     
     try:
         data = json.dumps(payload).encode('utf-8')
@@ -95,7 +103,8 @@ def send_whatsapp_message(phone: str, message: str) -> dict:
                 'success': True,
                 'data': result,
                 'phone': phone,
-                'message': message
+                'message': message,
+                'file_url': file_url
             }
     
     except Exception as e:
@@ -134,7 +143,9 @@ def process_queue() -> dict:
         results = []
         
         for msg in messages:
-            result = send_whatsapp_message(msg['phone'], msg['message_text'])
+            file_url = msg.get('file_url')
+            file_name = msg.get('file_name')
+            result = send_whatsapp_message(msg['phone'], msg['message_text'], file_url, file_name)
             
             if result.get('success'):
                 cur.execute(

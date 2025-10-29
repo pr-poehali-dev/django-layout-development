@@ -32,42 +32,6 @@ export default function CreateTemplateDialog({
     file_type: '',
     file_name: ''
   });
-  const [uploading, setUploading] = useState(false);
-
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    setUploading(true);
-    try {
-      const fileUrl = await onFileUpload(file);
-      const fileType = file.type.startsWith('image/') ? 'image' 
-        : file.type.startsWith('video/') ? 'video' 
-        : file.type === 'application/pdf' ? 'pdf' 
-        : 'document';
-      
-      setFormData({
-        ...formData,
-        file_url: fileUrl,
-        file_type: fileType,
-        file_name: file.name
-      });
-    } catch (error) {
-      alert('Ошибка при загрузке файла');
-    } finally {
-      setUploading(false);
-    }
-  };
-
-  const handleRemoveFile = () => {
-    setFormData({
-      ...formData,
-      file_url: '',
-      file_type: '',
-      file_name: ''
-    });
-  };
-
   const handleSubmit = () => {
     if (!formData.title || !formData.content) {
       alert('Заполните название и текст сообщения');
@@ -164,67 +128,65 @@ export default function CreateTemplateDialog({
           </div>
 
           <div>
-            <Label>Прикрепить файл (опционально)</Label>
-            <div className="mt-2 space-y-3">
-              {formData.file_url ? (
-                <div className="flex items-center gap-3 p-3 bg-green-50 border border-green-200 rounded-lg">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2">
-                      <Icon name={formData.file_type === 'image' ? 'Image' : formData.file_type === 'video' ? 'Video' : 'FileText'} size={20} className="text-green-600" />
-                      <span className="font-medium text-sm text-green-900">{formData.file_name}</span>
-                    </div>
-                    <p className="text-xs text-green-600 mt-1">Файл загружен</p>
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={handleRemoveFile}
-                    className="text-red-600 hover:text-red-700 hover:bg-red-50"
-                  >
-                    <Icon name="Trash2" size={16} />
-                  </Button>
-                </div>
-              ) : (
-                <div>
-                  <Input
-                    id="file"
-                    type="file"
-                    accept="image/*,video/*,.pdf"
-                    onChange={handleFileChange}
-                    disabled={uploading}
-                    className="cursor-pointer"
-                  />
-                  <p className="text-xs text-gray-500 mt-1">
-                    Поддерживаются: изображения, видео, PDF (макс. 50 МБ)
-                  </p>
-                </div>
-              )}
+            <Label htmlFor="file_url">Прикрепить файл (опционально)</Label>
+            <Input
+              id="file_url"
+              value={formData.file_url}
+              onChange={(e) => setFormData({ ...formData, file_url: e.target.value })}
+              placeholder="https://example.com/file.pdf"
+              className="mt-1"
+            />
+            <p className="text-xs text-gray-500 mt-1">
+              Введите прямую ссылку на файл (изображение, видео или PDF). Файл должен быть загружен на Яндекс.Диск, Google Drive или любой другой хостинг с публичным доступом.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="file_name">Название файла</Label>
+              <Input
+                id="file_name"
+                value={formData.file_name}
+                onChange={(e) => setFormData({ ...formData, file_name: e.target.value })}
+                placeholder="document.pdf"
+                className="mt-1"
+                disabled={!formData.file_url}
+              />
+            </div>
+            <div>
+              <Label htmlFor="file_type">Тип файла</Label>
+              <Select
+                value={formData.file_type}
+                onValueChange={(value) => setFormData({ ...formData, file_type: value })}
+                disabled={!formData.file_url}
+              >
+                <SelectTrigger className="mt-1">
+                  <SelectValue placeholder="Выберите тип" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="image">🖼 Изображение</SelectItem>
+                  <SelectItem value="video">🎥 Видео</SelectItem>
+                  <SelectItem value="pdf">📄 PDF</SelectItem>
+                  <SelectItem value="document">📎 Документ</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
 
           <div className="flex gap-3 pt-4 border-t">
             <Button
               onClick={handleSubmit}
-              disabled={loading || uploading}
+              disabled={loading}
               className="flex-1 bg-green-600 hover:bg-green-700"
             >
-              {uploading ? (
-                <>
-                  <Icon name="Loader2" className="mr-2 animate-spin" size={16} />
-                  Загрузка файла...
-                </>
-              ) : (
-                <>
-                  <Icon name="Plus" className="mr-2" size={16} />
-                  Создать шаблон
-                </>
-              )}
+              <Icon name="Plus" className="mr-2" size={16} />
+              Создать шаблон
             </Button>
             <Button
               variant="outline"
               onClick={onClose}
               className="flex-1"
-              disabled={loading || uploading}
+              disabled={loading}
             >
               Отмена
             </Button>
