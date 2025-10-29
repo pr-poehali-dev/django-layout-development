@@ -9,6 +9,8 @@ export interface QueueItem {
   lead_phone: string;
   lead_name: string;
   course: string;
+  error_message?: string | null;
+  lead_id: number;
 }
 
 export interface Template {

@@ -145,7 +145,9 @@ export default function QueueTab({
             );
             const pendingCount = sortedMessages.filter(m => m.status === 'pending').length;
             const sentCount = sortedMessages.filter(m => m.status === 'sent').length;
+            const failedCount = sortedMessages.filter(m => m.status === 'failed').length;
             const nextPending = sortedMessages.find(m => m.status === 'pending');
+            const failedMessages = sortedMessages.filter(m => m.status === 'failed');
             
             return (
               <Card key={`${group.phone}_${group.lead_id}`} className="overflow-hidden">
@@ -188,6 +190,36 @@ export default function QueueTab({
                       </Button>
                     </div>
                   </div>
+
+                  {failedCount > 0 && (
+                    <div className="bg-red-50 px-6 py-4 border-b">
+                      <div className="flex items-center gap-2 mb-3">
+                        <Icon name="AlertCircle" size={18} className="text-red-600" />
+                        <span className="font-semibold text-red-900">Ошибки отправки ({failedCount}):</span>
+                      </div>
+                      {failedMessages.map(msg => (
+                        <div key={msg.id} className="bg-white rounded-lg p-3 mb-2 border border-red-200">
+                          <div className="flex items-start justify-between gap-3">
+                            <div className="flex-1">
+                              <div className="font-medium text-sm text-gray-900 mb-1">{msg.message_template?.replace(/_/g, ' ')}</div>
+                              <div className="text-xs text-red-600 mb-1">❌ {msg.error_message || 'Неизвестная ошибка'}</div>
+                              <div className="text-xs text-gray-500">Попытка: {formatDateShort(msg.scheduled_at)}</div>
+                            </div>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => onSendNow(msg.id)}
+                              disabled={loading}
+                              className="text-green-600 hover:bg-green-50 shrink-0"
+                            >
+                              <Icon name="RefreshCw" size={14} className="mr-1" />
+                              Переотправить
+                            </Button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
 
                   {nextPending && (
                     <div className="bg-yellow-50 px-6 py-4 border-b">
