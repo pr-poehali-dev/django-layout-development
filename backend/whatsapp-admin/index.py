@@ -197,16 +197,32 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         elif method == 'DELETE':
             if resource == 'queue':
                 queue_id = params.get('id')
+                phone = params.get('phone')
+                
+                if phone:
+                    cur.execute("DELETE FROM whatsapp_queue WHERE phone = %s AND status = 'pending'", (phone,))
+                    deleted_count = cur.rowcount
+                    conn.commit()
+                    
+                    cur.close()
+                    conn.close()
+                    
+                    return {
+                        'statusCode': 200,
+                        'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+                        'body': json.dumps({'success': True, 'deleted': deleted_count}),
+                        'isBase64Encoded': False
+                    }
                 
                 if not queue_id:
                     return {
                         'statusCode': 400,
                         'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
-                        'body': json.dumps({'error': 'id is required'}),
+                        'body': json.dumps({'error': 'id or phone is required'}),
                         'isBase64Encoded': False
                     }
                 
-                cur.execute("UPDATE whatsapp_queue SET status = 'cancelled' WHERE id = %s", (queue_id,))
+                cur.execute("DELETE FROM whatsapp_queue WHERE id = %s", (queue_id,))
                 conn.commit()
                 
                 cur.close()

@@ -128,6 +128,19 @@ export default function WhatsAppManager({ token }: WhatsAppManagerProps) {
     }
   };
 
+  const handleDeleteByPhone = async (phone: string) => {
+    setLoading(true);
+    try {
+      const result = await api.whatsapp.deleteQueueByPhone(phone, token);
+      alert(`✅ Удалено сообщений: ${result.deleted}`);
+      loadData();
+    } catch (error) {
+      alert('Ошибка при удалении сообщений');
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
 
   return (
@@ -176,6 +189,7 @@ export default function WhatsAppManager({ token }: WhatsAppManagerProps) {
             onSendNow={handleSendNow}
             onViewMessage={setSelectedMessage}
             onDelete={handleDeleteQueue}
+            onDeleteByPhone={handleDeleteByPhone}
           />
         </TabsContent>
 

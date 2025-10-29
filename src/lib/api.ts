@@ -517,6 +517,16 @@ export const api = {
         }
       });
       return response.json();
+    },
+    deleteQueueByPhone: async (phone: string, token: string) => {
+      const response = await fetch(`${API_URLS.whatsapp}?resource=queue&phone=${phone}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Auth-Token': token
+        }
+      });
+      return response.json();
     }
   }
 };
