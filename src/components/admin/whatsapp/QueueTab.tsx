@@ -51,44 +51,55 @@ export default function QueueTab({
     return b.lead_id - a.lead_id;
   });
 
+  const totalPending = queue.filter(m => m.status === 'pending').length;
+  const totalSent = queue.filter(m => m.status === 'sent').length;
+  const totalFailed = queue.filter(m => m.status === 'failed').length;
+
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap gap-2">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <Button
           variant={filter === 'all' ? 'default' : 'outline'}
-          size="sm"
+          size="lg"
           onClick={() => onFilterChange('all')}
-          className={filter === 'all' ? 'bg-gray-900' : ''}
+          className={`h-auto py-4 flex flex-col items-center gap-2 ${filter === 'all' ? 'bg-gray-900' : ''}`}
         >
-          <Icon name="Grid" size={14} className="mr-1" />
-          Все
+          <Icon name="Grid" size={24} />
+          <div className="text-sm font-medium">Все</div>
+          <div className="text-2xl font-bold">{queue.length}</div>
         </Button>
+        
         <Button
           variant={filter === 'pending' ? 'default' : 'outline'}
-          size="sm"
+          size="lg"
           onClick={() => onFilterChange('pending')}
-          className={filter === 'pending' ? 'bg-yellow-500 hover:bg-yellow-600' : ''}
+          className={`h-auto py-4 flex flex-col items-center gap-2 ${filter === 'pending' ? 'bg-yellow-500 hover:bg-yellow-600' : ''}`}
         >
-          <Icon name="Clock" size={14} className="mr-1" />
-          В очереди
+          <Icon name="Clock" size={24} />
+          <div className="text-sm font-medium">В очереди</div>
+          <div className="text-2xl font-bold">{totalPending}</div>
         </Button>
+        
         <Button
           variant={filter === 'sent' ? 'default' : 'outline'}
-          size="sm"
+          size="lg"
           onClick={() => onFilterChange('sent')}
-          className={filter === 'sent' ? 'bg-blue-500 hover:bg-blue-600' : ''}
+          className={`h-auto py-4 flex flex-col items-center gap-2 ${filter === 'sent' ? 'bg-green-500 hover:bg-green-600' : ''}`}
         >
-          <Icon name="CheckCircle2" size={14} className="mr-1" />
-          Отправлено
+          <Icon name="CheckCircle2" size={24} />
+          <div className="text-sm font-medium">Отправлено</div>
+          <div className="text-2xl font-bold">{totalSent}</div>
         </Button>
+        
         <Button
           variant={filter === 'failed' ? 'default' : 'outline'}
-          size="sm"
+          size="lg"
           onClick={() => onFilterChange('failed')}
-          className={filter === 'failed' ? 'bg-red-500 hover:bg-red-600' : ''}
+          className={`h-auto py-4 flex flex-col items-center gap-2 ${filter === 'failed' ? 'bg-red-500 hover:bg-red-600' : ''}`}
         >
-          <Icon name="XCircle" size={14} className="mr-1" />
-          Ошибки
+          <Icon name="XCircle" size={24} />
+          <div className="text-sm font-medium">Ошибки</div>
+          <div className="text-2xl font-bold">{totalFailed}</div>
         </Button>
       </div>
 
@@ -98,115 +109,135 @@ export default function QueueTab({
             <div className="p-4 bg-gray-100 rounded-full mb-4">
               <Icon name="Inbox" size={48} className="text-gray-400" />
             </div>
-            <p className="text-gray-500 text-lg font-medium">Нет сообщений в очереди</p>
-            <p className="text-gray-400 text-sm mt-1">Новые сообщения появятся здесь автоматически</p>
+            <p className="text-gray-500 text-lg font-medium">Нет сообщений</p>
+            <p className="text-gray-400 text-sm mt-1">Сообщения появятся автоматически после заявок</p>
           </CardContent>
         </Card>
       ) : (
-        <div className="space-y-6">
+        <div className="space-y-4">
           {groups.map((group) => {
             const courseInfo = getCourseInfo(group.course);
             const sortedMessages = group.messages.sort((a, b) => 
               new Date(a.scheduled_at).getTime() - new Date(b.scheduled_at).getTime()
             );
-            const pendingCount = sortedMessages.filter(m => m.status === 'pending').length;
+            const pendingMessages = sortedMessages.filter(m => m.status === 'pending');
+            const nextMessage = pendingMessages[0];
             
             return (
-              <Card key={`${group.phone}_${group.lead_id}`} className="border-2">
-                <CardContent className="p-6">
-                  <div className="mb-4 pb-4 border-b">
-                    <div className="flex items-center gap-3 flex-wrap mb-2">
-                      <Badge className={`${courseInfo.color} border-0 font-medium text-base`}>
-                        {courseInfo.emoji} {courseInfo.name}
+              <Card key={`${group.phone}_${group.lead_id}`} className="border-l-4" style={{borderLeftColor: courseInfo.borderColor}}>
+                <CardContent className="p-5">
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-2xl">{courseInfo.emoji}</span>
+                        <div>
+                          <div className="font-bold text-lg">{group.lead_name}</div>
+                          <div className="text-sm text-gray-500 font-mono">+{group.phone}</div>
+                        </div>
+                      </div>
+                      <Badge className={`${courseInfo.color} border-0`}>
+                        {courseInfo.name}
                       </Badge>
-                      {pendingCount > 0 && (
-                        <Badge className="bg-yellow-100 text-yellow-800 border-0">
-                          {pendingCount} в очереди
-                        </Badge>
-                      )}
                     </div>
-                    <div className="flex items-center gap-2 text-gray-700">
-                      <Icon name="User" size={18} className="text-gray-400" />
-                      <span className="font-semibold text-lg">{group.lead_name}</span>
-                      <span className="text-gray-400">•</span>
-                      <span className="font-mono text-gray-600">+{group.phone}</span>
+                    
+                    <div className="text-right">
+                      <div className="text-2xl font-bold mb-1">
+                        {sortedMessages.filter(m => m.status === 'sent').length}/{sortedMessages.length}
+                      </div>
+                      <div className="text-xs text-gray-500">отправлено</div>
                     </div>
                   </div>
 
-                  <div className="space-y-3">
+                  {nextMessage && (
+                    <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+                      <div className="flex items-start gap-3">
+                        <div className="p-2 bg-yellow-100 rounded-full">
+                          <Icon name="Clock" size={20} className="text-yellow-600" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="font-semibold text-sm text-yellow-900 mb-1">
+                            Следующее сообщение
+                          </div>
+                          <div className="text-sm text-gray-700 mb-2">
+                            {nextMessage.message_text}
+                          </div>
+                          <div className="flex items-center gap-4 text-xs text-gray-600">
+                            <div className="flex items-center gap-1">
+                              <Icon name="Calendar" size={12} />
+                              <span>{formatDate(nextMessage.scheduled_at)}</span>
+                            </div>
+                            <Badge variant="outline" className="text-xs">
+                              {nextMessage.message_template}
+                            </Badge>
+                          </div>
+                        </div>
+                        <Button
+                          size="sm"
+                          onClick={() => onSendNow(nextMessage.id)}
+                          disabled={loading}
+                          className="bg-green-600 hover:bg-green-700 shrink-0"
+                        >
+                          <Icon name="Send" size={14} className="mr-1" />
+                          Отправить сейчас
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="space-y-2">
+                    <div className="text-xs font-semibold text-gray-500 mb-2">
+                      ВСЕ СООБЩЕНИЯ ({sortedMessages.length}):
+                    </div>
                     {sortedMessages.map((item, idx) => (
                       <div 
                         key={item.id} 
-                        className={`p-4 rounded-lg border ${
-                          item.status === 'pending' ? 'bg-yellow-50 border-yellow-200' :
-                          item.status === 'sent' ? 'bg-green-50 border-green-200' :
-                          item.status === 'failed' ? 'bg-red-50 border-red-200' :
-                          'bg-gray-50 border-gray-200'
+                        className={`flex items-center gap-3 p-3 rounded-lg ${
+                          item.status === 'pending' ? 'bg-yellow-50' :
+                          item.status === 'sent' ? 'bg-green-50' :
+                          item.status === 'failed' ? 'bg-red-50' :
+                          'bg-gray-50'
                         }`}
                       >
-                        <div className="flex flex-col md:flex-row justify-between gap-3">
-                          <div className="flex-1 space-y-2">
-                            <div className="flex items-center gap-2">
-                              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-white text-xs font-bold">
-                                {idx + 1}
-                              </span>
-                              <StatusBadge status={item.status} />
-                              <span className="font-medium text-sm text-gray-900">{item.message_template}</span>
-                            </div>
-                            
-                            <div className="text-sm text-gray-600 line-clamp-2 ml-8">
-                              {item.message_text}
-                            </div>
-
-                            <div className="flex flex-wrap gap-4 text-xs text-gray-500 ml-8">
-                              <div className="flex items-center gap-1">
-                                <Icon name="Calendar" size={12} />
-                                <span>Запланировано: {formatDate(item.scheduled_at)}</span>
-                              </div>
-                              {item.sent_at && (
-                                <div className="flex items-center gap-1">
-                                  <Icon name="Send" size={12} />
-                                  <span>Отправлено: {formatDate(item.sent_at)}</span>
-                                </div>
-                              )}
-                            </div>
+                        <div className="flex items-center justify-center w-7 h-7 rounded-full bg-white border-2 border-gray-200 text-xs font-bold shrink-0">
+                          {idx + 1}
+                        </div>
+                        
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1">
+                            <StatusBadge status={item.status} />
+                            <span className="font-medium text-sm truncate">{item.message_template}</span>
                           </div>
+                          <div className="text-xs text-gray-600 flex items-center gap-3">
+                            <span>{formatDate(item.scheduled_at)}</span>
+                            {item.sent_at && (
+                              <span className="flex items-center gap-1">
+                                <Icon name="Check" size={12} className="text-green-600" />
+                                {formatDate(item.sent_at)}
+                              </span>
+                            )}
+                          </div>
+                        </div>
 
-                          <div className="flex gap-2 ml-8 md:ml-0">
+                        <div className="flex gap-1 shrink-0">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => onViewMessage(item)}
+                          >
+                            <Icon name="Eye" size={14} />
+                          </Button>
+                          {item.status === 'pending' && (
                             <Button
                               variant="outline"
                               size="sm"
-                              onClick={() => onViewMessage(item)}
+                              onClick={() => {
+                                if (confirm('Удалить?')) onDelete(item.id);
+                              }}
+                              className="text-red-600 hover:bg-red-50"
                             >
-                              <Icon name="Eye" size={14} />
+                              <Icon name="Trash2" size={14} />
                             </Button>
-                            {item.status === 'pending' && (
-                              <>
-                                <Button
-                                  variant="default"
-                                  size="sm"
-                                  onClick={() => onSendNow(item.id)}
-                                  disabled={loading}
-                                  className="bg-green-600 hover:bg-green-700"
-                                >
-                                  <Icon name="Send" size={14} />
-                                </Button>
-                                <Button
-                                  variant="outline"
-                                  size="sm"
-                                  onClick={() => {
-                                    if (confirm('Удалить это сообщение из очереди?')) {
-                                      onDelete(item.id);
-                                    }
-                                  }}
-                                  disabled={loading}
-                                  className="text-red-600 hover:text-red-700 hover:bg-red-50"
-                                >
-                                  <Icon name="Trash2" size={14} />
-                                </Button>
-                              </>
-                            )}
-                          </div>
+                          )}
                         </div>
                       </div>
                     ))}

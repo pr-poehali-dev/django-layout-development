@@ -20,10 +20,10 @@ export const formatDate = (dateString: string) => {
   });
 };
 
-export const getCourseInfo = (course: string) => {
-  const courses: Record<string, { emoji: string, name: string, color: string }> = {
-    acting: { emoji: '🎭', name: 'Актёрское мастерство', color: 'bg-purple-100 text-purple-700' },
-    oratory: { emoji: '🎤', name: 'Ораторское искусство', color: 'bg-blue-100 text-blue-700' }
+export const getCourseInfo = (course: string | null) => {
+  const courses: Record<string, { emoji: string, name: string, color: string, borderColor: string }> = {
+    acting: { emoji: '🎭', name: 'Актёрское мастерство', color: 'bg-purple-100 text-purple-700', borderColor: '#9333ea' },
+    oratory: { emoji: '🎤', name: 'Ораторское искусство', color: 'bg-blue-100 text-blue-700', borderColor: '#3b82f6' }
   };
-  return courses[course] || { emoji: '📚', name: 'Общее', color: 'bg-gray-100 text-gray-700' };
+  return courses[course || ''] || { emoji: '📚', name: 'Общее', color: 'bg-gray-100 text-gray-700', borderColor: '#6b7280' };
 };
