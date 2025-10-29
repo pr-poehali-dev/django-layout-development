@@ -13,6 +13,7 @@ interface QueueTabProps {
   onFilterChange: (filter: string) => void;
   onSendNow: (id: number) => void;
   onViewMessage: (item: QueueItem) => void;
+  onDelete: (id: number) => void;
 }
 
 export default function QueueTab({ 
@@ -21,7 +22,8 @@ export default function QueueTab({
   loading, 
   onFilterChange, 
   onSendNow, 
-  onViewMessage 
+  onViewMessage,
+  onDelete
 }: QueueTabProps) {
   return (
     <div className="space-y-4">
@@ -132,16 +134,32 @@ export default function QueueTab({
                         Просмотр
                       </Button>
                       {item.status === 'pending' && (
-                        <Button
-                          variant="default"
-                          size="sm"
-                          onClick={() => onSendNow(item.id)}
-                          disabled={loading}
-                          className="flex-1 md:flex-none bg-green-600 hover:bg-green-700"
-                        >
-                          <Icon name="Send" size={14} className="mr-1" />
-                          Отправить
-                        </Button>
+                        <>
+                          <Button
+                            variant="default"
+                            size="sm"
+                            onClick={() => onSendNow(item.id)}
+                            disabled={loading}
+                            className="flex-1 md:flex-none bg-green-600 hover:bg-green-700"
+                          >
+                            <Icon name="Send" size={14} className="mr-1" />
+                            Отправить
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => {
+                              if (confirm('Удалить это сообщение из очереди?')) {
+                                onDelete(item.id);
+                              }
+                            }}
+                            disabled={loading}
+                            className="flex-1 md:flex-none text-red-600 hover:text-red-700 hover:bg-red-50"
+                          >
+                            <Icon name="Trash2" size={14} className="mr-1" />
+                            Удалить
+                          </Button>
+                        </>
                       )}
                     </div>
                   </div>

@@ -115,6 +115,19 @@ export default function WhatsAppManager({ token }: WhatsAppManagerProps) {
     }
   };
 
+  const handleDeleteQueue = async (id: number) => {
+    setLoading(true);
+    try {
+      await api.whatsapp.deleteQueue(id, token);
+      alert('✅ Сообщение удалено из очереди');
+      loadData();
+    } catch (error) {
+      alert('Ошибка при удалении сообщения');
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
 
   return (
@@ -162,6 +175,7 @@ export default function WhatsAppManager({ token }: WhatsAppManagerProps) {
             onFilterChange={setFilter}
             onSendNow={handleSendNow}
             onViewMessage={setSelectedMessage}
+            onDelete={handleDeleteQueue}
           />
         </TabsContent>
 
