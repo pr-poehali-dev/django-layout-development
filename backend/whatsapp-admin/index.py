@@ -200,7 +200,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 phone = params.get('phone')
                 
                 if phone:
-                    cur.execute("DELETE FROM whatsapp_queue WHERE phone = %s AND status = 'pending'", (phone,))
+                    cur.execute("DELETE FROM whatsapp_queue WHERE phone = %s", (phone,))
                     deleted_count = cur.rowcount
                     conn.commit()
                     
