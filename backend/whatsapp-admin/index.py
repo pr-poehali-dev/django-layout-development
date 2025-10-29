@@ -3,6 +3,7 @@ import os
 from typing import Dict, Any
 import psycopg2
 from psycopg2.extras import RealDictCursor
+import urllib.request
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     '''
@@ -140,7 +141,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                     }
                 
                 cur.execute(
-                    "UPDATE whatsapp_queue SET scheduled_at = CURRENT_TIMESTAMP WHERE id = %s RETURNING *",
+                    "UPDATE whatsapp_queue SET scheduled_at = CURRENT_TIMESTAMP, status = 'pending' WHERE id = %s RETURNING *",
                     (queue_id,)
                 )
                 updated = cur.fetchone()
@@ -148,6 +149,15 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 
                 cur.close()
                 conn.close()
+                
+                sender_url = 'https://functions.poehali.dev/056bc93d-3039-4809-b29d-580752202bea'
+                try:
+                    req = urllib.request.Request(sender_url, method='GET')
+                    with urllib.request.urlopen(req, timeout=5) as response:
+                        send_result = json.loads(response.read().decode('utf-8'))
+                        print(f"Send triggered: {send_result}")
+                except Exception as e:
+                    print(f"Failed to trigger sender: {e}")
                 
                 return {
                     'statusCode': 200,
