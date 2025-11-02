@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 import { api } from '@/lib/api';
+import EditableContent from './EditableContent';
 
 export default function Footer() {
   const [phone, setPhone] = useState('+7 (999) 123-45-67');
@@ -29,13 +30,24 @@ export default function Footer() {
       <div className="container mx-auto px-4 py-8 md:py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
           <div className="md:col-span-2">
-            <h3 className="text-2xl font-bold text-primary mb-4">
-              Школа Казбека Меретукова
-            </h3>
-            <p className="text-muted-foreground mb-4">
-              Профессиональное обучение актерскому и ораторскому мастерству в Москве. 
-              Преодолейте страх сцены и камеры, станьте уверенным в себе и харизматичным.
-            </p>
+            <EditableContent
+              contentKey="footer_title"
+              defaultValue="Школа Казбека Меретукова"
+              type="text"
+              page="common"
+              section="footer"
+              as="h3"
+              className="text-2xl font-bold text-primary mb-4"
+            />
+            <EditableContent
+              contentKey="footer_description"
+              defaultValue="Профессиональное обучение актерскому и ораторскому мастерству в Москве. Преодолейте страх сцены и камеры, станьте уверенным в себе и харизматичным."
+              type="textarea"
+              page="common"
+              section="footer"
+              as="p"
+              className="text-muted-foreground mb-4"
+            />
             <div className="flex gap-4">
               <a href={instagram} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-muted flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition">
                 <Icon name="Instagram" size={20} />

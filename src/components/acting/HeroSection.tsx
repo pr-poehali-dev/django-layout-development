@@ -3,6 +3,7 @@ import Image from '@/components/ui/image';
 import PhoneForm from '@/components/PhoneForm';
 import { formatDate } from '@/lib/dates';
 import SeatsCounter from '@/components/ui/seats-counter';
+import EditableContent from '@/components/EditableContent';
 
 interface HeroSectionProps {
   content: Record<string, string>;
@@ -23,15 +24,33 @@ export default function HeroSection({ content }: HeroSectionProps) {
       </div>
       <div className="container mx-auto relative z-10">
         <div className="max-w-2xl">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6 leading-tight">
-            Станьте <span className="text-primary">звездой</span> своего кино
-          </h1>
-          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground mb-3 md:mb-4">
-            Запишитесь на <span className="text-primary font-semibold">пробное занятие</span> по актерскому мастерству
-          </p>
-          <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-6 md:mb-8">
-            Профессиональное обучение от режиссера Казбека Меретукова. Преодолейте страх камеры, обретите уверенность и снимите свое настоящее кино с прослушиванием!
-          </p>
+          <EditableContent
+            contentKey="acting_hero_title"
+            defaultValue="Станьте звездой своего кино"
+            type="text"
+            page="acting"
+            section="hero"
+            as="h1"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6 leading-tight"
+          />
+          <EditableContent
+            contentKey="acting_hero_subtitle"
+            defaultValue="Запишитесь на пробное занятие по актерскому мастерству"
+            type="text"
+            page="acting"
+            section="hero"
+            as="p"
+            className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground mb-3 md:mb-4"
+          />
+          <EditableContent
+            contentKey="acting_hero_description"
+            defaultValue="Профессиональное обучение от режиссера Казбека Меретукова. Преодолейте страх камеры, обретите уверенность и снимите свое настоящее кино с прослушиванием!"
+            type="textarea"
+            page="acting"
+            section="hero"
+            as="p"
+            className="text-sm sm:text-base md:text-lg text-muted-foreground mb-6 md:mb-8"
+          />
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-6 md:mb-8">
             <div className="flex items-center gap-2 bg-card/80 backdrop-blur-sm px-3 py-2 rounded-lg text-sm md:text-base">
               <Icon name="Calendar" className="text-primary flex-shrink-0" size={18} />

@@ -91,7 +91,7 @@ def generate_sitemap() -> Dict[str, Any]:
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     '''
-    Business: Manage site content (videos, dates, bios, modules) + generate sitemap
+    Business: Manage editable site content + generate sitemap
     Args: event with httpMethod, body, queryStringParameters
     Returns: HTTP response with content data or sitemap XML
     '''
@@ -106,7 +106,8 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 'Access-Control-Allow-Headers': 'Content-Type, X-Auth-Token',
                 'Access-Control-Max-Age': '86400'
             },
-            'body': ''
+            'body': '',
+            'isBase64Encoded': False
         }
     
     try:
@@ -120,14 +121,20 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         
         if method == 'GET':
             key = params.get('key') if params else None
+            page = params.get('page') if params else None
             
             if key:
                 escaped_key = key.replace("'", "''")
-                cur.execute(f"SELECT * FROM site_content WHERE key = '{escaped_key}'")
+                cur.execute(f"SELECT * FROM editable_content WHERE content_key = '{escaped_key}'")
                 content = cur.fetchone()
                 result = dict(content) if content else None
+            elif page:
+                escaped_page = page.replace("'", "''")
+                cur.execute(f"SELECT * FROM editable_content WHERE page = '{escaped_page}' ORDER BY content_key")
+                content = cur.fetchall()
+                result = [dict(row) for row in content]
             else:
-                cur.execute("SELECT * FROM site_content ORDER BY key")
+                cur.execute("SELECT * FROM editable_content ORDER BY page, content_key")
                 content = cur.fetchall()
                 result = [dict(row) for row in content]
             
@@ -137,30 +144,46 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             return {
                 'statusCode': 200,
                 'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
-                'body': json.dumps(result, default=str)
+                'body': json.dumps(result, default=str),
+                'isBase64Encoded': False
             }
         
         elif method == 'PUT':
             body_data = json.loads(event.get('body', '{}'))
-            key = body_data.get('key')
-            value = body_data.get('value')
+            content_key = body_data.get('content_key')
+            content_value = body_data.get('content_value')
+            content_type = body_data.get('content_type', 'text')
+            page = body_data.get('page')
+            section = body_data.get('section')
             
-            if not key:
+            if not content_key or content_value is None:
                 return {
                     'statusCode': 400,
                     'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
-                    'body': json.dumps({'error': 'Key is required'})
+                    'body': json.dumps({'error': 'content_key and content_value are required'}),
+                    'isBase64Encoded': False
                 }
             
-            escaped_key = key.replace("'", "''")
-            escaped_value = value.replace("'", "''") if value else ''
+            escaped_key = content_key.replace("'", "''")
+            escaped_value = str(content_value).replace("'", "''") if content_value else ''
+            escaped_type = content_type.replace("'", "''")
+            escaped_page = page.replace("'", "''") if page else None
+            escaped_section = section.replace("'", "''") if section else None
+            
+            page_val = f"'{escaped_page}'" if escaped_page else 'NULL'
+            section_val = f"'{escaped_section}'" if escaped_section else 'NULL'
             
             cur.execute(
                 f"""
-                INSERT INTO site_content (key, value, updated_at)
-                VALUES ('{escaped_key}', '{escaped_value}', CURRENT_TIMESTAMP)
-                ON CONFLICT (key)
-                DO UPDATE SET value = EXCLUDED.value, updated_at = CURRENT_TIMESTAMP
+                INSERT INTO editable_content (content_key, content_type, content_value, page, section, updated_at)
+                VALUES ('{escaped_key}', '{escaped_type}', '{escaped_value}', {page_val}, {section_val}, CURRENT_TIMESTAMP)
+                ON CONFLICT (content_key)
+                DO UPDATE SET 
+                    content_value = EXCLUDED.content_value, 
+                    content_type = EXCLUDED.content_type,
+                    page = EXCLUDED.page,
+                    section = EXCLUDED.section,
+                    updated_at = CURRENT_TIMESTAMP
                 RETURNING *
                 """
             )
@@ -172,7 +195,8 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             return {
                 'statusCode': 200,
                 'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
-                'body': json.dumps(dict(updated), default=str)
+                'body': json.dumps(dict(updated), default=str),
+                'isBase64Encoded': False
             }
         
         cur.close()
@@ -182,11 +206,13 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         return {
             'statusCode': 500,
             'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
-            'body': json.dumps({'error': str(e)})
+            'body': json.dumps({'error': str(e)}),
+            'isBase64Encoded': False
         }
     
     return {
         'statusCode': 405,
         'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
-        'body': json.dumps({'error': 'Method not allowed'})
+        'body': json.dumps({'error': 'Method not allowed'}),
+        'isBase64Encoded': False
     }

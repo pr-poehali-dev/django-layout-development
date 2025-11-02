@@ -1,6 +1,7 @@
 import Icon from '@/components/ui/icon';
 import Image from '@/components/ui/image';
 import { TeamMember } from '@/lib/api';
+import EditableContent from '@/components/EditableContent';
 
 interface AboutSectionProps {
   content: Record<string, string>;
@@ -48,21 +49,39 @@ export default function AboutSection({ content, team }: AboutSectionProps) {
           
           <div className="space-y-6">
             <div>
-              <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-                {kazbekName}
-              </h3>
+              <EditableContent
+                contentKey="acting_about_name"
+                defaultValue={kazbekName}
+                type="text"
+                page="acting"
+                section="about"
+                as="h3"
+                className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent"
+              />
               <div className="h-1 w-20 bg-gradient-to-r from-primary to-primary/50 rounded-full"></div>
             </div>
             
             <div className="space-y-6">
               {kazbekInfo.map((item, index) => (
                 <div key={index} className="space-y-2">
-                  <h4 className="text-lg md:text-xl font-semibold text-primary">
-                    {item.title}
-                  </h4>
-                  <p className="text-base leading-relaxed text-foreground/90">
-                    {item.text}
-                  </p>
+                  <EditableContent
+                    contentKey={`acting_about_title_${index}`}
+                    defaultValue={item.title}
+                    type="text"
+                    page="acting"
+                    section="about"
+                    as="h4"
+                    className="text-lg md:text-xl font-semibold text-primary"
+                  />
+                  <EditableContent
+                    contentKey={`acting_about_text_${index}`}
+                    defaultValue={item.text}
+                    type="textarea"
+                    page="acting"
+                    section="about"
+                    as="p"
+                    className="text-base leading-relaxed text-foreground/90"
+                  />
                 </div>
               ))}
             </div>

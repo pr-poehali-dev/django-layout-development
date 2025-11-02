@@ -9,12 +9,14 @@
       "name": "Update content value",
       "method": "PUT",
       "body": {
-        "key": "test_key",
-        "value": "test_value"
+        "content_key": "test_key",
+        "content_value": "test_value",
+        "content_type": "text",
+        "page": "home"
       },
       "expectedStatus": 200,
       "expectedBody": {
-        "key": "test_key"
+        "content_key": "test_key"
       },
       "bodyMatcher": "partial"
     }
