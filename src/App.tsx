@@ -20,6 +20,7 @@ import SitemapPage from "./pages/SitemapPage";
 import NotFound from "./pages/NotFound";
 import { saveUTMToStorage } from "./lib/utm";
 import ScrollToTop from "./components/ScrollToTop";
+import { AuthProvider } from "./contexts/AuthContext";
 
 const queryClient = new QueryClient();
 
@@ -31,26 +32,28 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <ScrollToTop />
-          <Routes>
-            <Route path="/" element={<ActingPage />} />
-            <Route path="/oratory" element={<OratoryPage />} />
-            <Route path="/showreel" element={<ActingShowreelPage />} />
-            <Route path="/team" element={<TeamPage />} />
-            <Route path="/teacher" element={<TeacherPage />} />
-            <Route path="/reviews" element={<ReviewsPage />} />
-            <Route path="/blog" element={<BlogPage />} />
-            <Route path="/blog/:slug" element={<BlogPostPage />} />
-            <Route path="/contacts" element={<ContactsPage />} />
-            <Route path="/sitemap.xml" element={<SitemapPage />} />
-            <Route path="/metrika-goal" element={<MetrikaGoalPage />} />
-            <Route path="/admin" element={<AdminPage />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+        <AuthProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <ScrollToTop />
+            <Routes>
+              <Route path="/" element={<ActingPage />} />
+              <Route path="/oratory" element={<OratoryPage />} />
+              <Route path="/showreel" element={<ActingShowreelPage />} />
+              <Route path="/team" element={<TeamPage />} />
+              <Route path="/teacher" element={<TeacherPage />} />
+              <Route path="/reviews" element={<ReviewsPage />} />
+              <Route path="/blog" element={<BlogPage />} />
+              <Route path="/blog/:slug" element={<BlogPostPage />} />
+              <Route path="/contacts" element={<ContactsPage />} />
+              <Route path="/sitemap.xml" element={<SitemapPage />} />
+              <Route path="/metrika-goal" element={<MetrikaGoalPage />} />
+              <Route path="/admin" element={<AdminPage />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </AuthProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );
