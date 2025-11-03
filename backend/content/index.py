@@ -134,7 +134,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 content = cur.fetchall()
                 result = [dict(row) for row in content]
             else:
-                cur.execute("SELECT id, content_key as key, content_value as value, updated_at FROM editable_content ORDER BY page, content_key")
+                cur.execute("SELECT id, key, value, updated_at FROM site_content ORDER BY key")
                 content = cur.fetchall()
                 result = [dict(row) for row in content]
             
@@ -150,11 +150,8 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         
         elif method == 'PUT':
             body_data = json.loads(event.get('body', '{}'))
-            content_key = body_data.get('content_key') or body_data.get('key')
-            content_value = body_data.get('content_value') or body_data.get('value')
-            content_type = body_data.get('content_type', 'text')
-            page = body_data.get('page')
-            section = body_data.get('section')
+            content_key = body_data.get('key')
+            content_value = body_data.get('value')
             
             if not content_key or content_value is None:
                 return {
@@ -166,23 +163,14 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             
             escaped_key = content_key.replace("'", "''")
             escaped_value = str(content_value).replace("'", "''") if content_value else ''
-            escaped_type = content_type.replace("'", "''")
-            escaped_page = page.replace("'", "''") if page else None
-            escaped_section = section.replace("'", "''") if section else None
-            
-            page_val = f"'{escaped_page}'" if escaped_page else 'NULL'
-            section_val = f"'{escaped_section}'" if escaped_section else 'NULL'
             
             cur.execute(
                 f"""
-                INSERT INTO editable_content (content_key, content_type, content_value, page, section, updated_at)
-                VALUES ('{escaped_key}', '{escaped_type}', '{escaped_value}', {page_val}, {section_val}, CURRENT_TIMESTAMP)
-                ON CONFLICT (content_key)
+                INSERT INTO site_content (key, value, updated_at)
+                VALUES ('{escaped_key}', '{escaped_value}', CURRENT_TIMESTAMP)
+                ON CONFLICT (key)
                 DO UPDATE SET 
-                    content_value = EXCLUDED.content_value, 
-                    content_type = EXCLUDED.content_type,
-                    page = EXCLUDED.page,
-                    section = EXCLUDED.section,
+                    value = EXCLUDED.value, 
                     updated_at = CURRENT_TIMESTAMP
                 RETURNING *
                 """
