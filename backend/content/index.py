@@ -134,7 +134,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 content = cur.fetchall()
                 result = [dict(row) for row in content]
             else:
-                cur.execute("SELECT * FROM editable_content ORDER BY page, content_key")
+                cur.execute("SELECT id, content_key as key, content_value as value, updated_at FROM editable_content ORDER BY page, content_key")
                 content = cur.fetchall()
                 result = [dict(row) for row in content]
             
@@ -150,8 +150,8 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         
         elif method == 'PUT':
             body_data = json.loads(event.get('body', '{}'))
-            content_key = body_data.get('content_key')
-            content_value = body_data.get('content_value')
+            content_key = body_data.get('content_key') or body_data.get('key')
+            content_value = body_data.get('content_value') or body_data.get('value')
             content_type = body_data.get('content_type', 'text')
             page = body_data.get('page')
             section = body_data.get('section')
@@ -160,7 +160,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 return {
                     'statusCode': 400,
                     'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
-                    'body': json.dumps({'error': 'content_key and content_value are required'}),
+                    'body': json.dumps({'error': 'key and value are required'}),
                     'isBase64Encoded': False
                 }
             
