@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useContent } from '@/contexts/ContentContext';
 import Icon from '@/components/ui/icon';
 
 interface EditableContentProps {
@@ -24,16 +25,13 @@ export default function EditableContent({
   placeholder = 'Нажмите для редактирования'
 }: EditableContentProps) {
   const { isAuthenticated } = useAuth();
-  const [content, setContent] = useState(defaultValue);
+  const { getContent, updateContent, isLoading: globalLoading } = useContent();
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    loadContent();
-  }, [contentKey]);
+  const content = getContent(contentKey, defaultValue);
 
   useEffect(() => {
     if (isEditing && type === 'textarea' && textareaRef.current) {
@@ -43,26 +41,6 @@ export default function EditableContent({
       inputRef.current.focus();
     }
   }, [isEditing, type]);
-
-  const loadContent = async () => {
-    try {
-      setIsLoading(true);
-      const response = await fetch(
-        `https://functions.poehali.dev/61658db6-95ff-425a-9741-d83782aae247?key=${encodeURIComponent(contentKey)}`
-      );
-      
-      if (response.ok) {
-        const data = await response.json();
-        if (data && data.content_value) {
-          setContent(data.content_value);
-        }
-      }
-    } catch (error) {
-      console.error('Failed to load content:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const saveContent = async (newValue: string) => {
     if (!isAuthenticated) return;
@@ -75,11 +53,8 @@ export default function EditableContent({
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            content_key: contentKey,
-            content_value: newValue,
-            content_type: type,
-            page,
-            section
+            key: contentKey,
+            value: newValue
           })
         }
       );
@@ -88,7 +63,7 @@ export default function EditableContent({
         throw new Error('Failed to save');
       }
 
-      setContent(newValue);
+      updateContent(contentKey, newValue);
     } catch (error) {
       console.error('Failed to save content:', error);
       alert('Не удалось сохранить изменения');
@@ -129,10 +104,10 @@ export default function EditableContent({
   };
 
   if (!isAuthenticated) {
-    if (isLoading) {
+    if (globalLoading) {
       return <Component className={className}>{defaultValue}</Component>;
     }
-    return <Component className={className}>{content || defaultValue}</Component>;
+    return <Component className={className}>{content}</Component>;
   }
 
   if (isEditing) {
@@ -141,7 +116,7 @@ export default function EditableContent({
         {type === 'textarea' ? (
           <textarea
             ref={textareaRef}
-            defaultValue={content || defaultValue}
+            defaultValue={content}
             className={`${className} w-full resize-none border-2 border-blue-500 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-400`}
             onKeyDown={handleKeyDown}
             onInput={adjustTextareaHeight}
@@ -151,7 +126,7 @@ export default function EditableContent({
           <input
             ref={inputRef}
             type="text"
-            defaultValue={content || defaultValue}
+            defaultValue={content}
             className={`${className} w-full border-2 border-blue-500 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-400`}
             onKeyDown={handleKeyDown}
             placeholder={placeholder}
@@ -185,11 +160,11 @@ export default function EditableContent({
 
   return (
     <Component
-      className={`${className} ${isLoading ? 'opacity-50' : ''} relative group cursor-pointer hover:outline hover:outline-2 hover:outline-blue-400 hover:outline-dashed rounded transition-all`}
+      className={`${className} ${globalLoading ? 'opacity-50' : ''} relative group cursor-pointer hover:outline hover:outline-2 hover:outline-blue-400 hover:outline-dashed rounded transition-all`}
       onClick={() => setIsEditing(true)}
       title="Нажмите для редактирования"
     >
-      {content || defaultValue}
+      {content}
       <span className="absolute -top-6 left-0 opacity-0 group-hover:opacity-100 transition-opacity bg-blue-600 text-white text-xs px-2 py-1 rounded pointer-events-none whitespace-nowrap">
         <Icon name="Pencil" size={12} className="inline mr-1" />
         Редактировать
