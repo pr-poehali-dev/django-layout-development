@@ -23,17 +23,26 @@ export default function ReviewsSection({ reviews }: ReviewsSectionProps) {
             <div className="overflow-hidden" ref={emblaRef}>
               <div className="flex gap-4 md:gap-6">
                 {reviews.map((review) => (
-                  <div key={review.id} className="flex-[0_0_100%] md:flex-[0_0_calc(50%-12px)] lg:flex-[0_0_calc(33.333%-16px)] min-w-0">
+                  <div 
+                    key={review.id} 
+                    className="flex-[0_0_100%] md:flex-[0_0_calc(50%-12px)] lg:flex-[0_0_calc(33.333%-16px)] min-w-0"
+                    itemScope 
+                    itemType="https://schema.org/Review"
+                  >
                     <Card className="h-full bg-card/80 backdrop-blur-sm border-primary/10 hover:border-primary/30 transition">
                       <CardHeader>
                         <div className="mb-4">
                           <div className="flex items-center justify-between mb-3">
-                            <CardTitle className="text-lg">{review.name}</CardTitle>
+                            <CardTitle className="text-lg" itemProp="author" itemScope itemType="https://schema.org/Person">
+                              <span itemProp="name">{review.name}</span>
+                            </CardTitle>
                             <div className="bg-primary/10 rounded-full p-2">
                               <Icon name="Quote" className="text-primary" size={16} />
                             </div>
                           </div>
-                          <div className="flex gap-0.5">
+                          <div className="flex gap-0.5" itemProp="reviewRating" itemScope itemType="https://schema.org/Rating">
+                            <meta itemProp="ratingValue" content={review.rating.toString()} />
+                            <meta itemProp="bestRating" content="5" />
                             {Array.from({ length: review.rating }).map((_, i) => (
                               <Icon key={i} name="Star" size={14} className="text-primary fill-primary" />
                             ))}
@@ -41,8 +50,9 @@ export default function ReviewsSection({ reviews }: ReviewsSectionProps) {
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <p className="text-muted-foreground text-sm leading-relaxed italic">"{review.text}"</p>
+                        <p className="text-muted-foreground text-sm leading-relaxed italic" itemProp="reviewBody">"{review.text}"</p>
                       </CardContent>
+                      <meta itemProp="itemReviewed" itemScope itemType="https://schema.org/Course" content="Курсы актёрского мастерства" />
                     </Card>
                   </div>
                 ))}

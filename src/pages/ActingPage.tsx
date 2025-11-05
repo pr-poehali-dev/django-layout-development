@@ -93,7 +93,7 @@ export default function ActingPage() {
       <SchemaMarkup 
         type="reviews" 
         reviews={reviews.map(r => ({
-          author: r.author,
+          author: r.name,
           rating: r.rating || 5,
           text: r.text
         }))}
