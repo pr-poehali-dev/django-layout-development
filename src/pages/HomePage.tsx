@@ -133,10 +133,10 @@ export default function HomePage() {
         <section className="py-24">
           <div className="container mx-auto px-4">
             <div className="max-w-7xl mx-auto">
-              <div className="grid lg:grid-cols-2 gap-12 items-start">
-                <div className="relative rounded-3xl overflow-hidden shadow-2xl h-full min-h-[600px] bg-muted">
+              <div className="grid lg:grid-cols-2 gap-12">
+                <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[9/16] lg:aspect-auto lg:h-auto">
                   <iframe
-                    className="absolute inset-0 w-full h-full"
+                    className="w-full h-full min-h-[700px]"
                     src="https://www.youtube.com/embed/dQw4w9WgXcQ"
                     title="Курс актёрского мастерства"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -144,14 +144,14 @@ export default function HomePage() {
                   />
                 </div>
 
-                <div>
+                <div className="flex flex-col">
                   <h2 className="text-4xl md:text-5xl font-bold mb-6">Актёрское мастерство</h2>
                   <p className="text-lg text-muted-foreground mb-10">
                     Профессиональный курс для тех, кто хочет работать в кино. 
                     5 модулей от основ до съёмки собственного фильма.
                   </p>
 
-                  <div className="space-y-6 mb-10">
+                  <div className="space-y-6 mb-10 flex-1">
                     <div className="p-6 bg-card rounded-2xl border-2 hover:border-primary/50 transition-all">
                       <h3 className="font-bold text-xl mb-3">Работа с текстом и ролью</h3>
                       <p className="text-muted-foreground leading-relaxed">
