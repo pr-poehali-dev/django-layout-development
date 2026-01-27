@@ -136,142 +136,113 @@ export default function HomePage() {
         </section>
 
         {/* Courses Section */}
-        <section className="py-20 bg-background">
+        <section className="py-20 bg-gradient-to-b from-background to-muted/20">
           <div className="container mx-auto px-4">
-            <div className="max-w-7xl mx-auto space-y-20">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">Наши курсы</h2>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Выберите направление и начните развивать свои таланты уже сегодня
+              </p>
+            </div>
+
+            <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8">
               
-              {/* Acting Course */}
-              <div className="relative">
-                <h2 className="text-3xl md:text-4xl font-bold mb-12">Актёрское мастерство</h2>
-                <div className="grid lg:grid-cols-3 gap-6">
-                  {/* Review Card */}
-                  <div className="lg:col-span-1 bg-card rounded-2xl p-6 shadow-lg space-y-4">
-                    <div className="flex items-start gap-3">
-                      <div className="w-12 h-12 rounded-full bg-muted flex-shrink-0"></div>
-                      <div>
-                        <h3 className="font-bold">Мария Иванова</h3>
-                        <p className="text-sm text-muted-foreground">Актриса театра</p>
-                      </div>
+              {/* Acting Course Card */}
+              <div 
+                className="group relative bg-card rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer"
+                onClick={() => navigate('/acting')}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                <div className="relative p-8 space-y-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3 px-4 py-2 bg-primary/10 rounded-full">
+                      <Icon name="Drama" size={20} className="text-primary" />
+                      <span className="font-semibold text-primary">Актёрское мастерство</span>
                     </div>
-                    <div className="flex gap-1">
-                      {[...Array(5)].map((_, i) => (
-                        <Icon key={i} name="Star" size={16} className="text-primary fill-primary" />
-                      ))}
-                    </div>
-                    <h4 className="font-semibold">Невероятный опыт обучения</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      Благодаря Казбеку я смогла раскрыть свой актёрский потенциал. 
-                      Профессиональный подход, индивидуальные занятия и работа на камеру 
-                      помогли мне получить первые роли в театре и кино.
-                    </p>
+                    <Icon name="ArrowRight" size={24} className="text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
                   </div>
 
-                  {/* Video Previews */}
-                  <div className="lg:col-span-2 grid md:grid-cols-2 gap-6">
-                    <div className="relative group cursor-pointer" onClick={() => navigate('/acting')}>
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-2xl"></div>
-                      <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-muted flex items-center justify-center">
-                        <Icon name="Image" size={48} className="text-muted-foreground" />
-                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                          <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center">
-                            <Icon name="Play" size={32} className="text-primary-foreground ml-1" />
-                          </div>
-                        </div>
-                      </div>
-                      <p className="mt-3 text-sm font-medium text-center">Съёмки короткометражки</p>
-                    </div>
+                  <h3 className="text-3xl font-bold">Раскройте актёрский талант</h3>
+                  
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    Профессиональная работа на камеру, съёмка короткометражки и актёрские техники от режиссёра телесериалов
+                  </p>
 
-                    <div className="relative group cursor-pointer" onClick={() => navigate('/acting')}>
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-2xl"></div>
-                      <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-muted flex items-center justify-center">
-                        <Icon name="Play" size={48} className="text-muted-foreground" />
-                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                          <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center">
-                            <Icon name="Play" size={32} className="text-primary-foreground ml-1" />
-                          </div>
-                        </div>
+                  <div className="space-y-3 pt-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Icon name="Video" size={18} className="text-primary" />
                       </div>
-                      <p className="mt-3 text-sm font-medium text-center">Работа с эмоциями на камеру</p>
+                      <span className="font-medium">Работа на камеру</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Icon name="Film" size={18} className="text-primary" />
+                      </div>
+                      <span className="font-medium">Съёмка короткометражки</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Icon name="Award" size={18} className="text-primary" />
+                      </div>
+                      <span className="font-medium">Система Станиславского</span>
                     </div>
                   </div>
-                </div>
 
-                <div className="mt-6 flex justify-end">
-                  <Button 
-                    variant="outline"
-                    className="gap-2"
-                    onClick={() => navigate('/acting')}
-                  >
-                    Смотреть все курсы
-                    <Icon name="ArrowRight" size={16} />
+                  <Button size="lg" className="w-full mt-6 text-lg">
+                    Узнать больше
+                    <Icon name="ArrowRight" size={20} className="ml-2" />
                   </Button>
                 </div>
               </div>
 
-              {/* Oratory Course */}
-              <div className="relative">
-                <h2 className="text-3xl md:text-4xl font-bold mb-12">Ораторское искусство</h2>
-                <div className="grid lg:grid-cols-3 gap-6">
-                  {/* Review Card */}
-                  <div className="lg:col-span-1 bg-card rounded-2xl p-6 shadow-lg space-y-4">
-                    <div className="flex items-start gap-3">
-                      <div className="w-12 h-12 rounded-full bg-muted flex-shrink-0"></div>
-                      <div>
-                        <h3 className="font-bold">Александр Петров</h3>
-                        <p className="text-sm text-muted-foreground">Бизнес-тренер</p>
-                      </div>
+              {/* Oratory Course Card */}
+              <div 
+                className="group relative bg-card rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer"
+                onClick={() => navigate('/oratory')}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                <div className="relative p-8 space-y-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3 px-4 py-2 bg-primary/10 rounded-full">
+                      <Icon name="Mic2" size={20} className="text-primary" />
+                      <span className="font-semibold text-primary">Ораторское искусство</span>
                     </div>
-                    <div className="flex gap-1">
-                      {[...Array(5)].map((_, i) => (
-                        <Icon key={i} name="Star" size={16} className="text-primary fill-primary" />
-                      ))}
-                    </div>
-                    <h4 className="font-semibold">Прорыв в публичных выступлениях</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      После обучения я полностью избавился от страха сцены. Теперь провожу 
-                      тренинги для больших аудиторий, уверенно выступаю на конференциях. 
-                      Техники работы с голосом и управления вниманием бесценны!
-                    </p>
+                    <Icon name="ArrowRight" size={24} className="text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
                   </div>
 
-                  {/* Video Previews */}
-                  <div className="lg:col-span-2 grid md:grid-cols-2 gap-6">
-                    <div className="relative group cursor-pointer" onClick={() => navigate('/oratory')}>
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-2xl"></div>
-                      <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-muted flex items-center justify-center">
-                        <Icon name="Mic2" size={48} className="text-muted-foreground" />
-                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                          <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center">
-                            <Icon name="Play" size={32} className="text-primary-foreground ml-1" />
-                          </div>
-                        </div>
-                      </div>
-                      <p className="mt-3 text-sm font-medium text-center">Техники работы с голосом</p>
-                    </div>
+                  <h3 className="text-3xl font-bold">Овладейте силой слова</h3>
+                  
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    Уверенные публичные выступления, техники речи и работа с аудиторией для достижения ваших целей
+                  </p>
 
-                    <div className="relative group cursor-pointer" onClick={() => navigate('/oratory')}>
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-2xl"></div>
-                      <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-muted flex items-center justify-center">
-                        <Icon name="Users" size={48} className="text-muted-foreground" />
-                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                          <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center">
-                            <Icon name="Play" size={32} className="text-primary-foreground ml-1" />
-                          </div>
-                        </div>
+                  <div className="space-y-3 pt-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Icon name="MessageSquare" size={18} className="text-primary" />
                       </div>
-                      <p className="mt-3 text-sm font-medium text-center">Работа с большой аудиторией</p>
+                      <span className="font-medium">Техники речи</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Icon name="Users" size={18} className="text-primary" />
+                      </div>
+                      <span className="font-medium">Работа с аудиторией</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Icon name="Zap" size={18} className="text-primary" />
+                      </div>
+                      <span className="font-medium">Уверенность в себе</span>
                     </div>
                   </div>
-                </div>
 
-                <div className="mt-6 flex justify-end">
-                  <Button 
-                    variant="outline"
-                    className="gap-2"
-                    onClick={() => navigate('/oratory')}
-                  >
-                    Смотреть все курсы
-                    <Icon name="ArrowRight" size={16} />
+                  <Button size="lg" className="w-full mt-6 text-lg">
+                    Узнать больше
+                    <Icon name="ArrowRight" size={20} className="ml-2" />
                   </Button>
                 </div>
               </div>
