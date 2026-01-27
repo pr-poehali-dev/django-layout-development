@@ -135,86 +135,137 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Courses Preview */}
-        <section className="py-24 bg-gradient-to-br from-background via-muted/20 to-background">
+        {/* Courses Section */}
+        <section className="py-20 bg-background">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4">Наши направления</h2>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Выберите курс, который поможет раскрыть ваш потенциал
-              </p>
-            </div>
-            
-            <div className="max-w-7xl mx-auto space-y-24">
+            <div className="max-w-7xl mx-auto space-y-32">
+              
               {/* Acting Course */}
-              <div className="grid lg:grid-cols-5 gap-8 items-center">
-                <div className="lg:col-span-3 rounded-3xl overflow-hidden shadow-2xl border border-primary/20 bg-card">
-                  <VideoEmbed 
-                    contentKey="home_acting_video"
-                    defaultVideoUrl="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                    title="Актёрское мастерство"
-                  />
-                </div>
-                <div className="lg:col-span-2 space-y-6">
-                  <div className="inline-block px-4 py-2 bg-primary/10 rounded-full text-primary font-semibold text-sm mb-2">
-                    🎬 Актёрское мастерство
+              <div className="relative">
+                <div className="grid lg:grid-cols-2 gap-12 items-center">
+                  {/* Video */}
+                  <div className="relative group">
+                    <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-primary/10 rounded-3xl blur-2xl group-hover:blur-3xl transition-all duration-500 opacity-50"></div>
+                    <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-video">
+                      <VideoEmbed 
+                        contentKey="home_acting_video"
+                        defaultVideoUrl="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                        title="Актёрское мастерство"
+                      />
+                    </div>
                   </div>
-                  <h3 className="text-3xl font-bold">Раскройте актёрский талант</h3>
-                  <EditableContent
-                    contentKey="home_acting_short_desc"
-                    defaultValue="Профессиональная работа на камеру, съёмка короткометражки и актёрские техники от режиссёра телесериалов"
-                    type="textarea"
-                    page="home"
-                    section="acting"
-                    as="p"
-                    className="text-muted-foreground text-lg leading-relaxed"
-                  />
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 bg-primary/5 rounded-full text-sm">Работа на камеру</span>
-                    <span className="px-3 py-1 bg-primary/5 rounded-full text-sm">Короткометражка</span>
-                    <span className="px-3 py-1 bg-primary/5 rounded-full text-sm">Система Станиславского</span>
+
+                  {/* Content */}
+                  <div className="space-y-8">
+                    <div className="space-y-4">
+                      <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary font-medium text-sm">
+                        <Icon name="Drama" size={16} />
+                        Актёрское мастерство
+                      </div>
+                      <h2 className="text-4xl lg:text-5xl font-bold leading-tight">
+                        Раскройте актёрский талант
+                      </h2>
+                      <EditableContent
+                        contentKey="home_acting_short_desc"
+                        defaultValue="Профессиональная работа на камеру, съёмка короткометражки и актёрские техники от режиссёра телесериалов"
+                        type="textarea"
+                        page="home"
+                        section="acting"
+                        as="p"
+                        className="text-xl text-muted-foreground leading-relaxed"
+                      />
+                    </div>
+
+                    <div className="flex flex-wrap gap-3">
+                      <div className="flex items-center gap-2 px-4 py-2 bg-muted/50 rounded-lg">
+                        <Icon name="Video" size={18} className="text-primary" />
+                        <span className="text-sm font-medium">Работа на камеру</span>
+                      </div>
+                      <div className="flex items-center gap-2 px-4 py-2 bg-muted/50 rounded-lg">
+                        <Icon name="Film" size={18} className="text-primary" />
+                        <span className="text-sm font-medium">Короткометражка</span>
+                      </div>
+                      <div className="flex items-center gap-2 px-4 py-2 bg-muted/50 rounded-lg">
+                        <Icon name="Award" size={18} className="text-primary" />
+                        <span className="text-sm font-medium">Система Станиславского</span>
+                      </div>
+                    </div>
+
+                    <Button 
+                      size="lg" 
+                      className="text-lg h-14 px-8"
+                      onClick={() => navigate('/acting')}
+                    >
+                      Узнать больше
+                      <Icon name="ArrowRight" size={20} className="ml-2" />
+                    </Button>
                   </div>
-                  <Button size="lg" className="w-full sm:w-auto" onClick={() => navigate('/acting')}>
-                    Узнать больше
-                    <Icon name="ArrowRight" size={20} className="ml-2" />
-                  </Button>
                 </div>
               </div>
 
               {/* Oratory Course */}
-              <div className="grid lg:grid-cols-5 gap-8 items-center">
-                <div className="lg:col-span-2 space-y-6 order-2 lg:order-1">
-                  <div className="inline-block px-4 py-2 bg-primary/10 rounded-full text-primary font-semibold text-sm mb-2">
-                    🎤 Ораторское искусство
+              <div className="relative">
+                <div className="grid lg:grid-cols-2 gap-12 items-center">
+                  {/* Content */}
+                  <div className="space-y-8 order-2 lg:order-1">
+                    <div className="space-y-4">
+                      <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary font-medium text-sm">
+                        <Icon name="Mic2" size={16} />
+                        Ораторское искусство
+                      </div>
+                      <h2 className="text-4xl lg:text-5xl font-bold leading-tight">
+                        Овладейте силой слова
+                      </h2>
+                      <EditableContent
+                        contentKey="home_oratory_short_desc"
+                        defaultValue="Уверенные публичные выступления, техники речи и работа с аудиторией для достижения ваших целей"
+                        type="textarea"
+                        page="home"
+                        section="oratory"
+                        as="p"
+                        className="text-xl text-muted-foreground leading-relaxed"
+                      />
+                    </div>
+
+                    <div className="flex flex-wrap gap-3">
+                      <div className="flex items-center gap-2 px-4 py-2 bg-muted/50 rounded-lg">
+                        <Icon name="MessageSquare" size={18} className="text-primary" />
+                        <span className="text-sm font-medium">Техники речи</span>
+                      </div>
+                      <div className="flex items-center gap-2 px-4 py-2 bg-muted/50 rounded-lg">
+                        <Icon name="Users" size={18} className="text-primary" />
+                        <span className="text-sm font-medium">Работа с аудиторией</span>
+                      </div>
+                      <div className="flex items-center gap-2 px-4 py-2 bg-muted/50 rounded-lg">
+                        <Icon name="Zap" size={18} className="text-primary" />
+                        <span className="text-sm font-medium">Уверенность</span>
+                      </div>
+                    </div>
+
+                    <Button 
+                      size="lg" 
+                      className="text-lg h-14 px-8"
+                      onClick={() => navigate('/oratory')}
+                    >
+                      Узнать больше
+                      <Icon name="ArrowRight" size={20} className="ml-2" />
+                    </Button>
                   </div>
-                  <h3 className="text-3xl font-bold">Овладейте силой слова</h3>
-                  <EditableContent
-                    contentKey="home_oratory_short_desc"
-                    defaultValue="Уверенные публичные выступления, техники речи и работа с аудиторией для достижения ваших целей"
-                    type="textarea"
-                    page="home"
-                    section="oratory"
-                    as="p"
-                    className="text-muted-foreground text-lg leading-relaxed"
-                  />
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 bg-primary/5 rounded-full text-sm">Техники речи</span>
-                    <span className="px-3 py-1 bg-primary/5 rounded-full text-sm">Работа с аудиторией</span>
-                    <span className="px-3 py-1 bg-primary/5 rounded-full text-sm">Уверенность</span>
+
+                  {/* Video */}
+                  <div className="relative group order-1 lg:order-2">
+                    <div className="absolute -inset-4 bg-gradient-to-l from-primary/20 to-primary/10 rounded-3xl blur-2xl group-hover:blur-3xl transition-all duration-500 opacity-50"></div>
+                    <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-video">
+                      <VideoEmbed 
+                        contentKey="home_oratory_video"
+                        defaultVideoUrl="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                        title="Ораторское искусство"
+                      />
+                    </div>
                   </div>
-                  <Button size="lg" className="w-full sm:w-auto" onClick={() => navigate('/oratory')}>
-                    Узнать больше
-                    <Icon name="ArrowRight" size={20} className="ml-2" />
-                  </Button>
-                </div>
-                <div className="lg:col-span-3 rounded-3xl overflow-hidden shadow-2xl border border-primary/20 bg-card order-1 lg:order-2">
-                  <VideoEmbed 
-                    contentKey="home_oratory_video"
-                    defaultVideoUrl="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                    title="Ораторское искусство"
-                  />
                 </div>
               </div>
+
             </div>
           </div>
         </section>
