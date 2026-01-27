@@ -129,36 +129,89 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Courses */}
+        {/* Acting Course */}
+        <section className="py-24">
+          <div className="container mx-auto px-4">
+            <div className="max-w-7xl mx-auto">
+              <div className="grid lg:grid-cols-2 gap-12 items-start">
+                <div className="relative rounded-3xl overflow-hidden shadow-2xl h-full min-h-[600px] bg-muted">
+                  <iframe
+                    className="absolute inset-0 w-full h-full"
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                    title="Курс актёрского мастерства"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+
+                <div>
+                  <h2 className="text-4xl md:text-5xl font-bold mb-6">Актёрское мастерство</h2>
+                  <p className="text-lg text-muted-foreground mb-10">
+                    Профессиональный курс для тех, кто хочет работать в кино. 
+                    5 модулей от основ до съёмки собственного фильма.
+                  </p>
+
+                  <div className="space-y-6 mb-10">
+                    <div className="p-6 bg-card rounded-2xl border-2 hover:border-primary/50 transition-all">
+                      <h3 className="font-bold text-xl mb-3">Работа с текстом и ролью</h3>
+                      <p className="text-muted-foreground leading-relaxed">
+                        Актёрские тренинги, работа с монологами перед камерой, 
+                        выявление ключевых точек в тексте. Вы поймёте отличия актёрской игры в кино и театре.
+                      </p>
+                    </div>
+
+                    <div className="p-6 bg-card rounded-2xl border-2 hover:border-primary/50 transition-all">
+                      <h3 className="font-bold text-xl mb-3">Работа актёра в кадре</h3>
+                      <p className="text-muted-foreground leading-relaxed">
+                        Практические занятия с камерой, работа над кино-выразительностью, 
+                        творческие пробы и обратная связь от мастера.
+                      </p>
+                    </div>
+
+                    <div className="p-6 bg-card rounded-2xl border-2 hover:border-primary/50 transition-all">
+                      <h3 className="font-bold text-xl mb-3">Съёмочный процесс</h3>
+                      <p className="text-muted-foreground leading-relaxed">
+                        Понимание всей системы, лайфхаки для рабочего состояния на площадке, 
+                        запись самопроб и работа с кастинг-агентами.
+                      </p>
+                    </div>
+
+                    <div className="p-6 bg-card rounded-2xl border-2 hover:border-primary/50 transition-all">
+                      <h3 className="font-bold text-xl mb-3">Итоговый проект</h3>
+                      <p className="text-muted-foreground leading-relaxed">
+                        Съёмка собственного короткометражного фильма с главной ролью. 
+                        Участие в фильмах однокурсников.
+                      </p>
+                    </div>
+                  </div>
+
+                  <Button 
+                    size="lg" 
+                    className="w-full text-base"
+                    onClick={() => document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' })}
+                  >
+                    Записаться на курс
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Oratory Course */}
         <section className="py-20 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold mb-4">Направления обучения</h2>
-              <p className="text-lg text-muted-foreground">Профессиональные курсы для начинающих и практикующих</p>
+              <h2 className="text-3xl md:text-5xl font-bold mb-4">Ораторское искусство</h2>
+              <p className="text-lg text-muted-foreground">Техники речи, работа с аудиторией, уверенность в себе</p>
             </div>
 
-            <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
-              <div className="bg-card p-10 rounded-3xl border-2 hover:border-primary transition-all group">
-                <Icon name="Drama" size={56} className="text-primary mb-6" />
-                <h3 className="text-3xl font-bold mb-4">Актёрское мастерство</h3>
-                <p className="text-muted-foreground mb-8 text-lg leading-relaxed">
-                  Работа на камеру, съёмка короткометражки, система Станиславского
-                </p>
-                <Button 
-                  variant="outline" 
-                  size="lg"
-                  className="w-full text-base"
-                  onClick={() => navigate('/acting')}
-                >
-                  Подробнее
-                </Button>
-              </div>
-
-              <div className="bg-card p-10 rounded-3xl border-2 hover:border-primary transition-all group">
-                <Icon name="Mic2" size={56} className="text-primary mb-6" />
-                <h3 className="text-3xl font-bold mb-4">Ораторское искусство</h3>
-                <p className="text-muted-foreground mb-8 text-lg leading-relaxed">
-                  Техники речи, работа с аудиторией, уверенность в себе
+            <div className="max-w-4xl mx-auto">
+              <div className="bg-card p-10 rounded-3xl border-2">
+                <Icon name="Mic2" size={56} className="text-primary mb-6 mx-auto" />
+                <p className="text-muted-foreground mb-8 text-lg leading-relaxed text-center">
+                  Развитие речевых навыков, работа с дикцией и интонацией, 
+                  практические упражнения для выступлений перед аудиторией
                 </p>
                 <Button 
                   variant="outline" 
@@ -166,7 +219,7 @@ export default function HomePage() {
                   className="w-full text-base"
                   onClick={() => navigate('/oratory')}
                 >
-                  Подробнее
+                  Подробнее о курсе
                 </Button>
               </div>
             </div>
