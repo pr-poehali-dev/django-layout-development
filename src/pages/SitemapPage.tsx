@@ -1,7 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { api } from '@/lib/api';
 
 export default function SitemapPage() {
+  const [xml, setXml] = useState<string>('');
+
   useEffect(() => {
     generateSitemap();
   }, []);
@@ -43,14 +45,34 @@ ${allUrls.map(page => `  <url>
   </url>`).join('\n')}
 </urlset>`;
 
-      document.contentType = 'application/xml';
-      document.write(sitemapXml);
-      document.close();
+      setXml(sitemapXml);
     } catch (error) {
       console.error('Sitemap generation failed:', error);
-      document.write('Error generating sitemap');
     }
   };
 
-  return null;
+  useEffect(() => {
+    if (xml) {
+      const metaTag = document.createElement('meta');
+      metaTag.httpEquiv = 'Content-Type';
+      metaTag.content = 'application/xml; charset=utf-8';
+      document.head.appendChild(metaTag);
+    }
+  }, [xml]);
+
+  if (!xml) {
+    return <div>Loading sitemap...</div>;
+  }
+
+  return (
+    <pre style={{ 
+      whiteSpace: 'pre-wrap', 
+      fontFamily: 'monospace', 
+      fontSize: '12px',
+      margin: 0,
+      padding: 0
+    }}>
+      {xml}
+    </pre>
+  );
 }
