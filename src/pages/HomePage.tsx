@@ -135,145 +135,79 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Video Section Acting */}
-        <section className="py-20 bg-muted/30">
+        {/* Courses Preview */}
+        <section className="py-24 bg-gradient-to-br from-background via-muted/20 to-background">
           <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-12">
-                <h2 className="text-4xl font-bold mb-4">Актёрское мастерство</h2>
-                <p className="text-xl text-muted-foreground">Раскройте свой актёрский потенциал</p>
-              </div>
-              <div className="grid lg:grid-cols-2 gap-8 items-start">
-                <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">Наши направления</h2>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Выберите курс, который поможет раскрыть ваш потенциал
+              </p>
+            </div>
+            
+            <div className="max-w-7xl mx-auto space-y-24">
+              {/* Acting Course */}
+              <div className="grid lg:grid-cols-5 gap-8 items-center">
+                <div className="lg:col-span-3 rounded-3xl overflow-hidden shadow-2xl border border-primary/20 bg-card">
                   <VideoEmbed 
                     contentKey="home_acting_video"
                     defaultVideoUrl="https://www.youtube.com/embed/dQw4w9WgXcQ"
                     title="Актёрское мастерство"
                   />
                 </div>
-                <div className="space-y-6">
+                <div className="lg:col-span-2 space-y-6">
+                  <div className="inline-block px-4 py-2 bg-primary/10 rounded-full text-primary font-semibold text-sm mb-2">
+                    🎬 Актёрское мастерство
+                  </div>
+                  <h3 className="text-3xl font-bold">Раскройте актёрский талант</h3>
                   <EditableContent
-                    contentKey="home_acting_description"
-                    defaultValue="Курс актёрского мастерства — это возможность раскрыть свой творческий потенциал, преодолеть страх камеры и научиться убедительно воплощать любые образы. Вы научитесь работать с эмоциями, телом и голосом, познакомитесь с профессиональными техниками актёрской игры."
+                    contentKey="home_acting_short_desc"
+                    defaultValue="Профессиональная работа на камеру, съёмка короткометражки и актёрские техники от режиссёра телесериалов"
                     type="textarea"
                     page="home"
                     section="acting"
                     as="p"
-                    className="text-lg text-muted-foreground leading-relaxed"
+                    className="text-muted-foreground text-lg leading-relaxed"
                   />
-                  <div className="space-y-4">
-                    <h3 className="text-2xl font-bold">Что вы получите:</h3>
-                    <ul className="space-y-3">
-                      <li className="flex items-start gap-3">
-                        <Icon name="CheckCircle2" size={24} className="text-primary mt-1 flex-shrink-0" />
-                        <div>
-                          <div className="font-semibold">Работа на камеру</div>
-                          <div className="text-sm text-muted-foreground">Профессиональная съёмка на студийном оборудовании</div>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <Icon name="CheckCircle2" size={24} className="text-primary mt-1 flex-shrink-0" />
-                        <div>
-                          <div className="font-semibold">Съёмка короткометражки</div>
-                          <div className="text-sm text-muted-foreground">Полноценный фильм с вашим участием в главной роли</div>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <Icon name="CheckCircle2" size={24} className="text-primary mt-1 flex-shrink-0" />
-                        <div>
-                          <div className="font-semibold">Актёрские техники</div>
-                          <div className="text-sm text-muted-foreground">Система Станиславского, метод физических действий</div>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <Icon name="CheckCircle2" size={24} className="text-primary mt-1 flex-shrink-0" />
-                        <div>
-                          <div className="font-semibold">Преодоление страхов</div>
-                          <div className="text-sm text-muted-foreground">Избавление от страха камеры и зажимов</div>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <Icon name="CheckCircle2" size={24} className="text-primary mt-1 flex-shrink-0" />
-                        <div>
-                          <div className="font-semibold">Развитие харизмы</div>
-                          <div className="text-sm text-muted-foreground">Уверенность в себе и раскрепощённость</div>
-                        </div>
-                      </li>
-                    </ul>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-3 py-1 bg-primary/5 rounded-full text-sm">Работа на камеру</span>
+                    <span className="px-3 py-1 bg-primary/5 rounded-full text-sm">Короткометражка</span>
+                    <span className="px-3 py-1 bg-primary/5 rounded-full text-sm">Система Станиславского</span>
                   </div>
-                  <Button size="lg" className="w-full" onClick={() => navigate('/acting')}>
-                    Подробнее о курсе
+                  <Button size="lg" className="w-full sm:w-auto" onClick={() => navigate('/acting')}>
+                    Узнать больше
+                    <Icon name="ArrowRight" size={20} className="ml-2" />
                   </Button>
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
 
-        {/* Video Section Oratory */}
-        <section className="py-20">
-          <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-12">
-                <h2 className="text-4xl font-bold mb-4">Ораторское искусство</h2>
-                <p className="text-xl text-muted-foreground">Овладейте искусством убедительной речи</p>
-              </div>
-              <div className="grid lg:grid-cols-2 gap-8 items-start">
-                <div className="order-2 lg:order-1 space-y-6">
+              {/* Oratory Course */}
+              <div className="grid lg:grid-cols-5 gap-8 items-center">
+                <div className="lg:col-span-2 space-y-6 order-2 lg:order-1">
+                  <div className="inline-block px-4 py-2 bg-primary/10 rounded-full text-primary font-semibold text-sm mb-2">
+                    🎤 Ораторское искусство
+                  </div>
+                  <h3 className="text-3xl font-bold">Овладейте силой слова</h3>
                   <EditableContent
-                    contentKey="home_oratory_description"
-                    defaultValue="Курс ораторского искусства научит вас уверенно выступать перед любой аудиторией, убеждать и вдохновлять людей. Вы освоите техники публичных выступлений, научитесь управлять голосом, жестами и эмоциями, сможете удерживать внимание слушателей."
+                    contentKey="home_oratory_short_desc"
+                    defaultValue="Уверенные публичные выступления, техники речи и работа с аудиторией для достижения ваших целей"
                     type="textarea"
                     page="home"
                     section="oratory"
                     as="p"
-                    className="text-lg text-muted-foreground leading-relaxed"
+                    className="text-muted-foreground text-lg leading-relaxed"
                   />
-                  <div className="space-y-4">
-                    <h3 className="text-2xl font-bold">Что вы получите:</h3>
-                    <ul className="space-y-3">
-                      <li className="flex items-start gap-3">
-                        <Icon name="CheckCircle2" size={24} className="text-primary mt-1 flex-shrink-0" />
-                        <div>
-                          <div className="font-semibold">Техники речи</div>
-                          <div className="text-sm text-muted-foreground">Дикция, интонация, темп и ритм речи</div>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <Icon name="CheckCircle2" size={24} className="text-primary mt-1 flex-shrink-0" />
-                        <div>
-                          <div className="font-semibold">Работа с аудиторией</div>
-                          <div className="text-sm text-muted-foreground">Установление контакта и управление вниманием</div>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <Icon name="CheckCircle2" size={24} className="text-primary mt-1 flex-shrink-0" />
-                        <div>
-                          <div className="font-semibold">Структура выступления</div>
-                          <div className="text-sm text-muted-foreground">Построение убедительной речи от вступления до заключения</div>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <Icon name="CheckCircle2" size={24} className="text-primary mt-1 flex-shrink-0" />
-                        <div>
-                          <div className="font-semibold">Преодоление волнения</div>
-                          <div className="text-sm text-muted-foreground">Техники работы со страхом публичных выступлений</div>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <Icon name="CheckCircle2" size={24} className="text-primary mt-1 flex-shrink-0" />
-                        <div>
-                          <div className="font-semibold">Невербальная коммуникация</div>
-                          <div className="text-sm text-muted-foreground">Жесты, мимика, работа с пространством</div>
-                        </div>
-                      </li>
-                    </ul>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-3 py-1 bg-primary/5 rounded-full text-sm">Техники речи</span>
+                    <span className="px-3 py-1 bg-primary/5 rounded-full text-sm">Работа с аудиторией</span>
+                    <span className="px-3 py-1 bg-primary/5 rounded-full text-sm">Уверенность</span>
                   </div>
-                  <Button size="lg" className="w-full" onClick={() => navigate('/oratory')}>
-                    Подробнее о курсе
+                  <Button size="lg" className="w-full sm:w-auto" onClick={() => navigate('/oratory')}>
+                    Узнать больше
+                    <Icon name="ArrowRight" size={20} className="ml-2" />
                   </Button>
                 </div>
-                <div className="order-1 lg:order-2 aspect-video rounded-2xl overflow-hidden shadow-2xl">
+                <div className="lg:col-span-3 rounded-3xl overflow-hidden shadow-2xl border border-primary/20 bg-card order-1 lg:order-2">
                   <VideoEmbed 
                     contentKey="home_oratory_video"
                     defaultVideoUrl="https://www.youtube.com/embed/dQw4w9WgXcQ"
