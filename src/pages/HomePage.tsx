@@ -176,17 +176,17 @@ export default function HomePage() {
                       />
                     </div>
 
-                    <div className="flex flex-wrap gap-3">
-                      <div className="flex items-center gap-2 px-4 py-2 bg-muted/50 rounded-lg">
-                        <Icon name="Video" size={18} className="text-primary" />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                      <div className="flex items-center gap-2 px-4 py-3 bg-muted/50 rounded-lg">
+                        <Icon name="Video" size={18} className="text-primary flex-shrink-0" />
                         <span className="text-sm font-medium">Работа на камеру</span>
                       </div>
-                      <div className="flex items-center gap-2 px-4 py-2 bg-muted/50 rounded-lg">
-                        <Icon name="Film" size={18} className="text-primary" />
+                      <div className="flex items-center gap-2 px-4 py-3 bg-muted/50 rounded-lg">
+                        <Icon name="Film" size={18} className="text-primary flex-shrink-0" />
                         <span className="text-sm font-medium">Короткометражка</span>
                       </div>
-                      <div className="flex items-center gap-2 px-4 py-2 bg-muted/50 rounded-lg">
-                        <Icon name="Award" size={18} className="text-primary" />
+                      <div className="flex items-center gap-2 px-4 py-3 bg-muted/50 rounded-lg sm:col-span-2 lg:col-span-1">
+                        <Icon name="Award" size={18} className="text-primary flex-shrink-0" />
                         <span className="text-sm font-medium">Система Станиславского</span>
                       </div>
                     </div>
@@ -239,17 +239,17 @@ export default function HomePage() {
                       />
                     </div>
 
-                    <div className="flex flex-wrap gap-3">
-                      <div className="flex items-center gap-2 px-4 py-2 bg-muted/50 rounded-lg">
-                        <Icon name="MessageSquare" size={18} className="text-primary" />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                      <div className="flex items-center gap-2 px-4 py-3 bg-muted/50 rounded-lg">
+                        <Icon name="MessageSquare" size={18} className="text-primary flex-shrink-0" />
                         <span className="text-sm font-medium">Техники речи</span>
                       </div>
-                      <div className="flex items-center gap-2 px-4 py-2 bg-muted/50 rounded-lg">
-                        <Icon name="Users" size={18} className="text-primary" />
+                      <div className="flex items-center gap-2 px-4 py-3 bg-muted/50 rounded-lg">
+                        <Icon name="Users" size={18} className="text-primary flex-shrink-0" />
                         <span className="text-sm font-medium">Работа с аудиторией</span>
                       </div>
-                      <div className="flex items-center gap-2 px-4 py-2 bg-muted/50 rounded-lg">
-                        <Icon name="Zap" size={18} className="text-primary" />
+                      <div className="flex items-center gap-2 px-4 py-3 bg-muted/50 rounded-lg sm:col-span-2 lg:col-span-1">
+                        <Icon name="Zap" size={18} className="text-primary flex-shrink-0" />
                         <span className="text-sm font-medium">Уверенность</span>
                       </div>
                     </div>
