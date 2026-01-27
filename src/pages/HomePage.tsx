@@ -396,7 +396,7 @@ export default function HomePage() {
                 </div>
                 <div>
                   <img 
-                    src="https://cdn.poehali.dev/files/bac8a700-2520-4237-81ca-6e3a3ff04a2e.png"
+                    src="https://i.1.creatium.io/disk2/03/17/f5/31d3461b60fb2bf50c5eee88ed4fca6946/1920x1080q8/2040.jpg"
                     alt="Центр подготовки актеров кино КиноСтарт"
                     className="rounded-3xl w-full shadow-xl"
                   />
