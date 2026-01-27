@@ -133,9 +133,9 @@ export default function HomePage() {
         <section className="py-32">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
-              <div className="grid md:grid-cols-[720px_1fr] gap-8 items-start justify-items-center md:justify-items-start">
+              <div className="flex flex-col lg:flex-row gap-8 items-start">
                 {/* Video */}
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-black w-full">
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-black w-full lg:w-[480px] flex-shrink-0">
                   <iframe
                     className="w-full aspect-video"
                     src="https://player.vimeo.com/video/997327815?badge=0&autopause=0&player_id=0&app_id=58479"
