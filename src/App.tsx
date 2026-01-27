@@ -5,6 +5,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
 import ActingPage from "./pages/ActingPage";
 import OratoryPage from "./pages/OratoryPage";
 import ActingShowreelPage from "./pages/ActingShowreelPage";
@@ -40,7 +41,8 @@ const App = () => {
             <BrowserRouter>
               <ScrollToTop />
               <Routes>
-                <Route path="/" element={<ActingPage />} />
+                <Route path="/" element={<HomePage />} />
+                <Route path="/acting" element={<ActingPage />} />
                 <Route path="/oratory" element={<OratoryPage />} />
                 <Route path="/showreel" element={<ActingShowreelPage />} />
                 <Route path="/team" element={<TeamPage />} />

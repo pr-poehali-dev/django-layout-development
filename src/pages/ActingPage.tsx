@@ -70,8 +70,8 @@ export default function ActingPage() {
       <Helmet>
         <title>Курсы актёрского мастерства в Москве от режиссёра Казбека Меретукова | Актёрская школа</title>
         <meta name="description" content="Профессиональные курсы актёрского мастерства от режиссёра телесериалов. Победитель ТЕФИ-2012. Обучение актёрскому мастерству, работа на камеру, съёмка короткометражного фильма. Пробное занятие бесплатно." />
-        <link rel="canonical" href="https://acting-school.poehali.dev/" />
-        <meta property="og:url" content="https://acting-school.poehali.dev/" />
+        <link rel="canonical" href="https://acting-school.poehali.dev/acting" />
+        <meta property="og:url" content="https://acting-school.poehali.dev/acting" />
         <meta property="og:title" content="Курсы актёрского мастерства в Москве от режиссёра Казбека Меретукова" />
         <meta property="og:description" content="Профессиональные курсы актёрского мастерства от режиссёра телесериалов. Победитель ТЕФИ-2012. Обучение актёрскому мастерству, работа на камеру, съёмка короткометражного фильма. Пробное занятие бесплатно." />
         <meta property="og:type" content="website" />
@@ -87,7 +87,7 @@ export default function ActingPage() {
           name: "Курс актёрского мастерства",
           description: "Профессиональное обучение актёрскому мастерству от режиссёра телесериалов. Работа на камеру, съёмка короткометражного фильма, практические упражнения.",
           provider: "Школа актёрского мастерства Казбека Меретукова",
-          url: "https://acting-school.poehali.dev/"
+          url: "https://acting-school.poehali.dev/acting"
         }}
       />
       <SchemaMarkup 

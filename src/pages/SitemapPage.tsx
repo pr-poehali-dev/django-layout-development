@@ -17,7 +17,8 @@ export default function SitemapPage() {
       
       const staticPages = [
         { url: '/', priority: '1.0', changefreq: 'weekly' },
-        { url: '/oratory', priority: '0.8', changefreq: 'weekly' },
+        { url: '/acting', priority: '0.9', changefreq: 'weekly' },
+        { url: '/oratory', priority: '0.9', changefreq: 'weekly' },
         { url: '/showreel', priority: '0.7', changefreq: 'monthly' },
         { url: '/team', priority: '0.7', changefreq: 'monthly' },
         { url: '/reviews', priority: '0.8', changefreq: 'weekly' },

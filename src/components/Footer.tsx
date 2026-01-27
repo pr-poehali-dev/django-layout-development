@@ -68,7 +68,7 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">Курсы</h4>
             <ul className="space-y-2">
               <li>
-                <a href="/" className="text-muted-foreground hover:text-primary transition">
+                <a href="/acting" className="text-muted-foreground hover:text-primary transition">
                   Актерское мастерство
                 </a>
               </li>
