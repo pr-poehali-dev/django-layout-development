@@ -133,14 +133,14 @@ export default function HomePage() {
         <section className="py-32">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
-              <div className="grid md:grid-cols-[320px_1fr] gap-8 items-start justify-items-center md:justify-items-start">
+              <div className="grid md:grid-cols-[720px_1fr] gap-8 items-start justify-items-center md:justify-items-start">
                 {/* Video */}
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-black">
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-black w-full">
                   <iframe
-                    className="w-full aspect-[9/16]"
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                    className="w-full aspect-video"
+                    src="https://player.vimeo.com/video/997327815?badge=0&autopause=0&player_id=0&app_id=58479"
                     title="Курс актёрского мастерства"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
                     allowFullScreen
                   />
                 </div>
