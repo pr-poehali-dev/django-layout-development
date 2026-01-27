@@ -132,11 +132,11 @@ export default function HomePage() {
         {/* Acting Course */}
         <section className="py-20">
           <div className="container mx-auto px-4">
-            <div className="max-w-7xl mx-auto">
-              <div className="grid lg:grid-cols-[400px_1fr] gap-8 items-stretch">
-                <div className="relative rounded-2xl overflow-hidden shadow-xl">
+            <div className="max-w-6xl mx-auto">
+              <div className="grid lg:grid-cols-[360px_1fr] gap-10 items-start">
+                <div className="relative rounded-2xl overflow-hidden shadow-xl bg-muted sticky top-24">
                   <iframe
-                    className="w-full h-full aspect-[9/16]"
+                    className="w-full aspect-[9/16]"
                     src="https://www.youtube.com/embed/dQw4w9WgXcQ"
                     title="Курс актёрского мастерства"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -146,37 +146,57 @@ export default function HomePage() {
 
                 <div>
                   <h2 className="text-3xl md:text-4xl font-bold mb-4">Актёрское мастерство</h2>
-                  <p className="text-base text-muted-foreground mb-6">
+                  <p className="text-base text-muted-foreground mb-8">
                     Профессиональный курс для тех, кто хочет работать в кино. 5 модулей от основ до съёмки собственного фильма.
                   </p>
 
-                  <div className="grid md:grid-cols-2 gap-4 mb-6">
-                    <div className="p-4 bg-card rounded-xl border">
-                      <h3 className="font-bold text-base mb-2">Работа с текстом и ролью</h3>
-                      <p className="text-sm text-muted-foreground">
-                        Актёрские тренинги, монологи перед камерой, отличия кино и театра
-                      </p>
+                  <div className="space-y-4 mb-8">
+                    <div className="p-5 bg-card rounded-xl border-2 hover:border-primary/50 transition-all">
+                      <div className="flex items-start gap-4">
+                        <Icon name="BookOpen" size={24} className="text-primary flex-shrink-0 mt-1" />
+                        <div>
+                          <h3 className="font-bold text-lg mb-2">Работа с текстом и ролью</h3>
+                          <p className="text-sm text-muted-foreground">
+                            Актёрские тренинги, монологи перед камерой, отличия кино и театра
+                          </p>
+                        </div>
+                      </div>
                     </div>
 
-                    <div className="p-4 bg-card rounded-xl border">
-                      <h3 className="font-bold text-base mb-2">Работа в кадре</h3>
-                      <p className="text-sm text-muted-foreground">
-                        Практика с камерой, кино-выразительность, обратная связь от мастера
-                      </p>
+                    <div className="p-5 bg-card rounded-xl border-2 hover:border-primary/50 transition-all">
+                      <div className="flex items-start gap-4">
+                        <Icon name="Video" size={24} className="text-primary flex-shrink-0 mt-1" />
+                        <div>
+                          <h3 className="font-bold text-lg mb-2">Работа в кадре</h3>
+                          <p className="text-sm text-muted-foreground">
+                            Практика с камерой, кино-выразительность, обратная связь от мастера
+                          </p>
+                        </div>
+                      </div>
                     </div>
 
-                    <div className="p-4 bg-card rounded-xl border">
-                      <h3 className="font-bold text-base mb-2">Съёмочный процесс</h3>
-                      <p className="text-sm text-muted-foreground">
-                        Лайфхаки площадки, запись самопроб, работа с кастинг-агентами
-                      </p>
+                    <div className="p-5 bg-card rounded-xl border-2 hover:border-primary/50 transition-all">
+                      <div className="flex items-start gap-4">
+                        <Icon name="Clapperboard" size={24} className="text-primary flex-shrink-0 mt-1" />
+                        <div>
+                          <h3 className="font-bold text-lg mb-2">Съёмочный процесс</h3>
+                          <p className="text-sm text-muted-foreground">
+                            Лайфхаки площадки, запись самопроб, работа с кастинг-агентами
+                          </p>
+                        </div>
+                      </div>
                     </div>
 
-                    <div className="p-4 bg-card rounded-xl border">
-                      <h3 className="font-bold text-base mb-2">Итоговый проект</h3>
-                      <p className="text-sm text-muted-foreground">
-                        Съёмка короткометражки с главной ролью, участие в фильмах курса
-                      </p>
+                    <div className="p-5 bg-card rounded-xl border-2 hover:border-primary/50 transition-all">
+                      <div className="flex items-start gap-4">
+                        <Icon name="Trophy" size={24} className="text-primary flex-shrink-0 mt-1" />
+                        <div>
+                          <h3 className="font-bold text-lg mb-2">Итоговый проект</h3>
+                          <p className="text-sm text-muted-foreground">
+                            Съёмка короткометражки с главной ролью, участие в фильмах курса
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
