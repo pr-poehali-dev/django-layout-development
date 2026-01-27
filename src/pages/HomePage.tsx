@@ -8,6 +8,8 @@ import { api, Review, BlogPost, TeamMember, SiteContent } from '@/lib/api';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
 import LeadForm from '@/components/LeadForm';
+import { formatDate } from '@/lib/dates';
+import SeatsCounter from '@/components/ui/seats-counter';
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -193,13 +195,33 @@ export default function HomePage() {
                     </div>
                   </div>
 
-                  <Button 
-                    size="lg" 
-                    className="w-full md:w-auto text-lg px-8"
-                    onClick={() => document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' })}
-                  >
-                    Записаться на курс
-                  </Button>
+                  <div className="flex flex-col sm:flex-row gap-4 mb-6">
+                    <div className="flex items-center gap-2 bg-card/80 backdrop-blur-sm px-4 py-3 rounded-lg border">
+                      <Icon name="Calendar" className="text-primary flex-shrink-0" size={20} />
+                      <span>Пробное: {content.trial_date ? formatDate(content.trial_date) : '1 февраля 2026'}</span>
+                    </div>
+                    <div className="flex items-center gap-2 bg-card/80 backdrop-blur-sm px-4 py-3 rounded-lg border">
+                      <Icon name="PlayCircle" className="text-primary flex-shrink-0" size={20} />
+                      <span>Старт: {content.course_start_date ? formatDate(content.course_start_date) : '3 февраля 2026'}</span>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <Button 
+                      size="lg" 
+                      className="flex-1 text-lg px-8"
+                      onClick={() => document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' })}
+                    >
+                      Записаться на пробный урок
+                    </Button>
+                    {content.trial_date && (
+                      <SeatsCounter 
+                        trialDate={content.trial_date} 
+                        maxSeats={12}
+                        minSeats={2}
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
