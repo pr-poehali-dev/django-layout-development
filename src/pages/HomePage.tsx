@@ -132,54 +132,62 @@ export default function HomePage() {
         {/* Courses */}
         <section className="py-20 bg-muted/30">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Направления обучения</h2>
-              <p className="text-muted-foreground">Профессиональные курсы для начинающих и практикующих</p>
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-5xl font-bold mb-4">Направления обучения</h2>
+              <p className="text-lg text-muted-foreground">Профессиональные курсы для начинающих и практикующих</p>
             </div>
 
-            <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
-              <div 
-                className="bg-card p-8 rounded-2xl border hover:border-primary cursor-pointer transition-all"
-                onClick={() => navigate('/acting')}
-              >
-                <Icon name="Drama" size={40} className="text-primary mb-4" />
-                <h3 className="text-2xl font-bold mb-3">Актёрское мастерство</h3>
-                <p className="text-muted-foreground mb-6">
+            <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+              <div className="bg-card p-10 rounded-3xl border-2 hover:border-primary transition-all group">
+                <Icon name="Drama" size={56} className="text-primary mb-6" />
+                <h3 className="text-3xl font-bold mb-4">Актёрское мастерство</h3>
+                <p className="text-muted-foreground mb-8 text-lg leading-relaxed">
                   Работа на камеру, съёмка короткометражки, система Станиславского
                 </p>
-                <Button variant="outline" className="w-full">Подробнее</Button>
+                <Button 
+                  variant="outline" 
+                  size="lg"
+                  className="w-full text-base"
+                  onClick={() => navigate('/acting')}
+                >
+                  Подробнее
+                </Button>
               </div>
 
-              <div 
-                className="bg-card p-8 rounded-2xl border hover:border-primary cursor-pointer transition-all"
-                onClick={() => navigate('/oratory')}
-              >
-                <Icon name="Mic2" size={40} className="text-primary mb-4" />
-                <h3 className="text-2xl font-bold mb-3">Ораторское искусство</h3>
-                <p className="text-muted-foreground mb-6">
+              <div className="bg-card p-10 rounded-3xl border-2 hover:border-primary transition-all group">
+                <Icon name="Mic2" size={56} className="text-primary mb-6" />
+                <h3 className="text-3xl font-bold mb-4">Ораторское искусство</h3>
+                <p className="text-muted-foreground mb-8 text-lg leading-relaxed">
                   Техники речи, работа с аудиторией, уверенность в себе
                 </p>
-                <Button variant="outline" className="w-full">Подробнее</Button>
+                <Button 
+                  variant="outline" 
+                  size="lg"
+                  className="w-full text-base"
+                  onClick={() => navigate('/oratory')}
+                >
+                  Подробнее
+                </Button>
               </div>
             </div>
           </div>
         </section>
 
         {/* Lead Form */}
-        <section id="lead-form" className="py-20">
+        <section id="lead-form" className="py-24">
           <div className="container mx-auto px-4">
-            <div className="max-w-2xl mx-auto">
-              <div className="text-center mb-8">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">Бесплатное пробное занятие</h2>
-                <p className="text-muted-foreground">Оставьте заявку и мы свяжемся с вами</p>
+            <div className="max-w-3xl mx-auto">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-5xl font-bold mb-4">Бесплатное пробное занятие</h2>
+                <p className="text-lg text-muted-foreground">Оставьте заявку и мы свяжемся с вами в ближайшее время</p>
               </div>
 
-              <div className="bg-card p-8 rounded-2xl border">
+              <div className="bg-card p-10 rounded-3xl border-2 shadow-lg">
                 <LeadForm 
                   source="home_page"
                   title=""
                   description=""
-                  buttonText="Записаться"
+                  buttonText="Записаться на занятие"
                 />
               </div>
             </div>
@@ -187,49 +195,55 @@ export default function HomePage() {
         </section>
 
         {/* Stats */}
-        <section className="py-20 bg-muted/30">
+        <section className="py-24 bg-muted/30">
           <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">15+</div>
-                <p className="text-sm text-muted-foreground">Лет опыта</p>
+            <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
+              <div className="text-center bg-card p-8 rounded-2xl border">
+                <div className="text-5xl font-bold text-primary mb-3">15+</div>
+                <p className="text-base text-muted-foreground">Лет опыта</p>
               </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">500+</div>
-                <p className="text-sm text-muted-foreground">Выпускников</p>
+              <div className="text-center bg-card p-8 rounded-2xl border">
+                <div className="text-5xl font-bold text-primary mb-3">500+</div>
+                <p className="text-base text-muted-foreground">Выпускников</p>
               </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">{averageRating}</div>
-                <p className="text-sm text-muted-foreground">Рейтинг</p>
+              <div className="text-center bg-card p-8 rounded-2xl border">
+                <div className="text-5xl font-bold text-primary mb-3">{averageRating}</div>
+                <p className="text-base text-muted-foreground">Рейтинг</p>
               </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">100%</div>
-                <p className="text-sm text-muted-foreground">Практика</p>
+              <div className="text-center bg-card p-8 rounded-2xl border">
+                <div className="text-5xl font-bold text-primary mb-3">100%</div>
+                <p className="text-base text-muted-foreground">Практика</p>
               </div>
             </div>
           </div>
         </section>
 
         {/* Teacher */}
-        <section className="py-20">
+        <section className="py-24">
           <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">Казбек Меретуков</h2>
-                <p className="text-muted-foreground mb-6">
-                  Режиссёр телесериалов, победитель премии ТЕФИ-2012. 
-                  Более 15 лет опыта в киноиндустрии и обучении актёрскому мастерству.
-                </p>
-                <Button onClick={() => navigate('/about')}>
-                  Подробнее
-                </Button>
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-16">
+                <h2 className="text-3xl md:text-5xl font-bold mb-4">О преподавателе</h2>
+                <p className="text-lg text-muted-foreground">Обучение от практикующего режиссёра</p>
               </div>
-              <div>
-                <img 
-                  src="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/7cddbd50-0847-4321-92b1-f534403d6a21.jpg"
-                  alt="Казбек Меретуков"
-                  className="rounded-2xl w-full"
-                />
+              <div className="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                  <h3 className="text-3xl font-bold mb-4">Казбек Меретуков</h3>
+                  <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                    Режиссёр телесериалов, победитель премии ТЕФИ-2012. 
+                    Более 15 лет опыта в киноиндустрии и обучении актёрскому мастерству.
+                  </p>
+                  <Button size="lg" onClick={() => navigate('/about')}>
+                    Подробнее о преподавателе
+                  </Button>
+                </div>
+                <div>
+                  <img 
+                    src="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/7cddbd50-0847-4321-92b1-f534403d6a21.jpg"
+                    alt="Казбек Меретуков"
+                    className="rounded-3xl w-full shadow-xl"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -237,34 +251,35 @@ export default function HomePage() {
 
         {/* Reviews */}
         {reviews.length > 0 && (
-          <section className="py-20 bg-muted/30">
+          <section className="py-24 bg-muted/30">
             <div className="container mx-auto px-4">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">Отзывы учеников</h2>
+              <div className="text-center mb-16">
+                <h2 className="text-3xl md:text-5xl font-bold mb-4">Отзывы учеников</h2>
+                <p className="text-lg text-muted-foreground">Реальные истории наших выпускников</p>
               </div>
               
-              <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-6">
+              <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
                 {reviews.slice(0, 3).map((review) => (
-                  <div key={review.id} className="bg-card p-6 rounded-2xl border">
-                    <div className="flex gap-1 mb-4">
+                  <div key={review.id} className="bg-card p-8 rounded-3xl border-2">
+                    <div className="flex gap-1 mb-6">
                       {[...Array(5)].map((_, i) => (
                         <Icon 
                           key={i} 
                           name="Star" 
-                          size={16} 
+                          size={20} 
                           className={i < (review.rating || 5) ? "text-primary fill-primary" : "text-muted"} 
                         />
                       ))}
                     </div>
-                    <p className="text-sm text-muted-foreground mb-4 line-clamp-4">{review.text}</p>
-                    <p className="font-medium">{review.name}</p>
+                    <p className="text-base text-muted-foreground mb-6 line-clamp-5 leading-relaxed">{review.text}</p>
+                    <p className="font-bold text-lg">{review.name}</p>
                   </div>
                 ))}
               </div>
 
-              <div className="text-center mt-8">
-                <Button variant="outline" onClick={() => navigate('/reviews')}>
-                  Все отзывы
+              <div className="text-center mt-12">
+                <Button size="lg" variant="outline" onClick={() => navigate('/reviews')}>
+                  Читать все отзывы
                 </Button>
               </div>
             </div>
