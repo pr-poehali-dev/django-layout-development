@@ -370,29 +370,34 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Teacher */}
+        {/* About School */}
         <section className="py-24">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-5xl font-bold mb-4">О преподавателе</h2>
-                <p className="text-lg text-muted-foreground">Обучение от практикующего режиссёра</p>
+                <h2 className="text-3xl md:text-5xl font-bold mb-4">О школе</h2>
+                <p className="text-lg text-muted-foreground">Центр подготовки актеров кино «КиноСтарт»</p>
               </div>
               <div className="grid md:grid-cols-2 gap-12 items-center">
                 <div>
-                  <h3 className="text-3xl font-bold mb-4">Казбек Меретуков</h3>
+                  <h3 className="text-3xl font-bold mb-6">Практика с первого дня</h3>
                   <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                    Режиссёр телесериалов, победитель премии ТЕФИ-2012. 
-                    Более 15 лет опыта в киноиндустрии и обучении актёрскому мастерству.
+                    Центр подготовки актеров кино «КиноСтарт» — это место, где учат реальной работе в кино. 
+                    Здесь нет скучной теории, только практика на съемочной площадке.
                   </p>
-                  <Button size="lg" onClick={() => navigate('/about')}>
-                    Подробнее о преподавателе
+                  <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                    За три месяца обучения студенты получают не только теоретические знания, 
+                    но и реальный опыт работы актёра на профессиональной съёмочной площадке. 
+                    Вы научитесь правильно записывать самопробы, составлять актерское портфолио и определите свой типаж.
+                  </p>
+                  <Button size="lg" onClick={() => navigate('/teacher')}>
+                    О преподавателе
                   </Button>
                 </div>
                 <div>
                   <img 
-                    src="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/7cddbd50-0847-4321-92b1-f534403d6a21.jpg"
-                    alt="Казбек Меретуков"
+                    src="https://i.1.creatium.io/disk2/03/17/f5/31d3461b60fb2bf50c5eee88ed4fca6946/1920x1080q8/2040.jpg"
+                    alt="Центр подготовки актеров кино КиноСтарт"
                     className="rounded-3xl w-full shadow-xl"
                   />
                 </div>
