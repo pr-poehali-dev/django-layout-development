@@ -82,62 +82,59 @@ export default function HomePage() {
         <Header />
 
         {/* Hero Section */}
-        <section className="relative pt-24 pb-32 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-background"></div>
-          <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+        <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-background to-background"></div>
           
           <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-5xl mx-auto">
-              <div className="text-center space-y-8">
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-sm font-medium text-primary mb-4">
-                  <Icon name="Award" size={16} />
-                  <span>Победитель ТЕФИ-2012</span>
-                </div>
-                
-                <h1 className="text-5xl md:text-7xl font-bold leading-tight">
-                  Раскройте свой потенциал в{' '}
-                  <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-                    актёрском искусстве
-                  </span>
-                </h1>
-                
-                <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                  Обучение от режиссёра телесериалов Казбека Меретукова. 
-                  Профессиональная подготовка актёров и ораторов в Москве
-                </p>
+            <div className="max-w-5xl mx-auto text-center">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-sm font-medium text-primary mb-8">
+                <Icon name="Award" size={16} />
+                <span>Режиссёр телесериалов • Победитель ТЕФИ-2012</span>
+              </div>
+              
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+                Школа актёрского<br />и ораторского мастерства
+              </h1>
+              
+              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
+                Профессиональное обучение от Казбека Меретукова.<br />
+                Раскройте свой потенциал под руководством опытного режиссёра
+              </p>
 
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-                  <Button 
-                    size="lg" 
-                    className="text-lg px-10 py-7 shadow-lg hover:shadow-xl transition-shadow"
-                    onClick={() => document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' })}
-                  >
-                    Записаться на пробное занятие
-                    <Icon name="ArrowRight" size={20} className="ml-2" />
-                  </Button>
-                  <Button 
-                    size="lg" 
-                    variant="outline"
-                    className="text-lg px-10 py-7"
-                    onClick={() => navigate('/about')}
-                  >
-                    О преподавателе
-                  </Button>
-                </div>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+                <Button 
+                  size="lg" 
+                  className="text-base px-8 py-6 h-auto"
+                  onClick={() => document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                  Записаться на пробное занятие
+                  <Icon name="ArrowRight" size={18} className="ml-2" />
+                </Button>
+                <Button 
+                  size="lg" 
+                  variant="outline"
+                  className="text-base px-8 py-6 h-auto"
+                  onClick={() => navigate('/about')}
+                >
+                  О преподавателе
+                </Button>
+              </div>
 
-                <div className="flex flex-wrap items-center justify-center gap-8 pt-8 text-sm">
-                  <div className="flex items-center gap-2">
-                    <Icon name="Users" size={18} className="text-primary" />
-                    <span className="text-muted-foreground">15+ лет опыта</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Icon name="Star" size={18} className="text-primary" />
-                    <span className="text-muted-foreground">{averageRating} ({reviews.length} отзывов)</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Icon name="GraduationCap" size={18} className="text-primary" />
-                    <span className="text-muted-foreground">Индивидуальный подход</span>
-                  </div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
+                <div className="flex flex-col items-center gap-2 p-4 rounded-xl bg-card/50 border border-border/50">
+                  <Icon name="Users" size={24} className="text-primary" />
+                  <p className="font-semibold">15+ лет опыта</p>
+                  <p className="text-sm text-muted-foreground">В киноиндустрии</p>
+                </div>
+                <div className="flex flex-col items-center gap-2 p-4 rounded-xl bg-card/50 border border-border/50">
+                  <Icon name="Star" size={24} className="text-primary" />
+                  <p className="font-semibold">{averageRating} ({reviews.length})</p>
+                  <p className="text-sm text-muted-foreground">Отзывов учеников</p>
+                </div>
+                <div className="flex flex-col items-center gap-2 p-4 rounded-xl bg-card/50 border border-border/50">
+                  <Icon name="GraduationCap" size={24} className="text-primary" />
+                  <p className="font-semibold">Индивидуально</p>
+                  <p className="text-sm text-muted-foreground">Персональный подход</p>
                 </div>
               </div>
             </div>
