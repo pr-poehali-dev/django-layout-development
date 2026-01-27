@@ -229,28 +229,97 @@ export default function HomePage() {
         </section>
 
         {/* Oratory Course */}
-        <section className="py-20 bg-muted/30">
+        <section className="py-32 bg-muted/30">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold mb-4">Ораторское искусство</h2>
-              <p className="text-lg text-muted-foreground">Техники речи, работа с аудиторией, уверенность в себе</p>
-            </div>
+            <div className="max-w-6xl mx-auto">
+              <div className="flex flex-col lg:flex-row-reverse gap-8 items-start">
+                {/* Video */}
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-black w-full lg:w-[480px] flex-shrink-0">
+                  <iframe
+                    className="w-full aspect-video"
+                    src="https://player.vimeo.com/video/997324695?badge=0&autopause=0&player_id=0&app_id=58479"
+                    title="Курс ораторского искусства"
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
+                    allowFullScreen
+                  />
+                </div>
 
-            <div className="max-w-4xl mx-auto">
-              <div className="bg-card p-10 rounded-3xl border-2">
-                <Icon name="Mic2" size={56} className="text-primary mb-6 mx-auto" />
-                <p className="text-muted-foreground mb-8 text-lg leading-relaxed text-center">
-                  Развитие речевых навыков, работа с дикцией и интонацией, 
-                  практические упражнения для выступлений перед аудиторией
-                </p>
-                <Button 
-                  variant="outline" 
-                  size="lg"
-                  className="w-full text-base"
-                  onClick={() => navigate('/oratory')}
-                >
-                  Подробнее о курсе
-                </Button>
+                {/* Content */}
+                <div>
+                  <h2 className="text-4xl md:text-5xl font-bold mb-4">Ораторское искусство</h2>
+                  <p className="text-lg text-muted-foreground mb-8">
+                    Курс для тех, кто хочет уверенно выступать перед аудиторией. 
+                    От работы с голосом до импровизации и дебатов.
+                  </p>
+
+                  <h3 className="text-xl font-semibold mb-4">Чему вы научитесь:</h3>
+                  <div className="space-y-3 mb-8">
+                    <div className="flex items-start gap-3">
+                      <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Icon name="Check" size={16} className="text-primary" />
+                      </div>
+                      <p className="text-muted-foreground">Применять систему Станиславского для подготовки выступлений</p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Icon name="Check" size={16} className="text-primary" />
+                      </div>
+                      <p className="text-muted-foreground">Строить логичную структуру речи и удерживать внимание аудитории</p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Icon name="Check" size={16} className="text-primary" />
+                      </div>
+                      <p className="text-muted-foreground">Улучшить дикцию, дыхание и тембр голоса</p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Icon name="Check" size={16} className="text-primary" />
+                      </div>
+                      <p className="text-muted-foreground">Преодолеть страх публичных выступлений и снять зажимы</p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Icon name="Check" size={16} className="text-primary" />
+                      </div>
+                      <p className="text-muted-foreground">Импровизировать, вести дебаты и работать с возражениями</p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Icon name="Check" size={16} className="text-primary" />
+                      </div>
+                      <p className="text-muted-foreground">Производить впечатление и запоминаться слушателям</p>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row gap-4 mb-6">
+                    <div className="flex items-center gap-2 bg-card/80 backdrop-blur-sm px-4 py-3 rounded-lg border">
+                      <Icon name="Calendar" className="text-primary flex-shrink-0" size={20} />
+                      <span>Пробное: {content.oratory_trial_date ? formatDate(content.oratory_trial_date) : '1 февраля 2026'}</span>
+                    </div>
+                    <div className="flex items-center gap-2 bg-card/80 backdrop-blur-sm px-4 py-3 rounded-lg border">
+                      <Icon name="PlayCircle" className="text-primary flex-shrink-0" size={20} />
+                      <span>Старт: {content.oratory_start_date ? formatDate(content.oratory_start_date) : '3 февраля 2026'}</span>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <Button 
+                      size="lg" 
+                      className="flex-1 text-lg px-8"
+                      onClick={() => document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' })}
+                    >
+                      Записаться на пробный урок
+                    </Button>
+                    {content.oratory_trial_date && (
+                      <SeatsCounter 
+                        trialDate={content.oratory_trial_date} 
+                        maxSeats={12}
+                        minSeats={2}
+                      />
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
