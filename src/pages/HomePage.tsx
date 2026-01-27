@@ -5,8 +5,6 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import SchemaMarkup from '@/components/SchemaMarkup';
 import { api, Review, BlogPost, TeamMember, SiteContent } from '@/lib/api';
-import EditableContent from '@/components/EditableContent';
-import VideoEmbed from '@/components/VideoEmbed';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
 import LeadForm from '@/components/LeadForm';
@@ -78,327 +76,200 @@ export default function HomePage() {
           text: r.text
         }))}
       />
-      <div className="min-h-screen bg-background text-foreground">
+      <div className="min-h-screen bg-background">
         <Header />
 
-        {/* Hero Section */}
-        <section className="relative pt-24 pb-32 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-background"></div>
-          <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
-          
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-5xl mx-auto">
-              <div className="text-center space-y-8">
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-sm font-medium text-primary mb-4">
-                  <Icon name="Award" size={16} />
-                  <span>Победитель ТЕФИ-2012</span>
-                </div>
-                
-                <h1 className="text-5xl md:text-7xl font-bold leading-tight">
-                  Раскройте свой потенциал в{' '}
-                  <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-                    актёрском искусстве
-                  </span>
-                </h1>
-                
-                <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                  Обучение от режиссёра телесериалов Казбека Меретукова. 
-                  Профессиональная подготовка актёров и ораторов в Москве
-                </p>
-
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-                  <Button 
-                    size="lg" 
-                    className="text-lg px-10 py-7 shadow-lg hover:shadow-xl transition-shadow"
-                    onClick={() => document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' })}
-                  >
-                    Записаться на пробное занятие
-                    <Icon name="ArrowRight" size={20} className="ml-2" />
-                  </Button>
-                  <Button 
-                    size="lg" 
-                    variant="outline"
-                    className="text-lg px-10 py-7"
-                    onClick={() => navigate('/about')}
-                  >
-                    О преподавателе
-                  </Button>
-                </div>
-
-                <div className="flex flex-wrap items-center justify-center gap-8 pt-8 text-sm">
-                  <div className="flex items-center gap-2">
-                    <Icon name="Users" size={18} className="text-primary" />
-                    <span className="text-muted-foreground">15+ лет опыта</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Icon name="Star" size={18} className="text-primary" />
-                    <span className="text-muted-foreground">{averageRating} ({reviews.length} отзывов)</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Icon name="GraduationCap" size={18} className="text-primary" />
-                    <span className="text-muted-foreground">Индивидуальный подход</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Courses Section */}
-        <section className="py-24 bg-muted/20">
+        {/* Hero */}
+        <section className="py-20 md:py-32">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4">Направления обучения</h2>
-              <p className="text-xl text-muted-foreground">Выберите свой путь в мир искусства</p>
-            </div>
-
-            <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+            <div className="max-w-4xl mx-auto text-center">
+              <div className="inline-block px-4 py-2 bg-primary/10 rounded-full mb-6">
+                <span className="text-sm font-medium text-primary">Победитель ТЕФИ-2012</span>
+              </div>
               
-              {/* Acting Course Card */}
-              <div className="group bg-card rounded-3xl p-8 border border-border hover:border-primary/30 transition-all hover:shadow-2xl cursor-pointer" onClick={() => navigate('/acting')}>
-                <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                  <Icon name="Drama" size={32} className="text-primary" />
-                </div>
-                
-                <h3 className="text-3xl font-bold mb-4">Актёрское мастерство</h3>
-                <p className="text-muted-foreground mb-8 leading-relaxed">
-                  Профессиональная работа на камеру, съёмка короткометражки и актёрские техники от режиссёра телесериалов
-                </p>
+              <h1 className="text-4xl md:text-6xl font-bold mb-6">
+                Школа актёрского и ораторского мастерства
+              </h1>
+              
+              <p className="text-xl text-muted-foreground mb-8">
+                Обучение от режиссёра телесериалов Казбека Меретукова. Индивидуальный подход, практика на камеру.
+              </p>
 
-                <div className="space-y-3 mb-8">
-                  <div className="flex items-center gap-3 text-sm">
-                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Icon name="Check" size={14} className="text-primary" />
-                    </div>
-                    <span>Работа на камеру</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-sm">
-                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Icon name="Check" size={14} className="text-primary" />
-                    </div>
-                    <span>Съёмка короткометражки</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-sm">
-                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Icon name="Check" size={14} className="text-primary" />
-                    </div>
-                    <span>Система Станиславского</span>
-                  </div>
-                </div>
-
-                <Button size="lg" className="w-full">
-                  Узнать больше
-                  <Icon name="ArrowRight" size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                <Button 
+                  size="lg"
+                  onClick={() => document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                  Записаться на занятие
+                </Button>
+                <Button 
+                  size="lg" 
+                  variant="outline"
+                  onClick={() => navigate('/about')}
+                >
+                  О преподавателе
                 </Button>
               </div>
 
-              {/* Oratory Course Card */}
-              <div className="group bg-card rounded-3xl p-8 border border-border hover:border-primary/30 transition-all hover:shadow-2xl cursor-pointer" onClick={() => navigate('/oratory')}>
-                <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                  <Icon name="Mic2" size={32} className="text-primary" />
+              <div className="flex flex-wrap justify-center gap-8 text-sm text-muted-foreground">
+                <div className="flex items-center gap-2">
+                  <Icon name="Users" size={18} />
+                  <span>15+ лет опыта</span>
                 </div>
-                
-                <h3 className="text-3xl font-bold mb-4">Ораторское искусство</h3>
-                <p className="text-muted-foreground mb-8 leading-relaxed">
-                  Уверенные публичные выступления, техники речи и работа с аудиторией для достижения ваших целей
-                </p>
-
-                <div className="space-y-3 mb-8">
-                  <div className="flex items-center gap-3 text-sm">
-                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Icon name="Check" size={14} className="text-primary" />
-                    </div>
-                    <span>Техники речи и дикция</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-sm">
-                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Icon name="Check" size={14} className="text-primary" />
-                    </div>
-                    <span>Работа с аудиторией</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-sm">
-                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Icon name="Check" size={14} className="text-primary" />
-                    </div>
-                    <span>Уверенность в себе</span>
-                  </div>
+                <div className="flex items-center gap-2">
+                  <Icon name="Star" size={18} />
+                  <span>{averageRating} рейтинг</span>
                 </div>
-
-                <Button size="lg" className="w-full">
-                  Узнать больше
-                  <Icon name="ArrowRight" size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
+                <div className="flex items-center gap-2">
+                  <Icon name="Award" size={18} />
+                  <span>500+ выпускников</span>
+                </div>
               </div>
-
             </div>
           </div>
         </section>
 
-        {/* Lead Form Section */}
-        <section id="lead-form" className="py-24 bg-primary/5">
-          <div className="container mx-auto max-w-4xl px-4">
-            <div className="bg-card rounded-3xl p-12 shadow-2xl border border-border">
-              <div className="text-center mb-12">
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-sm font-medium text-primary mb-6">
-                  <Icon name="Sparkles" size={16} />
-                  <span>Бесплатное пробное занятие</span>
-                </div>
-                <h2 className="text-4xl md:text-5xl font-bold mb-4">Начните обучение прямо сейчас</h2>
-                <p className="text-lg text-muted-foreground">Оставьте заявку и получите индивидуальную консультацию</p>
+        {/* Courses */}
+        <section className="py-20 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Направления обучения</h2>
+              <p className="text-muted-foreground">Профессиональные курсы для начинающих и практикующих</p>
+            </div>
+
+            <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
+              <div 
+                className="bg-card p-8 rounded-2xl border hover:border-primary cursor-pointer transition-all"
+                onClick={() => navigate('/acting')}
+              >
+                <Icon name="Drama" size={40} className="text-primary mb-4" />
+                <h3 className="text-2xl font-bold mb-3">Актёрское мастерство</h3>
+                <p className="text-muted-foreground mb-6">
+                  Работа на камеру, съёмка короткометражки, система Станиславского
+                </p>
+                <Button variant="outline" className="w-full">Подробнее</Button>
               </div>
 
-              <div className="grid sm:grid-cols-3 gap-6 mb-12">
-                <div className="text-center p-6 rounded-2xl bg-muted/30">
-                  <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                    <Icon name="Clock" size={24} className="text-primary" />
-                  </div>
-                  <h3 className="font-bold mb-2">60 минут</h3>
-                  <p className="text-sm text-muted-foreground">Полноценное занятие</p>
-                </div>
-                <div className="text-center p-6 rounded-2xl bg-muted/30">
-                  <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                    <Icon name="User" size={24} className="text-primary" />
-                  </div>
-                  <h3 className="font-bold mb-2">Индивидуально</h3>
-                  <p className="text-sm text-muted-foreground">Один на один</p>
-                </div>
-                <div className="text-center p-6 rounded-2xl bg-muted/30">
-                  <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                    <Icon name="Gift" size={24} className="text-primary" />
-                  </div>
-                  <h3 className="font-bold mb-2">Бесплатно</h3>
-                  <p className="text-sm text-muted-foreground">Первое занятие</p>
-                </div>
+              <div 
+                className="bg-card p-8 rounded-2xl border hover:border-primary cursor-pointer transition-all"
+                onClick={() => navigate('/oratory')}
+              >
+                <Icon name="Mic2" size={40} className="text-primary mb-4" />
+                <h3 className="text-2xl font-bold mb-3">Ораторское искусство</h3>
+                <p className="text-muted-foreground mb-6">
+                  Техники речи, работа с аудиторией, уверенность в себе
+                </p>
+                <Button variant="outline" className="w-full">Подробнее</Button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Lead Form */}
+        <section id="lead-form" className="py-20">
+          <div className="container mx-auto px-4">
+            <div className="max-w-2xl mx-auto">
+              <div className="text-center mb-8">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">Бесплатное пробное занятие</h2>
+                <p className="text-muted-foreground">Оставьте заявку и мы свяжемся с вами</p>
               </div>
 
-              <div className="max-w-lg mx-auto">
+              <div className="bg-card p-8 rounded-2xl border">
                 <LeadForm 
                   source="home_page"
                   title=""
                   description=""
-                  buttonText="Записаться на занятие"
+                  buttonText="Записаться"
                 />
-                <p className="text-xs text-center text-muted-foreground mt-6 flex items-center justify-center gap-2">
-                  <Icon name="Lock" size={12} />
-                  Данные защищены и не передаются третьим лицам
-                </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* About School Section */}
-        <section className="py-24 bg-background">
+        {/* Stats */}
+        <section className="py-20 bg-muted/30">
           <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-16">
-                <h2 className="text-4xl md:text-5xl font-bold mb-4">Почему выбирают нас</h2>
-                <p className="text-xl text-muted-foreground">Профессиональное обучение от практикующего режиссёра</p>
+            <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
+              <div className="text-center">
+                <div className="text-4xl font-bold text-primary mb-2">15+</div>
+                <p className="text-sm text-muted-foreground">Лет опыта</p>
               </div>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-                <div className="bg-card border border-border rounded-2xl p-6 text-center hover:border-primary/50 transition-colors">
-                  <div className="text-5xl font-bold text-primary mb-2">15+</div>
-                  <p className="text-muted-foreground">Лет опыта в индустрии</p>
-                </div>
-                <div className="bg-card border border-border rounded-2xl p-6 text-center hover:border-primary/50 transition-colors">
-                  <div className="text-5xl font-bold text-primary mb-2">500+</div>
-                  <p className="text-muted-foreground">Успешных выпускников</p>
-                </div>
-                <div className="bg-card border border-border rounded-2xl p-6 text-center hover:border-primary/50 transition-colors">
-                  <div className="text-5xl font-bold text-primary mb-2">{averageRating}</div>
-                  <p className="text-muted-foreground">Средний рейтинг</p>
-                </div>
-                <div className="bg-card border border-border rounded-2xl p-6 text-center hover:border-primary/50 transition-colors">
-                  <div className="text-5xl font-bold text-primary mb-2">100%</div>
-                  <p className="text-muted-foreground">Практика на занятиях</p>
-                </div>
+              <div className="text-center">
+                <div className="text-4xl font-bold text-primary mb-2">500+</div>
+                <p className="text-sm text-muted-foreground">Выпускников</p>
               </div>
-
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
-                <div className="order-2 lg:order-1">
-                  <h3 className="text-3xl font-bold mb-6">О преподавателе</h3>
-                  <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                    Казбек Меретуков — режиссёр телесериалов, победитель премии ТЕФИ-2012. 
-                    Более 15 лет опыта в киноиндустрии и обучении актёрскому мастерству.
-                  </p>
-                  <Button size="lg" onClick={() => navigate('/about')}>
-                    Подробнее о преподавателе
-                    <Icon name="ArrowRight" size={18} className="ml-2" />
-                  </Button>
-                </div>
-                <div className="order-1 lg:order-2">
-                  <img 
-                    src="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/7cddbd50-0847-4321-92b1-f534403d6a21.jpg"
-                    alt="Казбек Меретуков"
-                    className="rounded-3xl shadow-2xl w-full"
-                  />
-                </div>
+              <div className="text-center">
+                <div className="text-4xl font-bold text-primary mb-2">{averageRating}</div>
+                <p className="text-sm text-muted-foreground">Рейтинг</p>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl font-bold text-primary mb-2">100%</div>
+                <p className="text-sm text-muted-foreground">Практика</p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Reviews Section */}
-        {reviews.length > 0 && (
-          <section className="py-24 bg-muted/20">
-            <div className="container mx-auto px-4">
-              <div className="text-center mb-16">
-                <h2 className="text-4xl md:text-5xl font-bold mb-4">Отзывы учеников</h2>
-                <p className="text-xl text-muted-foreground">Реальные истории наших выпускников</p>
+        {/* Teacher */}
+        <section className="py-20">
+          <div className="container mx-auto px-4">
+            <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">Казбек Меретуков</h2>
+                <p className="text-muted-foreground mb-6">
+                  Режиссёр телесериалов, победитель премии ТЕФИ-2012. 
+                  Более 15 лет опыта в киноиндустрии и обучении актёрскому мастерству.
+                </p>
+                <Button onClick={() => navigate('/about')}>
+                  Подробнее
+                </Button>
               </div>
-              <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              <div>
+                <img 
+                  src="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/7cddbd50-0847-4321-92b1-f534403d6a21.jpg"
+                  alt="Казбек Меретуков"
+                  className="rounded-2xl w-full"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Reviews */}
+        {reviews.length > 0 && (
+          <section className="py-20 bg-muted/30">
+            <div className="container mx-auto px-4">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">Отзывы учеников</h2>
+              </div>
+              
+              <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-6">
                 {reviews.slice(0, 3).map((review) => (
-                  <div key={review.id} className="bg-card border border-border rounded-2xl p-8 hover:shadow-xl transition-shadow">
-                    <div className="flex items-center gap-1 mb-6">
+                  <div key={review.id} className="bg-card p-6 rounded-2xl border">
+                    <div className="flex gap-1 mb-4">
                       {[...Array(5)].map((_, i) => (
                         <Icon 
                           key={i} 
                           name="Star" 
-                          size={18} 
+                          size={16} 
                           className={i < (review.rating || 5) ? "text-primary fill-primary" : "text-muted"} 
                         />
                       ))}
                     </div>
-                    <p className="text-muted-foreground mb-6 leading-relaxed line-clamp-6">{review.text}</p>
-                    <div className="font-bold text-lg">{review.name}</div>
+                    <p className="text-sm text-muted-foreground mb-4 line-clamp-4">{review.text}</p>
+                    <p className="font-medium">{review.name}</p>
                   </div>
                 ))}
               </div>
-              <div className="text-center mt-12">
-                <Button size="lg" variant="outline" onClick={() => navigate('/reviews')}>
-                  Читать все отзывы
-                  <Icon name="ArrowRight" size={18} className="ml-2" />
+
+              <div className="text-center mt-8">
+                <Button variant="outline" onClick={() => navigate('/reviews')}>
+                  Все отзывы
                 </Button>
               </div>
             </div>
           </section>
         )}
-
-        {/* CTA Section */}
-        <section className="py-20">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center bg-primary/5 rounded-2xl p-12 border border-primary/20">
-              <h2 className="text-4xl font-bold mb-4">Готовы начать обучение?</h2>
-              <p className="text-xl text-muted-foreground mb-8">
-                Запишитесь на бесплатное пробное занятие и убедитесь в качестве наших курсов
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="text-lg px-8 py-6" onClick={() => {
-                  const formSection = document.querySelector('#lead-form');
-                  if (formSection) {
-                    formSection.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}>
-                  Записаться на занятие
-                </Button>
-                <Button size="lg" variant="outline" className="text-lg px-8 py-6" onClick={() => navigate('/contacts')}>
-                  Связаться с нами
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
 
         <Footer />
       </div>
