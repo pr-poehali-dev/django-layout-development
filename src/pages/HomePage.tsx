@@ -133,29 +133,31 @@ export default function HomePage() {
         <section className="py-20">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
-              <div className="grid lg:grid-cols-[360px_1fr] gap-10 items-start">
-                <div className="relative rounded-2xl overflow-hidden shadow-xl bg-muted sticky top-24">
-                  <iframe
-                    className="w-full aspect-[9/16]"
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                    title="Курс актёрского мастерства"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
+              <div className="flex flex-col lg:flex-row gap-8 items-start">
+                <div className="w-full lg:w-72 flex-shrink-0">
+                  <div className="relative rounded-xl overflow-hidden shadow-lg bg-muted sticky top-24">
+                    <iframe
+                      className="w-full aspect-[9/16]"
+                      src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                      title="Курс актёрского мастерства"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
                 </div>
 
-                <div>
+                <div className="flex-1">
                   <h2 className="text-3xl md:text-4xl font-bold mb-4">Актёрское мастерство</h2>
-                  <p className="text-base text-muted-foreground mb-8">
+                  <p className="text-base text-muted-foreground mb-6">
                     Профессиональный курс для тех, кто хочет работать в кино. 5 модулей от основ до съёмки собственного фильма.
                   </p>
 
-                  <div className="space-y-4 mb-8">
-                    <div className="p-5 bg-card rounded-xl border-2 hover:border-primary/50 transition-all">
-                      <div className="flex items-start gap-4">
-                        <Icon name="BookOpen" size={24} className="text-primary flex-shrink-0 mt-1" />
+                  <div className="space-y-3 mb-6">
+                    <div className="p-4 bg-card rounded-xl border hover:border-primary/50 transition-all">
+                      <div className="flex items-start gap-3">
+                        <Icon name="BookOpen" size={20} className="text-primary flex-shrink-0 mt-0.5" />
                         <div>
-                          <h3 className="font-bold text-lg mb-2">Работа с текстом и ролью</h3>
+                          <h3 className="font-bold text-base mb-1">Работа с текстом и ролью</h3>
                           <p className="text-sm text-muted-foreground">
                             Актёрские тренинги, монологи перед камерой, отличия кино и театра
                           </p>
@@ -163,11 +165,11 @@ export default function HomePage() {
                       </div>
                     </div>
 
-                    <div className="p-5 bg-card rounded-xl border-2 hover:border-primary/50 transition-all">
-                      <div className="flex items-start gap-4">
-                        <Icon name="Video" size={24} className="text-primary flex-shrink-0 mt-1" />
+                    <div className="p-4 bg-card rounded-xl border hover:border-primary/50 transition-all">
+                      <div className="flex items-start gap-3">
+                        <Icon name="Video" size={20} className="text-primary flex-shrink-0 mt-0.5" />
                         <div>
-                          <h3 className="font-bold text-lg mb-2">Работа в кадре</h3>
+                          <h3 className="font-bold text-base mb-1">Работа в кадре</h3>
                           <p className="text-sm text-muted-foreground">
                             Практика с камерой, кино-выразительность, обратная связь от мастера
                           </p>
@@ -175,11 +177,11 @@ export default function HomePage() {
                       </div>
                     </div>
 
-                    <div className="p-5 bg-card rounded-xl border-2 hover:border-primary/50 transition-all">
-                      <div className="flex items-start gap-4">
-                        <Icon name="Clapperboard" size={24} className="text-primary flex-shrink-0 mt-1" />
+                    <div className="p-4 bg-card rounded-xl border hover:border-primary/50 transition-all">
+                      <div className="flex items-start gap-3">
+                        <Icon name="Clapperboard" size={20} className="text-primary flex-shrink-0 mt-0.5" />
                         <div>
-                          <h3 className="font-bold text-lg mb-2">Съёмочный процесс</h3>
+                          <h3 className="font-bold text-base mb-1">Съёмочный процесс</h3>
                           <p className="text-sm text-muted-foreground">
                             Лайфхаки площадки, запись самопроб, работа с кастинг-агентами
                           </p>
@@ -187,11 +189,11 @@ export default function HomePage() {
                       </div>
                     </div>
 
-                    <div className="p-5 bg-card rounded-xl border-2 hover:border-primary/50 transition-all">
-                      <div className="flex items-start gap-4">
-                        <Icon name="Trophy" size={24} className="text-primary flex-shrink-0 mt-1" />
+                    <div className="p-4 bg-card rounded-xl border hover:border-primary/50 transition-all">
+                      <div className="flex items-start gap-3">
+                        <Icon name="Trophy" size={20} className="text-primary flex-shrink-0 mt-0.5" />
                         <div>
-                          <h3 className="font-bold text-lg mb-2">Итоговый проект</h3>
+                          <h3 className="font-bold text-base mb-1">Итоговый проект</h3>
                           <p className="text-sm text-muted-foreground">
                             Съёмка короткометражки с главной ролью, участие в фильмах курса
                           </p>
