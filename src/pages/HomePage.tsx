@@ -130,13 +130,13 @@ export default function HomePage() {
         </section>
 
         {/* Acting Course */}
-        <section className="py-24">
+        <section className="py-20">
           <div className="container mx-auto px-4">
             <div className="max-w-7xl mx-auto">
-              <div className="grid lg:grid-cols-2 gap-12">
-                <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[9/16] lg:aspect-auto lg:h-auto">
+              <div className="grid lg:grid-cols-[400px_1fr] gap-8 items-stretch">
+                <div className="relative rounded-2xl overflow-hidden shadow-xl">
                   <iframe
-                    className="w-full h-full min-h-[700px]"
+                    className="w-full h-full aspect-[9/16]"
                     src="https://www.youtube.com/embed/dQw4w9WgXcQ"
                     title="Курс актёрского мастерства"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -144,50 +144,45 @@ export default function HomePage() {
                   />
                 </div>
 
-                <div className="flex flex-col">
-                  <h2 className="text-4xl md:text-5xl font-bold mb-6">Актёрское мастерство</h2>
-                  <p className="text-lg text-muted-foreground mb-10">
-                    Профессиональный курс для тех, кто хочет работать в кино. 
-                    5 модулей от основ до съёмки собственного фильма.
+                <div>
+                  <h2 className="text-3xl md:text-4xl font-bold mb-4">Актёрское мастерство</h2>
+                  <p className="text-base text-muted-foreground mb-6">
+                    Профессиональный курс для тех, кто хочет работать в кино. 5 модулей от основ до съёмки собственного фильма.
                   </p>
 
-                  <div className="space-y-6 mb-10 flex-1">
-                    <div className="p-6 bg-card rounded-2xl border-2 hover:border-primary/50 transition-all">
-                      <h3 className="font-bold text-xl mb-3">Работа с текстом и ролью</h3>
-                      <p className="text-muted-foreground leading-relaxed">
-                        Актёрские тренинги, работа с монологами перед камерой, 
-                        выявление ключевых точек в тексте. Вы поймёте отличия актёрской игры в кино и театре.
+                  <div className="grid md:grid-cols-2 gap-4 mb-6">
+                    <div className="p-4 bg-card rounded-xl border">
+                      <h3 className="font-bold text-base mb-2">Работа с текстом и ролью</h3>
+                      <p className="text-sm text-muted-foreground">
+                        Актёрские тренинги, монологи перед камерой, отличия кино и театра
                       </p>
                     </div>
 
-                    <div className="p-6 bg-card rounded-2xl border-2 hover:border-primary/50 transition-all">
-                      <h3 className="font-bold text-xl mb-3">Работа актёра в кадре</h3>
-                      <p className="text-muted-foreground leading-relaxed">
-                        Практические занятия с камерой, работа над кино-выразительностью, 
-                        творческие пробы и обратная связь от мастера.
+                    <div className="p-4 bg-card rounded-xl border">
+                      <h3 className="font-bold text-base mb-2">Работа в кадре</h3>
+                      <p className="text-sm text-muted-foreground">
+                        Практика с камерой, кино-выразительность, обратная связь от мастера
                       </p>
                     </div>
 
-                    <div className="p-6 bg-card rounded-2xl border-2 hover:border-primary/50 transition-all">
-                      <h3 className="font-bold text-xl mb-3">Съёмочный процесс</h3>
-                      <p className="text-muted-foreground leading-relaxed">
-                        Понимание всей системы, лайфхаки для рабочего состояния на площадке, 
-                        запись самопроб и работа с кастинг-агентами.
+                    <div className="p-4 bg-card rounded-xl border">
+                      <h3 className="font-bold text-base mb-2">Съёмочный процесс</h3>
+                      <p className="text-sm text-muted-foreground">
+                        Лайфхаки площадки, запись самопроб, работа с кастинг-агентами
                       </p>
                     </div>
 
-                    <div className="p-6 bg-card rounded-2xl border-2 hover:border-primary/50 transition-all">
-                      <h3 className="font-bold text-xl mb-3">Итоговый проект</h3>
-                      <p className="text-muted-foreground leading-relaxed">
-                        Съёмка собственного короткометражного фильма с главной ролью. 
-                        Участие в фильмах однокурсников.
+                    <div className="p-4 bg-card rounded-xl border">
+                      <h3 className="font-bold text-base mb-2">Итоговый проект</h3>
+                      <p className="text-sm text-muted-foreground">
+                        Съёмка короткометражки с главной ролью, участие в фильмах курса
                       </p>
                     </div>
                   </div>
 
                   <Button 
                     size="lg" 
-                    className="w-full text-base"
+                    className="w-full"
                     onClick={() => document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' })}
                   >
                     Записаться на курс
