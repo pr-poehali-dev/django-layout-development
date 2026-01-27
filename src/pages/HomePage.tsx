@@ -138,7 +138,7 @@ export default function HomePage() {
         {/* Courses Section */}
         <section className="py-20 bg-background">
           <div className="container mx-auto px-4">
-            <div className="max-w-7xl mx-auto space-y-32">
+            <div className="max-w-7xl mx-auto space-y-20">
               
               {/* Acting Course */}
               <div className="relative">
@@ -156,7 +156,7 @@ export default function HomePage() {
                   </div>
 
                   {/* Content */}
-                  <div className="space-y-8">
+                  <div className="space-y-6">
                     <div className="space-y-4">
                       <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary font-medium text-sm">
                         <Icon name="Drama" size={16} />
@@ -206,8 +206,20 @@ export default function HomePage() {
               {/* Oratory Course */}
               <div className="relative">
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
+                  {/* Video */}
+                  <div className="relative group order-2 lg:order-1">
+                    <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-primary/10 rounded-3xl blur-2xl group-hover:blur-3xl transition-all duration-500 opacity-50"></div>
+                    <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-video">
+                      <VideoEmbed 
+                        contentKey="home_oratory_video"
+                        defaultVideoUrl="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                        title="Ораторское искусство"
+                      />
+                    </div>
+                  </div>
+
                   {/* Content */}
-                  <div className="space-y-8 order-2 lg:order-1">
+                  <div className="space-y-6 order-1 lg:order-2">
                     <div className="space-y-4">
                       <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary font-medium text-sm">
                         <Icon name="Mic2" size={16} />
@@ -250,18 +262,6 @@ export default function HomePage() {
                       Узнать больше
                       <Icon name="ArrowRight" size={20} className="ml-2" />
                     </Button>
-                  </div>
-
-                  {/* Video */}
-                  <div className="relative group order-1 lg:order-2">
-                    <div className="absolute -inset-4 bg-gradient-to-l from-primary/20 to-primary/10 rounded-3xl blur-2xl group-hover:blur-3xl transition-all duration-500 opacity-50"></div>
-                    <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-video">
-                      <VideoEmbed 
-                        contentKey="home_oratory_video"
-                        defaultVideoUrl="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                        title="Ораторское искусство"
-                      />
-                    </div>
                   </div>
                 </div>
               </div>
