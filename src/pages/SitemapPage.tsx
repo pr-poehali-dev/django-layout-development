@@ -1,9 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { api } from '@/lib/api';
 
 export default function SitemapPage() {
-  const [xml, setXml] = useState<string>('');
-
   useEffect(() => {
     generateSitemap();
   }, []);
@@ -12,7 +10,7 @@ export default function SitemapPage() {
     try {
       const blogPosts = await api.gallery.getBlog();
       
-      const baseUrl = 'https://acting-school.poehali.dev';
+      const baseUrl = 'https://xn----7sbdfnbalzedv3az5aq.xn--p1ai';
       const now = new Date().toISOString().split('T')[0];
       
       const staticPages = [
@@ -45,23 +43,14 @@ ${allUrls.map(page => `  <url>
   </url>`).join('\n')}
 </urlset>`;
 
-      setXml(sitemapXml);
-      
-      const blob = new Blob([sitemapXml], { type: 'application/xml' });
-      const url = URL.createObjectURL(blob);
-      window.location.href = url;
+      document.contentType = 'application/xml';
+      document.write(sitemapXml);
+      document.close();
     } catch (error) {
       console.error('Sitemap generation failed:', error);
+      document.write('Error generating sitemap');
     }
   };
 
-  if (!xml) {
-    return <div>Generating sitemap...</div>;
-  }
-
-  return (
-    <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'monospace', fontSize: '12px' }}>
-      {xml}
-    </pre>
-  );
+  return null;
 }
