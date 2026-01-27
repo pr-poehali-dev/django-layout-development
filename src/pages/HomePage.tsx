@@ -154,8 +154,8 @@ export default function HomePage() {
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
-                <div className="relative p-8 space-y-6">
-                  <div className="flex items-center justify-between">
+                <div className="relative p-8 flex flex-col h-full">
+                  <div className="flex items-center justify-between mb-6">
                     <div className="flex items-center gap-3 px-4 py-2 bg-primary/10 rounded-full">
                       <Icon name="Drama" size={20} className="text-primary" />
                       <span className="font-semibold text-primary">Актёрское мастерство</span>
@@ -163,13 +163,13 @@ export default function HomePage() {
                     <Icon name="ArrowRight" size={24} className="text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
                   </div>
 
-                  <h3 className="text-3xl font-bold">Раскройте актёрский талант</h3>
+                  <h3 className="text-3xl font-bold mb-6">Раскройте актёрский талант</h3>
                   
-                  <p className="text-lg text-muted-foreground leading-relaxed">
+                  <p className="text-lg text-muted-foreground leading-relaxed mb-6">
                     Профессиональная работа на камеру, съёмка короткометражки и актёрские техники от режиссёра телесериалов
                   </p>
 
-                  <div className="space-y-3 pt-4">
+                  <div className="space-y-3 mb-6 flex-grow">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                         <Icon name="Video" size={18} className="text-primary" />
@@ -190,7 +190,7 @@ export default function HomePage() {
                     </div>
                   </div>
 
-                  <Button size="lg" className="w-full mt-6 text-lg">
+                  <Button size="lg" className="w-full text-lg">
                     Узнать больше
                     <Icon name="ArrowRight" size={20} className="ml-2" />
                   </Button>
@@ -204,8 +204,8 @@ export default function HomePage() {
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
-                <div className="relative p-8 space-y-6">
-                  <div className="flex items-center justify-between">
+                <div className="relative p-8 flex flex-col h-full">
+                  <div className="flex items-center justify-between mb-6">
                     <div className="flex items-center gap-3 px-4 py-2 bg-primary/10 rounded-full">
                       <Icon name="Mic2" size={20} className="text-primary" />
                       <span className="font-semibold text-primary">Ораторское искусство</span>
@@ -213,13 +213,13 @@ export default function HomePage() {
                     <Icon name="ArrowRight" size={24} className="text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
                   </div>
 
-                  <h3 className="text-3xl font-bold">Овладейте силой слова</h3>
+                  <h3 className="text-3xl font-bold mb-6">Овладейте силой слова</h3>
                   
-                  <p className="text-lg text-muted-foreground leading-relaxed">
+                  <p className="text-lg text-muted-foreground leading-relaxed mb-6">
                     Уверенные публичные выступления, техники речи и работа с аудиторией для достижения ваших целей
                   </p>
 
-                  <div className="space-y-3 pt-4">
+                  <div className="space-y-3 mb-6 flex-grow">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                         <Icon name="MessageSquare" size={18} className="text-primary" />
@@ -240,7 +240,7 @@ export default function HomePage() {
                     </div>
                   </div>
 
-                  <Button size="lg" className="w-full mt-6 text-lg">
+                  <Button size="lg" className="w-full text-lg">
                     Узнать больше
                     <Icon name="ArrowRight" size={20} className="ml-2" />
                   </Button>
