@@ -176,18 +176,18 @@ export default function HomePage() {
                       />
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                      <div className="flex items-center gap-2 px-4 py-3 bg-muted/50 rounded-lg">
+                    <div className="flex flex-wrap gap-3">
+                      <div className="flex items-center gap-2 px-4 py-3 bg-muted/50 rounded-lg flex-1 min-w-[200px]">
                         <Icon name="Video" size={18} className="text-primary flex-shrink-0" />
-                        <span className="text-sm font-medium">Работа на камеру</span>
+                        <span className="text-sm font-medium whitespace-nowrap">Работа на камеру</span>
                       </div>
-                      <div className="flex items-center gap-2 px-4 py-3 bg-muted/50 rounded-lg">
+                      <div className="flex items-center gap-2 px-4 py-3 bg-muted/50 rounded-lg flex-1 min-w-[200px]">
                         <Icon name="Film" size={18} className="text-primary flex-shrink-0" />
-                        <span className="text-sm font-medium">Короткометражка</span>
+                        <span className="text-sm font-medium whitespace-nowrap">Короткометражка</span>
                       </div>
-                      <div className="flex items-center gap-2 px-4 py-3 bg-muted/50 rounded-lg sm:col-span-2 lg:col-span-1">
+                      <div className="flex items-center gap-2 px-4 py-3 bg-muted/50 rounded-lg flex-1 min-w-[200px]">
                         <Icon name="Award" size={18} className="text-primary flex-shrink-0" />
-                        <span className="text-sm font-medium">Система Станиславского</span>
+                        <span className="text-sm font-medium whitespace-nowrap">Система Станиславского</span>
                       </div>
                     </div>
 
@@ -239,18 +239,18 @@ export default function HomePage() {
                       />
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                      <div className="flex items-center gap-2 px-4 py-3 bg-muted/50 rounded-lg">
+                    <div className="flex flex-wrap gap-3">
+                      <div className="flex items-center gap-2 px-4 py-3 bg-muted/50 rounded-lg flex-1 min-w-[200px]">
                         <Icon name="MessageSquare" size={18} className="text-primary flex-shrink-0" />
-                        <span className="text-sm font-medium">Техники речи</span>
+                        <span className="text-sm font-medium whitespace-nowrap">Техники речи</span>
                       </div>
-                      <div className="flex items-center gap-2 px-4 py-3 bg-muted/50 rounded-lg">
+                      <div className="flex items-center gap-2 px-4 py-3 bg-muted/50 rounded-lg flex-1 min-w-[200px]">
                         <Icon name="Users" size={18} className="text-primary flex-shrink-0" />
-                        <span className="text-sm font-medium">Работа с аудиторией</span>
+                        <span className="text-sm font-medium whitespace-nowrap">Работа с аудиторией</span>
                       </div>
-                      <div className="flex items-center gap-2 px-4 py-3 bg-muted/50 rounded-lg sm:col-span-2 lg:col-span-1">
+                      <div className="flex items-center gap-2 px-4 py-3 bg-muted/50 rounded-lg flex-1 min-w-[200px]">
                         <Icon name="Zap" size={18} className="text-primary flex-shrink-0" />
-                        <span className="text-sm font-medium">Уверенность</span>
+                        <span className="text-sm font-medium whitespace-nowrap">Уверенность</span>
                       </div>
                     </div>
 
