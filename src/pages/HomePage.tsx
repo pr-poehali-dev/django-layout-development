@@ -133,8 +133,8 @@ export default function HomePage() {
         <section className="py-20">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
-              <div className="flex flex-col lg:flex-row gap-8 items-start">
-                <div className="w-full lg:w-72 flex-shrink-0">
+              <div className="flex flex-col lg:flex-row gap-6 items-start">
+                <div className="w-full lg:w-52 flex-shrink-0">
                   <div className="relative rounded-xl overflow-hidden shadow-lg bg-muted sticky top-24">
                     <iframe
                       className="w-full aspect-[9/16]"
