@@ -5,9 +5,18 @@ import Icon from '@/components/ui/icon';
 import PhoneForm from './PhoneForm';
 import { useLocation } from 'react-router-dom';
 import { api } from '@/lib/api';
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from '@/components/ui/navigation-menu';
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [coursesOpen, setCoursesOpen] = useState(false);
   const [phone, setPhone] = useState('+7 (999) 123-45-67');
   const [instagram, setInstagram] = useState('https://instagram.com/');
   const [youtube, setYoutube] = useState('https://youtube.com/');
@@ -29,11 +38,14 @@ export default function Header() {
 
   const menuItems = [
     { href: '/', label: 'Главная' },
-    { href: '/acting', label: 'Актерское мастерство' },
-    { href: '/oratory', label: 'Ораторское искусство' },
     { href: '/teacher', label: 'О преподавателях' },
     { href: '/contacts', label: 'Контакты' },
     { href: '/blog', label: 'Блог' }
+  ];
+
+  const courseItems = [
+    { href: '/acting', label: 'Актерское мастерство', description: 'Обучение актёрскому мастерству, работа на камеру' },
+    { href: '/oratory', label: 'Ораторское искусство', description: 'Развитие навыков публичных выступлений' }
   ];
 
   return (
@@ -49,6 +61,36 @@ export default function Header() {
         </a>
 
         <nav className="hidden md:flex items-center gap-4 lg:gap-6">
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className="text-sm lg:text-base bg-transparent hover:bg-transparent data-[state=open]:bg-transparent">
+                  Курсы
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid w-[300px] gap-2 p-3">
+                    {courseItems.map((course) => (
+                      <li key={course.href}>
+                        <NavigationMenuLink asChild>
+                          <a
+                            href={course.href}
+                            className={`block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground ${
+                              location.pathname === course.href ? 'bg-accent text-primary font-semibold' : ''
+                            }`}
+                          >
+                            <div className="text-sm font-medium leading-none">{course.label}</div>
+                            <p className="line-clamp-2 text-xs leading-snug text-muted-foreground mt-1">
+                              {course.description}
+                            </p>
+                          </a>
+                        </NavigationMenuLink>
+                      </li>
+                    ))}
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
           {menuItems.map((item) => (
             <a
               key={item.href}
@@ -84,6 +126,31 @@ export default function Header() {
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px]">
               <nav className="flex flex-col gap-4 mt-8">
+                <div>
+                  <button
+                    onClick={() => setCoursesOpen(!coursesOpen)}
+                    className="w-full flex items-center justify-between text-lg hover:text-primary transition p-3 rounded-lg hover:bg-muted"
+                  >
+                    <span>Курсы</span>
+                    <Icon name={coursesOpen ? "ChevronUp" : "ChevronDown"} size={20} />
+                  </button>
+                  {coursesOpen && (
+                    <div className="ml-4 mt-2 flex flex-col gap-2">
+                      {courseItems.map((course) => (
+                        <a
+                          key={course.href}
+                          href={course.href}
+                          onClick={() => setOpen(false)}
+                          className={`text-base hover:text-primary transition p-3 rounded-lg hover:bg-muted ${
+                            location.pathname === course.href ? 'text-primary font-semibold bg-muted' : ''
+                          }`}
+                        >
+                          {course.label}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
                 {menuItems.map((item) => (
                   <a
                     key={item.href}
