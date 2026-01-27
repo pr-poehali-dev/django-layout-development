@@ -82,45 +82,32 @@ export default function HomePage() {
         <Header />
 
         {/* Hero Section */}
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-          {/* Animated Background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/80 to-primary/60">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.1),transparent_50%)]"></div>
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,255,255,0.08),transparent_50%)]"></div>
-          </div>
-          
-          {/* Floating Shapes */}
-          <div className="absolute top-20 left-10 w-32 h-32 bg-white/5 rounded-full blur-2xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-40 h-40 bg-white/5 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
-          <div className="absolute top-1/2 right-1/4 w-24 h-24 bg-white/5 rounded-full blur-xl animate-pulse" style={{animationDelay: '2s'}}></div>
-
+        <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary/10 via-background to-background">
+          <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
           <div className="container mx-auto px-4 py-20 relative z-10">
-            <div className="max-w-5xl mx-auto text-center space-y-10">
-              <div className="space-y-6">
-                <EditableContent
-                  contentKey="home_hero_title"
-                  defaultValue="Школа Казбека Меретукова"
-                  type="text"
-                  page="home"
-                  section="hero"
-                  as="h1"
-                  className="text-5xl md:text-7xl lg:text-8xl font-bold text-white drop-shadow-2xl"
-                />
-                <EditableContent
-                  contentKey="home_hero_subtitle"
-                  defaultValue="Актёрское и ораторское мастерство от режиссёра телесериалов"
-                  type="textarea"
-                  page="home"
-                  section="hero"
-                  as="p"
-                  className="text-xl md:text-2xl lg:text-3xl text-white/90 max-w-3xl mx-auto leading-relaxed"
-                />
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
+            <div className="max-w-4xl mx-auto text-center space-y-8">
+              <EditableContent
+                contentKey="home_hero_title"
+                defaultValue="Школа Казбека Меретукова"
+                type="text"
+                page="home"
+                section="hero"
+                as="h1"
+                className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent"
+              />
+              <EditableContent
+                contentKey="home_hero_subtitle"
+                defaultValue="Актёрское и ораторское мастерство от режиссёра телесериалов"
+                type="textarea"
+                page="home"
+                section="hero"
+                as="p"
+                className="text-xl md:text-2xl text-muted-foreground"
+              />
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8">
                 <Button 
                   size="lg" 
-                  className="text-lg px-10 py-7 bg-white text-primary hover:bg-white/90 hover:scale-105 transition-all shadow-2xl font-semibold"
+                  className="text-lg px-8 py-6"
                   onClick={() => navigate('/acting')}
                 >
                   Актёрское мастерство
@@ -128,29 +115,23 @@ export default function HomePage() {
                 <Button 
                   size="lg" 
                   variant="outline"
-                  className="text-lg px-10 py-7 bg-transparent border-2 border-white text-white hover:bg-white/10 hover:scale-105 transition-all shadow-2xl font-semibold"
+                  className="text-lg px-8 py-6"
                   onClick={() => navigate('/oratory')}
                 >
                   Ораторское искусство
                 </Button>
               </div>
-
-              <div className="flex flex-wrap items-center justify-center gap-8 pt-12">
-                <div className="flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full">
-                  <Icon name="Award" size={24} className="text-white" />
-                  <span className="text-white font-medium">Победитель ТЕФИ-2012</span>
+              <div className="flex items-center justify-center gap-6 mt-12 text-sm text-muted-foreground">
+                <div className="flex items-center gap-2">
+                  <Icon name="Award" size={20} className="text-primary" />
+                  <span>Победитель ТЕФИ-2012</span>
                 </div>
-                <div className="flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full">
-                  <Icon name="Star" size={24} className="text-white" />
-                  <span className="text-white font-medium">{averageRating} ({reviews.length} отзывов)</span>
+                <div className="flex items-center gap-2">
+                  <Icon name="Star" size={20} className="text-primary" />
+                  <span>{averageRating} ({reviews.length} отзывов)</span>
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* Scroll Indicator */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-            <Icon name="ChevronDown" size={32} className="text-white/60" />
           </div>
         </section>
 
