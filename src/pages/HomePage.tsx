@@ -134,8 +134,8 @@ export default function HomePage() {
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className="flex flex-col lg:flex-row gap-6 items-start">
-                <div className="w-full lg:w-52 flex-shrink-0">
-                  <div className="relative rounded-xl overflow-hidden shadow-lg bg-muted sticky top-24">
+                <div className="w-40 flex-shrink-0 hidden lg:block">
+                  <div className="relative rounded-lg overflow-hidden shadow-lg bg-muted sticky top-24">
                     <iframe
                       className="w-full aspect-[9/16]"
                       src="https://www.youtube.com/embed/dQw4w9WgXcQ"
