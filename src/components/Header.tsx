@@ -61,6 +61,14 @@ export default function Header() {
         </a>
 
         <nav className="hidden md:flex items-center gap-4 lg:gap-6">
+          <a
+            href="/"
+            className={`text-sm lg:text-base hover:text-primary transition ${
+              location.pathname === '/' ? 'text-primary font-semibold' : ''
+            }`}
+          >
+            Главная
+          </a>
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
@@ -91,7 +99,7 @@ export default function Header() {
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
-          {menuItems.map((item) => (
+          {menuItems.slice(1).map((item) => (
             <a
               key={item.href}
               href={item.href}
@@ -126,6 +134,15 @@ export default function Header() {
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px]">
               <nav className="flex flex-col gap-4 mt-8">
+                <a
+                  href="/"
+                  onClick={() => setOpen(false)}
+                  className={`text-lg hover:text-primary transition p-3 rounded-lg hover:bg-muted ${
+                    location.pathname === '/' ? 'text-primary font-semibold bg-muted' : ''
+                  }`}
+                >
+                  Главная
+                </a>
                 <div>
                   <button
                     onClick={() => setCoursesOpen(!coursesOpen)}
@@ -151,7 +168,7 @@ export default function Header() {
                     </div>
                   )}
                 </div>
-                {menuItems.map((item) => (
+                {menuItems.slice(1).map((item) => (
                   <a
                     key={item.href}
                     href={item.href}

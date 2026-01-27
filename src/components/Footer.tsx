@@ -84,13 +84,13 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">О школе</h4>
             <ul className="space-y-2">
               <li>
-                <a href="/team" className="text-muted-foreground hover:text-primary transition">
-                  Команда
+                <a href="/" className="text-muted-foreground hover:text-primary transition">
+                  Главная
                 </a>
               </li>
               <li>
-                <a href="/reviews" className="text-muted-foreground hover:text-primary transition">
-                  Отзывы
+                <a href="/teacher" className="text-muted-foreground hover:text-primary transition">
+                  О преподавателях
                 </a>
               </li>
               <li>
