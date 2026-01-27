@@ -130,10 +130,10 @@ export default function HomePage() {
         </section>
 
         {/* Acting Course */}
-        <section className="py-20">
+        <section className="py-32">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
-              <div className="grid md:grid-cols-[320px_1fr] gap-8 items-start">
+              <div className="grid md:grid-cols-[320px_1fr] gap-8 items-start justify-items-center md:justify-items-start">
                 {/* Video */}
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-black">
                   <iframe
