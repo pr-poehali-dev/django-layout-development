@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import SchemaMarkup from '@/components/SchemaMarkup';
 import { api, Review, BlogPost, TeamMember, SiteContent } from '@/lib/api';
 import EditableContent from '@/components/EditableContent';
+import VideoEmbed from '@/components/VideoEmbed';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
 import LeadForm from '@/components/LeadForm';
@@ -144,14 +145,10 @@ export default function HomePage() {
               </div>
               <div className="grid lg:grid-cols-2 gap-8 items-start">
                 <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl">
-                  <EditableContent
+                  <VideoEmbed 
                     contentKey="home_acting_video"
-                    defaultValue='<iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Актёрское мастерство" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
-                    type="textarea"
-                    page="home"
-                    section="video"
-                    as="div"
-                    className="w-full h-full"
+                    defaultVideoUrl="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                    title="Актёрское мастерство"
                   />
                 </div>
                 <div className="space-y-6">
@@ -277,14 +274,10 @@ export default function HomePage() {
                   </Button>
                 </div>
                 <div className="order-1 lg:order-2 aspect-video rounded-2xl overflow-hidden shadow-2xl">
-                  <EditableContent
+                  <VideoEmbed 
                     contentKey="home_oratory_video"
-                    defaultValue='<iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Ораторское искусство" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
-                    type="textarea"
-                    page="home"
-                    section="video"
-                    as="div"
-                    className="w-full h-full"
+                    defaultVideoUrl="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                    title="Ораторское искусство"
                   />
                 </div>
               </div>
