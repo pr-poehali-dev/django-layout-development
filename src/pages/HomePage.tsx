@@ -341,7 +341,7 @@ export default function HomePage() {
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Начните прямо сейчас</h2>
               <p className="text-lg text-muted-foreground">
-                Запишитесь на пробное занятие и откройте для себя мир актёрского мастерства
+                Запишитесь на пробное занятие по актёрскому или ораторскому мастерству
               </p>
             </div>
 
