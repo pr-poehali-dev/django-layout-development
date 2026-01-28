@@ -113,7 +113,7 @@ export default function HomePage() {
                 <Button 
                   size="lg" 
                   variant="outline"
-                  onClick={() => navigate('/about')}
+                  onClick={() => navigate('/teacher')}
                 >
                   О преподавателе
                 </Button>
