@@ -131,7 +131,7 @@ export default function HomePage() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Icon name="Award" size={18} />
-                  <span>500+ выпускников</span>
+                  <span>250+ выпускников</span>
                 </div>
               </div>
             </div>
