@@ -55,8 +55,8 @@ export default function OratoryPage() {
       <Helmet>
         <title>Курсы ораторского искусства в Москве | Обучение риторике и публичным выступлениям</title>
         <meta name="description" content="Профессиональные курсы ораторского искусства. Научитесь уверенно выступать на публике, управлять голосом, побеждать волнение. Обучение риторике от профессионалов." />
-        <link rel="canonical" href="https://acting-school.poehali.dev/oratory" />
-        <meta property="og:url" content="https://acting-school.poehali.dev/oratory" />
+        <link rel="canonical" href="https://acting-school.poehali.dev/public-speaking" />
+        <meta property="og:url" content="https://acting-school.poehali.dev/public-speaking" />
         <meta property="og:title" content="Курсы ораторского искусства в Москве" />
       </Helmet>
       <div className="min-h-screen bg-background text-foreground">
