@@ -312,13 +312,11 @@ export default function HomePage() {
                         Подробнее о курсе
                       </Button>
                     </div>
-                    {content.trial_date_oratory && (
-                      <SeatsCounter 
-                        trialDate={content.trial_date_oratory} 
-                        maxSeats={12}
-                        minSeats={2}
-                      />
-                    )}
+                    <SeatsCounter 
+                      trialDate={content.trial_date_oratory || '2025-03-27'} 
+                      maxSeats={12}
+                      minSeats={2}
+                    />
                   </div>
                 </div>
               </div>
