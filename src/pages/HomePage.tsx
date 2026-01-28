@@ -377,8 +377,8 @@ export default function HomePage() {
                       <Icon name="Video" className="text-primary" size={20} />
                     </div>
                     <div>
-                      <h3 className="font-semibold mb-1">Съёмки в настоящих проектах</h3>
-                      <p className="text-sm text-muted-foreground">Практический опыт работы на площадке</p>
+                      <h3 className="font-semibold mb-1">Практический опыт</h3>
+                      <p className="text-sm text-muted-foreground">Работа на камеру, съёмки и выступления на публике</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
