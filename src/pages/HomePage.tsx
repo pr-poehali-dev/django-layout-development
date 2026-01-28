@@ -309,7 +309,7 @@ export default function HomePage() {
                     <Button 
                       size="lg"
                       variant="outline"
-                      onClick={() => navigate('/public-speaking')}
+                      onClick={() => navigate('/oratory')}
                     >
                       Подробнее о курсе
                     </Button>
