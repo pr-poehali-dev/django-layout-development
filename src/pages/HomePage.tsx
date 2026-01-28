@@ -302,13 +302,13 @@ export default function HomePage() {
                       triggerVariant="default"
                       title="Запись на курс ораторского мастерства"
                       description="Оставьте номер телефона, и мы свяжемся с вами"
-                      seatsCounter={
+                      seatsCounter={content.trial_date_oratory && (
                         <SeatsCounter 
-                          trialDate={content.trial_date_oratory || '2025-03-27'} 
+                          trialDate={content.trial_date_oratory} 
                           maxSeats={12}
                           minSeats={2}
                         />
-                      }
+                      )}
                     />
                     <Button 
                       size="lg"
