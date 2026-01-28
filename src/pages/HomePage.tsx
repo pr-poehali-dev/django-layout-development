@@ -8,6 +8,9 @@ import { api, Review, BlogPost, TeamMember, SiteContent, GalleryImage } from '@/
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
 import LeadForm from '@/components/LeadForm';
+import PhoneForm from '@/components/PhoneForm';
+import SeatsCounter from '@/components/ui/seats-counter';
+import { formatDate } from '@/lib/dates';
 import ForWhomSection from '@/components/acting/ForWhomSection';
 import ReviewsSection from '@/components/acting/ReviewsSection';
 import TeamSection from '@/components/acting/TeamSection';
@@ -160,6 +163,17 @@ export default function HomePage() {
                     От актёрских тренингов до съёмки собственного короткометражного фильма.
                   </p>
 
+                  <div className="flex flex-col sm:flex-row gap-3 mb-6">
+                    <div className="flex items-center gap-2 bg-card px-3 py-2 rounded-lg text-sm">
+                      <Icon name="Calendar" className="text-primary" size={18} />
+                      <span>Пробное: {content.trial_date ? formatDate(content.trial_date) : '25 марта 2025'}</span>
+                    </div>
+                    <div className="flex items-center gap-2 bg-card px-3 py-2 rounded-lg text-sm">
+                      <Icon name="PlayCircle" className="text-primary" size={18} />
+                      <span>Старт: {content.course_start_date ? formatDate(content.course_start_date) : '1 апреля 2025'}</span>
+                    </div>
+                  </div>
+
                   <h3 className="text-xl font-semibold mb-4">Чему вы научитесь:</h3>
                   <div className="space-y-3 mb-8">
                     <div className="flex items-start gap-3">
@@ -188,12 +202,30 @@ export default function HomePage() {
                     </div>
                   </div>
 
-                  <Button 
-                    size="lg"
-                    onClick={() => navigate('/acting')}
-                  >
-                    Подробнее о курсе
-                  </Button>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <PhoneForm
+                      source="home_acting"
+                      course="acting"
+                      triggerText="Записаться на курс"
+                      triggerSize="lg"
+                      title="Запись на курс актёрского мастерства"
+                      description="Оставьте номер телефона, и мы свяжемся с вами"
+                      seatsCounter={content.trial_date && (
+                        <SeatsCounter 
+                          trialDate={content.trial_date} 
+                          maxSeats={12}
+                          minSeats={2}
+                        />
+                      )}
+                    />
+                    <Button 
+                      size="lg"
+                      variant="outline"
+                      onClick={() => navigate('/acting')}
+                    >
+                      Подробнее о курсе
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -221,6 +253,17 @@ export default function HomePage() {
                     Научитесь уверенно выступать на публике, влиять на аудиторию и убеждать словом. 
                     Развитие голоса, дикции и харизмы.
                   </p>
+
+                  <div className="flex flex-col sm:flex-row gap-3 mb-6">
+                    <div className="flex items-center gap-2 bg-background px-3 py-2 rounded-lg text-sm">
+                      <Icon name="Calendar" className="text-primary" size={18} />
+                      <span>Пробное: {content.trial_date_oratory ? formatDate(content.trial_date_oratory) : '27 марта 2025'}</span>
+                    </div>
+                    <div className="flex items-center gap-2 bg-background px-3 py-2 rounded-lg text-sm">
+                      <Icon name="PlayCircle" className="text-primary" size={18} />
+                      <span>Старт: {content.course_start_date_oratory ? formatDate(content.course_start_date_oratory) : '3 апреля 2025'}</span>
+                    </div>
+                  </div>
 
                   <h3 className="text-xl font-semibold mb-4">Чему вы научитесь:</h3>
                   <div className="space-y-3 mb-8">
@@ -250,12 +293,30 @@ export default function HomePage() {
                     </div>
                   </div>
 
-                  <Button 
-                    size="lg"
-                    onClick={() => navigate('/public-speaking')}
-                  >
-                    Подробнее о курсе
-                  </Button>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <PhoneForm
+                      source="home_oratory"
+                      course="oratory"
+                      triggerText="Записаться на курс"
+                      triggerSize="lg"
+                      title="Запись на курс ораторского мастерства"
+                      description="Оставьте номер телефона, и мы свяжемся с вами"
+                      seatsCounter={content.trial_date_oratory && (
+                        <SeatsCounter 
+                          trialDate={content.trial_date_oratory} 
+                          maxSeats={12}
+                          minSeats={2}
+                        />
+                      )}
+                    />
+                    <Button 
+                      size="lg"
+                      variant="outline"
+                      onClick={() => navigate('/public-speaking')}
+                    >
+                      Подробнее о курсе
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
