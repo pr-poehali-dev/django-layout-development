@@ -257,11 +257,11 @@ export default function HomePage() {
                   <div className="flex flex-col sm:flex-row gap-3 mb-6">
                     <div className="flex items-center gap-2 bg-background px-3 py-2 rounded-lg text-sm">
                       <Icon name="Calendar" className="text-primary" size={18} />
-                      <span>Пробное: {content.trial_date_oratory ? formatDate(content.trial_date_oratory) : '27 марта 2025'}</span>
+                      <span>Пробное: {content.oratory_trial_date ? formatDate(content.oratory_trial_date) : '27 марта 2025'}</span>
                     </div>
                     <div className="flex items-center gap-2 bg-background px-3 py-2 rounded-lg text-sm">
                       <Icon name="PlayCircle" className="text-primary" size={18} />
-                      <span>Старт: {content.course_start_date_oratory ? formatDate(content.course_start_date_oratory) : '3 апреля 2025'}</span>
+                      <span>Старт: {content.oratory_course_start_date ? formatDate(content.oratory_course_start_date) : '3 апреля 2025'}</span>
                     </div>
                   </div>
 
@@ -302,9 +302,9 @@ export default function HomePage() {
                       triggerVariant="default"
                       title="Запись на курс ораторского мастерства"
                       description="Оставьте номер телефона, и мы свяжемся с вами"
-                      seatsCounter={content.trial_date_oratory && (
+                      seatsCounter={content.oratory_trial_date && (
                         <SeatsCounter 
-                          trialDate={content.trial_date_oratory} 
+                          trialDate={content.oratory_trial_date} 
                           maxSeats={12}
                           minSeats={2}
                         />
