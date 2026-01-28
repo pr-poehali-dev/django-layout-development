@@ -83,7 +83,7 @@ export default function Header() {
                           <a
                             href={course.href}
                             className={`block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground ${
-                              location.pathname === course.href ? 'bg-accent text-primary font-semibold' : ''
+                              location.pathname === course.href ? 'bg-accent text-accent-foreground font-semibold' : ''
                             }`}
                           >
                             <div className="text-sm font-medium leading-none">{course.label}</div>
