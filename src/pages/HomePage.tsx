@@ -146,7 +146,7 @@ export default function HomePage() {
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-black w-full lg:w-[480px] flex-shrink-0">
                   <iframe
                     className="w-full aspect-video"
-                    src="https://player.vimeo.com/video/997324695?badge=0&autopause=0&player_id=0&app_id=58479"
+                    src="https://player.vimeo.com/video/997327815?badge=0&autopause=0&player_id=0&app_id=58479"
                     title="Курс актёрского мастерства"
                     allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
                     allowFullScreen
@@ -205,11 +205,13 @@ export default function HomePage() {
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className="flex flex-col lg:flex-row-reverse gap-8 items-start">
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl w-full lg:w-[480px] flex-shrink-0">
-                  <img
-                    src="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/7cddbd50-0847-4321-92b1-f534403d6a21.jpg"
-                    alt="Курс ораторского мастерства"
-                    className="w-full aspect-video object-cover"
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-black w-full lg:w-[480px] flex-shrink-0">
+                  <iframe
+                    className="w-full aspect-video"
+                    src="https://player.vimeo.com/video/997324695?badge=0&autopause=0&player_id=0&app_id=58479"
+                    title="Курс ораторского мастерства"
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
+                    allowFullScreen
                   />
                 </div>
 
