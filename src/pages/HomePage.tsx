@@ -293,30 +293,30 @@ export default function HomePage() {
                     </div>
                   </div>
 
-                  <div>
-                    <div className="flex flex-col sm:flex-row gap-3 mb-3">
-                      <PhoneForm
-                        source="home_oratory"
-                        course="oratory"
-                        triggerText="Записаться на курс"
-                        triggerSize="lg"
-                        triggerVariant="default"
-                        title="Запись на курс ораторского мастерства"
-                        description="Оставьте номер телефона, и мы свяжемся с вами"
-                      />
-                      <Button 
-                        size="lg"
-                        variant="outline"
-                        onClick={() => navigate('/public-speaking')}
-                      >
-                        Подробнее о курсе
-                      </Button>
-                    </div>
-                    <SeatsCounter 
-                      trialDate={content.trial_date_oratory || '2025-03-27'} 
-                      maxSeats={12}
-                      minSeats={2}
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <PhoneForm
+                      source="home_oratory"
+                      course="oratory"
+                      triggerText="Записаться на курс"
+                      triggerSize="lg"
+                      triggerVariant="default"
+                      title="Запись на курс ораторского мастерства"
+                      description="Оставьте номер телефона, и мы свяжемся с вами"
+                      seatsCounter={
+                        <SeatsCounter 
+                          trialDate={content.trial_date_oratory || '2025-03-27'} 
+                          maxSeats={12}
+                          minSeats={2}
+                        />
+                      }
                     />
+                    <Button 
+                      size="lg"
+                      variant="outline"
+                      onClick={() => navigate('/public-speaking')}
+                    >
+                      Подробнее о курсе
+                    </Button>
                   </div>
                 </div>
               </div>
