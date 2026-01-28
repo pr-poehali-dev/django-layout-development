@@ -4,18 +4,23 @@ import { Helmet } from 'react-helmet';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import SchemaMarkup from '@/components/SchemaMarkup';
-import { api, Review, BlogPost, TeamMember, SiteContent } from '@/lib/api';
+import { api, Review, BlogPost, TeamMember, SiteContent, GalleryImage } from '@/lib/api';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
 import LeadForm from '@/components/LeadForm';
-import { formatDate } from '@/lib/dates';
-import SeatsCounter from '@/components/ui/seats-counter';
+import ForWhomSection from '@/components/acting/ForWhomSection';
+import ReviewsSection from '@/components/acting/ReviewsSection';
+import TeamSection from '@/components/acting/TeamSection';
+import BlogSection from '@/components/acting/BlogSection';
+import GallerySection from '@/components/acting/GallerySection';
+import ContactSection from '@/components/acting/ContactSection';
 
 export default function HomePage() {
   const navigate = useNavigate();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [blog, setBlog] = useState<BlogPost[]>([]);
   const [team, setTeam] = useState<TeamMember[]>([]);
+  const [gallery, setGallery] = useState<GalleryImage[]>([]);
   const [content, setContent] = useState<Record<string, string>>({});
 
   useEffect(() => {
@@ -24,16 +29,18 @@ export default function HomePage() {
 
   const loadData = async () => {
     try {
-      const [reviewsData, blogData, teamData, contentData] = await Promise.all([
+      const [reviewsData, blogData, teamData, galleryData, contentData] = await Promise.all([
         api.gallery.getReviews(),
         api.gallery.getBlog(),
         api.gallery.getTeam(),
+        api.gallery.getImages(),
         api.content.getAll()
       ]);
 
       setReviews(reviewsData);
       setBlog(blogData.slice(0, 3));
       setTeam(teamData);
+      setGallery(galleryData);
 
       const contentMap: Record<string, string> = {};
       contentData.forEach((item: SiteContent) => {
@@ -100,7 +107,7 @@ export default function HomePage() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
                 <Button 
                   size="lg"
-                  onClick={() => document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' })}
+                  onClick={() => document.getElementById('cta-section')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                   Записаться на занятие
                 </Button>
@@ -136,7 +143,6 @@ export default function HomePage() {
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className="flex flex-col lg:flex-row gap-8 items-start">
-                {/* Video */}
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-black w-full lg:w-[480px] flex-shrink-0">
                   <iframe
                     className="w-full aspect-video"
@@ -147,7 +153,6 @@ export default function HomePage() {
                   />
                 </div>
 
-                {/* Content */}
                 <div>
                   <h2 className="text-4xl md:text-5xl font-bold mb-4">Актёрское мастерство</h2>
                   <p className="text-lg text-muted-foreground mb-8">
@@ -181,75 +186,40 @@ export default function HomePage() {
                       </div>
                       <p className="text-muted-foreground">Записывать профессиональные самопробы для кастингов</p>
                     </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Icon name="Check" size={16} className="text-primary" />
-                      </div>
-                      <p className="text-muted-foreground">Работать на съёмочной площадке с режиссёром и командой</p>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Icon name="Check" size={16} className="text-primary" />
-                      </div>
-                      <p className="text-muted-foreground">Снять собственный короткометражный фильм с главной ролью</p>
-                    </div>
                   </div>
 
-                  <div className="flex flex-col sm:flex-row gap-4 mb-6">
-                    <div className="flex items-center gap-2 bg-card/80 backdrop-blur-sm px-4 py-3 rounded-lg border">
-                      <Icon name="Calendar" className="text-primary flex-shrink-0" size={20} />
-                      <span>Пробное: {content.trial_date ? formatDate(content.trial_date) : '1 февраля 2026'}</span>
-                    </div>
-                    <div className="flex items-center gap-2 bg-card/80 backdrop-blur-sm px-4 py-3 rounded-lg border">
-                      <Icon name="PlayCircle" className="text-primary flex-shrink-0" size={20} />
-                      <span>Старт: {content.course_start_date ? formatDate(content.course_start_date) : '3 февраля 2026'}</span>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <Button 
-                      size="lg" 
-                      className="flex-1 text-lg px-8"
-                      onClick={() => document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' })}
-                    >
-                      Записаться на пробный урок
-                    </Button>
-                    {content.trial_date && (
-                      <SeatsCounter 
-                        trialDate={content.trial_date} 
-                        maxSeats={12}
-                        minSeats={2}
-                      />
-                    )}
-                  </div>
+                  <Button 
+                    size="lg"
+                    onClick={() => navigate('/acting')}
+                  >
+                    Подробнее о курсе
+                  </Button>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Oratory Course */}
-        <section className="py-32 bg-muted/30">
+        {/* Public Speaking Course */}
+        <section className="py-20 bg-card">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className="flex flex-col lg:flex-row-reverse gap-8 items-start">
-                {/* Video */}
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-black w-full lg:w-[480px] flex-shrink-0">
                   <iframe
                     className="w-full aspect-video"
-                    src="https://player.vimeo.com/video/997324695?badge=0&autopause=0&player_id=0&app_id=58479"
-                    title="Курс ораторского искусства"
+                    src="https://player.vimeo.com/video/1042730172?badge=0&autopause=0&player_id=0&app_id=58479"
+                    title="Курс ораторского мастерства"
                     allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
                     allowFullScreen
                   />
                 </div>
 
-                {/* Content */}
                 <div>
-                  <h2 className="text-4xl md:text-5xl font-bold mb-4">Ораторское искусство</h2>
+                  <h2 className="text-4xl md:text-5xl font-bold mb-4">Ораторское мастерство</h2>
                   <p className="text-lg text-muted-foreground mb-8">
-                    Курс для тех, кто хочет уверенно выступать перед аудиторией. 
-                    От работы с голосом до импровизации и дебатов.
+                    Научитесь уверенно выступать на публике, влиять на аудиторию и убеждать словом. 
+                    Развитие голоса, дикции и харизмы.
                   </p>
 
                   <h3 className="text-xl font-semibold mb-4">Чему вы научитесь:</h3>
@@ -258,190 +228,130 @@ export default function HomePage() {
                       <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                         <Icon name="Check" size={16} className="text-primary" />
                       </div>
-                      <p className="text-muted-foreground">Применять систему Станиславского для подготовки выступлений</p>
+                      <p className="text-muted-foreground">Строить убедительные выступления и презентации</p>
                     </div>
                     <div className="flex items-start gap-3">
                       <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                         <Icon name="Check" size={16} className="text-primary" />
                       </div>
-                      <p className="text-muted-foreground">Строить логичную структуру речи и удерживать внимание аудитории</p>
+                      <p className="text-muted-foreground">Владеть голосом, улучшить дикцию и интонацию</p>
                     </div>
                     <div className="flex items-start gap-3">
                       <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                         <Icon name="Check" size={16} className="text-primary" />
                       </div>
-                      <p className="text-muted-foreground">Улучшить дикцию, дыхание и тембр голоса</p>
+                      <p className="text-muted-foreground">Преодолевать страх публичных выступлений</p>
                     </div>
                     <div className="flex items-start gap-3">
                       <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                         <Icon name="Check" size={16} className="text-primary" />
                       </div>
-                      <p className="text-muted-foreground">Преодолеть страх публичных выступлений и снять зажимы</p>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Icon name="Check" size={16} className="text-primary" />
-                      </div>
-                      <p className="text-muted-foreground">Импровизировать, вести дебаты и работать с возражениями</p>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Icon name="Check" size={16} className="text-primary" />
-                      </div>
-                      <p className="text-muted-foreground">Производить впечатление и запоминаться слушателям</p>
+                      <p className="text-muted-foreground">Работать с аудиторией и удерживать внимание</p>
                     </div>
                   </div>
 
-                  <div className="flex flex-col sm:flex-row gap-4 mb-6">
-                    <div className="flex items-center gap-2 bg-card/80 backdrop-blur-sm px-4 py-3 rounded-lg border">
-                      <Icon name="Calendar" className="text-primary flex-shrink-0" size={20} />
-                      <span>Пробное: {content.oratory_trial_date ? formatDate(content.oratory_trial_date) : '1 февраля 2026'}</span>
-                    </div>
-                    <div className="flex items-center gap-2 bg-card/80 backdrop-blur-sm px-4 py-3 rounded-lg border">
-                      <Icon name="PlayCircle" className="text-primary flex-shrink-0" size={20} />
-                      <span>Старт: {content.oratory_start_date ? formatDate(content.oratory_start_date) : '3 февраля 2026'}</span>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <Button 
-                      size="lg" 
-                      className="flex-1 text-lg px-8"
-                      onClick={() => document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' })}
-                    >
-                      Записаться на пробный урок
-                    </Button>
-                    {content.oratory_trial_date && (
-                      <SeatsCounter 
-                        trialDate={content.oratory_trial_date} 
-                        maxSeats={12}
-                        minSeats={2}
-                      />
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Lead Form */}
-        <section id="lead-form" className="py-24">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-5xl font-bold mb-4">Бесплатное пробное занятие</h2>
-                <p className="text-lg text-muted-foreground">Оставьте заявку и мы свяжемся с вами в ближайшее время</p>
-              </div>
-
-              <div className="bg-card p-10 rounded-3xl border-2 shadow-lg">
-                <LeadForm 
-                  source="home_page"
-                  title=""
-                  description=""
-                  buttonText="Записаться на занятие"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Stats */}
-        <section className="py-24 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
-              <div className="text-center bg-card p-8 rounded-2xl border">
-                <div className="text-5xl font-bold text-primary mb-3">15+</div>
-                <p className="text-base text-muted-foreground">Лет опыта</p>
-              </div>
-              <div className="text-center bg-card p-8 rounded-2xl border">
-                <div className="text-5xl font-bold text-primary mb-3">500+</div>
-                <p className="text-base text-muted-foreground">Выпускников</p>
-              </div>
-              <div className="text-center bg-card p-8 rounded-2xl border">
-                <div className="text-5xl font-bold text-primary mb-3">{averageRating}</div>
-                <p className="text-base text-muted-foreground">Рейтинг</p>
-              </div>
-              <div className="text-center bg-card p-8 rounded-2xl border">
-                <div className="text-5xl font-bold text-primary mb-3">100%</div>
-                <p className="text-base text-muted-foreground">Практика</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* About School */}
-        <section className="py-24">
-          <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-5xl font-bold mb-4">О школе</h2>
-                <p className="text-lg text-muted-foreground">Центр подготовки актеров кино «КиноСтарт»</p>
-              </div>
-              <div className="grid md:grid-cols-2 gap-12 items-center">
-                <div>
-                  <h3 className="text-3xl font-bold mb-6">Практика с первого дня</h3>
-                  <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                    Центр подготовки актеров кино «КиноСтарт» — это место, где учат реальной работе в кино. 
-                    Здесь нет скучной теории, только практика на съемочной площадке.
-                  </p>
-                  <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                    За три месяца обучения студенты получают не только теоретические знания, 
-                    но и реальный опыт работы актёра на профессиональной съёмочной площадке. 
-                    Вы научитесь правильно записывать самопробы, составлять актерское портфолио и определите свой типаж.
-                  </p>
-                  <Button size="lg" onClick={() => navigate('/teacher')}>
-                    О преподавателе
+                  <Button 
+                    size="lg"
+                    onClick={() => navigate('/public-speaking')}
+                  >
+                    Подробнее о курсе
                   </Button>
                 </div>
-                <div>
-                  <img 
-                    src="https://i.1.creatium.io/disk2/03/17/f5/31d3461b60fb2bf50c5eee88ed4fca6946/1920x1080q8/2040.jpg"
-                    alt="Центр подготовки актеров кино КиноСтарт"
-                    className="rounded-3xl w-full shadow-xl"
-                  />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* For Whom Section */}
+        <ForWhomSection />
+
+        {/* CTA Section */}
+        <section id="cta-section" className="py-12 px-4 md:py-20 md:px-4 relative overflow-hidden bg-background">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-background"></div>
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute top-10 right-10 w-72 h-72 bg-primary rounded-full blur-3xl"></div>
+            <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
+          </div>
+          
+          <div className="container mx-auto max-w-5xl relative z-10">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Начните прямо сейчас</h2>
+              <p className="text-lg text-muted-foreground">
+                Запишитесь на пробное занятие и откройте для себя мир актёрского мастерства
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div className="bg-card/80 backdrop-blur-sm rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-2xl border border-primary/20">
+                <div className="mb-6">
+                  <h3 className="text-xl font-bold mb-2">Запишитесь на курс</h3>
+                  <p className="text-sm text-muted-foreground">Укажите ваше имя и номер телефона</p>
+                </div>
+                <LeadForm 
+                  source="home_cta"
+                  title=""
+                  description=""
+                  buttonText="Отправить заявку"
+                />
+                <div className="mt-6 flex items-center gap-2 text-xs text-muted-foreground">
+                  <Icon name="Lock" size={14} />
+                  <span>Ваши данные защищены и не передаются третьим лицам</span>
+                </div>
+              </div>
+
+              <div>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Icon name="Users" className="text-primary" size={20} />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-1">Обучение от профессионалов</h3>
+                      <p className="text-sm text-muted-foreground">Занятия с опытными актёрами и режиссёрами</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Icon name="Video" className="text-primary" size={20} />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-1">Съёмки в настоящих проектах</h3>
+                      <p className="text-sm text-muted-foreground">Практический опыт работы на площадке</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Icon name="Award" className="text-primary" size={20} />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-1">Сертификат об окончании</h3>
+                      <p className="text-sm text-muted-foreground">Официальный документ после завершения курса</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Reviews */}
-        {reviews.length > 0 && (
-          <section className="py-24 bg-muted/30">
-            <div className="container mx-auto px-4">
-              <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-5xl font-bold mb-4">Отзывы учеников</h2>
-                <p className="text-lg text-muted-foreground">Реальные истории наших выпускников</p>
-              </div>
-              
-              <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
-                {reviews.slice(0, 3).map((review) => (
-                  <div key={review.id} className="bg-card p-8 rounded-3xl border-2">
-                    <div className="flex gap-1 mb-6">
-                      {[...Array(5)].map((_, i) => (
-                        <Icon 
-                          key={i} 
-                          name="Star" 
-                          size={20} 
-                          className={i < (review.rating || 5) ? "text-primary fill-primary" : "text-muted"} 
-                        />
-                      ))}
-                    </div>
-                    <p className="text-base text-muted-foreground mb-6 line-clamp-5 leading-relaxed">{review.text}</p>
-                    <p className="font-bold text-lg">{review.name}</p>
-                  </div>
-                ))}
-              </div>
+        {/* Gallery Section */}
+        <GallerySection gallery={gallery} />
 
-              <div className="text-center mt-12">
-                <Button size="lg" variant="outline" onClick={() => navigate('/reviews')}>
-                  Читать все отзывы
-                </Button>
-              </div>
-            </div>
-          </section>
-        )}
+        {/* Reviews Section */}
+        <ReviewsSection reviews={reviews} />
+
+        {/* Team Section */}
+        <TeamSection team={team} />
+
+        {/* Blog Section */}
+        <BlogSection 
+          blog={blog} 
+          onNavigate={(slug) => navigate(`/blog/${slug}`)}
+          onNavigateToBlog={() => navigate('/blog')}
+        />
+
+        {/* Contact Section */}
+        <ContactSection />
 
         <Footer />
       </div>
