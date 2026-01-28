@@ -299,6 +299,7 @@ export default function HomePage() {
                       course="oratory"
                       triggerText="Записаться на курс"
                       triggerSize="lg"
+                      triggerVariant="default"
                       title="Запись на курс ораторского мастерства"
                       description="Оставьте номер телефона, и мы свяжемся с вами"
                       seatsCounter={content.trial_date_oratory && (
