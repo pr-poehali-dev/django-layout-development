@@ -72,7 +72,7 @@ export default function Header() {
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-sm lg:text-base bg-transparent hover:bg-transparent data-[state=open]:bg-transparent">
+                <NavigationMenuTrigger className="text-sm lg:text-base bg-transparent hover:bg-transparent data-[state=open]:bg-transparent data-[state=open]:text-foreground">
                   Курсы
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
