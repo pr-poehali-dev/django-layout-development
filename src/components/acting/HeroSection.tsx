@@ -23,7 +23,7 @@ export default function HeroSection({ content }: HeroSectionProps) {
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-card"></div>
       </div>
       <div className="container mx-auto relative z-10">
-        <div className="max-w-2xl">
+        <div className="max-w-4xl lg:max-w-5xl">
           <EditableContent
             contentKey="acting_hero_title"
             defaultValue="Курсы актёрского мастерства в Москве за 3 месяца!"
