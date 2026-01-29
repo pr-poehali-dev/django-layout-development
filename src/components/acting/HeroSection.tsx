@@ -26,7 +26,7 @@ export default function HeroSection({ content }: HeroSectionProps) {
         <div className="max-w-2xl">
           <EditableContent
             contentKey="acting_hero_title"
-            defaultValue="Курсы актёрского мастерства в Москве за 3 месяца"
+            defaultValue="Курсы актёрского мастерства в Москве за 3 месяца!"
             type="text"
             page="acting"
             section="hero"
