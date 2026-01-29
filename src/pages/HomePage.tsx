@@ -94,20 +94,16 @@ export default function HomePage() {
         {/* Hero */}
         <section className="min-h-screen flex items-center">
           <div className="container mx-auto px-4">
-            <div className="text-left w-full lg:w-2/3">
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight">
-                Курсы актёрского мастерства в Москве за 3 месяца!
+            <div className="max-w-4xl mx-auto text-center">
+              <h1 className="text-4xl md:text-6xl font-bold mb-6">
+                Курсы актёрского и ораторского мастерства в Москве
               </h1>
               
-              <p className="text-lg md:text-xl text-muted-foreground mb-6">
-                Запишитесь на пробное занятие по актерскому мастерству
-              </p>
-              
-              <p className="text-base md:text-lg text-muted-foreground mb-8">
-                Профессиональное обучение от режиссера Казбека Меретукова. Преодолейте страх камеры, обретите уверенность и снимите свое настоящее кино с прослушиванием!
+              <p className="text-xl text-muted-foreground mb-8">
+                Профессиональное обучение актёрскому мастерству и публичным выступлениям в школе Казбека Меретукова. Преодолейте страх камеры и сцены, научитесь уверенно выступать и играть.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 mb-12">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
                 <Button 
                   size="lg"
                   onClick={() => document.getElementById('cta-section')?.scrollIntoView({ behavior: 'smooth' })}
@@ -123,7 +119,7 @@ export default function HomePage() {
                 </Button>
               </div>
 
-              <div className="flex flex-wrap gap-8 text-sm text-muted-foreground">
+              <div className="flex flex-wrap justify-center gap-8 text-sm text-muted-foreground">
                 <div className="flex items-center gap-2">
                   <Icon name="Users" size={18} />
                   <span>15+ лет опыта</span>
