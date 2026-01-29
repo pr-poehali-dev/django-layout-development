@@ -26,7 +26,7 @@ export default function HeroSection({ content }: HeroSectionProps) {
         <div className="max-w-2xl">
           <EditableContent
             contentKey="acting_hero_title"
-            defaultValue="Станьте звездой своего кино"
+            defaultValue="Школа актёрского мастерства Казбека Меретукова"
             type="text"
             page="acting"
             section="hero"

@@ -35,7 +35,7 @@ export default function HeroSection({ trialDate, courseStartDate }: HeroSectionP
           </div>
           <EditableContent
             contentKey="oratory_hero_title"
-            defaultValue="Говорите так, чтобы вас слышали!"
+            defaultValue="Школа ораторского мастерства Казбека Меретукова"
             type="text"
             page="oratory"
             section="hero"
