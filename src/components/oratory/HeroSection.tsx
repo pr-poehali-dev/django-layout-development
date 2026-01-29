@@ -28,7 +28,7 @@ export default function HeroSection({ trialDate, courseStartDate }: HeroSectionP
         <div className="absolute bottom-0 inset-x-0 h-48 md:h-64 bg-gradient-to-t from-background to-transparent"></div>
       </div>
       <div className="container mx-auto relative z-10">
-        <div className="max-w-2xl">
+        <div className="max-w-4xl lg:max-w-5xl">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-primary/10 backdrop-blur-sm rounded-full text-primary font-semibold mb-4 md:mb-6 text-sm md:text-base border border-primary/20">
             <Icon name="Sparkles" size={16} className="md:w-5 md:h-5" />
             Курс с Ольгой Штерц
