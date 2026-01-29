@@ -94,7 +94,7 @@ export default function HomePage() {
         {/* Hero */}
         <section className="min-h-screen flex items-center">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
+            <div className="max-w-6xl mx-auto text-center">
               <h1 className="text-4xl md:text-6xl font-bold mb-6">
                 Курсы актёрского и ораторского мастерства в Москве
               </h1>
