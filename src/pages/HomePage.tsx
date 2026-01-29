@@ -94,16 +94,16 @@ export default function HomePage() {
         {/* Hero */}
         <section className="min-h-screen flex items-center">
           <div className="container mx-auto px-4">
-            <div className="text-left max-w-3xl">
+            <div className="text-left w-full lg:w-2/3">
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight">
                 Курсы актёрского мастерства в Москве за 3 месяца!
               </h1>
               
-              <p className="text-lg md:text-xl text-muted-foreground mb-6 max-w-2xl">
+              <p className="text-lg md:text-xl text-muted-foreground mb-6">
                 Запишитесь на пробное занятие по актерскому мастерству
               </p>
               
-              <p className="text-base md:text-lg text-muted-foreground mb-8 max-w-2xl">
+              <p className="text-base md:text-lg text-muted-foreground mb-8">
                 Профессиональное обучение от режиссера Казбека Меретукова. Преодолейте страх камеры, обретите уверенность и снимите свое настоящее кино с прослушиванием!
               </p>
 
