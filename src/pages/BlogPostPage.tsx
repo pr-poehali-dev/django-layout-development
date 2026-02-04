@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
@@ -85,8 +86,13 @@ export default function BlogPostPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Header />
+    <>
+      <Helmet>
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+      </Helmet>
+      <div className="min-h-screen bg-background text-foreground">
+        <Header />
 
       <article className="pt-20 md:pt-32 pb-12 md:pb-20">
         <div className="container mx-auto px-4 max-w-4xl">
@@ -147,6 +153,7 @@ export default function BlogPostPage() {
       </article>
 
       <Footer />
-    </div>
+      </div>
+    </>
   );
 }

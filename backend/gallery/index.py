@@ -88,7 +88,10 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 title = body_data.get('title', '')
                 slug = body_data.get('slug', '')
                 if not slug and title:
-                    slug = title.lower().replace(' ', '-')[:50]
+                    import re
+                    slug = re.sub(r'[^\w\s-]', '', title.lower())
+                    slug = re.sub(r'[\s_-]+', '-', slug)
+                    slug = slug.strip('-')[:200]
                 cur.execute(
                     "INSERT INTO blog_posts (title, slug, content, excerpt, image_url, published) VALUES (%s, %s, %s, %s, %s, %s) RETURNING *",
                     (title, slug, body_data.get('content'), body_data.get('excerpt'), body_data.get('image_url'), body_data.get('published', False))
