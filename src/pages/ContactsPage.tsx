@@ -62,7 +62,7 @@ export default function ContactsPage() {
         />
         <link
           rel="canonical"
-          href="https://xn-----6kcbabiricebm5ag7dufh.xn--p1ai/contacts"
+          href="https://xn----7sbdfnbalzedv3az5aq.xn--p1ai/contacts"
         />
         <meta
           property="og:url"
