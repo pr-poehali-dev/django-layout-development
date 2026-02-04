@@ -1,17 +1,17 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import Breadcrumbs from "@/components/Breadcrumbs";
-import HeroSection from "@/components/showreel/HeroSection";
-import ProcessSection from "@/components/showreel/ProcessSection";
-import ExamplesSection from "@/components/showreel/ExamplesSection";
-import WhySection from "@/components/showreel/WhySection";
-import PricingSection from "@/components/showreel/PricingSection";
-import CTASection from "@/components/showreel/CTASection";
-import FAQSection from "@/components/showreel/FAQSection";
-import { api, SiteContent, Review, FAQ, GalleryImage } from "@/lib/api";
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import Breadcrumbs from '@/components/Breadcrumbs';
+import HeroSection from '@/components/showreel/HeroSection';
+import ProcessSection from '@/components/showreel/ProcessSection';
+import ExamplesSection from '@/components/showreel/ExamplesSection';
+import WhySection from '@/components/showreel/WhySection';
+import PricingSection from '@/components/showreel/PricingSection';
+import CTASection from '@/components/showreel/CTASection';
+import FAQSection from '@/components/showreel/FAQSection';
+import { api, SiteContent, Review, FAQ, GalleryImage } from '@/lib/api';
 
 export default function ActingShowreelPage() {
   const navigate = useNavigate();
@@ -26,14 +26,13 @@ export default function ActingShowreelPage() {
 
   const loadData = async () => {
     try {
-      const [contentData, reviewsData, faqData, galleryData] =
-        await Promise.all([
-          api.content.getAll(),
-          api.gallery.getReviews(),
-          api.gallery.getFAQ(),
-          api.gallery.getImages(),
-        ]);
-
+      const [contentData, reviewsData, faqData, galleryData] = await Promise.all([
+        api.content.getAll(),
+        api.gallery.getReviews(),
+        api.gallery.getFAQ(),
+        api.gallery.getImages()
+      ]);
+      
       const contentMap: Record<string, string> = {};
       contentData.forEach((item: SiteContent) => {
         contentMap[item.key] = item.value;
@@ -43,33 +42,18 @@ export default function ActingShowreelPage() {
       setFAQ(faqData);
       setGallery(galleryData);
     } catch (error) {
-      console.error("Error loading content:", error);
+      console.error('Error loading content:', error);
     }
   };
 
   return (
     <>
       <Helmet>
-        <title>
-          Актерская визитка | Профессиональная видеовизитка для актеров от
-          режиссера Казбека Меретукова
-        </title>
-        <meta
-          name="description"
-          content="Создание профессиональной актерской визитки (showreel) под руководством режиссера-постановщика. Качественная съемка, монтаж, продюсирование. Ваш пропуск в кино и театр."
-        />
-        <link
-          rel="canonical"
-          href="https://xn----7sbdfnbalzedv3az5aq.xn--p1ai/showreel"
-        />
-        <meta
-          property="og:url"
-          content="https://xn----7sbdfnbalzedv3az5aq.xn--p1ai/showreel"
-        />
-        <meta
-          property="og:title"
-          content="Актерская визитка | Профессиональная видеовизитка"
-        />
+        <title>Актерская визитка | Профессиональная видеовизитка для актеров от режиссера Казбека Меретукова</title>
+        <meta name="description" content="Создание профессиональной актерской визитки (showreel) под руководством режиссера-постановщика. Качественная съемка, монтаж, продюсирование. Ваш пропуск в кино и театр." />
+        <link rel="canonical" href="https://xn-----6kcbabiricebm5ag7dufh.xn--p1ai/showreel" />
+        <meta property="og:url" content="https://xn-----6kcbabiricebm5ag7dufh.xn--p1ai/showreel" />
+        <meta property="og:title" content="Актерская визитка | Профессиональная видеовизитка" />
       </Helmet>
       <div className="min-h-screen bg-background text-foreground">
         <Header />
