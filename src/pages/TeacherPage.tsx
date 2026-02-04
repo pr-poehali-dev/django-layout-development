@@ -93,8 +93,8 @@ export default function TeacherPage() {
       <Helmet>
         <title>Казбек Меретуков - Режиссёр и преподаватель актёрского мастерства | ТЕФИ-2012</title>
         <meta name="description" content="Казбек Меретуков - режиссёр-постановщик федеральных телесериалов, победитель премии ТЕФИ-2012, преподаватель актёрского мастерства. Опыт работы более 25 лет, более 500 учеников." />
-        <link rel="canonical" href="https://acting-school.poehali.dev/teacher" />
-        <meta property="og:url" content="https://acting-school.poehali.dev/teacher" />
+        <link rel="canonical" href="https://xn-----6kcbabiricebm5ag7dufh.xn--p1ai/teacher" />
+        <meta property="og:url" content="https://xn-----6kcbabiricebm5ag7dufh.xn--p1ai/teacher" />
         <meta property="og:title" content="Казбек Меретуков - Режиссёр и преподаватель" />
         <meta property="og:description" content="Режиссёр федеральных телесериалов, победитель ТЕФИ-2012" />
         <meta name="author" content="Казбек Меретуков" />

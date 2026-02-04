@@ -43,8 +43,8 @@ export default function ReviewsPage() {
       <Helmet>
         <title>Отзывы учеников - Истории успеха | Школа актёрского мастерства</title>
         <meta name="description" content="Читайте отзывы наших учеников о курсах ораторского искусства и актёрского мастерства. Истории успеха реальных людей." />
-        <link rel="canonical" href="https://acting-school.poehali.dev/reviews" />
-        <meta property="og:url" content="https://acting-school.poehali.dev/reviews" />
+        <link rel="canonical" href="https://xn-----6kcbabiricebm5ag7dufh.xn--p1ai/reviews" />
+        <meta property="og:url" content="https://xn-----6kcbabiricebm5ag7dufh.xn--p1ai/reviews" />
         <meta property="og:title" content="Отзывы учеников школы актёрского мастерства" />
       </Helmet>
       <div className="min-h-screen bg-background text-foreground">

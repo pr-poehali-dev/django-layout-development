@@ -51,8 +51,8 @@ export default function ActingShowreelPage() {
       <Helmet>
         <title>Актерская визитка | Профессиональная видеовизитка для актеров от режиссера Казбека Меретукова</title>
         <meta name="description" content="Создание профессиональной актерской визитки (showreel) под руководством режиссера-постановщика. Качественная съемка, монтаж, продюсирование. Ваш пропуск в кино и театр." />
-        <link rel="canonical" href="https://acting-school.poehali.dev/showreel" />
-        <meta property="og:url" content="https://acting-school.poehali.dev/showreel" />
+        <link rel="canonical" href="https://xn-----6kcbabiricebm5ag7dufh.xn--p1ai/showreel" />
+        <meta property="og:url" content="https://xn-----6kcbabiricebm5ag7dufh.xn--p1ai/showreel" />
         <meta property="og:title" content="Актерская визитка | Профессиональная видеовизитка" />
       </Helmet>
       <div className="min-h-screen bg-background text-foreground">

@@ -57,8 +57,8 @@ export default function ContactsPage() {
       <Helmet>
         <title>Контакты - Свяжитесь с нами | Школа актёрского мастерства</title>
         <meta name="description" content="Свяжитесь с нами удобным способом. Контактная информация школы актёрского мастерства: адрес, телефон, email и режим работы." />
-        <link rel="canonical" href="https://acting-school.poehali.dev/contacts" />
-        <meta property="og:url" content="https://acting-school.poehali.dev/contacts" />
+        <link rel="canonical" href="https://xn-----6kcbabiricebm5ag7dufh.xn--p1ai/contacts" />
+        <meta property="og:url" content="https://xn-----6kcbabiricebm5ag7dufh.xn--p1ai/contacts" />
         <meta property="og:title" content="Контакты школы актёрского мастерства" />
       </Helmet>
       <div className="min-h-screen bg-background text-foreground">

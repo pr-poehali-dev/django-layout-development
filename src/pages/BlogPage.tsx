@@ -32,8 +32,8 @@ export default function BlogPage() {
       <Helmet>
         <title>Блог школы - Полезные материалы и новости | Школа актёрского мастерства</title>
         <meta name="description" content="Читайте полезные материалы, новости и истории успеха наших учеников. Советы по развитию ораторских навыков и актёрского мастерства." />
-        <link rel="canonical" href="https://acting-school.poehali.dev/blog" />
-        <meta property="og:url" content="https://acting-school.poehali.dev/blog" />
+        <link rel="canonical" href="https://xn-----6kcbabiricebm5ag7dufh.xn--p1ai/blog" />
+        <meta property="og:url" content="https://xn-----6kcbabiricebm5ag7dufh.xn--p1ai/blog" />
         <meta property="og:title" content="Блог школы актёрского мастерства" />
       </Helmet>
       <div className="min-h-screen bg-background text-foreground">

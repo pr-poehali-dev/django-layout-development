@@ -64,8 +64,8 @@ export default function HomePage() {
       <Helmet>
         <title>Школа актёрского и ораторского мастерства Казбека Меретукова в Москве</title>
         <meta name="description" content="Профессиональное обучение актёрскому и ораторскому мастерству от режиссёра телесериалов Казбека Меретукова. Победитель ТЕФИ-2012. Курсы для взрослых и детей. Пробное занятие бесплатно." />
-        <link rel="canonical" href="https://acting-school.poehali.dev/" />
-        <meta property="og:url" content="https://acting-school.poehali.dev/" />
+        <link rel="canonical" href="https://xn-----6kcbabiricebm5ag7dufh.xn--p1ai/" />
+        <meta property="og:url" content="https://xn-----6kcbabiricebm5ag7dufh.xn--p1ai/" />
         <meta property="og:title" content="Школа Казбека Меретукова - актёрское и ораторское мастерство" />
         <meta property="og:description" content="Профессиональное обучение от режиссёра телесериалов. Победитель ТЕФИ-2012. Курсы актёрского и ораторского мастерства в Москве." />
         <meta property="og:type" content="website" />
@@ -76,7 +76,7 @@ export default function HomePage() {
         organizationData={{
           name: "Школа актёрского и ораторского мастерства Казбека Меретукова",
           description: "Профессиональное обучение актёрскому и ораторскому мастерству",
-          url: "https://acting-school.poehali.dev/",
+          url: "https://xn-----6kcbabiricebm5ag7dufh.xn--p1ai/",
           logo: "https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/7cddbd50-0847-4321-92b1-f534403d6a21.jpg"
         }}
       />

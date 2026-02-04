@@ -36,7 +36,7 @@ export default function BlogPostPage() {
     }
   };
 
-  const fullUrl = post ? `https://acting-school.poehali.dev/blog/${post.slug}` : '';
+  const fullUrl = post ? `https://xn-----6kcbabiricebm5ag7dufh.xn--p1ai/blog/${post.slug}` : '';
   const articleSchema = post ? generateArticleSchema({
     title: post.title,
     description: post.excerpt || post.content.substring(0, 200),
@@ -56,7 +56,7 @@ export default function BlogPostPage() {
     ogDescription: post ? (post.excerpt || post.content.substring(0, 160)) : '',
     ogImage: post?.image_url,
     ogType: 'article',
-    canonicalUrl: fullUrl || 'https://acting-school.poehali.dev/blog',
+    canonicalUrl: fullUrl || 'https://xn-----6kcbabiricebm5ag7dufh.xn--p1ai/blog',
     structuredData: articleSchema || undefined,
     article: post ? {
       author: 'Казбек Меретуков',
