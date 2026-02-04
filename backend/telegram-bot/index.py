@@ -1,10 +1,9 @@
 import json
 import os
 import requests
-import google.generativeai as genai
 
 def handler(event: dict, context) -> dict:
-    '''Telegram бот с интеграцией Gemini 2.5 Flash для обработки сообщений'''
+    '''Telegram бот с интеграцией Gemini 2.5 Flash через прокси'''
     
     print(f"Received event: {json.dumps(event)}")
     method = event.get('httpMethod', 'POST')
@@ -41,6 +40,14 @@ def handler(event: dict, context) -> dict:
             'isBase64Encoded': False
         }
     
+    proxies = None
+    if proxy_url:
+        proxies = {
+            'http': proxy_url,
+            'https': proxy_url
+        }
+        print(f"Using proxy: {proxy_url}")
+    
     try:
         body_str = event.get('body', '{}')
         print(f"Body: {body_str}")
@@ -70,21 +77,38 @@ def handler(event: dict, context) -> dict:
                 'isBase64Encoded': False
             }
         
-        print(f"Calling Gemini with text: {text}")
-        genai.configure(api_key=gemini_api_key)
+        print(f"Calling Gemini API with text: {text}")
+        gemini_url = f'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={gemini_api_key}'
         
-        model = genai.GenerativeModel('gemini-2.5-flash')
+        gemini_payload = {
+            'contents': [{
+                'parts': [{
+                    'text': text
+                }]
+            }]
+        }
         
-        response = model.generate_content(text)
-        reply_text = response.text
-        print(f"Gemini response: {reply_text}")
+        gemini_response = requests.post(
+            gemini_url,
+            json=gemini_payload,
+            proxies=proxies,
+            timeout=30
+        )
         
-        proxies = None
-        if proxy_url:
-            proxies = {
-                'http': proxy_url,
-                'https': proxy_url
+        print(f"Gemini status: {gemini_response.status_code}")
+        print(f"Gemini response: {gemini_response.text}")
+        
+        if gemini_response.status_code != 200:
+            return {
+                'statusCode': 500,
+                'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+                'body': json.dumps({'error': 'Gemini API error', 'details': gemini_response.text}),
+                'isBase64Encoded': False
             }
+        
+        gemini_data = gemini_response.json()
+        reply_text = gemini_data['candidates'][0]['content']['parts'][0]['text']
+        print(f"Gemini reply: {reply_text}")
         
         telegram_api_url = f'https://api.telegram.org/bot{telegram_token}/sendMessage'
         
