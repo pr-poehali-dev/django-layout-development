@@ -1,8 +1,9 @@
 import json
 import urllib.request
+import os
 from typing import Dict, Any
 
-BOT_TOKEN = "8238321643:AAEV7kBinohHb-RSLah7VSBJ2XSsXTQUpW4"
+BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN_NEW') or os.environ.get('TELEGRAM_BOT_TOKEN')
 WEBHOOK_URL = "https://functions.poehali.dev/ee18a8c5-48c7-4ecd-bf90-d69fbfc2d751"
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
