@@ -28,7 +28,7 @@ def handler(event: dict, context) -> dict:
             'isBase64Encoded': False
         }
     
-    telegram_token = os.environ.get('TELEGRAM_BOT_TOKEN')
+    telegram_token = os.environ.get('TELEGRAM_BOT_TOKEN_NEW') or os.environ.get('TELEGRAM_BOT_TOKEN')
     gemini_api_key = os.environ.get('GEMINI_API_KEY')
     proxy_url = os.environ.get('TELEGRAM_PROXY_URL')
     
