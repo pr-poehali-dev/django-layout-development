@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /admin
 
-Sitemap: https://xn----7sbdfnbalzedv3az5aq.xn--p1ai/sitemap.xml
+Sitemap: https://xn----7sbacbidbef6abd1b9b.xn--p1ai/sitemap.xml
 
 # Специфичные боты
 User-agent: Googlebot
