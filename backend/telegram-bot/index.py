@@ -73,7 +73,7 @@ def handler(event: dict, context) -> dict:
         print(f"Calling Gemini with text: {text}")
         genai.configure(api_key=gemini_api_key)
         
-        model = genai.GenerativeModel('gemini-2.5-flash-lite')
+        model = genai.GenerativeModel('gemini-2.5-flash')
         
         response = model.generate_content(text)
         reply_text = response.text
