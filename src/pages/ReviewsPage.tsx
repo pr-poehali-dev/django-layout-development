@@ -56,7 +56,7 @@ export default function ReviewsPage() {
         />
         <meta
           property="og:url"
-          content="https://xn-----6kcbabiricebm5ag7dufh.xn--p1ai/reviews"
+          content="https://xn----7sbdfnbalzedv3az5aq.xn--p1ai/reviews"
         />
         <meta
           property="og:title"
