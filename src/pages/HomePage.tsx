@@ -103,22 +103,28 @@ export default function HomePage() {
         />
       </Helmet>
       <SchemaMarkup
-        type="organization"
+        type="localbusiness"
         organizationData={{
           name: "Школа актёрского и ораторского мастерства Казбека Меретукова",
           description:
-            "Профессиональное обучение актёрскому и ораторскому мастерству",
+            "Профессиональное обучение актёрскому и ораторскому мастерству от режиссёра телесериалов. Победитель ТЕФИ-2012",
           url: "https://xn----7sbdfnbalzedv3az5aq.xn--p1ai/",
           logo: "https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/b34e4f5d-452d-44bb-bedb-a00378237a0c.jpg",
+          phone: content.phone || "+7 (999) 123-45-67",
+          address: content.address || "Москва",
+          priceRange: "₽₽",
         }}
-      />
-      <SchemaMarkup
-        type="reviews"
         reviews={reviews.map((r) => ({
           author: r.name,
           rating: r.rating || 5,
           text: r.text,
         }))}
+      />
+      <SchemaMarkup
+        type="breadcrumbs"
+        breadcrumbs={[
+          { name: "Главная", url: "https://xn----7sbdfnbalzedv3az5aq.xn--p1ai/" }
+        ]}
       />
       <div className="min-h-screen bg-background">
         <Header />

@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import PhoneForm from "@/components/PhoneForm";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { api, TeamMember } from "@/lib/api";
+import SchemaMarkup from "@/components/SchemaMarkup";
 
 export default function TeamPage() {
   const [team, setTeam] = useState<TeamMember[]>([]);
@@ -51,6 +52,13 @@ export default function TeamPage() {
           content="Команда преподавателей школы актёрского мастерства"
         />
       </Helmet>
+      <SchemaMarkup
+        type="breadcrumbs"
+        breadcrumbs={[
+          { name: "Главная", url: "https://xn----7sbdfnbalzedv3az5aq.xn--p1ai/" },
+          { name: "Команда", url: "https://xn----7sbdfnbalzedv3az5aq.xn--p1ai/team" }
+        ]}
+      />
       <div className="min-h-screen bg-background text-foreground">
         <Header />
         <Breadcrumbs />

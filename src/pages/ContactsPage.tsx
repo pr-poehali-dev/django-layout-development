@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import PhoneForm from "@/components/PhoneForm";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { api, SiteContent } from "@/lib/api";
+import SchemaMarkup from "@/components/SchemaMarkup";
 
 export default function ContactsPage() {
   const [content, setContent] = useState<Record<string, string>>({});
@@ -73,6 +74,13 @@ export default function ContactsPage() {
           content="Контакты школы актёрского мастерства"
         />
       </Helmet>
+      <SchemaMarkup
+        type="breadcrumbs"
+        breadcrumbs={[
+          { name: "Главная", url: "https://xn----7sbdfnbalzedv3az5aq.xn--p1ai/" },
+          { name: "Контакты", url: "https://xn----7sbdfnbalzedv3az5aq.xn--p1ai/contacts" }
+        ]}
+      />
       <div className="min-h-screen bg-background text-foreground">
         <Header />
         <Breadcrumbs />
@@ -112,7 +120,7 @@ export default function ContactsPage() {
                         <CardContent className="p-4 md:p-6 flex items-start gap-3 md:gap-4">
                           <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                             <Icon
-                              name={item.icon as any}
+                              name={item.icon}
                               className="text-primary"
                               size={20}
                             />

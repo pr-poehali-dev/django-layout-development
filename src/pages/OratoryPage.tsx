@@ -16,6 +16,7 @@ import BlogSection from "@/components/oratory/BlogSection";
 import LeadFormSection from "@/components/oratory/LeadFormSection";
 import CTASection from "@/components/oratory/CTASection";
 import { api, SiteContent, Review, GalleryImage, BlogPost } from "@/lib/api";
+import SchemaMarkup from "@/components/SchemaMarkup";
 
 export default function OratoryPage() {
   const navigate = useNavigate();
@@ -75,6 +76,13 @@ export default function OratoryPage() {
           content="Курсы ораторского искусства в Москве"
         />
       </Helmet>
+      <SchemaMarkup
+        type="breadcrumbs"
+        breadcrumbs={[
+          { name: "Главная", url: "https://xn----7sbdfnbalzedv3az5aq.xn--p1ai/" },
+          { name: "Ораторское искусство", url: "https://xn----7sbdfnbalzedv3az5aq.xn--p1ai/oratory" }
+        ]}
+      />
       <div className="min-h-screen bg-background text-foreground">
         <Header />
         <Breadcrumbs />

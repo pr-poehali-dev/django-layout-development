@@ -16,14 +16,39 @@ interface ReviewSchema {
   date?: string;
 }
 
-interface SchemaMarkupProps {
-  type: 'course' | 'organization' | 'reviews' | 'faq';
-  courseData?: CourseSchema;
-  reviews?: ReviewSchema[];
-  faqItems?: Array<{ question: string; answer: string }>;
+interface OrganizationData {
+  name: string;
+  description: string;
+  url: string;
+  logo: string;
+  phone?: string;
+  email?: string;
+  address?: string;
+  priceRange?: string;
 }
 
-export default function SchemaMarkup({ type, courseData, reviews, faqItems }: SchemaMarkupProps) {
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
+interface SchemaMarkupProps {
+  type: 'course' | 'organization' | 'reviews' | 'faq' | 'localbusiness' | 'breadcrumbs';
+  courseData?: CourseSchema;
+  organizationData?: OrganizationData;
+  reviews?: ReviewSchema[];
+  faqItems?: Array<{ question: string; answer: string }>;
+  breadcrumbs?: BreadcrumbItem[];
+}
+
+export default function SchemaMarkup({ 
+  type, 
+  courseData, 
+  organizationData,
+  reviews, 
+  faqItems,
+  breadcrumbs 
+}: SchemaMarkupProps) {
   const renderCourseSchema = () => {
     if (!courseData) return null;
 
@@ -35,7 +60,7 @@ export default function SchemaMarkup({ type, courseData, reviews, faqItems }: Sc
       "provider": {
         "@type": "Organization",
         "name": courseData.provider,
-        "sameAs": "https://acting-school.poehali.dev"
+        "sameAs": "https://xn----7sbdfnbalzedv3az5aq.xn--p1ai"
       },
       "url": courseData.url,
       ...(courseData.price && {
@@ -52,6 +77,59 @@ export default function SchemaMarkup({ type, courseData, reviews, faqItems }: Sc
           "duration": courseData.duration
         }
       })
+    };
+
+    return <script type="application/ld+json">{JSON.stringify(schema)}</script>;
+  };
+
+  const renderOrganizationSchema = () => {
+    if (!organizationData) return null;
+
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": organizationData.name,
+      "description": organizationData.description,
+      "url": organizationData.url,
+      "logo": organizationData.logo,
+      "image": organizationData.logo,
+      "sameAs": [
+        "https://xn----7sbdfnbalzedv3az5aq.xn--p1ai"
+      ]
+    };
+
+    return <script type="application/ld+json">{JSON.stringify(schema)}</script>;
+  };
+
+  const renderLocalBusinessSchema = () => {
+    if (!organizationData) return null;
+
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": organizationData.name,
+      "description": organizationData.description,
+      "url": organizationData.url,
+      "logo": organizationData.logo,
+      "image": organizationData.logo,
+      ...(organizationData.phone && { "telephone": organizationData.phone }),
+      ...(organizationData.email && { "email": organizationData.email }),
+      ...(organizationData.address && {
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Москва",
+          "addressCountry": "RU",
+          "streetAddress": organizationData.address
+        }
+      }),
+      ...(organizationData.priceRange && { "priceRange": organizationData.priceRange }),
+      "aggregateRating": reviews && reviews.length > 0 ? {
+        "@type": "AggregateRating",
+        "ratingValue": (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1),
+        "reviewCount": reviews.length,
+        "bestRating": "5",
+        "worstRating": "1"
+      } : undefined
     };
 
     return <script type="application/ld+json">{JSON.stringify(schema)}</script>;
@@ -109,11 +187,31 @@ export default function SchemaMarkup({ type, courseData, reviews, faqItems }: Sc
     return <script type="application/ld+json">{JSON.stringify(schema)}</script>;
   };
 
+  const renderBreadcrumbsSchema = () => {
+    if (!breadcrumbs || breadcrumbs.length === 0) return null;
+
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": breadcrumbs.map((item, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "name": item.name,
+        "item": item.url
+      }))
+    };
+
+    return <script type="application/ld+json">{JSON.stringify(schema)}</script>;
+  };
+
   return (
     <Helmet>
       {type === 'course' && renderCourseSchema()}
+      {type === 'organization' && renderOrganizationSchema()}
+      {type === 'localbusiness' && renderLocalBusinessSchema()}
       {type === 'reviews' && renderReviewsSchema()}
       {type === 'faq' && renderFAQSchema()}
+      {type === 'breadcrumbs' && renderBreadcrumbsSchema()}
     </Helmet>
   );
 }

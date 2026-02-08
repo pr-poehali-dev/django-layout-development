@@ -153,6 +153,13 @@ export default function ActingPage() {
           answer: f.answer,
         }))}
       />
+      <SchemaMarkup
+        type="breadcrumbs"
+        breadcrumbs={[
+          { name: "Главная", url: "https://xn----7sbdfnbalzedv3az5aq.xn--p1ai/" },
+          { name: "Актёрское мастерство", url: "https://xn----7sbdfnbalzedv3az5aq.xn--p1ai/acting" }
+        ]}
+      />
       <div className="min-h-screen bg-background text-foreground">
         <Header />
         <Breadcrumbs />

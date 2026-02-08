@@ -8,6 +8,7 @@ import Icon from "@/components/ui/icon";
 import PhoneForm from "@/components/PhoneForm";
 import { Card, CardContent } from "@/components/ui/card";
 import { api, TeamMember } from "@/lib/api";
+import SchemaMarkup from "@/components/SchemaMarkup";
 
 export default function TeacherPage() {
   const [team, setTeam] = useState<TeamMember[]>([]);
@@ -126,7 +127,13 @@ export default function TeacherPage() {
         />
         <meta name="author" content="Казбек Меретуков" />
       </Helmet>
-
+      <SchemaMarkup
+        type="breadcrumbs"
+        breadcrumbs={[
+          { name: "Главная", url: "https://xn----7sbdfnbalzedv3az5aq.xn--p1ai/" },
+          { name: "Преподаватель", url: "https://xn----7sbdfnbalzedv3az5aq.xn--p1ai/teacher" }
+        ]}
+      />
       <div className="min-h-screen bg-background text-foreground">
         <Header />
         <Breadcrumbs />
@@ -168,7 +175,7 @@ export default function TeacherPage() {
                   className="bg-card border border-border rounded-xl p-6 hover:shadow-xl transition"
                 >
                   <Icon
-                    name={achievement.icon as any}
+                    name={achievement.icon}
                     className="text-primary mb-4"
                     size={40}
                   />

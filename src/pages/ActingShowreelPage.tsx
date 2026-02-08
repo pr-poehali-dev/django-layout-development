@@ -12,6 +12,7 @@ import PricingSection from "@/components/showreel/PricingSection";
 import CTASection from "@/components/showreel/CTASection";
 import FAQSection from "@/components/showreel/FAQSection";
 import { api, SiteContent, Review, FAQ, GalleryImage } from "@/lib/api";
+import SchemaMarkup from "@/components/SchemaMarkup";
 
 export default function ActingShowreelPage() {
   const navigate = useNavigate();
@@ -71,6 +72,13 @@ export default function ActingShowreelPage() {
           content="Актерская визитка | Профессиональная видеовизитка"
         />
       </Helmet>
+      <SchemaMarkup
+        type="breadcrumbs"
+        breadcrumbs={[
+          { name: "Главная", url: "https://xn----7sbdfnbalzedv3az5aq.xn--p1ai/" },
+          { name: "Актёрская визитка", url: "https://xn----7sbdfnbalzedv3az5aq.xn--p1ai/showreel" }
+        ]}
+      />
       <div className="min-h-screen bg-background text-foreground">
         <Header />
         <Breadcrumbs />

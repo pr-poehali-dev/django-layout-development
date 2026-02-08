@@ -13,6 +13,7 @@ import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { api, BlogPost } from "@/lib/api";
 import { formatDate } from "@/lib/dates";
+import SchemaMarkup from "@/components/SchemaMarkup";
 
 export default function BlogPage() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -54,6 +55,13 @@ export default function BlogPage() {
         />
         <meta property="og:title" content="Блог школы актёрского мастерства" />
       </Helmet>
+      <SchemaMarkup
+        type="breadcrumbs"
+        breadcrumbs={[
+          { name: "Главная", url: "https://xn----7sbdfnbalzedv3az5aq.xn--p1ai/" },
+          { name: "Блог", url: "https://xn----7sbdfnbalzedv3az5aq.xn--p1ai/blog" }
+        ]}
+      />
       <div className="min-h-screen bg-background text-foreground">
         <Header />
         <Breadcrumbs />

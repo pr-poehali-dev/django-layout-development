@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import PhoneForm from "@/components/PhoneForm";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { api, Review } from "@/lib/api";
+import SchemaMarkup from "@/components/SchemaMarkup";
 
 export default function ReviewsPage() {
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -63,6 +64,13 @@ export default function ReviewsPage() {
           content="Отзывы учеников школы актёрского мастерства"
         />
       </Helmet>
+      <SchemaMarkup
+        type="breadcrumbs"
+        breadcrumbs={[
+          { name: "Главная", url: "https://xn----7sbdfnbalzedv3az5aq.xn--p1ai/" },
+          { name: "Отзывы", url: "https://xn----7sbdfnbalzedv3az5aq.xn--p1ai/reviews" }
+        ]}
+      />
       <div className="min-h-screen bg-background text-foreground">
         <Header />
         <Breadcrumbs />
