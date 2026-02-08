@@ -99,7 +99,7 @@ export default function HomePage() {
         <meta property="og:type" content="website" />
         <meta
           property="og:image"
-          content="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/7cddbd50-0847-4321-92b1-f534403d6a21.jpg"
+          content="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/b34e4f5d-452d-44bb-bedb-a00378237a0c.jpg"
         />
       </Helmet>
       <SchemaMarkup
@@ -109,7 +109,7 @@ export default function HomePage() {
           description:
             "Профессиональное обучение актёрскому и ораторскому мастерству",
           url: "https://xn----7sbdfnbalzedv3az5aq.xn--p1ai/",
-          logo: "https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/7cddbd50-0847-4321-92b1-f534403d6a21.jpg",
+          logo: "https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/b34e4f5d-452d-44bb-bedb-a00378237a0c.jpg",
         }}
       />
       <SchemaMarkup
