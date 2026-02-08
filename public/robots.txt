@@ -1,16 +1,24 @@
 User-agent: *
 Allow: /
 Disallow: /admin
+Disallow: /settings
+Disallow: /metrika-goal
 
 # Специфичные боты
 User-agent: Googlebot
 Allow: /
 Disallow: /admin
+Disallow: /settings
+Disallow: /metrika-goal
 
 User-agent: Bingbot
 Allow: /
 Disallow: /admin
+Disallow: /settings
+Disallow: /metrika-goal
 
 User-agent: Yandex
 Allow: /
 Disallow: /admin
+Disallow: /settings
+Disallow: /metrika-goal
