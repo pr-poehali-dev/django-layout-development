@@ -8,13 +8,15 @@ import Icon from "@/components/ui/icon";
 import { Card, CardContent } from "@/components/ui/card";
 import PhoneForm from "@/components/PhoneForm";
 import LeadForm from "@/components/LeadForm";
-import { api, SiteContent, GalleryImage, Review, BlogPost } from "@/lib/api";
+import { api, SiteContent, GalleryImage, Review, BlogPost, FAQ } from "@/lib/api";
 import { formatDate } from "@/lib/dates";
 import SeatsCounter from "@/components/ui/seats-counter";
 import Image from "@/components/ui/image";
 import GallerySection from "@/components/acting/GallerySection";
 import ReviewsSection from "@/components/acting/ReviewsSection";
 import BlogSection from "@/components/acting/BlogSection";
+import ContactSection from "@/components/acting/ContactSection";
+import FAQSection from "@/components/acting/FAQSection";
 import { useNavigate } from "react-router-dom";
 
 export default function ActingCardsPage() {
@@ -23,6 +25,7 @@ export default function ActingCardsPage() {
   const [gallery, setGallery] = useState<GalleryImage[]>([]);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [blog, setBlog] = useState<BlogPost[]>([]);
+  const [faq, setFaq] = useState<FAQ[]>([]);
 
   useEffect(() => {
     loadData();
@@ -35,11 +38,13 @@ export default function ActingCardsPage() {
         galleryData,
         reviewsData,
         blogData,
+        faqData,
       ] = await Promise.all([
         api.content.getAll(),
         api.gallery.getImages(),
         api.gallery.getReviews(),
         api.gallery.getBlog(),
+        api.gallery.getFAQ(),
       ]);
 
       const contentMap: Record<string, string> = {};
@@ -50,6 +55,50 @@ export default function ActingCardsPage() {
       setGallery(galleryData);
       setReviews(reviewsData);
       setBlog(blogData);
+      
+      // Добавляем FAQ для визиток, если их нет в админке
+      if (faqData.length === 0) {
+        setFaq([
+          {
+            id: 1,
+            question: "Для кого подходят актерские визитки?",
+            answer: "Работающие видеовизитки разработаны как для профессиональных, так и для начинающих актеров всех возрастов. С каждым актером работает опытный режиссер, который помогает раскрыться и проявить свои индивидуальные актерские качества.",
+            order_num: 1
+          },
+          {
+            id: 2,
+            question: "Как проходит съемка визитки с режиссером?",
+            answer: "С актером работает опытный кино режиссер. Он помогает актеру раскрыться и показать свою органику и выразительность, а также продемонстрировать диапазон актерских проявлений. Режиссер помогает определиться с историей и найти ключевые точки сюжета.",
+            order_num: 2
+          },
+          {
+            id: 3,
+            question: "Что входит в обработку визитки?",
+            answer: "Съемка визитки происходит в 4К разрешении. Обработка включает: добавление именных титров актера, чистку звука и цветокоррекцию. Через 1-2 дня после съемки вы получаете профессиональную, работающую видео визитку.",
+            order_num: 3
+          },
+          {
+            id: 4,
+            question: "Зачем нужны две актерские визитки?",
+            answer: "Необходимость в двух актерских визитках обусловлена их разностью. Одна из визиток может быть записана в комедийном ключе, а вторая в драматическом. Наличие двух визиток дает актеру возможность выбрать какую визитку отправить на тот или иной кастинг. Такой метод дает более высокий шанс получить роль.",
+            order_num: 4
+          },
+          {
+            id: 5,
+            question: "Чем визитка с режиссером отличается от обычной?",
+            answer: "В визитке без режиссера актер просто представляется и рассказывает о себе, запись делает оператор. В визитке с режиссером актер рассказывает историю из своей жизни, а режиссер помогает раскрыть органику, выразительность и показать диапазон актерских проявлений. В результате получается эффективный инструмент для продвижения карьеры.",
+            order_num: 5
+          },
+          {
+            id: 6,
+            question: "Что делать, если я боюсь камеры?",
+            answer: "Режиссер помогает справиться с наигрышем перед камерой, зажатостью и стеснением. Если боишься камеру и пропадает естественность – режиссер поможет раскрыться, найти нужные эмоции и показать органичную игру.",
+            order_num: 6
+          }
+        ]);
+      } else {
+        setFaq(faqData);
+      }
     } catch (error) {
       console.error("Error loading data:", error);
     }
@@ -431,6 +480,8 @@ export default function ActingCardsPage() {
           onNavigate={(slug) => navigate(`/blog/${slug}`)}
           onNavigateToBlog={() => navigate('/blog')}
         />
+        <FAQSection faq={faq} />
+        <ContactSection />
 
         <section className="py-12 px-4 md:py-20 md:px-4 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-background"></div>
