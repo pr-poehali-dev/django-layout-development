@@ -156,26 +156,27 @@ export default function ActingCardsPage() {
         <Breadcrumbs />
 
         <section className="pt-20 pb-12 px-4 md:pt-32 md:pb-20 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-background"></div>
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute top-10 right-10 w-72 h-72 bg-primary rounded-full blur-3xl"></div>
-            <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
+          <div className="absolute inset-0">
+            <img 
+              src="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/a803ab81-f803-4df7-b7f7-d370de716a61.jpg" 
+              alt="Режиссер обучает актера перед камерой"
+              className="w-full h-full object-cover opacity-20"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/90 to-background"></div>
           </div>
           
           <div className="container mx-auto relative z-10">
             <div className="text-center mb-12 max-w-4xl mx-auto">
               <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                Актерские визитки
+                Обучение и съемка
                 <br />
-                <span className="text-primary">с режиссером</span>
+                <span className="text-primary">актерских визиток с режиссером</span>
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground mb-8">
-                Работающие видеовизитки разработаны как для профессиональных,
-                так и для начинающих актеров всех возрастов. С каждым актером
-                работает опытный режиссер, который помогает раскрыться и
-                проявить свои индивидуальные актерские качества. В результате
-                актер получает не просто красивое видео, а эффективный
-                инструмент для продвижения своей карьеры. Записывайтесь!
+                Режиссер обучает работе перед камерой и сразу записывает профессиональную видеовизитку. 
+                Для профессиональных актеров и начинающих любого возраста. 
+                Вы получаете не просто красивое видео, а эффективный инструмент для продвижения карьеры 
+                и навыки органичной работы на камеру. Записывайтесь!
               </p>
               <div className="flex justify-center">
                 <PhoneForm
