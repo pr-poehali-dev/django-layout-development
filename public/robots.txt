@@ -4,7 +4,7 @@ Disallow: /admin
 Disallow: /settings
 Disallow: /metrika-goal
 
-Sitemap: https://xn----7sbdfnbalzedv3az5aq.xn--p1ai/sitemap.xml
+Sitemap: https://functions.poehali.dev/f79990ef-62a3-4eb2-a904-1da4dc946923
 
 # Специфичные боты
 User-agent: Googlebot

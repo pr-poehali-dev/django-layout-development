@@ -18,7 +18,6 @@ import TeamPage from "./pages/TeamPage";
 import TeacherPage from "./pages/TeacherPage";
 import ContactsPage from "./pages/ContactsPage";
 import MetrikaGoalPage from "./pages/MetrikaGoalPage";
-import SitemapPage from "./pages/SitemapPage";
 
 import SettingsPage from "./pages/SettingsPage";
 import NotFound from "./pages/NotFound";
@@ -55,7 +54,6 @@ const App = () => {
                 <Route path="/blog" element={<BlogPage />} />
                 <Route path="/blog/:slug" element={<BlogPostPage />} />
                 <Route path="/contacts" element={<ContactsPage />} />
-                <Route path="/sitemap.xml" element={<SitemapPage />} />
                 <Route path="/metrika-goal" element={<MetrikaGoalPage />} />
                 <Route path="/settings" element={<SettingsPage />} />
                 <Route path="/admin" element={<AdminPage />} />
