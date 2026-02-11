@@ -227,7 +227,7 @@ export default function ActingCardsPage() {
                 Если возникнет проблема с
               </h2>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {problems.map((problem, index) => (
                 <Card
                   key={index}
@@ -247,18 +247,39 @@ export default function ActingCardsPage() {
                 </Card>
               ))}
             </div>
-            <div className="text-center mt-12">
-              <h3 className="text-2xl md:text-4xl font-bold text-primary mb-8">
-                ТО я помогу ее решить
-              </h3>
-              <PhoneForm
-                source="acting_cards_problems"
-                course="acting-cards"
-                triggerText="Записаться на консультацию"
-                triggerSize="lg"
-                title="Запись на консультацию"
-                description="Оставьте номер телефона, и мы свяжемся с вами"
-              />
+          </div>
+        </section>
+
+        <section className="py-20 bg-background">
+          <div className="container mx-auto px-4">
+            <div className="grid md:grid-cols-2 gap-8 items-center max-w-6xl mx-auto">
+              <div className="relative aspect-video rounded-xl overflow-hidden shadow-2xl">
+                <iframe
+                  src="https://player.vimeo.com/video/997321722?badge=0&autopause=0&player_id=0&app_id=58479"
+                  className="absolute inset-0 w-full h-full"
+                  frameBorder="0"
+                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
+                  title="Актерские визитки"
+                ></iframe>
+              </div>
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                  Обучение и помощь с актерскими визитками
+                </h2>
+                <p className="text-lg text-muted-foreground mb-6">
+                  Режиссер Казбек Меретуков работает с каждым актером индивидуально, 
+                  помогая раскрыть органику, найти нужные эмоции и естественность перед камерой. 
+                  Вы получите не просто съемку, а настоящее обучение работе на камеру.
+                </p>
+                <PhoneForm
+                  source="acting_cards_video"
+                  course="acting-cards"
+                  triggerText="Записаться на съемку"
+                  triggerSize="lg"
+                  title="Запись на съемку актерской визитки"
+                  description="Оставьте номер телефона, и мы свяжемся с вами"
+                />
+              </div>
             </div>
           </div>
         </section>
