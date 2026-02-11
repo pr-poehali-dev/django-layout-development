@@ -167,8 +167,8 @@ export default function ActingCardsPage() {
         <section className="pt-20 pb-12 px-4 md:pt-32 md:pb-20 relative overflow-hidden">
           <div className="absolute inset-0">
             <Image
-              src="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/efe304b0-5be5-46c8-bfff-16dfcada15c1.jpg" 
-              alt="Режиссер обучает актера перед камерой"
+              src="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/113b63f7-1328-48bd-9802-5a7d977df621.jpg" 
+              alt="Профессиональная съемка актерских визиток"
               className="w-full h-full object-cover"
               eager={true}
             />
