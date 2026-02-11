@@ -8,7 +8,7 @@ import Icon from "@/components/ui/icon";
 import { Card, CardContent } from "@/components/ui/card";
 import PhoneForm from "@/components/PhoneForm";
 import LeadForm from "@/components/LeadForm";
-import { api, SiteContent, GalleryImage, Review, BlogPost, FAQ } from "@/lib/api";
+import { api, SiteContent, GalleryImage, Review, BlogPost } from "@/lib/api";
 import { formatDate } from "@/lib/dates";
 import SeatsCounter from "@/components/ui/seats-counter";
 import Image from "@/components/ui/image";
@@ -16,7 +16,7 @@ import GallerySection from "@/components/acting/GallerySection";
 import ReviewsSection from "@/components/acting/ReviewsSection";
 import BlogSection from "@/components/acting/BlogSection";
 import ContactSection from "@/components/acting/ContactSection";
-import FAQSection from "@/components/acting/FAQSection";
+
 import { useNavigate } from "react-router-dom";
 
 export default function ActingCardsPage() {
@@ -25,7 +25,6 @@ export default function ActingCardsPage() {
   const [gallery, setGallery] = useState<GalleryImage[]>([]);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [blog, setBlog] = useState<BlogPost[]>([]);
-  const [faq, setFaq] = useState<FAQ[]>([]);
 
   useEffect(() => {
     loadData();
@@ -38,13 +37,11 @@ export default function ActingCardsPage() {
         galleryData,
         reviewsData,
         blogData,
-        faqData,
       ] = await Promise.all([
         api.content.getAll(),
         api.gallery.getImages(),
         api.gallery.getReviews(),
         api.gallery.getBlog(),
-        api.gallery.getFAQ(),
       ]);
 
       const contentMap: Record<string, string> = {};
@@ -55,50 +52,6 @@ export default function ActingCardsPage() {
       setGallery(galleryData);
       setReviews(reviewsData);
       setBlog(blogData);
-      
-      // Добавляем FAQ для визиток, если их нет в админке
-      if (faqData.length === 0) {
-        setFaq([
-          {
-            id: 1,
-            question: "Что такое актерская визитка и зачем она нужна?",
-            answer: "Актерская визитка — это короткое видео, которое актер отправляет на кастинги вместо резюме. Это ваша визитная карточка перед режиссерами и продюсерами. Работающая визитка с режиссером помогает раскрыть вашу органику, показать диапазон эмоций и выделиться среди других актеров.",
-            order_num: 1
-          },
-          {
-            id: 2,
-            question: "В чем разница между форматами визиток?",
-            answer: "Базовая визитка (5000₽) — стандартное представление на камеру с оператором. Визитка-история с режиссером (7000₽) — вы рассказываете историю из жизни, режиссер помогает раскрыть эмоции и найти ключевые точки. Две визитки (10000₽) — снимаете в разных жанрах (драма и комедия), что дает больше шансов на кастингах.",
-            order_num: 2
-          },
-          {
-            id: 3,
-            question: "Я начинающий актер, мне подойдет?",
-            answer: "Да! Визитки созданы для актеров всех уровней и возрастов. Режиссер Казбек Меретуков работает индивидуально с каждым, помогая раскрыть природные качества, даже если вы только начинаете путь в профессии.",
-            order_num: 3
-          },
-          {
-            id: 4,
-            question: "Я боюсь камеры и зажимаюсь, что делать?",
-            answer: "Именно для этого и нужна работа с режиссером! Он поможет справиться с зажатостью, найти органику, избавиться от наигрыша и показать естественные эмоции. Многие актеры приходят с этой проблемой и уходят уверенными.",
-            order_num: 4
-          },
-          {
-            id: 5,
-            question: "Когда я получу готовую визитку?",
-            answer: "Через 1-2 дня после съемки. Визитка снимается в 4К, затем добавляются титры с вашим именем, чистится звук и делается профессиональная цветокоррекция. Вы получаете готовый файл для отправки на кастинги.",
-            order_num: 5
-          },
-          {
-            id: 6,
-            question: "Можно ли снять визитку без режиссера?",
-            answer: "Да, есть базовый формат за 5000₽, где работает только оператор. Но работа с режиссером дает гораздо больше: вы не просто снимаете видео, а учитесь работать на камеру, раскрывать эмоции и показывать диапазон. Это инвестиция в карьеру, а не просто красивое видео.",
-            order_num: 6
-          }
-        ]);
-      } else {
-        setFaq(faqData);
-      }
     } catch (error) {
       console.error("Error loading data:", error);
     }
@@ -480,7 +433,6 @@ export default function ActingCardsPage() {
           onNavigate={(slug) => navigate(`/blog/${slug}`)}
           onNavigateToBlog={() => navigate('/blog')}
         />
-        <FAQSection faq={faq} />
         <ContactSection />
 
         <section className="py-12 px-4 md:py-20 md:px-4 relative overflow-hidden">
