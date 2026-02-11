@@ -37,9 +37,9 @@ export default function ActingCardsPage() {
         blogData,
       ] = await Promise.all([
         api.content.getAll(),
-        api.gallery.getAll(),
-        api.reviews.getAll(),
-        api.blog.getAll(),
+        api.gallery.getImages(),
+        api.gallery.getReviews(),
+        api.gallery.getBlog(),
       ]);
 
       const contentMap: Record<string, string> = {};
