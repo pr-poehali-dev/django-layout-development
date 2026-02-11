@@ -5,9 +5,9 @@ import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SchemaMarkup from "@/components/SchemaMarkup";
 import Icon from "@/components/ui/icon";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import PhoneForm from "@/components/PhoneForm";
+import LeadForm from "@/components/LeadForm";
 import { api, SiteContent } from "@/lib/api";
 
 export default function ActingCardsPage() {
@@ -97,6 +97,7 @@ export default function ActingCardsPage() {
         "Необходимость в двух актерских визиток обусловлена их разностью. Так одна из визиток может быть записана в комедийном ключе, а вторая в драматическом",
         "С актером работает опытный кино режиссер. Он помогает актеру раскрыться и показать свою органику и выразительность, а так же продемонстрировать диапазон актерских проявлений",
         "Наличие двух визиток дает актеру возможность выбрать какую визитку отправить на тот и или иной кастинг. Такой метод дает более высокий шанс получить роль",
+        "Съемка визитки происходит в 4К разрешении",
         "Обработка. Добавляются именные титры актера, чистится звук и делается цветокоррекция",
       ],
       result:
@@ -154,8 +155,14 @@ export default function ActingCardsPage() {
         <Header />
         <Breadcrumbs />
 
-        <section className="pt-20 pb-12 px-4 md:pt-32 md:pb-20">
-          <div className="container mx-auto">
+        <section className="pt-20 pb-12 px-4 md:pt-32 md:pb-20 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-background"></div>
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute top-10 right-10 w-72 h-72 bg-primary rounded-full blur-3xl"></div>
+            <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
+          </div>
+          
+          <div className="container mx-auto relative z-10">
             <div className="text-center mb-12 max-w-4xl mx-auto">
               <h1 className="text-4xl md:text-6xl font-bold mb-6">
                 Актерские визитки
@@ -170,14 +177,16 @@ export default function ActingCardsPage() {
                 актер получает не просто красивое видео, а эффективный
                 инструмент для продвижения своей карьеры. Записывайтесь!
               </p>
-              <PhoneForm
-                source="acting_cards_hero"
-                course="acting-cards"
-                triggerText="Записаться на съемку"
-                triggerSize="lg"
-                title="Запись на съемку актерской визитки"
-                description="Оставьте номер телефона, и мы свяжемся с вами"
-              />
+              <div className="flex justify-center">
+                <PhoneForm
+                  source="acting_cards_hero"
+                  course="acting-cards"
+                  triggerText="Записаться на съемку"
+                  triggerSize="lg"
+                  title="Запись на съемку актерской визитки"
+                  description="Оставьте номер телефона, и мы свяжемся с вами"
+                />
+              </div>
             </div>
           </div>
         </section>
@@ -189,7 +198,7 @@ export default function ActingCardsPage() {
                 Если возникнет проблема с
               </h2>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-8">
               {problems.map((problem, index) => (
                 <Card
                   key={index}
@@ -210,9 +219,17 @@ export default function ActingCardsPage() {
               ))}
             </div>
             <div className="text-center mt-12">
-              <h3 className="text-2xl md:text-4xl font-bold text-primary">
+              <h3 className="text-2xl md:text-4xl font-bold text-primary mb-8">
                 ТО я помогу ее решить
               </h3>
+              <PhoneForm
+                source="acting_cards_problems"
+                course="acting-cards"
+                triggerText="Записаться на консультацию"
+                triggerSize="lg"
+                title="Запись на консультацию"
+                description="Оставьте номер телефона, и мы свяжемся с вами"
+              />
             </div>
           </div>
         </section>
@@ -344,24 +361,93 @@ export default function ActingCardsPage() {
           </div>
         </section>
 
-        <section className="py-20">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl md:text-5xl font-bold mb-6">
-                Готовы записать свою визитку?
-              </h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                Запишитесь на съемку актерской визитки и получите
-                профессиональный инструмент для продвижения своей карьеры
-              </p>
-              <PhoneForm
-                source="acting_cards_cta"
-                course="acting-cards"
-                triggerText="Записаться на съемку"
-                triggerSize="lg"
-                title="Запись на съемку актерской визитки"
-                description="Оставьте номер телефона, и мы свяжемся с вами"
-              />
+        <section className="py-12 px-4 md:py-20 md:px-4 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-background"></div>
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute top-10 left-10 w-72 h-72 bg-primary rounded-full blur-3xl"></div>
+            <div className="absolute bottom-10 right-10 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
+          </div>
+
+          <div className="container mx-auto max-w-5xl relative z-10">
+            <div className="grid md:grid-cols-2 gap-6 md:gap-8 items-center">
+              <div>
+                <div className="inline-flex items-center gap-2 bg-primary/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
+                  <Icon name="Sparkles" className="text-primary" size={18} />
+                  <span className="text-primary font-semibold text-sm">
+                    Начните прямо сейчас
+                  </span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight">
+                  Запишитесь на <span className="text-primary">съемку</span>
+                </h2>
+                <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-4 sm:mb-6">
+                  Оставьте заявку прямо сейчас и получите:
+                </p>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Icon
+                        name="CheckCircle2"
+                        className="text-primary"
+                        size={20}
+                      />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-1">
+                        Консультацию режиссера
+                      </h3>
+                      <p className="text-sm text-muted-foreground">
+                        Обсудим формат визитки и подберем историю
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Icon name="Video" className="text-primary" size={20} />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-1">Съемку в 4К</h3>
+                      <p className="text-sm text-muted-foreground">
+                        Профессиональное оборудование и студия
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Icon name="Star" className="text-primary" size={20} />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-1">Готовый материал</h3>
+                      <p className="text-sm text-muted-foreground">
+                        Через 1-2 дня получите работающую визитку
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-card/80 backdrop-blur-sm rounded-xl md:rounded-2xl lg:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl border border-primary/20">
+                <div className="mb-4 sm:mb-6">
+                  <h3 className="text-lg sm:text-xl font-bold mb-2">
+                    Запишитесь на съемку
+                  </h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">
+                    Укажите номер телефона
+                  </p>
+                </div>
+                <LeadForm
+                  source="acting_cards_cta"
+                  title=""
+                  description=""
+                  buttonText="Отправить заявку"
+                />
+                <div className="mt-4 sm:mt-6 flex items-center gap-2 text-[10px] sm:text-xs text-muted-foreground">
+                  <Icon name="Lock" size={12} className="flex-shrink-0" />
+                  <span>
+                    Ваши данные защищены и не передаются третьим лицам
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </section>
