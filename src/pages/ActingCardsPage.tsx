@@ -426,7 +426,11 @@ export default function ActingCardsPage() {
 
         <GallerySection gallery={gallery} />
         <ReviewsSection reviews={reviews} />
-        <BlogSection blog={blog} onPostClick={(slug) => navigate(`/blog/${slug}`)} />
+        <BlogSection 
+          blog={blog} 
+          onNavigate={(slug) => navigate(`/blog/${slug}`)}
+          onNavigateToBlog={() => navigate('/blog')}
+        />
 
         <section className="py-12 px-4 md:py-20 md:px-4 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-background"></div>
