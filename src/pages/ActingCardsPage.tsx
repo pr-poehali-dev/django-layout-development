@@ -10,6 +10,8 @@ import PhoneForm from "@/components/PhoneForm";
 import LeadForm from "@/components/LeadForm";
 import { api, SiteContent } from "@/lib/api";
 import { formatDate } from "@/lib/dates";
+import SeatsCounter from "@/components/ui/seats-counter";
+import Image from "@/components/ui/image";
 
 export default function ActingCardsPage() {
   const [content, setContent] = useState<Record<string, string>>({});
@@ -158,12 +160,14 @@ export default function ActingCardsPage() {
 
         <section className="pt-20 pb-12 px-4 md:pt-32 md:pb-20 relative overflow-hidden">
           <div className="absolute inset-0">
-            <img 
-              src="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/a803ab81-f803-4df7-b7f7-d370de716a61.jpg" 
+            <Image
+              src="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/efe304b0-5be5-46c8-bfff-16dfcada15c1.jpg" 
               alt="Режиссер обучает актера перед камерой"
-              className="w-full h-full object-cover opacity-20"
+              className="w-full h-full object-cover"
+              eager={true}
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/90 to-background"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/70"></div>
+            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-background"></div>
           </div>
           
           <div className="container mx-auto relative z-10">
@@ -178,7 +182,7 @@ export default function ActingCardsPage() {
                 Вы получаете работающий инструмент для кастингов и навыки органичной игры на камеру.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 mb-8 justify-center">
-                <div className="flex items-center gap-2 bg-card px-4 py-2 rounded-lg text-sm">
+                <div className="flex items-center gap-2 bg-card/80 backdrop-blur-sm px-4 py-2 rounded-lg text-sm">
                   <Icon
                     name="PlayCircle"
                     className="text-primary"
@@ -197,6 +201,13 @@ export default function ActingCardsPage() {
                   triggerSize="lg"
                   title="Запись на съемку актерской визитки"
                   description="Оставьте номер телефона, и мы свяжемся с вами"
+                  seatsCounter={content.acting_cards_start_date && (
+                    <SeatsCounter 
+                      trialDate={content.acting_cards_start_date} 
+                      maxSeats={8}
+                      minSeats={2}
+                    />
+                  )}
                 />
               </div>
             </div>
