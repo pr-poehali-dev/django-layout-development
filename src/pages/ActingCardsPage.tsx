@@ -8,13 +8,21 @@ import Icon from "@/components/ui/icon";
 import { Card, CardContent } from "@/components/ui/card";
 import PhoneForm from "@/components/PhoneForm";
 import LeadForm from "@/components/LeadForm";
-import { api, SiteContent } from "@/lib/api";
+import { api, SiteContent, GalleryImage, Review, BlogPost } from "@/lib/api";
 import { formatDate } from "@/lib/dates";
 import SeatsCounter from "@/components/ui/seats-counter";
 import Image from "@/components/ui/image";
+import GallerySection from "@/components/acting/GallerySection";
+import ReviewsSection from "@/components/acting/ReviewsSection";
+import BlogSection from "@/components/acting/BlogSection";
+import { useNavigate } from "react-router-dom";
 
 export default function ActingCardsPage() {
+  const navigate = useNavigate();
   const [content, setContent] = useState<Record<string, string>>({});
+  const [gallery, setGallery] = useState<GalleryImage[]>([]);
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [blog, setBlog] = useState<BlogPost[]>([]);
 
   useEffect(() => {
     loadData();
@@ -22,12 +30,26 @@ export default function ActingCardsPage() {
 
   const loadData = async () => {
     try {
-      const contentData = await api.content.getAll();
+      const [
+        contentData,
+        galleryData,
+        reviewsData,
+        blogData,
+      ] = await Promise.all([
+        api.content.getAll(),
+        api.gallery.getAll(),
+        api.reviews.getAll(),
+        api.blog.getAll(),
+      ]);
+
       const contentMap: Record<string, string> = {};
       contentData.forEach((item: SiteContent) => {
         contentMap[item.key] = item.value;
       });
       setContent(contentMap);
+      setGallery(galleryData);
+      setReviews(reviewsData);
+      setBlog(blogData);
     } catch (error) {
       console.error("Error loading data:", error);
     }
@@ -401,6 +423,10 @@ export default function ActingCardsPage() {
             </div>
           </div>
         </section>
+
+        <GallerySection gallery={gallery} />
+        <ReviewsSection reviews={reviews} />
+        <BlogSection blog={blog} onPostClick={(slug) => navigate(`/blog/${slug}`)} />
 
         <section className="py-12 px-4 md:py-20 md:px-4 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-background"></div>
