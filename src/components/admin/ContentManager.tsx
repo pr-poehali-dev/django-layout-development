@@ -28,7 +28,8 @@ const getContentLabel = (key: string): string => {
     'trial_date': 'Дата пробного занятия (Актерское)',
     'course_start_date': 'Дата начала курса (Актерское)',
     'oratory_trial_date': 'Дата пробного занятия (Ораторское)',
-    'oratory_course_start_date': 'Дата начала курса (Ораторское)'
+    'oratory_course_start_date': 'Дата начала курса (Ораторское)',
+    'acting_cards_start_date': 'Дата начала съемки визиток'
   };
   return labels[key] || key;
 };

@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import PhoneForm from "@/components/PhoneForm";
 import LeadForm from "@/components/LeadForm";
 import { api, SiteContent } from "@/lib/api";
+import { formatDate } from "@/lib/dates";
 
 export default function ActingCardsPage() {
   const [content, setContent] = useState<Record<string, string>>({});
@@ -172,12 +173,22 @@ export default function ActingCardsPage() {
                 <br />
                 <span className="text-primary">актерских визиток с режиссером</span>
               </h1>
-              <p className="text-lg md:text-xl text-muted-foreground mb-8">
-                Режиссер обучает работе перед камерой и сразу записывает профессиональную видеовизитку. 
-                Для профессиональных актеров и начинающих любого возраста. 
-                Вы получаете не просто красивое видео, а эффективный инструмент для продвижения карьеры 
-                и навыки органичной работы на камеру. Записывайтесь!
+              <p className="text-lg md:text-xl text-muted-foreground mb-6">
+                Режиссер Казбек Меретуков обучает работе перед камерой и сразу записывает профессиональную видеовизитку в 4К. 
+                Вы получаете работающий инструмент для кастингов и навыки органичной игры на камеру.
               </p>
+              <div className="flex flex-col sm:flex-row gap-3 mb-8 justify-center">
+                <div className="flex items-center gap-2 bg-card px-4 py-2 rounded-lg text-sm">
+                  <Icon
+                    name="PlayCircle"
+                    className="text-primary"
+                    size={18}
+                  />
+                  <span>
+                    Старт: {content.acting_cards_start_date ? formatDate(content.acting_cards_start_date) : '15 марта 2025'}
+                  </span>
+                </div>
+              </div>
               <div className="flex justify-center">
                 <PhoneForm
                   source="acting_cards_hero"
