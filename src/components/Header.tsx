@@ -45,7 +45,8 @@ export default function Header() {
 
   const courseItems = [
     { href: '/acting', label: 'Актерское мастерство', description: 'Обучение актёрскому мастерству, работа на камеру' },
-    { href: '/oratory', label: 'Ораторское искусство', description: 'Развитие навыков публичных выступлений' }
+    { href: '/oratory', label: 'Ораторское искусство', description: 'Развитие навыков публичных выступлений' },
+    { href: '/acting-cards', label: 'Актерские визитки', description: 'Профессиональная съемка визиток с режиссером' }
   ];
 
   return (
