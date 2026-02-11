@@ -54,7 +54,7 @@ export default function Header() {
       <div className="container mx-auto px-3 sm:px-4 h-14 sm:h-16 flex items-center justify-between">
         <a href="/" className="flex items-center hover:opacity-80 transition">
           <img 
-            src="https://cdn.poehali.dev/projects/d006fe31-f11a-48d3-ba82-54149e58d318/files/w_logo_text.svg" 
+            src="https://i.1.creatium.io/disk2/c6/65/76/a52e2f86d1891f143cdb23e60a4460b61f/184x67/w_logo_text.svg" 
             alt="Логотип школы актёрского мастерства Казбека Меретукова" 
             className="h-8 sm:h-10 md:h-12"
             loading="eager"
